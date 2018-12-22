@@ -10,38 +10,38 @@
 <link rel="shortcut icon" href="/static/img/jzh.ico" />
 <title th:include=":: #pageTitle">Title</title>
 <!--公用css部分-->
-<link th:href="@{../static/plugin/amazeui/css/amazeui.min.css}"
+<link href="../static/plugin/amazeui/css/amazeui.min.css"
 	type="text/css" rel="stylesheet">
-<link th:href="@{../static/plugin/amazeui/css/admin.css}"
+<link href="../static/plugin/amazeui/css/admin.css"
 	type="text/css" rel="stylesheet">
 <link
-	th:href="@{../static/plugin/amazeui/css/amazeui.datatables.min.css}"
+	href="../static/plugin/amazeui/css/amazeui.datatables.min.css"
 	type="text/css" rel="stylesheet">
-<link th:href="@{../static/css/public.css}" type="text/css"
+<link href="../static/css/public.css" type="text/css"
 	rel="stylesheet">
-<link th:href="@{../static/css/jk.css}" type="text/css" rel="stylesheet">
-<link th:href="@{../static/css/bootstrap.min.css}" type="text/css"
+<link href="../static/css/jk.css" type="text/css" rel="stylesheet">
+<link href="../static/css/bootstrap.min.css" type="text/css"
 	rel="stylesheet">
-<link th:href="@{../static/plugin/layer/theme/default/layer.css}"
+<link href="../static/plugin/layer/theme/default/layer.css"
 	type="text/css" rel="stylesheet">
-<link th:href="@{../static/css/message.css}" type="text/css"
+<link href="../static/css/message.css" type="text/css"
 	rel="stylesheet">
-<link th:href="@{../static/plugin/datepicker/jquery.datetimepicker.css}"
+<link href="../static/plugin/datepicker/jquery.datetimepicker.css"
 	type="text/css" rel="stylesheet">
-<link th:href="@{../static/plugin/zTree/zTreeStyle.css}" type="text/css"
+<link href="../static/plugin/zTree/zTreeStyle.css" type="text/css"
 	rel="stylesheet">
-<link th:href="@{../static/plugin/jeDate/jedate.css}" type="text/css"
+<link href="../static/plugin/jeDate/jedate.css" type="text/css"
 	rel="stylesheet">
 <!--日期插件-->
-<link th:href="@{../static/plugin/datepicker/daterangepicker.css}"
+<link href="../static/plugin/datepicker/daterangepicker.css"
 	type="text/css" rel="stylesheet">
 <!--阿里icon库-->
-<link th:href="@{../static/icon-font/iconfont.css}" type="text/css"
+<link href="../static/icon-font/iconfont.css" type="text/css"
 	rel="stylesheet">
 <!-- vue显示css -->
-<script th:src="@{../static/js/jquery.min.js}" type="text/javascript"></script>
-<script th:src="@{../static/js/public.js}" type="text/javascript"></script>
-<!-- <script th:src="@{../static/js/jk.js}" type="text/javascript"></script> -->
+<script src="../static/js/jquery.min.js" type="text/javascript"></script>
+<script src="../static/js/public.js" type="text/javascript"></script>
+<!-- <script src="../static/js/jk.js" type="text/javascript"></script> -->
 
 </head>
 <body>
@@ -123,20 +123,20 @@
 		</header>
 		<!--左侧导航栏 fragment -->
 		<div th:fragment="left">
-			<ul class="sidebar-nav" th:each="menu,menuStat : ${session.menus}">
-				<li class="sidebar-nav-link"><a th:href="${menu.url}"
-					th:class=" ${menu.classStr}"> <i th:class="${menu.iconName}"></i>
-						<span th:text="${menu.name}"></span> <span
+			<ul class="sidebar-nav" th:each="menu,menuStat : ${session.menus">
+				<li class="sidebar-nav-link"><a href="${menu.url"
+					th:class=" ${menu.classStr"> <i th:class="${menu.iconName"></i>
+						<span th:text="${menu.name"></span> <span
 						th:if="${#lists.size(menu.seconds)} >= 1"
 						class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
 				</a>
 					<ul class="sidebar-nav sidebar-nav-sub">
 						<li class="sidebar-nav-link"
-							th:each="menuSecond ,menuSecondStat: ${menu.seconds}"
-							th:class=" ${menuSecond.classStr}"><a
-							th:href="${menuSecond.url}"> <span
+							th:each="menuSecond ,menuSecondStat: ${menu.seconds"
+							th:class=" ${menuSecond.classStr"><a
+							href="${menuSecond.url"> <span
 								class="am-icon-angle-right sidebar-nav-link-logo"></span> <span
-								th:text="${menuSecond.name}"></span>
+								th:text="${menuSecond.name"></span>
 						</a></li>
 					</ul></li>
 			</ul>
@@ -145,45 +145,45 @@
 	<!--公用js部分-->
 	<div th:fragment="js" xmlns:th="http://www.w3.org/1999/xhtml">
 		<!--公用common.js-->
-		<script th:src="@{../static/js/vue.min.js}" type="text/javascript"></script>
-		<script th:src="@{../static/js/theme.js}" type="text/javascript"></script>
-		<script th:src="@{../static/plugin/amazeui/js/amazeui.min.js}"
+		<script src="../static/js/vue.min.js" type="text/javascript"></script>
+		<script src="../static/js/theme.js" type="text/javascript"></script>
+		<script src="../static/plugin/amazeui/js/amazeui.min.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/layer/layer.js}"
+		<script src="../static/plugin/layer/layer.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/pagination/jquery.pagination.js}"
+		<script src="../static/plugin/pagination/jquery.pagination.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/pagination/bootstrap-paginator.js}"
+		<script src="../static/plugin/pagination/bootstrap-paginator.js"
 			type="text/javascript"></script>
 		<script
-			th:src="@{../static/plugin/datepicker/jquery.datetimepicker.js}"
+			src="../static/plugin/datepicker/jquery.datetimepicker.js"
 			type="text/javascript"></script>
 
-		<script th:src="@{../static/plugin/zTree/jquery.ztree.core.min.js}"
+		<script src="../static/plugin/zTree/jquery.ztree.core.min.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/zTree/jquery.ztree.all.min.js}"
+		<script src="../static/plugin/zTree/jquery.ztree.all.min.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/zTree/jquery.ztree.excheck.min.js}"
+		<script src="../static/plugin/zTree/jquery.ztree.excheck.min.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/zTree/jquery.ztree.exedit.min.js}"
+		<script src="../static/plugin/zTree/jquery.ztree.exedit.min.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/zTree/jquery.ztree.exhide.min.js}"
+		<script src="../static/plugin/zTree/jquery.ztree.exhide.min.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/jeDate/jedate.js}"
+		<script src="../static/plugin/jeDate/jedate.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/js/common.js}" type="text/javascript"></script>
-		<script th:src="@{../static/js/common_filter.js}"
+		<script src="../static/js/common.js" type="text/javascript"></script>
+		<script src="../static/js/common_filter.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/js/common_status_filter.js}"
+		<script src="../static/js/common_status_filter.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/datepicker/moment.min.js}"
+		<script src="../static/plugin/datepicker/moment.min.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/plugin/datepicker/daterangepicker.min.js}"
+		<script src="../static/plugin/datepicker/daterangepicker.min.js"
 			type="text/javascript"></script>
 		<script
-			th:src="@{../static/plugin/autocomplate/bootstrap3-typeahead.min.js}"
+			src="../static/plugin/autocomplate/bootstrap3-typeahead.min.js"
 			type="text/javascript"></script>
-		<script th:src="@{../static/js/clipboard.min.js}"
+		<script src="../static/js/clipboard.min.js"
 			type="text/javascript"></script>
 
 	</div>
