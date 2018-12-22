@@ -1,0 +1,29 @@
+server:
+  port: 8101
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/sp_land?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    mode: HTML5
+  resources:
+    static-locations: classpath:/templates/,classpath:/static/
+  devtools:
+    restart:
+      enabled: true
+      exclude: templates,static
+# spdate:
+#   importErrorPath: /data/sp-sys/import/error
+#   importModel: /data/sp-sys/import/importModel.xls
+exportPath: /data/sp-sys/export/
+logging:
+  level:
+    org:
+      springframework: WARN
+    com.kailash.land.dao: DEBUG

@@ -1,0 +1,71 @@
+.data-block {
+	width: 20% !important;
+}
+
+.widget {
+	min-height: 100px !important;
+}
+
+.am-u-lg-3 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.widget-statistic-icon {
+	top: 0px !important;
+}
+
+.theme-white .widget-primary {
+	border: 1px solid #32c5d2;
+	border-top: 2px solid #32c5d2;
+	background: #32c5d2;
+	color: #ffffff;
+}
+
+.theme-white .widget-blue {
+	border: 1px solid #01a2e1;
+	border-top: 2px solid #01a2e1;
+	background: #01a2e1;
+	color: #ffffff;
+}
+
+.theme-white .widget-org {
+	border: 1px solid #ef7e65;
+	border-top: 2px solid #ef7e65;
+	background: #ef7e65;
+	color: #ffffff;
+}
+
+.theme-white .widget-purple {
+	border: 1px solid #8E44AD;
+	border-top: 2px solid #8E44AD;
+	background: #8E44AD;
+	color: #ffffff;
+}
+
+.theme-white .widget-red {
+	border: 1px solid #dd514c;
+	border-top: 2px solid #dd514c;
+	background: #dd514c;
+	color: #ffffff;
+}
+
+.theme-white .widget-Peru {
+	border: 1px solid #CD853F;
+	border-top: 2px solid #CD853F;
+	background: #CD853F;
+	color: #ffffff;
+}
+
+.agent_total {
+	width: 35%;
+	float: left;
+}
+
+.rightTotal {
+	border-right: 1px solid #fff;
+}
+
+.leftTotal {
+	margin-left: 25px;
+}
