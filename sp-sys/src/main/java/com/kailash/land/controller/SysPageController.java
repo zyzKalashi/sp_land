@@ -29,7 +29,7 @@ public class SysPageController extends AbstractController {
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String jkindex() {
-		return "dealInfo_add";
+		return "deal_add";
 	}
 
 	/**

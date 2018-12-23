@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common :: head">
+<title id="pageTitle">用户登录</title>
+</head>
+<body>
+	<header th:include="common :: header"></header>
+	<div class="content" id="app" v-cloak>
+		<div class="tpl-content am-u-sm-12 am-u-md-12 am-u-lg-12 am-padding-xs" >
+			<div class="am-padding">
+				<table class="am-table am-table-bordered am-table-compact am-table-radius">
+					<thead>
+					  <tr>
+					    <th class="am-warning am-text-center" colspan="4">发布人信息</th>
+					  </tr>
+				  	</thead>
+					<tbody>
+						<tr>
+							<td>姓名：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="姓名……" v-model="deal.dealPerson.name"> 
+							</td>
+							<td>性别：</td>
+							<td class="am-text-center">
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio1" value="0"  v-model="deal.dealPerson.sex" data-am-ucheck> 男
+								</label>
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio1" value="1"  v-model="deal.dealPerson.sex" data-am-ucheck> 女
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td>手机：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="手机……" v-model="deal.dealPerson.moibel"> 
+							</td>
+							<td>身份证号：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="身份证号……" v-model="deal.dealPerson.idCard"> 
+							</td>
+						</tr>
+						<tr>
+							<td>现住址：</td>
+							<td>
+								区县名称：
+								<input type="text" class="am-form-field table-input" placeholder="街道……" v-model="deal.dealPerson.address">	
+							</td>
+							<td>
+								乡镇名称：
+								<input type="text" class="am-form-field table-input" placeholder="街道……" v-model="deal.dealPerson.areaCode">
+							</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="街道……" v-model="deal.dealPerson.townCode">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="am-padding">
+				<table class="am-table am-table-bordered am-table-compact am-table-radius">
+					<thead>
+					  <tr>
+					    <th class="am-warning am-text-center" colspan="4">项目信息</th>
+					  </tr>
+				  	</thead>
+					<tbody>
+						<tr>
+							<td>项目名称：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="项目名称……" v-model="deal.dealInfo.dealName"> 
+							</td>
+						</tr>
+						<tr>
+							<td>项目地址：</td>
+							<td colspan="3" class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="项目地址……" v-model="deal.dealInfo.dealAddress"> 
+							</td>
+						</tr>
+						<tr>
+							<td>转出方：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="转出方……" v-model="deal.dealInfo.output"> 
+							</td>
+							<td>权证编号：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="权证编号……" v-model="deal.dealInfo.warrantNum"> 
+							</td>
+						</tr>
+						<tr>
+							<td>面积（数量）：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="面积（数量）……" v-model="deal.dealInfo.areaNum">
+							</td>
+							<td>涉及农户数：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="涉及农户数……" v-model="deal.dealInfo.famerNum">
+							</td>
+						</tr>
+						<tr>
+							<td>是否存在他项权利人：</td>
+							<td class="am-text-center">
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio2" v-model="deal.dealInfo.otherRightFlag" value="1" data-am-ucheck> 是
+								</label>
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio2" v-model="deal.dealInfo.otherRightFlag" value="1" data-am-ucheck> 否
+								</label>
+							</td>
+							<td>原承包租赁期：</td>
+							<td>
+								<input type="text" class="am-form-field table-input" placeholder="原承包租赁期……" v-model="deal.dealInfo.oldRentDate">
+							</td>
+						</tr>
+						<tr>
+							<td>地上物情况：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="地上物情况……" v-model="deal.dealInfo.upThings"> 
+							</td>
+							<td>交通情况：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="交通情况……" v-model="deal.dealInfo.traffic"> 
+							</td>
+						</tr>
+						<tr>
+							<td>是否属再次转让：</td>
+							<td class="am-text-center">
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio3" v-model="deal.dealInfo.againFlag" value="1" data-am-ucheck> 是
+								</label>
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio3" v-model="deal.dealInfo.againFlag" value="1" data-am-ucheck> 否
+								</label>
+							</td>
+							<td colspan="2"></td>
+						</tr>
+						<tr>
+							<td>流转承包用途：</td>
+							<td class="table-input-td">
+								<input type="text" class="am-form-field table-input" placeholder="流转承包用途……" v-model="deal.dealInfo.rentUse">
+							</td>
+							<td>原承包/出租人是否同意：</td>
+							<td class="am-text-center" >
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio4" value="1" v-model="deal.dealInfo.agreeFlag" data-am-ucheck> 是
+								</label>
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio4" value="1" v-model="deal.dealInfo.agreeFlag" data-am-ucheck> 否
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td>前次转出方式：</td>
+							<td>
+								<input type="text" class="am-form-field table-input" placeholder="前次转出方式……" v-model="deal.dealInfo.oldOutput">
+							</td>
+							<td>拟转出方式：</td>
+							<td>
+								<input type="text" class="am-form-field table-input" placeholder="拟转出方式……" v-model="deal.dealInfo.hopeOutput">
+							</td>
+						</tr>
+						<tr>
+							<td>是否放弃形式优先权：</td>
+							<td class="am-text-center">
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio5" value="1" v-model="deal.dealInfo.giveupRightFlag" data-am-ucheck> 是
+								</label>
+								<label class="am-radio-inline am-warning">
+									<input type="radio" name="radio5" value="0" v-model="deal.dealInfo.giveupRightFlag" data-am-ucheck> 否
+								</label>
+							</td>
+							<td colspan="2"></td>
+						</tr>
+						<tr>
+							<td>评估机构：</td>
+							<td>
+								<input type="text" class="am-form-field table-input" placeholder="评估机构……" v-model="deal.dealInfo.assessOrg">
+							</td>
+							<td>评估基准日：</td>
+							<td>
+								<input type="text" class="am-form-field table-input" placeholder="评估基准日……" v-model="deal.dealInfo.assessDate">
+							</td>
+						</tr>
+						<tr>
+							<td>评估值（万元）：</td>
+							<td>
+								<input type="text" class="am-form-field table-input" placeholder="评估基准日……" v-model="deal.dealInfo.assessDate">
+							</td>
+							<td>转出方式：</td>
+							<td>
+								<input type="text" class="am-form-field table-input" placeholder="评估基准日……" v-model="deal.dealInfo.outputWay">
+							</td>
+						</tr>
+						<tr>
+							<td>拟转出期限：</td>
+							<td>
+								<div class="am-form-group am-form-icon tpl-form-border-form cl-p">
+                                    <i class="am-icon-calendar"></i>
+                                    <input type="text" class="am-form-field table-input" placeholder="更新时间……" id="dateArea" readonly="readonly" v-model="deal.dealInfo.hopeOutputDate">
+                                </div>
+							</td>
+							<td>共：</td>
+							<td>年 月</td>
+						</tr>
+						<tr>
+							<td>权属类型：</td>
+							<td colspan="3">
+								<input type="text" class="am-form-field table-input" placeholder="评估基准日……" v-model="deal.dealInfo.rightKind">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="am-text-center am-padding">
+				<button type="button" class="am-btn am-btn-default am-round am-btn-warning" @click="submitDeal">提交审核</button>
+				<button type="button" class="am-btn am-btn-default am-round">取消</button>
+			</div>
+		</div>
+	</div>
+	<div th:include="common :: js"></div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : '#app',
+			data : {
+				deal: {
+					dealPerson:{},
+					
+				}
+			},
+			mounted : function() {
+				
+			},
+			methods : {
+				submitDeal: function(){
+					if(vm.checkDeal()){
+						
+					}
+				},
+				checkDeal: function(){
+					return true;	
+				},
+			},
+		});
+	</script>
+</body>
+</html>

@@ -12,14 +12,10 @@ public class DealPersonServiceImpl implements DealPersonService {
 	
 	@Autowired
 	private DealPersonMapper dealPersonMapper;
+
 	@Override
 	public int insterDealPerson(DealPerson dp) {
-		
-		return this.dealPersonMapper.inster(dp);
+		return this.dealPersonMapper.instert(dp);
 	}
-	
-	
-	
-	
 
 }

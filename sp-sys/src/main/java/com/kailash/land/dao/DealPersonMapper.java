@@ -1,11 +1,13 @@
 package com.kailash.land.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.kailash.land.entity.DealPerson;
 
-//@Mapper
+@Mapper
 public interface DealPersonMapper {
 
-	int inster(DealPerson dp);
+	int instert(DealPerson dp);
 	
 	
 
