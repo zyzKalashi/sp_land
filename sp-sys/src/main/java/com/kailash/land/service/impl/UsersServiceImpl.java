@@ -1,13 +1,18 @@
 package com.kailash.land.service.impl;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kailash.land.common.enums.RoleEnum;
+import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.dao.UsersMapper;
 import com.kailash.land.entity.Users;
 import com.kailash.land.service.UsersService;
+import com.kailash.land.util.DateFormatConsts;
+import com.kailash.land.util.DateUtils;
 
 /**
  * @Author: zyz
@@ -45,6 +50,10 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public int registerUser(Users user) {
+		user.setUserStatus(StatusEnum.USER_NORMAL.getId());
+		user.setRoleId(RoleEnum.COMMON.getRoleId());
+		user.setCreateDate(DateUtils.format(new Date(), DateFormatConsts.DATE_TIME_PATTERN));
+		user.setUpdateDate(DateUtils.format(new Date(), DateFormatConsts.DATE_TIME_PATTERN));
 		user = this.usersMapper.insert(user);
 		return user.getUserId();
 	}

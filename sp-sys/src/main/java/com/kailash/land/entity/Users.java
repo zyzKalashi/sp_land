@@ -4,47 +4,36 @@ import java.io.Serializable;
 
 import lombok.Data;
 
-
 @Data
 @SuppressWarnings("serial")
 public class Users implements Serializable {
-    /**
-     * 普通客户
-     */
-    public static final int ROLE_COMMON = 2;
 
-    /**
-     * 代理商用户
-     */
-    public static final int ROLE_AGENT = 4;
+	private Integer userId;
 
-    private Integer userId;
+	private String userName;
+	/**
+	 * 公司名称
+	 */
+	private String nickName;
 
-    private String userName;
-    /**
-     * 公司名称
-     */
-    private String nickName;
+	private String password;
+	/**
+	 * 用户状态，0:正常，1:禁用，2:删除，3：待审核，4：拒绝
+	 */
+	private Integer userStatus;
 
-    private String password;
-    /**
-     * 用户状态，0:正常，1:禁用，2:删除，3：待审核，4：拒绝
-     */
-    private Integer userStatus;
+	private Integer roleId;
 
-    private Integer roleId;
+	private String createDate;
 
-    private String createDate;
-    
-    private Integer createUser;
+	private Integer createUser;
 
-    private String updateDate;
+	private String updateDate;
 
-    private Integer updateUser;
+	private Integer updateUser;
 
-    private String mobile;
+	private String mobile;
 
-    private String email;
-
+	private String email;
 
 }

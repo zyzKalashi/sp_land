@@ -9,19 +9,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.Users;
 import com.kailash.land.service.UsersService;
 import com.kailash.land.util.Result;
 
 @RestController
 @RequestMapping(value = "url")
-public class UsersController {
+public class UsersController extends AbstractController {
 
 	@Autowired
 	private UsersService usersService;
 
-	@RequestMapping(value = "register", method = RequestMethod.POST)
+	@RequestMapping(value = "users_register", method = RequestMethod.POST)
 	public Result register(Users user) {
+		int i = this.usersService.registerUser(user);
+		if (i > 0) {
+			return Result.ok();
+		}
+		return Result.error();
+	}
+
+	@RequestMapping(value = "users_addTownAdmin", method = RequestMethod.POST)
+	public Result addTownAdmin(Users user) {
+		user.setCreateUser(getUserId());
+		user.setUpdateUser(getUserId());
 		int i = this.usersService.registerUser(user);
 		if (i > 0) {
 			return Result.ok();

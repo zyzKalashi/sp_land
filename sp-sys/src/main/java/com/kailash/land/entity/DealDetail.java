@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 @SuppressWarnings("serial")
-public class DealInfoDetail implements Serializable {
+public class DealDetail implements Serializable {
 
 }
