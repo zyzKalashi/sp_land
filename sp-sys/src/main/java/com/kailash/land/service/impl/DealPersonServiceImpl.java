@@ -14,8 +14,13 @@ public class DealPersonServiceImpl implements DealPersonService {
 	private DealPersonMapper dealPersonMapper;
 
 	@Override
-	public int insterDealPerson(DealPerson dp) {
+	public DealPerson instertDealPerson(DealPerson dp) {
 		return this.dealPersonMapper.instert(dp);
+	}
+
+	@Override
+	public int updateDealPerson(DealPerson dp) {
+		return this.dealPersonMapper.update(dp);
 	}
 
 }

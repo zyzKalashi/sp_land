@@ -6,12 +6,10 @@ import lombok.Data;
 
 @Data
 @SuppressWarnings("serial")
-public class DealPerson implements Serializable {
+public class DealPerson extends BaseEntity implements Serializable {
 
-	public DealPerson() {
-
-	}
-
+	private Integer dealInfoId;
+	
 	private String name;
 
 	private Integer sex;

@@ -7,5 +7,9 @@ import lombok.Data;
 @Data
 @SuppressWarnings("serial")
 public class DealInfo implements Serializable {
-
+	private Integer pkid;
+	
+	
+	
+	
 }

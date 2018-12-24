@@ -7,7 +7,9 @@ import com.kailash.land.entity.DealPerson;
 @Mapper
 public interface DealPersonMapper {
 
-	int instert(DealPerson dp);
+	DealPerson instert(DealPerson dp);
+	
+	int update(DealPerson dp);
 	
 	
 

@@ -4,6 +4,8 @@ import com.kailash.land.entity.DealPerson;
 
 public interface DealPersonService {
 
-	int insterDealPerson(DealPerson dp);
+	DealPerson instertDealPerson(DealPerson dp);
+	
+	int updateDealPerson(DealPerson dp);
 
 }
