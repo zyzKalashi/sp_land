@@ -22,6 +22,7 @@ public class SysPageController extends AbstractController {
 	public String login() {
 		return "login";
 	}
+
 	/**
 	 * 登录url
 	 *

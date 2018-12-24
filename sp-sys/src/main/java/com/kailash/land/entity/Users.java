@@ -35,5 +35,10 @@ public class Users implements Serializable {
 	private String mobile;
 
 	private String email;
+	
+	private String idCardPic;
+	
+	private String idCardPicBack;
 
+	private String userPic;
 }

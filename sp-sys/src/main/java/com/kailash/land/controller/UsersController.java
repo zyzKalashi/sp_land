@@ -40,7 +40,7 @@ public class UsersController extends AbstractController {
 		}
 		return Result.error();
 	}
-
+	
 	@RequestMapping(value = "detailUser", method = RequestMethod.POST)
 	public Result detailUser(Users user) {
 		Map<String, Object> userMap = usersService.getUserByUserId(user);

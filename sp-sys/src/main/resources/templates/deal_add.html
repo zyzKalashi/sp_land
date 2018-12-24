@@ -184,11 +184,11 @@
 						<tr>
 							<td>评估值（万元）：</td>
 							<td>
-								<input type="text" class="am-form-field table-input" placeholder="评估基准日……" v-model="deal.dealInfo.assessDate">
+								<input type="text" class="am-form-field table-input" placeholder="评估值（万元）……" v-model="deal.dealInfo.assessValue">
 							</td>
 							<td>转出方式：</td>
 							<td>
-								<input type="text" class="am-form-field table-input" placeholder="评估基准日……" v-model="deal.dealInfo.outputWay">
+								<input type="text" class="am-form-field table-input" placeholder="转出方式……" v-model="deal.dealInfo.outputWay">
 							</td>
 						</tr>
 						<tr>
@@ -196,7 +196,7 @@
 							<td>
 								<div class="am-form-group am-form-icon tpl-form-border-form cl-p">
                                     <i class="am-icon-calendar"></i>
-                                    <input type="text" class="am-form-field table-input" placeholder="更新时间……" id="dateArea" readonly="readonly" v-model="deal.dealInfo.hopeOutputDate">
+                                    <input type="text" class="am-form-field table-input" placeholder="拟转出期限……" id="dateArea" readonly="readonly" v-model="deal.dealInfo.hopeOutputDate">
                                 </div>
 							</td>
 							<td>共：</td>
@@ -205,7 +205,7 @@
 						<tr>
 							<td>权属类型：</td>
 							<td colspan="3">
-								<input type="text" class="am-form-field table-input" placeholder="评估基准日……" v-model="deal.dealInfo.rightKind">
+								<input type="text" class="am-form-field table-input" placeholder="权属类型……" v-model="deal.dealInfo.rightKind">
 							</td>
 						</tr>
 					</tbody>
@@ -223,7 +223,9 @@
 			el : '#app',
 			data : {
 				deal: {
-					dealPerson:{},
+					dealPerson:{
+						
+					},
 					
 				}
 			},

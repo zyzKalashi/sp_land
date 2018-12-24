@@ -5,11 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 import com.kailash.land.entity.DealPerson;
 
 @Mapper
-public interface DealPersonMapper {
+public interface DealPersonMapper extends BaseMapper<DealPerson>{
 
-	DealPerson instert(DealPerson dp);
 	
-	int update(DealPerson dp);
+	
 	
 	
 

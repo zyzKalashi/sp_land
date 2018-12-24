@@ -1,8 +1,8 @@
 package com.kailash.land.dao;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.kailash.land.entity.AreaInfo;
 
 //@Mapper
-public interface AreaInfoMapper {
+public interface AreaInfoMapper extends BaseMapper<AreaInfo>{
 
 }

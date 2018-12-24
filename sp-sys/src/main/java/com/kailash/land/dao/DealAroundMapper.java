@@ -5,8 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.kailash.land.entity.DealAround;
 
 @Mapper
-public interface DealAroundMapper {
+public interface DealAroundMapper extends BaseMapper<DealAround>{
 
-	DealAround instert(DealAround dealAround);
 
 }

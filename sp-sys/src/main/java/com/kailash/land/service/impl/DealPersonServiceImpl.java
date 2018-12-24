@@ -9,18 +9,18 @@ import com.kailash.land.service.DealPersonService;
 
 @Service
 public class DealPersonServiceImpl implements DealPersonService {
-	
+
 	@Autowired
 	private DealPersonMapper dealPersonMapper;
 
 	@Override
 	public DealPerson instertDealPerson(DealPerson dp) {
-		return this.dealPersonMapper.instert(dp);
+		return this.dealPersonMapper.instertEntity(dp);
 	}
 
 	@Override
 	public int updateDealPerson(DealPerson dp) {
-		return this.dealPersonMapper.update(dp);
+		return this.dealPersonMapper.updateEntity(dp);
 	}
 
 }

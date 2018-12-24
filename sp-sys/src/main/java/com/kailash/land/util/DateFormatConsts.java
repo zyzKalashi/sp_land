@@ -35,6 +35,11 @@ public class DateFormatConsts {
      * 时间格式(yyyy-MM-dd HH:mm:ss)
      */
     public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    
+    /**
+     * 时间格式(yyyy-MM-dd HH:mm:ss)
+     */
+    public final static String DAY_HOUR_MINUTES = "yyyy-MM-dd HH:mm:ss";
     /**
      * "yyyy-MM-dd" 的format
      */

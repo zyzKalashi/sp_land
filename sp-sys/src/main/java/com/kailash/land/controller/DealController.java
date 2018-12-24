@@ -19,6 +19,7 @@ import com.kailash.land.util.Result;
 @RestController
 @RequestMapping(value = "deal")
 public class DealController {
+	
 	@Autowired
 	private DealInfoService dealInfoService;
 
@@ -32,12 +33,12 @@ public class DealController {
 	public Result dealAdd(DealFiter filter) {
 		try {
 			DealPerson dp = this.dealPersonService.instertDealPerson(filter.getDealPerson());
-			
+
 			DealInfo di = this.dealInfoService.instertDealInfo(filter.getDealInfo());
-			
-			dp.setDealInfoId( di.getPkid() );
+
+			dp.setDealInfoId(di.getPkid());
 			this.dealPersonService.updateDealPerson(dp);
-			
+
 			List<DealAround> dealAroundList = filter.getDealAroundList();
 			if (dealAroundList != null && dealAroundList.size() > 0) {
 				for (DealAround dealAround : dealAroundList) {
