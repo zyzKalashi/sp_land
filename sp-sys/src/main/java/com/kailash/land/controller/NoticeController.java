@@ -9,12 +9,12 @@ import com.kailash.land.entity.NewsInfo;
 import com.kailash.land.filter.NewsFiter;
 import com.kailash.land.service.NewsDetailService;
 import com.kailash.land.service.NewsInfoService;
-import com.kailash.land.service.NoticeService;
+import com.kailash.land.service.NoticeInfoService;
 import com.kailash.land.util.Result;
 
 public class NoticeController {
 	@Autowired
-	private NoticeService noticeService;
+	private NoticeInfoService noticeInfoService;
 	
 	@Autowired
 	private NewsInfoService newsInfoService;

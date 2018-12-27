@@ -15,4 +15,9 @@
 	
 	</insert>
 	
+	<select id="queryIndexList" resultType="Map">
+	
+	
+	</select>
+	
 </mapper>

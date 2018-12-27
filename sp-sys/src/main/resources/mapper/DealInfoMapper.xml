@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kailash.land.dao.DealInfoMapper">
-	<resultMap id="BaseResultMap" type="com.kailash.land.entity.DealInfo">
+	<resultMap id="BaseResultMap"
+		type="com.kailash.land.entity.DealInfo">
 		<id column="role_id" jdbcType="INTEGER" property="roleId" />
 		<result column="role_key" jdbcType="VARCHAR" property="roleKey" />
-		<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+		<result column="role_name" jdbcType="VARCHAR"
+			property="roleName" />
 	</resultMap>
-	
+
 	<sql id="Base_Column_List">
 	</sql>
-	
+
 	<insert id="instert">
-	
-	
+
+
 	</insert>
+
+	<select id="queryIndexNewList" resultType="Map">
+		SELECT
+			di.pkid,
+			di.deal_kind,
+			di.deal_name,
+			dp.`name` AS userName
+
+		FROM
+			deal_info di
+			LEFT JOIN deal_person dp ON dp.deal_info_id = di.pkid
+			LEFT JOIN area_info ai ON di.area_code = ai.
+		ORDER BY
+			di.create_date DESC
+		LIMIT
+			0,9
+	</select>
+	
+	<select id="queryIndexKindList" resultType="Map">
+	
+	
+	</select>
 	
 </mapper>
