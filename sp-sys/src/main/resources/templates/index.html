@@ -1,254 +1,406 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:include="common :: head">
-	<title id="pageTitle">首页</title>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>四平市铁西区农经总站土地流转管理平台</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="keywords" content="">
+
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/p01.css">
+<!--<link rel="stylesheet" type="text/css" href="css/screen.css"> -->
+
+<script type="text/javascript" src="js/miaov.js"></script>
+<script type="text/javascript" src="js/public.js"></script>
+
 </head>
-<link th:href="@{../static/css/index.css}" type="text/css" rel="stylesheet">
-<body data-type="widgets" class="theme-white">
-<div class="am-g tpl-g">
-	<header th:include="common :: header"></header>
-	<div class="left-sidebar" th:include="common :: left"></div>
-	<div class="tpl-content-wrapper" id="app" v-cloak>
-		<div class="row-content am-cf">
-            <div class="row">
-                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                	<div class="widget am-cf">
-                		<div class="widget-head am-cf">
-                            <div class="widget-title  am-cf">
-                                URL信息
-                            </div>
-			            </div>    	
-			            <div class="widget-body">
-			            	<div class="am-form-group am-padding-xs">
-								 <div class="am-u-sm-3 ">
-								 	<div class="widget widget-gray am-cf">
-								 		<div class="am-form-group am-text-center">
-										 	<button type="button" class="am-btn am-btn-primary am-round" @click="goUrl('/urls/urls_list')">
-										 		<i class="am-icon-cube"></i> URL列表
-										 	</button>
-										</div>
-										<hr data-am-widget="divider" style="" class="am-divider am-divider-dashed am-btn-primary" />
-										<div class="am-form-group">
-											<div class="widget-statistic-header am-padding-top-0">
-												URL总数量:
-												<span class="am-text-primary am-text-xl">{{ urlObj.totalNum }} 个</span>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<div class="widget-statistic-header am-padding-top-0">
-												昨日新增数量:
-												<span class="am-text-primary am-text-xl">{{ urlObj.yesterdayNum }} 个</span>
-											</div>
-										</div>
-								 	</div>
-								 </div>
-								 <div class="am-u-sm-3 ">
-								 	<div class="widget widget-gray am-cf">
-								 		<div class="am-form-group am-text-center">
-										 	<button type="button" class="am-btn am-btn-secondary am-round" @click="goUrl('/urls/urls_import_list')">
-									 			<i class="am-icon-upload"></i> 导入列表
-									 		</button>
-										</div>
-										<hr data-am-widget="divider" style="" class="am-divider am-divider-dashed am-btn-secondary" />
-										<div class="am-form-group">
-											<div class="widget-statistic-header am-padding-top-0">
-												昨日导入:
-												<span class="am-text-secondary am-text-xl">{{ urlImportObj.yseterdayNum }}次</span>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<div class="widget-statistic-header am-padding-top-0">
-												昨日导入成功数量:
-												<span class="am-text-secondary am-text-xl">{{ urlImportObj.yseterdaySucNum }}个</span>
-											</div>
-										</div>
-								 	</div>
-								 </div>
-								 <div class="am-u-sm-3 ">
-								 	<div class="widget widget-gray am-cf">
-								 		<div class="am-form-group am-text-center">
-										 	<button type="button" class="am-btn am-btn-success am-round"  @click="goUrl('/urls/urls_export_list')">
-										 		<i class="am-icon-download"></i> 导出列表
-										 	</button>
-										</div>
-										<hr data-am-widget="divider" style="" class="am-divider am-divider-dashed am-btn-success" />
-										<div class="am-form-group">
-											<div class="widget-statistic-header am-padding-top-0">
-												昨日导出EXCEL文件:
-												<span class="am-text-success am-text-xl">{{ urlExportObj.excelNum }} 个</span>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<div class="widget-statistic-header am-padding-top-0">
-												昨日导出TXT文件:
-												<span class="am-text-success am-text-xl">{{ urlExportObj.txtNum }} 个</span>
-											</div>
-										</div>
-								 	</div>
-								 </div>
-								<div class="am-u-sm-3 ">
-								 	<div class="widget widget-gray am-cf">
-								 		<div class="am-form-group am-text-center">
-										 	<button type="button" class="am-btn am-btn-warning am-round"  @click="goUrl('/urls/urls_group_list')">
-										 		<i class="am-icon-cubes"></i> URL组列表
-										 	</button>
-										</div>
-										<hr data-am-widget="divider" style="" class="am-divider am-divider-dashed am-btn-warning" />
-										<div class="am-form-group">
-											<div class="widget-statistic-header am-padding-top-0">
-												URL组总数量:
-												<span class="am-text-warning am-text-xl">{{ urlGroupObj.totalNum }} 个</span>
-											</div>
-										</div>
-										<div class="am-form-group">
-											<div class="widget-statistic-header am-padding-top-0">
-												昨日新增组数量:
-												<span class="am-text-warning am-text-xl">{{ urlGroupObj.yesterdayNum }} 个</span>
-											</div>
-										</div>
-								 	</div>
-								 </div>
-							</div>
-						</div> 
-                	</div>
-               	</div>
-                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                	<div class="widget am-cf">
-                		<div class="widget-head am-cf">
-                            <div class="widget-title  am-cf">
-                                昨日URL行业详情
-                            </div>
-			            </div>    	
-			            <div class="widget-body">
-			            	<div class="am-form-group am-padding-xs">
-								<div class="am-u-sm-12"  id="main" style=" height: 450px;"></div>
-			            	</div>
-			            </div>
-                	</div>
-               	</div>
-			</div>
-		</div>
-	</div>
+
+<body>
+<!-- Top begin -->
+	<div class="top">
+    	<div class="top_z">
+        	<ul class="fl">
+            	<li>
+                	欢迎访问铁西区土地流转管理平台&nbsp;&nbsp;</li>
+                <li>
+                	请&nbsp;<a href="javascript:void(0);" class="bold">登录</a>&nbsp;|&nbsp;</li>
+               	<li>
+                	<a href="javascript:void(0);"class="bold">注册</a>
+                    </li>
+               </ul>
+                    
+            <ul class="fr huiyuan tform">
+            	<li>
+                	<a href="javascript:void(0);">会员中心</a>		
+                    </li>
+                    <li>
+                    <a href="javascript:void(0);">
+                    帮助咨询</a>
+                    </li>
+             </ul>
+         </div>
+       </div>
+                    
+<!-- top end -->
+
+<!-- header start -->
+	<div class="header">
+    	<div class="header_z">
+        	<div class="logo">
+            	<a href="/" title="四平市铁西区农经总站土地流转信息管理平台">
+					<img width="100%" height="auto" alt="logo image" src="images/logo1.png">
+                    </a>
+            </div>
+            <div class="search-main tform">
+            	<form action="" name="">
+                	<input type="text" name="" class="text"/>
+                    <input type="submit" name="" class="submit" value="搜索"/>
+                    <select name="sel1" class="sel1">
+                    <option value="全部">全部</option>
+                    <option value="土地流转">土地流转</option>
+                    <option value="林权转让">林权转让</option>
+                    <option value="四荒使用">四荒使用</option>
+                    <option value="养殖水面">养殖水面</option>
+                    </select>
+                  </form>
+                </div>
+             	<div class="fabu tform">
+                	<form action="" name="">
+                    	<select name="sel2" class="sel2">
+                        <option value="全部">全部</option>
+                    <option value="土地流转">土地流转</option>
+                    <option value="林权转让">林权转让</option>
+                    <option value="四荒使用">四荒使用</option>
+                    <option value="养殖水面">养殖水面</option>
+                    </select>
+                   <input type="submit" name="" class="fabuxinx" value="发布信息">
+                  </form>
+                </div>
+                <ul class="remen clear tform">
+                <li>近期热门搜索：</li>
+                <li><a href="">土地转让</a></li>
+                <li><a href="">林权转让</a></li>
+                <li><a href="">养殖水面</a></li>
+                <li><a href="">四荒租赁</a></li>
+                </ul>
+               </div>
+           </div>
+<!--<div class="clear1"></div>-->
+<!-- header end.In this block, the right can be hidden if the screen small than 768px,and the logo image can fit the screen change class="tform" -->
+
+<!-- nav bar begin.this can fit anyscreen size -->
+<div class="nav clear1 mb20">
+	<div class="nav-z clear1">
+    	<ul class="clear1 tform">
+        	<li><a href="/">首页</a></li>
+            <li><a href="/">发布信息</a></li>
+            <li><a href="/">查看信息</a></li>
+            <li><a href="/">政策法规</a></li>
+            <li><a href="/">资料下载</a></li>
+            <li><a href="/">成交报表</a></li>
+            <li><a href="/">咨询我们</a></li>
+         </ul>
+    </div>
 </div>
-<div th:include="common :: js"></div>
+
+<!-- nav end-->
+<script type="text/javascript" src="js/mainndy.js"></script>
+<!-- Main Content Start-->
+<!-- Row1 Begin -->
+	<div class="main clear">
+    	<div class="hot clear fl">
+        	<h2 class="public1 c1">热点信息</h2>
+            <div class="redian fl mr10">
+            	<ul class="public2 mt10">
+                	<li>
+                    	<a href="" class="mmr">土地承包</a>
+                        <a href="">土地流转项目</a>
+                    </li>
+                    <li>
+                    	<a href="" class="mmr">四荒土地</a>
+                        <a href="">土地承包项目</a>
+                    </li>
+                    <li>
+                    	<a href="" class="mmr">林权转让</a>
+                        <a href="">林权经营转让</a>
+                    </li>
+                    <li>
+                    	<a href="" class="mmr">水产养殖</a>
+                        <a href="">水面养殖项目</a>
+                    </li>
+                    <li>
+                    	<a href="" class="mmr">知识产权</a>
+                        <a href="">农业知识产权</a>
+                    </li>
+                    <li>
+                    	<a href="" class="mmr">三资管理平台</a>
+                        <a href="">土地流转平台</a>
+                    </li>
+                    <li class="no_boder"><a href="" class="fr">更多>></a></li>
+                </ul>
+            </div>
+<!-- Slider Start-->
+            <div class="lunbo fl mr10 public2">
+                <div id="lunbo_img" class="lunbo_img">
+                        <ul>
+                            <li style="z-index:2; filter:alpha(opacity=100); opacity:1;"><a target=_blank href="/"><img src="images/slide/s1.jpg" border=0></a></li>
+                            <li><a target=_blank href="/"><img src="images/slide/s2.jpg" border=0></a></li>
+                            <li><a target=_blank href="/"><img src="images/slide/s3.jpg" border=0></a></li>
+                            <li><a target=_blank href="/"><img src="images/slide/s4.jpg" border=0></a></li>
+                            <li><a target=_blank href="/"><img src="images/slide/s5.jpg" border=0></a></li>
+                        </ul>
+                    <div id="btn" class="btn clear1">
+                        <a href="javascript:;" class="prev" style="display:none;"></a>
+                        <a class="" href="javascript:;"><b></b><span>1</span></a>
+                        <a class="" href="javascript:;"><b></b><span>2</span></a>
+                        <a class="" href="javascript:;"><b></b><span>3</span></a>
+                        <a class="" href="javascript:;"><b></b><span>4</span></a>	
+                        <a class="" href="javascript:;"><b></b><span>5</span></a>
+                        <a href="javascript:;" class="next" style="display:none;"></a>
+                    </div>	
+                  </div>
+                <div class="detail clear">
+                  	<p>信息发布数：<span>1028</span>&nbsp;个</p>
+                    <p>成交信息数：<span>968</span>&nbsp;个</p>
+                  </div>
+            </div>
+            <div class="jiaoliu fl clear public2">
+                	<h3><span>土地流转</span> 监管平台</h3>
+                    <ul class="clear">
+                    	<li>
+                        	<a href=""><img src="images/main/jiaoliu_03.jpg"></a>
+                            <p><a href=""><span>政府平台</span>助力农业资产流转</a></p>
+                        </li>
+                        <li class="no_right">
+                        	 <a href=""><img src="images/main/jiaoliu_06.jpg"></a>
+                             <p><a href="">促进农业交流<span>提高农业经济</span></a></p>
+                        </li>
+                    </ul>
+                    <p class="renmai mt10">真正为农民&nbsp;<span>服务的平台</span></p>
+                    <a href="" class="dengl">登&nbsp;&nbsp;  录</a>
+                    <a href="" class="zhuce">注 &nbsp;&nbsp; 册</a>
+                </div>
+        </div>
+<!-- Row1 End -->
+<!-- Row2 Begin -->
+<div class="news clear1 mt15">
+            	<div class="news_fabu fl mr10">
+                	<h2 class="public1 c1">最新信息<a href="" class="fr">更多>&nbsp;&nbsp;</a></h2>
+                    <div class="news_detail public2">
+                    	<table cellpadding="0" cellspacing="0" border="0">
+                        	<tr class="head">
+                            	<td class="widhead"> &nbsp;&nbsp; 即时信息</td><td>发布人</td><td> 所属乡镇</td><td>发布时间</td><td>当前状态</td>
+                            </tr>
+                           <tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">[土地流转]经济开发区农耕土地转让项目</a></td><td><span>[张先生]</span></td><td>经济开发区</td><td><span>2019-1-15</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                  <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">[林权承包]平西乡某某村林权转让项目</a></td><td><span>[李小姐]</span></td><td>平西乡某某村</td><td><span>2019-1-10</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">[土地流转]铁西区站前限制地承包项目</a></td><td><span>[王先生]</span></td><td>铁西区站前街道</td><td><span>2018-12-28</span></td><td><em1>已结束</em1></td>
+                            </tr><tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">[养殖水面]经济开发区水面养殖承包项目</a></td><td><span>[张先生]</span></td><td>经济开发区</td><td><span>2018-12-20</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                  <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">[土地流转]经济开发区农耕土地转让项目</a></td><td><span>[张先生]</span></td><td>经济开发区</td><td><span>2018-12-5</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                  <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">[林权承包]平西乡某某村林权转让项目</a></td><td><span>[李小姐]</span></td><td>平西乡某某村</td><td><span>2018-11-29</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">[土地流转]铁西区站前限制地承包项目</a></td><td><span>[王先生]</span></td><td>铁西区站前街道</td><td><span>2018-11-19</span></td><td><em1>已结束</em1></td>
+                            </tr><tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">[养殖水面]经济开发区水面养殖承包项目</a></td><td><span>[张先生]</span></td><td>经济开发区</td><td><span>2018-11-08</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                            <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">[土地流转]铁西区站前限制地承包项目</a></td><td><span>[王先生]</span></td><td>铁西区站前街道</td><td><span>2018-11-01</span></td><td><em1>已结束</em1></td>
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="news_gongg fl">
+                	<h2 class="public1 c1">新闻公告<a href="" class="fr">更多>&nbsp;&nbsp;</a></h2>
+                    <div class="news_gongg_detail public2 clear">
+                    	<ul class="news_list clear fr" id="uls3">
+                            <li>
+                            	 <a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002411"><img src="images/main/n1.jpg" border=0></a>
+                            	<p>
+                                	<span></span>
+                                    <b>土地流转平台上线</b>
+                                 </p>
+                            </li>
+                             <li>
+                            	 <a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002412"><img src="images/main/n2.jpg" border=0></a>
+                            	<p>
+                                	<span></span>
+                                    <b>平台上线公告</b>
+                                 </p>
+                            </li>
+                             <li>
+                            	 <a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002413"><img src="images/main/n1.jpg" border=0></a>
+                            	<p>
+                                	<span></span>
+                                    <b>最新政策</b>
+                                 </p>
+                            </li>
+                        </ul>
+                        
+                        <ol class="news_list2">
+                              <li><a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002411">新闻标题</a><span class="fr">2019-01-10</span></li>
+                            <li><a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002412">土地流转平台上线通知</a><span class="fr">2019-01-05</span></li>
+                            <li><a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002413">土地转让政策</a><span class="fr">2019-01-05</span></li>
+                            <li><a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002411">显示新闻标题</a><span class="fr">2014-07-14</span></li>
+                           <li><a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002412">显示新闻标题2</a><span class="fr">2014-07-14</span></li>
+                           <li><a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002413">显示新闻标题4</a><span class="fr">2014-06-10</span></li>
+                            <li><a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002411">显示新闻标题</a><span class="fr">2014-07-14</span></li>
+                            <li><a href="{$Link_8}">{$Title_8}</a><span class="fr">{$Date_8}</span></li>
+                            <li><a href="{$Link_9}">{$Title_9}</a><span class="fr">{$Date_9}</span></li> 
+                            <li><a href="{$Link_10}">{$Title_10}</a><span class="fr">{$Date_10}</span></li>
+                            <li><a href="{$Link_11}">{$Title_11}</a><span class="fr">{$Date_11}</span></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+<!-- News Public End -->          
+<!-- Function Nav Start(there are some serious Error here) !important -->
+<div class="lun_steps mt15" id="parents">
+                <div class="steps public2" style="display:none;">
+                    <p><a href="">发布信息</a>
+                    <span></span></p>
+                    <p><a href="" class="xians">即时显示</a>
+                    <span></span></p>
+                   <p><a href="" class="chakan">关注查看</a>
+                    <span></span></p>
+                   <p><a href="" class="ship">线下交易</a>
+                    <span></span></p>
+                   <p><a href="" class="gongs">达成共识</a></p>
+                </div>
+                <div class="steps_wail public2 clear">
+                	<ul class="clear">
+                    	<li class="first_1"><a href=""><img src="images/main/parnts_21.png"></a></li>
+                        <li class="first_2"><a href=""><img src="images/main/parnts_24.png"></a></li>
+                        <li class="first_3"><a href=""><img src="images/main/parnts_15.png"></a></li>
+                         <li class="first_4"><a href=""><img src="images/main/parnts_18.png"></a></li>
+                    </ul>
+                </div>
+           </div> 
+<!-- Function Nav End -->
+<!-- incommend info Start -->
+<div class="tuijian_xinx mt15 clear" id="tuijian_xinx">
+            	<h3 class="fl xinx_dead">推荐信息</h3>
+                <ul id="tuijian_list" class="tuijian_list fr">
+                	<li class="dangqq"><a href="javascript:;">精选信息</a></li>
+                    <li><a href="javascript:;">土地转租</a></li>
+                    <li><a href="javascript:;">土地承包</a></li>
+                    <li><a href="javascript:;">水面养殖</a></li>
+                    <li><a href="javascript:;">林权转让</a></li>
+                    <li><a href="javascript:;">林权承包</a></li>
+                    <li><a href="javascript:;">设施租赁</a></li>
+                    <li><a href="javascript:;">知识产权</a></li>
+                    <li><a href="javascript:;">水利承包</a></li>
+                </ul>
+                <div class="tuijian_detail public2 clear">
+                	<div class="fl jingxuan_xinx" id="jingxuan_xinx">
+                		<h2 class="jingxuan c4">精选信息<a href="" class="fr c5">更多</a></h2>
+                       <div class="news_detail">
+                    	<table cellpadding="0" cellspacing="0" border="0">
+                        	<tr class="head">
+                            	<td class="widhead">&nbsp;&nbsp;项目名称</td><td>发布人</td><td> 所属乡镇</td><td>转出/需求方</td><td>面积/数量（亩）</td><td>挂牌价格（万元）</td><td>发布时间</td><td>当前状态</td>
+                            </tr>
+                           <tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">经济开发区农耕土地转让项目</a></td><td><span>[张先生]</span></td><td>经济开发区</td><td>[转出]某某村委会</td><td><em2>20</em2></td><td><em>80</em></td><td><span>2019-1-15</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                  <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">平西乡某某村林权转让项目</a></td><td><span>[李小姐]</span></td><td>平西乡</td><td>[需求]某某村委会</td>><td><em2>20</em2></td><td><em>80</em></td><td><span>2019-1-15</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">铁西区站前限制地承包项目</a></td><td><span>[王先生]</span></td><td>铁西区站前街道</td><td>[转出]联通公司</td><td><em2>20</em2></td><td><em>80</em></td><td><span>2019-1-5</span></td><td><em1>已交易</em1></td>
+                            </tr><tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">经济开发区农耕土地转让项目</a></td><td><span>[张先生]</span></td><td>经济开发区</td><td>[转出]某某村委会</td><td><em2>20</em2></td><td><em>80</em></td><td><span>2019-1-15</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                  <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">平西乡某某村林权转让项目</a></td><td><span>[李小姐]</span></td><td>平西乡</td><td>[需求]某某村委会</td>><td><em2>20</em2></td><td><em>80</em></td><td><span>2019-1-15</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                  <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">平西乡某某村林权转让项目</a></td><td><span>[李小姐]</span></td><td>平西乡</td><td>[需求]某某村委会</td>><td><em2>20</em2></td><td><em>80</em></td><td><span>2019-1-15</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">平西乡某某村林权转让项目</a></td><td><span>[李小姐]</span></td><td>平西乡</td><td>[需求]某某村委会</td>><td><em2>20</em2></td><td><em>80</em></td><td><span>2019-1-15</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                   <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">平西乡某某村林权转让项目</a></td><td><span>[李小姐]</span></td><td>平西乡</td><td>[需求]某某村委会</td>><td><em2>20</em2></td><td><em>80</em></td><td><span>2019-1-15</span></td><td><em>进行中</em></td>
+                            </tr><tr>
+                            <td class="widhead"><a href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414">铁西区站前限制地承包项目</a></td><td><span>[王先生]</span></td><td>铁西区站前街道</td><td>[转出]联通公司</td><td><em2>20</em2></td><td><em>80</em></td><td><span>2019-1-5</span></td><td><em1>已交易</em1></td>
+                          </tr>
+                        </table>
+                    </div>
+
+                 
+                 </div>
+			</div>
+        </div>
+
+
+<!--incommend info End -->
+<!-- Friendly Link Start -->
+<div class="tuijian_jiguo mt15 partners">
+				<h2 class="public1 c1">友情合作<a class="fr" href="">更多&gt;&nbsp;&nbsp;&nbsp;</a></h2>
+                <div class="public2 hez_partners">
+                	<ul class="clear">
+                    	<li class="public2"><a href=""><img src="images/main/houb_07_03.jpg" width="128" height="52"></a></li>
+                        <li class="public2"><a href=""><img src="images/main/houb_1.jpg" width="128" height="52"></a></li>
+                        <li class="public2"><a href=""><img src="images/main/houb_1.jpg" width="128" height="52"></a></li>
+                        <li class="public2"><a href=""><img src="images/main/houb_1.jpg" width="128" height="52"></a></li>
+                        <li class="public2"><a href=""><img src="images/main/houb_1.jpg" width="128" height="52"></a></li>
+                        <li class="public2"><a href=""><img src="images/main/houb_1.jpg" width="128" height="52"></a></li>
+
+                    </ul>
+                   
+                </div>
+            </div>
+
+
+
+
+<!-- Main Content End -->
+
+<!--Footer Start -->
+<div class="footer clear">
+	<div class="juz clear">
+    	<div class="juz_list fn clear">
+            <dl>
+            	<dt>联系我们</dt>
+                <dd><a href="">铁西区农经总站</a></dd>
+                <dd><a href="">电话：0434-12345</a></dd>
+                <dd><a href="">工作时间：（周一至周五）</a></dd>
+                <dd><a href="">&nbsp;&nbsp;&nbsp;&nbsp;9:00-17:00</a></dd>
+                <dd><a href="">邮箱：txnjj@txnjj.gov.cn</a></dd>
+            </dl>
+            <dl>
+            	<dt>帮助中心</dt>
+                <dd><a href="">用户注册指南</a></dd>
+                <dd><a href="">如何发布信息</a></dd>
+                <dd><a href="">如何查看信息</a></dd>
+                <dd><a href="">常见问题解答</a></dd>
+                <dd><a href="">资料下载</a></dd>
+            </dl>
+            <dl class="nomargin mt10">
+            	<dt>扫码访问</dt>
+                <dd><img src="images/main/erweima.png" width="121" height="121">
+                </dd></dl>
+        </div>
+        <ul class="clear youqinglj">
+        	<li>友情链接：</li>
+            <li><a href="">四平市政务网</a></li>&nbsp;&nbsp;
+            <li><a href="">四平市财政局</a></li>&nbsp;&nbsp;
+            <li><a href="">工商信息网</a></li>&nbsp;&nbsp;
+            <li><a href="">中国农业网</a></li>&nbsp;&nbsp;
+            <li><a href="">吉林省农业局</a></li>&nbsp;&nbsp;
+            <li><a href="">四平市农业局</a></li>&nbsp;&nbsp;
+            <li><a href="">铁西区政务网</a></li>&nbsp;&nbsp;
+            <a href="" class="fr">更多>></a>
+        </ul>
+        <div class="fl youqqi_adress">
+        <p class="adress"><br><br>Copyright 2019&nbsp;&nbsp;四平市铁西区农业经济总站 版权所有&nbsp;&nbsp;吉ICP第123456780-2号</p>
+        </div>
+   		<div class="fr jingcha">
+        	<a href=""><img src="images/footer_21.png" width="52" height="57"></a>&nbsp;&nbsp;
+            <a href=""><img src="images/footer_24.png" width="65" height="55"></a>
+        </div>
+     </div>
+   </div>
+<!-- Footer END -->
+                
+</div>
+
 </body>
-<script th:src="@{../static/plugin/echarts/echarts-all.js}" type="text/javascript"></script>
-<script th:src="@{../static/plugin/echarts/macarons.js}" type="text/javascript"></script>
-<script type="text/javascript">
-    var vm = new Vue({
-        el: "#app",
-        data: {
-        	urlObj: {
-        		totalNum: 0,
-        		yesterdayNum: 0,
-        	},
-        	urlImportObj: {
-        		yseterdayNum: 0,
-        		yseterdaySucNum: 0,
-        	},
-        	urlExportObj: {
-        		excelNum: 0,
-        		txtNum: 0,
-        	},
-        	urlGroupObj: {
-        		totalNum: 0,
-        		yesterdayNum: 0,
-        	},
-        	
-        },
-        mounted: function () {
-        	this.initDataNum();
-        	this.initDataChat();
-        },
-        methods: {
-        	initDataNum: function  () {
-        		 hzToolObj.getRpc("/index/data_num").done(function (result) {
-        			 if(result.code == 0){
-        				 vm.urlObj = result.urlObj;
-        				 vm.urlImportObj = result.urlImportObj;
-        				 vm.urlExportObj = result.urlExportObj;
-        				 vm.urlGroupObj = result.urlGroupObj;
-        			 }
-        		 });
-        	},
-        	initDataChat: function  () {
-        		 hzToolObj.getRpc("/index/data_chart").done(function (result) {
-        			 if(result.code == 0){
-        				var myChart = echarts.init(document.getElementById('main'), 'macarons');
-        				option = {
-       					    title: {
-       					        x: 'center',
-       					        text: '一级行业昨日新增URL数量',
-       					     	subtext: '共计：' + vm.urlObj.yesterdayNum + "个",
-       					    },
-       					    tooltip: {
-       					        trigger: 'item'
-       					    },
-       					    toolbox: {
-       					        show: true,
-       					        feature: {
-       					            restore: {show: true},
-       					            saveAsImage: {show: true}
-       					        }
-       					    },
-       					    calculable: true,
-       					    grid: {
-       					        borderWidth: 0,
-       					        y: 80,
-       					        y2: 60
-       					    },
-       					    xAxis: [
-       					        {
-       					            type: 'category',
-       					            show: false,
-       					            data: result.chartObj.keys,
-       					        }
-       					    ],
-       					    yAxis: [
-       					        {
-       					            type: 'value',
-       					            show: true
-       					        }
-       					    ],
-       					    series: [
-       					        {
-       					            type: 'bar',
-       					            itemStyle: {
-       					                normal: {
-       					                    color: function(params) {
-       					                        var colorList = [
-       					                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
-       					                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-       					                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
-       					                        ];
-       					                        return colorList[params.dataIndex]
-       					                    },
-       					                    label: {
-       					                        show: true,
-       					                        position: 'top',
-       					                        formatter: '{b}\n{c}'
-       					                    }
-       					                }
-       					            },
-       					            data: result.chartObj.nums,
-       					            markPoint: {
-       					                tooltip: {
-       					                    trigger: 'item',
-       					                    backgroundColor: 'rgba(0,0,0,0)',
-       					                },
-       					                data: []
-       					            }
-       					        }
-       					    ]
-       					};
-        				myChart.setOption(option);
-        			 }
-        		 });
-        	},
-        	goUrl: function (url) {
-        		window.location.href= url;	
-        	},
-        },
-    });
-</script>
 </html>
