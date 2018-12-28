@@ -23,14 +23,14 @@ public class SysPageController extends AbstractController {
 		return "login";
 	}
 
-	/**
-	 * 登录url
-	 *
-	 * @author zyz
-	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
 		return "index";
+	}
+	
+	@RequestMapping(value = "/html/{page}", method = RequestMethod.GET)
+	public String htmlPage(@PathVariable("page")String page) {
+		return "html/" + page;
 	}
 
 	/**
