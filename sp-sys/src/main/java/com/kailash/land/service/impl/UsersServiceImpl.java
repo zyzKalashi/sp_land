@@ -26,7 +26,7 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public Map<String, Object> getUserByUserId(Users user) {
-		return this.usersMapper.selectByUserId(user.getUserId());
+		return this.usersMapper.selectByUserId(user.getPkid());
 	};
 
 	@Override
@@ -37,7 +37,7 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public int checkUserNameOrPhone(Users user) {
 		user = this.usersMapper.findByUserName(user.getUserName());
-		if (user != null && user.getUserId() != null) {
+		if (user != null && user.getPkid() != null) {
 			return 1;
 		}
 		return 0;
@@ -54,8 +54,8 @@ public class UsersServiceImpl implements UsersService {
 		user.setRoleId(RoleEnum.COMMON.getRoleId());
 		user.setCreateDate(DateUtils.format(new Date(), DateFormatConsts.DATE_TIME_PATTERN));
 		user.setUpdateDate(DateUtils.format(new Date(), DateFormatConsts.DATE_TIME_PATTERN));
-		user = this.usersMapper.insert(user);
-		return user.getUserId();
+		this.usersMapper.instertEntity(user);
+		return user.getPkid();
 	}
 
 }

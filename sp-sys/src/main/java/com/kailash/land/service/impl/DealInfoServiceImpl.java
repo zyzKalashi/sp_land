@@ -20,7 +20,7 @@ public class DealInfoServiceImpl implements DealInfoService {
 	private DealInfoMapper dealInfoMapper;
 
 	@Override
-	public DealInfo instertDealInfo(DealInfo dealInfo) {
+	public int instertDealInfo(DealInfo dealInfo) {
 		dealInfo.setDealNum("TX-" + DateUtils.format(new Date(), DateFormatConsts.DAY_HOUR_MINUTES) + "-100100");
 		return this.dealInfoMapper.instertEntity(dealInfo);
 	}

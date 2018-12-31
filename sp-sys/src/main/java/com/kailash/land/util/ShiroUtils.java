@@ -40,7 +40,7 @@ public class ShiroUtils {
 	}
 
 	public static int getUserId() {
-		return getUsers().getUserId();
+		return getUsers().getPkid();
 	}
 	
 	public static int getRoleId() {

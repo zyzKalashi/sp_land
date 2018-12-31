@@ -13,7 +13,7 @@ public class HelpInfoServiceImpl implements HelpInfoService{
 	private HelpInfoMapper helpInfoMapper;
 
 	@Override
-	public HelpInfo instertHelpInfo(HelpInfo helpInfo) {
+	public int instertHelpInfo(HelpInfo helpInfo) {
 		return helpInfoMapper.instertEntity(helpInfo);
 	}
 

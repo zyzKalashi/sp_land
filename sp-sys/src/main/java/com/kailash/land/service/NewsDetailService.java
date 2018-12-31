@@ -4,6 +4,6 @@ import com.kailash.land.entity.NewsDetail;
 
 public interface NewsDetailService {
 
-	NewsDetail instertNewsDetail(NewsDetail nd);
+	int instertNewsDetail(NewsDetail nd);
 
 }

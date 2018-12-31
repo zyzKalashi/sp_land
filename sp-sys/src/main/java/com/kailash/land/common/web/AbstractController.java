@@ -23,7 +23,7 @@ public abstract class AbstractController {
 	}
 
 	protected int getUserId() {
-		return getUser().getUserId();
+		return getUser().getPkid();
 	}
 
 	protected int getRoleId() {

@@ -2,17 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kailash.land.dao.DealPersonMapper">
 	<resultMap id="BaseResultMap" type="com.kailash.land.entity.DealPerson">
-		<id column="role_id" jdbcType="INTEGER" property="roleId" />
-		<result column="role_key" jdbcType="VARCHAR" property="roleKey" />
-		<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+		<id column="pkid" 				jdbcType="INTEGER" property="pkid" />
+		<result column="deal_info_id" 	jdbcType="INTEGER" property="dealInfoId" />
+		<result column="name" 			jdbcType="VARCHAR" property="name" />
+		<result column="sex" 			jdbcType="INTEGER" property="sex" />
+		<result column="phone" 			jdbcType="VARCHAR" property="phone" />
+		<result column="address" 		jdbcType="VARCHAR" property="address" />
+		<result column="info_kind" 		jdbcType="INTEGER" property="infoKind" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
 	</sql>
 	
-	<insert id="instert">
-	
-	
+	<insert id="instertEntity" parameterType="com.kailash.land.entity.DealPerson" useGeneratedKeys="true" keyProperty="pkid">
+		INSERT INTO deal_person 
+		<trim prefix="(" suffix=")"	suffixOverrides=",">
+			<if test="pkid != null">
+				pkid,
+			</if>
+			<if test="dealInfoId != null">
+				deal_info_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="infoKind != null">
+				info_kind,
+			</if>
+		</trim>
+		<trim prefix="values ("	suffix=")"	suffixOverrides=",">
+			<if test="pkid != null">
+				#{pkid,jdbcType=INTEGER},
+			</if>
+			<if test="dealInfoId != null">
+				#{dealInfoId},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="sex != null">
+				#{sex},
+			</if>
+			<if test="phone != null">
+				#{phone},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="infoKind != null">
+				#{infoKind},
+			</if>
+		</trim>
 	</insert>
 	
 </mapper>

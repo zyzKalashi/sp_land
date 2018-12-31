@@ -9,14 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.kailash.land.entity.Users;
 
 @Mapper
-public interface UsersMapper {
-	/**
-	 * 添加对象
-	 *
-	 * @param entity
-	 * @return
-	 */
-	Users insert(Users entity);
+public interface UsersMapper extends BaseMapper<Users> {
 
 	/**
 	 * 根据userId查询对象

@@ -9,6 +9,11 @@ import com.kailash.land.entity.DealInfo;
 
 @Mapper
 public interface DealInfoMapper extends BaseMapper<DealInfo>{
+    int deleteByPrimaryKey(Integer pkid);
+
+    DealInfo selectByPrimaryKey(Integer pkid);
+
+    int updateByPrimaryKeySelective(DealInfo record);
 
 	List<Map<String, Object>> queryIndexNewList();
 

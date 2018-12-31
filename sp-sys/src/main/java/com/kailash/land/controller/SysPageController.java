@@ -32,6 +32,11 @@ public class SysPageController extends AbstractController {
 	public String htmlPage(@PathVariable("page")String page) {
 		return "html/" + page;
 	}
+	
+	@RequestMapping(value = "/login/{page}", method = RequestMethod.GET)
+	public String loginPage(@PathVariable("page")String page) {
+		return "login/" + page;
+	}
 
 	/**
 	 * 用户管理模块

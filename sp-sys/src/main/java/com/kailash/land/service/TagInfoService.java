@@ -10,7 +10,7 @@ import com.kailash.land.entity.TagInfo;
  */
 public interface TagInfoService {
 
-	TagInfo instertTagInfo(TagInfo tagInfo);
+	int instertTagInfo(TagInfo tagInfo);
 
 	int updateTagInfo(TagInfo tagInfo);
 	

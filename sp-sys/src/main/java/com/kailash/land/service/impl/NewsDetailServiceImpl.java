@@ -15,7 +15,7 @@ public class NewsDetailServiceImpl implements NewsDetailService {
 	
 	
 	@Override
-	public NewsDetail instertNewsDetail(NewsDetail nd) {
+	public int instertNewsDetail(NewsDetail nd) {
 		return this.newsDetailMapper.instertEntity(nd);
 	}
 	

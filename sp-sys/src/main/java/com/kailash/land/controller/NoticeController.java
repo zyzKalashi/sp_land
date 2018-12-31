@@ -25,7 +25,8 @@ public class NoticeController {
 	@RequestMapping(value = "news_add", method = RequestMethod.POST)
 	public Result newsAdd(NewsFiter filter) {
 		try {
-			NewsInfo ni = this.newsInfoService.instertNewsInfo(filter.getNewsInfo());
+			NewsInfo ni = filter.getNewsInfo();
+			this.newsInfoService.instertNewsInfo(ni);
 			NewsDetail nd = filter.getNewsDetail();
 			nd.setNewsInfoId(ni.getPkid()); 
 			this.newsDetailService.instertNewsDetail(nd);

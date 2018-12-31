@@ -61,9 +61,9 @@
             SELECT
             role_id
             FROM
-            users
+            users u
             WHERE
-            user_id = #{userId}
+            u.pkid = #{userId}
         )
         and
         type = #{type}
@@ -82,7 +82,7 @@
             menu m
             LEFT JOIN role_menu rm ON rm.menu_id = m.menu_id
         WHERE
-        role_id in ( SELECT role_id FROM users WHERE user_id = #{userId} )
+        role_id in ( SELECT role_id FROM users u WHERE u.pkid = #{userId} )
         AND type = #{type}
         AND parent_id = #{parentId}
         order by order_num

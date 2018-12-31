@@ -14,7 +14,7 @@ public class DealAroundServiceImpl implements DealAroundService {
 	private DealAroundMapper dealAroundMapper;
 	
 	@Override
-	public DealAround instertDealAround(DealAround dealAround) {
+	public int instertDealAround(DealAround dealAround) {
 		return this.dealAroundMapper.instertEntity(dealAround);
 	}
 	

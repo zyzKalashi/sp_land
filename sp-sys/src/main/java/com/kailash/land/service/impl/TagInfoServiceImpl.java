@@ -13,7 +13,7 @@ public class TagInfoServiceImpl implements TagInfoService{
 	private TagInfoMapper tagInfoMapper;
 
 	@Override
-	public TagInfo instertTagInfo(TagInfo tagInfo) {
+	public int instertTagInfo(TagInfo tagInfo) {
 		return this.tagInfoMapper.instertEntity(tagInfo);
 	}
 

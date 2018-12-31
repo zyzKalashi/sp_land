@@ -7,6 +7,7 @@ import com.kailash.land.entity.DealPerson;
 @Mapper
 public interface DealPersonMapper extends BaseMapper<DealPerson>{
 
+
 	
 	
 	

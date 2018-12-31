@@ -4,7 +4,7 @@ import com.kailash.land.entity.HelpInfo;
 
 public interface HelpInfoService {
 
-	HelpInfo instertHelpInfo(HelpInfo helpInfo);
+	int instertHelpInfo(HelpInfo helpInfo);
 
 	int updateHelpInfo(HelpInfo helpInfo);
 

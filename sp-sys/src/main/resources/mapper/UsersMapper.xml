@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kailash.land.dao.UsersMapper">
     <resultMap id="BaseResultMap" type="com.kailash.land.entity.Users">
-        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <id column="pkid" jdbcType="INTEGER" property="pkid"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
-        <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="user_status" jdbcType="INTEGER" property="userStatus"/>
         <result column="role_id" jdbcType="INTEGER" property="roleId"/>
         <result column="create_date" jdbcType="DATE" property="createDate"/>
@@ -13,19 +13,29 @@
         <result column="update_date" jdbcType="DATE" property="updateDate"/>
         <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
         <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="tel" jdbcType="VARCHAR" property="tel"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="birthday_year" jdbcType="INTEGER" property="birthdayYear"/>
+        <result column="birthday_month" jdbcType="INTEGER" property="birthdayMonth"/>
+        <result column="birthday_day" jdbcType="INTEGER" property="birthdayDay"/>
+        <result column="marry_flag" jdbcType="INTEGER" property="marryFlag"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="postcode" jdbcType="VARCHAR" property="postcode"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="position" jdbcType="VARCHAR" property="position"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        user_id, user_name, nick_name,
+        pkid, user_name, nick_name,
         password, user_status, role_id, create_date,
         update_date, update_user, mobile, email
     </sql>
 
     <!-- 查询条件 -->
     <sql id="Where">
-        <if test="userId != null and userId != ''">
-            AND u.user_id = #{userId}
+        <if test="pkid != null and pkid != ''">
+            AND u.pkid = #{pkid}
         </if>
         <if test="userName != null and userName != ''">
             AND u.user_name LIKE CONCAT('%', #{userName}, '%')
@@ -60,67 +70,58 @@
         </where>
     </select>
     <!--添加对象-->
-    <insert id="insert"
-            parameterType="com.kailash.land.entity.Users" useGeneratedKeys="true"
-            keyProperty="userId">
+    <insert id="instertEntity" parameterType="com.kailash.land.entity.Users" useGeneratedKeys="true" keyProperty="pkid">
         insert into users
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                user_id,
-            </if>
-            <if test="userName != null">
-                user_name,
-            </if>
-            <if test="password != null">
-                password,
-            </if>
-            <if test="userStatus != null">
-                user_status,
-            </if>
-            <if test="roleId != null">
-                role_id,
-            </if>
-            <if test="createDate != null">
-                create_date,
-            </if>
-            <if test="updateDate != null">
-                update_date,
-            </if>
-            <if test="updateUser != null">
-                update_user,
-            </if>
+            create_date,update_date,
+            <if test="pkid != null">pkid,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="password != null">password,</if>
+            <if test="userStatus != null">user_status,</if>
+            <if test="roleId != null">role_id,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="mobile != null">mobile,</if>
+            <if test="tel != null">tel,</if>
+            <if test="email != null">email,</if>
+            <if test="sex != null">sex,</if>
+            <if test="birthdayYear != null">birthday_year,</if>
+            <if test="birthdayMonth != null">birthday_month,</if>
+            <if test="birthdayDay != null">birthday_day,</if>
+            <if test="marryFlag != null">marry_flag,</if>
+            <if test="address != null">address,</if>
+            <if test="postcode != null">postcode,</if>
+            <if test="company != null">company,</if>
+            <if test="position != null">position,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                #{userId,jdbcType=INTEGER},
-            </if>
-            <if test="userName != null">
-                #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="userStatus != null">
-                #{userStatus,jdbcType=VARCHAR},
-            </if>
-            <if test="roleId != null">
-                #{roleId,jdbcType=INTEGER},
-            </if>
-            <if test="createDate != null">
-                #{createDate,jdbcType=DATE},
-            </if>
-            <if test="updateDate != null">
-                #{updateDate,jdbcType=DATE},
-            </if>
-            <if test="updateUser != null">
-                #{updateUser,jdbcType=INTEGER},
-            </if>
+        	NOW(), NOW(),
+            <if test="pkid != null">#{pkid,jdbcType=INTEGER},</if>
+            <if test="userName != null">#{userName,jdbcType=VARCHAR},</if>
+            <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+            <if test="userStatus != null">#{userStatus,jdbcType=VARCHAR},</if>
+            <if test="roleId != null">#{roleId,jdbcType=INTEGER},</if>
+            <if test="createUser != null">#{createUser,jdbcType=INTEGER},</if>
+            <if test="updateUser != null">#{updateUser,jdbcType=INTEGER},</if>
+            
+            <if test="mobile != null">#{mobile},</if>
+            <if test="tel != null">#{tel},</if>
+            <if test="email != null">#{email},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="birthdayYear != null">#{birthdayYear},</if>
+            <if test="birthdayMonth != null">#{birthdayMonth},</if>
+            <if test="birthdayDay != null">#{birthdayDay},</if>
+            <if test="marryFlag != null">#{marryFlag},</if>
+            <if test="address != null">#{address},</if>
+            <if test="postcode != null">#{postcode},</if>
+            <if test="company != null">#{company},</if>
+            <if test="position != null">#{position},</if>
         </trim>
     </insert>
-    <!--根据userId查询对象-->
-    <select id="selectByUserId" parameterType="java.lang.Integer" resultType="Map">
+    <!--根据pkid查询对象-->
+    <select id="selectBypkid" parameterType="java.lang.Integer" resultType="Map">
         select
-        u.user_id AS userId,
+        u.pkid AS pkid,
         u.user_name AS userName,
         u.role_id as roleId,
         u.user_status AS userStatus,
@@ -130,7 +131,7 @@
         u.nick_name nickName
         from users u
         where
-        u.user_id = #{userId,jdbcType=INTEGER}
+        u.pkid = #{pkid,jdbcType=INTEGER}
     </select>
     <!--根据条件更新对象-->
     <update id="updateByCondition" parameterType="com.kailash.land.entity.Users">
@@ -167,12 +168,12 @@
                 nick_name = #{nickName,jdbcType=VARCHAR},
             </if>
         </set>
-        where user_id = #{userId,jdbcType=INTEGER}
+        where pkid = #{pkid,jdbcType=INTEGER}
     </update>
     <!-- zyz -->
     <select id="findnickNameByUsers" parameterType="com.kailash.land.entity.Users" resultType="Map">
         SELECT
-        u.user_id AS userId ,
+        u.pkid AS pkid ,
         u.nick_name AS nickName
         FROM
         users u
@@ -194,8 +195,8 @@
             <if test="userName != null">
                 AND u.user_name = #{userName}
             </if>
-            <if test="userId != null">
-                AND u.user_id != #{userId}
+            <if test="pkid != null">
+                AND u.pkid != #{pkid}
             </if>
         </where>
     </select>
@@ -204,7 +205,7 @@
     <!-- zyz -->
     <select id="urlUserList" parameterType="String" resultType="Map" >
     	SELECT 
-			u.user_id AS userId,
+			u.pkid AS pkid,
 			u.user_name AS userName
 		FROM 
 			users u
@@ -227,10 +228,10 @@
 					1 = 1 
 					<if test="urlKind == 'urlInfo'">
 						AND url.url_status = 1
-						AND url.create_user = u.user_id
+						AND url.create_user = u.pkid
 					</if>
 					<if test="urlKind == 'urlImport' or urlKind == 'urlExport'">
-						AND url.creator = u.user_id
+						AND url.creator = u.pkid
 					</if>
 				GROUP BY
 					<if test="urlKind == 'urlInfo'">

@@ -67,4 +67,3 @@
 <script type="text/javascript" src="js/jquery-1.10.0.js"></script>
 <script type="text/javascript" src="js/qrcode.js"></script>
 <script type="text/javascript" src="js/jquery.qrcode.min.js"></script>
- 或者直接用百度的JiaThis

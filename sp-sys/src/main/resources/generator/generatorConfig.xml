@@ -28,12 +28,12 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.kailash.land.entity" targetProject="src/main/java">
+       <javaModelGenerator targetPackage="com.kailash.land.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+       	<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置-->
@@ -42,7 +42,7 @@
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
         <!-- mybatis-generator:generate -->
-        <table tableName="deal_person" domainObjectName="DealPerson"
+        <table tableName="deal_around" domainObjectName="DealAround"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>

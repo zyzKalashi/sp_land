@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.Users;
 import com.kailash.land.service.UsersService;
 import com.kailash.land.util.Result;
 
 @RestController
-@RequestMapping(value = "url")
+@RequestMapping(value = "user")
 public class UsersController extends AbstractController {
 
 	@Autowired
@@ -23,6 +24,7 @@ public class UsersController extends AbstractController {
 
 	@RequestMapping(value = "users_register", method = RequestMethod.POST)
 	public Result register(Users user) {
+		user.setUserStatus(StatusEnum.AUDIT.getId());
 		int i = this.usersService.registerUser(user);
 		if (i > 0) {
 			return Result.ok();

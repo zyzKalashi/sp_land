@@ -7,7 +7,7 @@ import com.kailash.land.entity.DealInfo;
 
 public interface DealInfoService {
 
-	DealInfo instertDealInfo(DealInfo dealInfo);
+	int instertDealInfo(DealInfo dealInfo);
 
 	List<Map<String, Object>> queryIndexNewList();
 

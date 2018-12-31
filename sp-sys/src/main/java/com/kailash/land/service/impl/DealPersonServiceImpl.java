@@ -14,7 +14,7 @@ public class DealPersonServiceImpl implements DealPersonService {
 	private DealPersonMapper dealPersonMapper;
 
 	@Override
-	public DealPerson instertDealPerson(DealPerson dp) {
+	public int instertDealPerson(DealPerson dp) {
 		return this.dealPersonMapper.instertEntity(dp);
 	}
 

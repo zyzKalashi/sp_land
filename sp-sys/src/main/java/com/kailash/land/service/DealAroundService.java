@@ -4,6 +4,6 @@ import com.kailash.land.entity.DealAround;
 
 public interface DealAroundService {
 
-	DealAround instertDealAround(DealAround dealAround);
+	int instertDealAround(DealAround dealAround);
 
 }
