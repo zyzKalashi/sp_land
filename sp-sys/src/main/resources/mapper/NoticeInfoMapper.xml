@@ -1,23 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kailash.land.dao.NoticeInfoMapper">
-	<resultMap id="BaseResultMap" type="com.kailash.land.entity.NoticeInfo">
-		<id column="role_id" jdbcType="INTEGER" property="roleId" />
-		<result column="role_key" jdbcType="VARCHAR" property="roleKey" />
-		<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+	<resultMap id="BaseResultMap"
+		type="com.kailash.land.entity.NoticeInfo">
+		<id column="pkid" jdbcType="INTEGER" property="pkid" />
+		<result column="notice_status" jdbcType="INTEGER"
+			property="noticeStatus" />
+		<result column="create_date" jdbcType="DATE"
+			property="createDate" />
+		<result column="create_user" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="update_date" jdbcType="DATE"
+			property="updateDate" />
+		<result column="update_user" jdbcType="INTEGER"
+			property="updateUser" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="company_name" jdbcType="VARCHAR"
+			property="companyName" />
+		<result column="notice_kind" jdbcType="INTEGER"
+			property="noticeKind" />
+		<result column="notice_text" jdbcType="LONGVARCHAR"
+			property="noticeText" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
+		pkid, notice_status, create_date, create_user, update_date, update_user,
+		title, company_name,
+		notice_kind, notice_text
 	</sql>
 	
-	<insert id="instert">
 	
-	
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		from notice_info
+		where pkid = #{pkid,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from notice_info
+		where pkid = #{pkid,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="instertEntity" parameterType="com.kailash.land.entity.NoticeInfo" useGeneratedKeys="true" keyProperty="pkid">
+		insert into notice_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pkid != null">
+				pkid,
+			</if>
+			<if test="noticeStatus != null">
+				notice_status,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="createUser != null">
+				create_user,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="updateUser != null">
+				update_user,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="companyName != null">
+				company_name,
+			</if>
+			<if test="noticeKind != null">
+				notice_kind,
+			</if>
+			<if test="noticeText != null">
+				notice_text,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pkid != null">
+				#{pkid,jdbcType=INTEGER},
+			</if>
+			<if test="noticeStatus != null">
+				#{noticeStatus,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=DATE},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=DATE},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="companyName != null">
+				#{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="noticeKind != null">
+				#{noticeKind,jdbcType=INTEGER},
+			</if>
+			<if test="noticeText != null">
+				#{noticeText,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
 	</insert>
 	
-	<select id="queryIndexList" resultType="Map">
-	
-	
-	</select>
+	<update id="updateByPrimaryKeySelective" parameterType="com.kailash.land.entity.NoticeInfo">
+		update notice_info
+		<set>
+			<if test="noticeStatus != null">
+				notice_status = #{noticeStatus,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=DATE},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="companyName != null">
+				company_name = #{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="noticeKind != null">
+				notice_kind = #{noticeKind,jdbcType=INTEGER},
+			</if>
+			<if test="noticeText != null">
+				notice_text = #{noticeText,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where pkid = #{pkid,jdbcType=INTEGER}
+	</update>
 	
 </mapper>

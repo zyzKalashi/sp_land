@@ -6,7 +6,7 @@
 		<result column="deal_info_id" 	jdbcType="INTEGER" property="dealInfoId" />
 		<result column="name" 			jdbcType="VARCHAR" property="name" />
 		<result column="sex" 			jdbcType="INTEGER" property="sex" />
-		<result column="phone" 			jdbcType="VARCHAR" property="phone" />
+		<result column="mobile" 			jdbcType="VARCHAR" property="mobile" />
 		<result column="address" 		jdbcType="VARCHAR" property="address" />
 		<result column="info_kind" 		jdbcType="INTEGER" property="infoKind" />
 	</resultMap>
@@ -29,8 +29,8 @@
 			<if test="sex != null">
 				sex,
 			</if>
-			<if test="phone != null">
-				phone,
+			<if test="mobile != null">
+				mobile,
 			</if>
 			<if test="address != null">
 				address,
@@ -52,8 +52,8 @@
 			<if test="sex != null">
 				#{sex},
 			</if>
-			<if test="phone != null">
-				#{phone},
+			<if test="mobile != null">
+				#{mobile},
 			</if>
 			<if test="address != null">
 				#{address},

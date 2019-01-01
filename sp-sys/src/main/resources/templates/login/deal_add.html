@@ -104,31 +104,29 @@
 							<tr>
 								<td class="t_prop"><strong>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="name" placeholder="输入产权人（或发布者）姓名"
-									v-model="deal.dealPerson.name"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="name" placeholder="输入产权人（或发布者）姓名" v-model="deal.name"></td>
 								<td class="t_prop mt15"><strong>性&nbsp;&nbsp;&nbsp;&nbsp;别：</strong></td>
-								<td><input type="radio" name="male"
-									v-model="deal.dealPerson.sex" value="0">男
-									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="female"
-									v-model="deal.dealPerson.sex" value="1">女</td>
+								<td><input type="radio" name="male" v-model="deal.sex"
+									value="0">男 &nbsp;&nbsp;&nbsp;&nbsp; <input
+									type="radio" name="female" v-model="deal.sex" value="1">女</td>
 							</tr>
 							<tr>
 								<td class="t_prop"><strong>手&nbsp;&nbsp;&nbsp;&nbsp;机：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="mobile" placeholder="有效手机号码"
-									v-model="deal.dealPerson.moibel"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="mobile" placeholder="有效手机号码" v-model="deal.moibel"></td>
 								<td class="t_prop mt15"><strong>信息属权：</strong></td>
-								<td>
-									<input type="radio" name="infoKind" v-model="deal.dealPerson.infoKind" value="0">个&nbsp;&nbsp;人
-									&nbsp;&nbsp;&nbsp;&nbsp; 
-									<input type="radio" name="infoKind" v-model="deal.dealPerson.infoKind" value="1">集&nbsp;&nbsp;体</td>
+								<td><input type="radio" name="infoKind"
+									 v-model="deal.infoKind" value="0">个&nbsp;&nbsp;人
+									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="infoKind"
+									v-model="deal.infoKind" value="1">集&nbsp;&nbsp;体</td>
 							</tr>
 							<tr>
 								<td class="t_prop"><strong>联系地址：</strong></td>
 								<td colspan="3" class="pl5"><input type="text"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 90%; padding: 0px 2px;"
-									name="name" placeholder="输入产权人（或发布者）现住址"
-									v-model="deal.dealPerson.address"></td>
+									name="name" placeholder="输入产权人（或发布者）现住址" v-model="deal.address"></td>
 							</tr>
 						</table>
 					</div>
@@ -147,149 +145,155 @@
 							<tr>
 								<td class="t_prop"><strong>项目名称：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="xmmc" placeholder="项目详细名称"
-									v-model="deal.dealInfo.dealName"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="xmmc" placeholder="项目详细名称" v-model="deal.dealName"></td>
 								<td class="t_prop"><strong>项目编号：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="xmbh" placeholder="自动生成项目编号"
-									v-model="deal.dealInfo.dealNum"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="xmbh" placeholder="自动生成项目编号" v-model="deal.dealNum"></td>
 							</tr>
 							<tr>
 								<td class="t_prop"><strong>项目地址：</strong></td>
 								<td colspan="3" class="pl5"><input type="text"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 90%; padding: 0px 2px;"
 									name="xmdz" placeholder="输入流转项目的具体地址（位置）"
-									v-model="deal.dealInfo.dealAddress"></td>
+									v-model="deal.dealAddress"></td>
 							</tr>
 							<tr>
 								<td class="t_prop"><strong>转出方：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="zcf" placeholder="联系人姓名"
-									v-model="deal.dealInfo.output"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="zcf" placeholder="联系人姓名" v-model="deal.output"></td>
 								<td class="t_prop mt15"><strong>项目属权：</strong></td>
-								<td>
-									<input type="radio" name="rightKind" v-model="deal.dealInfo.rightKind" value="0">个&nbsp;&nbsp;人
-									&nbsp;&nbsp;&nbsp;&nbsp; 
-									<input type="radio" name="rightKind" v-model="deal.dealInfo.rightKind" value="1">集&nbsp;&nbsp;体</td>
+								<td><input type="radio" name="rightKind"
+									v-model="deal.rightKind" value="0">个&nbsp;&nbsp;人
+									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="rightKind"
+									v-model="deal.rightKind" value="1">集&nbsp;&nbsp;体</td>
 							</tr>
 							<tr>
 								<td class="t_prop"><strong>权证编号：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="qzbh" placeholder="产权证编号"
-									v-model="deal.dealInfo.warrantNum"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="qzbh" placeholder="产权证编号" v-model="deal.warrantNum"></td>
 								<td class="t_prop"><strong>面积|数量（亩|㎡）：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="mjsl" placeholder="项目数量"
-									v-model="deal.dealInfo.areaNum"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="mjsl" placeholder="项目数量" v-model="deal.areaNum"></td>
 							</tr>
 
 							<tr>
 								<td class="t_prop"><strong>承包经营权人：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="cbjyqr" placeholder="现承包经营权人姓名"
-									v-model="deal.dealInfo.personName"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="cbjyqr" placeholder="现承包经营权人姓名" v-model="deal.personName"></td>
 								<td class="t_prop mt15"><strong>是否他项权利人：</strong></td>
 								<td><input type="radio" name="otherRightFlag"
-									v-model="deal.dealInfo.otherRightFlag" value="1">是
-									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="otherRightFlag"
-									v-model="deal.dealInfo.otherRightFlag" value="0">否</td>
+									v-model="deal.otherRightFlag" value="1">是
+									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"
+									name="otherRightFlag" v-model="deal.otherRightFlag" value="0">否</td>
 							</tr>
 
 							<tr>
 								<td class="t_prop"><strong>他项权利人：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="txqlr" placeholder="他项权利人名称"
-									v-model="deal.dealInfo.otherRightName"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="txqlr" placeholder="他项权利人名称"
+									v-model="deal.otherRightName"></td>
 								<td class="t_prop"><strong>他项权利内容：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="txqlnr" placeholder="他项权利内容（如存在）"
-									v-model="deal.dealInfo.otherRightContext"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="txqlnr" placeholder="他项权利内容（如存在）"
+									v-model="deal.otherRightContext"></td>
 							</tr>
 							<tr>
 								<td class="t_prop"><strong>涉及农户数：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="sjnhs" placeholder="涉项农户总数"
-									v-model="deal.dealInfo.famerNum"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="sjnhs" placeholder="涉项农户总数" v-model="deal.famerNum"></td>
 								<td class="t_prop"><strong>原承包/租赁期：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="zlq" placeholder="采用时间选择项决定起始终止时间"
-									v-model="deal.dealInfo.oldRentDate"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="zlq" placeholder="采用时间选择项决定起始终止时间"
+									v-model="deal.oldRentDate"></td>
 							</tr>
 
 							<tr>
 								<td class="t_prop"><strong>地&nbsp;&nbsp;&nbsp;级：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="dj" placeholder="用地级别"
-									v-model="deal.dealInfo.landLevel"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="dj" placeholder="用地级别" v-model="deal.landLevel"></td>
 								<td class="t_prop"><strong>地上物情况：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="dswqk" placeholder="地上物情况"
-									v-model="deal.dealInfo.upThings"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="dswqk" placeholder="地上物情况" v-model="deal.upThings"></td>
 							</tr>
 
 							<tr>
 								<td class="t_prop"><strong>交通情况：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="jtqk" placeholder="交通情况"
-									v-model="deal.dealInfo.traffic"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="jtqk" placeholder="交通情况" v-model="deal.traffic"></td>
 								<td class="t_prop"><strong>是否属再次转出：</strong></td>
 								<td><input type="radio" name="againFlag"
-									v-model="deal.dealInfo.againFlag" value="1">是
+									v-model="deal.againFlag" value="1">是
 									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="againFlag"
-									v-model="deal.dealInfo.againFlag" value="0">否</td>
+									v-model="deal.againFlag" value="0">否</td>
 							</tr>
 
 							<tr>
 								<td class="t_prop"><strong>流转承包用途：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="lzcbyt" placeholder="流转承包用途"
-									v-model="deal.dealInfo.rentUse"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="lzcbyt" placeholder="流转承包用途" v-model="deal.rentUse"></td>
 								<td class="t_prop"><strong>原承包/出租人（发包人）是否同意：</strong></td>
-								<td><input type="radio" name="yes"
-									v-model="deal.dealInfo.agreeFlag" value="1">是
-									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="no"
-									v-model="deal.dealInfo.agreeFlag" value="0">否</td>
+								<td><input type="radio" name="yes" v-model="deal.agreeFlag"
+									value="1">是 &nbsp;&nbsp;&nbsp;&nbsp; <input
+									type="radio" name="no" v-model="deal.agreeFlag" value="0">否</td>
 							</tr>
 
 							<tr>
 								<td class="t_prop"><strong>前次转出方式：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="qczcfs" placeholder="前次转出方式"
-									v-model="deal.dealInfo.oldOutput"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="qczcfs" placeholder="前次转出方式" v-model="deal.oldOutput"></td>
 								<td class="t_prop"><strong>拟转出方式：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="nzcfs" placeholder="拟转出方式：承包、租赁、继承等"
-									v-model="deal.dealInfo.hopeOutput"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="nzcfs" placeholder="拟转出方式：承包、租赁、继承等"
+									v-model="deal.hopeOutput"></td>
 							</tr>
 
 							<tr>
 								<td class="t_prop"><strong>放弃行使优先权：</strong></td>
-								<td colspan="3"><input type="radio" name="giveupRightFlag" value="1"
-									v-model="deal.dealInfo.giveupRightFlag">是
-									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="giveupRightFlag"
-									value="0" v-model="deal.dealInfo.giveupRightFlag">否</td>
+								<td colspan="3"><input type="radio" name="giveupRightFlag"
+									value="1" v-model="deal.giveupRightFlag">是
+									&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"
+									name="giveupRightFlag" value="0" v-model="deal.giveupRightFlag">否</td>
 							</tr>
 
 							<tr>
 								<td class="t_prop"><strong>评估机构：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="pgjg" placeholder="评估机构名称"
-									v-model="deal.dealInfo.assessOrg"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="pgjg" placeholder="评估机构名称" v-model="deal.assessOrg"></td>
 								<td class="t_prop"><strong>评估基准日：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="pgjzr" placeholder="采用日期选择方式选择日期"
-									v-model="deal.dealInfo.assessDate"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="pgjzr" placeholder="采用日期选择方式选择日期"
+									v-model="deal.assessDate"></td>
 							</tr>
 
 							<tr>
 								<td class="t_prop"><strong>评估值（元）：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="pgz" placeholder="标准计价方式，如：1,000.00"
-									v-model="deal.dealInfo.assessValue"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="pgz" placeholder="标准计价方式，如：1,000.00"
+									v-model="deal.assessValue"></td>
 								<td class="t_prop"><strong>转出方式：</strong></td>
 								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;width: 280px;" name="zcfs" placeholder="传出方式：个人承包，非家庭承包等"
-									v-model="deal.dealInfo.outputWay"></td>
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
+									name="zcfs" placeholder="传出方式：个人承包，非家庭承包等"
+									v-model="deal.outputWay"></td>
 							</tr>
 
 							<tr>
@@ -297,7 +301,7 @@
 								<td colspan="3" class="t_prop_a"><input type="text"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 90%; padding: 0px 2px;"
 									name="nzcrq" placeholder="采用时间选择项决定起始终止时间"
-									v-model="deal.dealInfo.hopeOutputDate"></td>
+									v-model="deal.hopeOutputDate"></td>
 							</tr>
 
 						</table>
@@ -320,42 +324,44 @@
 						</tr>
 						<tr>
 							<td class="t_prop">地块名称：</td>
-							<td class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px;"
-									name="dkmc" placeholder=" 四至地块名称" v-model="deal.dealAround.areaName">
+							<td class="t_prop_c"><input type="text" size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px;"
+								name="dkmc" placeholder=" 四至地块名称" v-model="deal.areaName">
 							</td>
 							<td class="t_prop">面积（亩）：</td>
-							<td class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px;"
-									name="szdkmj" placeholder="地块面积数量" v-model="deal.dealAround.area">
+							<td class="t_prop_c"><input type="text" size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px;"
+								name="szdkmj" placeholder="地块面积数量" v-model="deal.area">
 							</td>
 						</tr>
 						<tr>
 							<td class="t_prop">东</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="east" placeholder="东向接壤情况" v-model="deal.dealAround.east">
-							</td>
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="east" placeholder="东向接壤情况" v-model="deal.east"></td>
 						</tr>
 						<tr>
 							<td class="t_prop">南</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="south" placeholder="南向接壤情况" v-model="deal.dealAround.south">
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="south" placeholder="南向接壤情况" v-model="deal.south">
 							</td>
 						</tr>
 						<tr>
 							<td class="t_prop">西</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="west" placeholder="西向接壤情况" v-model="deal.dealAround.west">
-							</td>
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="west" placeholder="西向接壤情况" v-model="deal.west"></td>
 						</tr>
 						<tr>
 							<td class="t_prop">北</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="north" placeholder="北向接壤情况" v-model="deal.dealAround.north">
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="north" placeholder="北向接壤情况" v-model="deal.north">
 							</td>
 						</tr>
 
@@ -364,51 +370,58 @@
 						</tr>
 						<tr>
 							<td class="t_prop">标的公告价格（元）</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="ggjg" placeholder="总成交金额" v-model="deal.dealAround.showPreice">
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								 style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="ggjg" placeholder="总成交金额" v-model="deal.showPreice">
 							</td>
 						</tr>
 						<tr>
 							<td class="t_prop">合同支付方式</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="pay" placeholder="按合同约束支付" v-model="deal.dealAround.payWay">
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="pay" placeholder="按合同约束支付" v-model="deal.payWay">
 							</td>
 						</tr>
 						<tr>
 							<td class="t_prop">支付期限</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="zfqx" placeholder="按合同约束执行" v-model="deal.dealAround.payLimit">
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="zfqx" placeholder="按合同约束执行" v-model="deal.payLimit">
 							</td>
 						</tr>
 						<tr>
 							<td class="t_prop">其他交易条件</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="qtjytj" placeholder="其他附属交易补充条款" v-model="deal.dealAround.otherPay">
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="qtjytj" placeholder="其他附属交易补充条款" v-model="deal.otherPay">
 							</td>
 						</tr>
 						<tr>
 							<td class="t_prop">受让方应具备的条件</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="srftj" placeholder="受让方应当具备的条件限制" v-model="deal.dealAround.shouldHave">
-							</td>
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="srftj" placeholder="受让方应当具备的条件限制"
+								v-model="deal.shouldHave"></td>
 						</tr>
 						<tr>
 							<td class="t_prop">到期未征集到受让方</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="mysrf" placeholder="自动撒牌" v-model="deal.dealAround.overdue">
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="mysrf" placeholder="自动撒牌" v-model="deal.overdue">
 							</td>
 						</tr>
 						<tr>
 							<td class="t_prop">补充事项</td>
-							<td colspan="3" class="t_prop_c">
-								<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="bcsx" placeholder="其他需要批漏的事项" v-model="deal.dealAround.supplement">
+							<td colspan="3" class="t_prop_c"><input type="text"
+								size="30"
+								style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
+								name="bcsx" placeholder="其他需要批漏的事项" v-model="deal.supplement">
 							</td>
 						</tr>
 					</table>
@@ -429,23 +442,25 @@
 						<table class="attrs_table">
 							<tr>
 								<td class="t_prop"><strong>身份证：</strong></td>
-								<td colspan="3" class="t_prop_c">
-									<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 90%; height: 35px;"
-										name="sfz" placeholder="发布者身份证正反面。上传" v-model="deal.dealAround.idCardPic">
+								<td colspan="3" class="t_prop_c"><input type="text"
+									size="30"
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 90%; height: 35px;"
+									name="sfz" placeholder="发布者身份证正反面。上传" v-model="deal.idCardPic">
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop"><strong>产权证：</strong></td>
-								<td colspan="3" class="t_prop_a">
-									<input type="text" size="30" style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 90%; height: 35px;"
-										name="cqz" placeholder="产权证重要页面上传。（多页上传）" v-model="deal.dealAround.rightPic">
-								</td>
+								<td colspan="3" class="t_prop_a"><input type="text"
+									size="30"
+									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 90%; height: 35px;"
+									name="cqz" placeholder="产权证重要页面上传。（多页上传）"
+									v-model="deal.rightPic"></td>
 							</tr>
 							<tr>
 								<td class="t_prop"><strong>合同书：</strong></td>
-								<td colspan="3" class="pl5">
-									<input type="text" style="border: none; color: #000; font-size: 14px; height: 35px; width: 98%; padding: 0px 2px;"
-										name="name" placeholder="成交合同书上传" v-model="deal.dealAround.dealPic">
+								<td colspan="3" class="pl5"><input type="text"
+									style="border: none; color: #000; font-size: 14px; height: 35px; width: 98%; padding: 0px 2px;"
+									name="name" placeholder="成交合同书上传" v-model="deal.dealPic">
 								</td>
 							</tr>
 						</table>
@@ -455,38 +470,18 @@
 		</div>
 		<!-- materials upload end -->
 		<div class="am-text-center am-padding">
-			<button type="button" class="am-btn am-btn-default am-btn-warning" @click="submitDeal"><p>提交审批</p></button>
-			<button type="button" class="am-btn am-btn-default "><p>重新填写</p></button>
+			<button type="button" class="am-btn am-btn-default am-btn-warning"
+				@click="submitDeal">
+				<p>提交审批</p>
+			</button>
+			<button type="button" class="am-btn am-btn-default ">
+				<p>重新填写</p>
+			</button>
 		</div>
 	</div>
-	
+
 	<!-- Content End and the following is Footer Begin -->
-	<div class="footer clear">
-		<div class="juz clear">
-			<ul class="clear youqinglj">
-				<li>友情链接：</li>
-				<li><a href="">四平市政务网</a></li>&nbsp;&nbsp;
-				<li><a href="">四平市财政局</a></li>&nbsp;&nbsp;
-				<li><a href="">工商信息网</a></li>&nbsp;&nbsp;
-				<li><a href="">中国农业网</a></li>&nbsp;&nbsp;
-				<li><a href="">吉林省农业局</a></li>&nbsp;&nbsp;
-				<li><a href="">四平市农业局</a></li>&nbsp;&nbsp;
-				<li><a href="">铁西区政务网</a></li>&nbsp;&nbsp;
-				<a href="" class="fr">更多>></a>
-			</ul>
-			<div class="fl youqqi_adress">
-				<p class="adress">
-					<br> <br>Copyright 2019&nbsp;&nbsp;四平市铁西区农业经济总站
-					版权所有&nbsp;&nbsp;吉ICP第123456780-2号
-				</p>
-			</div>
-			<div class="fr jingcha">
-				<a href=""><img src="../static/images/footer_21.png" width="52"
-					height="57"></a>&nbsp;&nbsp;&nbsp;&nbsp; <a href=""><img
-					src="../static/images/footer_24.png" width="65" height="55"></a>
-			</div>
-		</div>
-	</div>
+	<div th:include="common :: footer"></div>
 	<!-- Footer END -->
 	<div th:include="common :: js"></div>
 	<script type="text/javascript">
@@ -494,18 +489,13 @@
 			el : '#app',
 			data : {
 				deal : {
-					dealPerson : {
-						sex: 0,
-						infoKind: 0,
-					},
-					dealInfo : {
-						rightKind: 0,
-						otherRightFlag: 0,
-						againFlag: 0,
-						agreeFlag: 0,
-						giveupRightFlag: 1,
-					},
-					dealAround : {},
+					sex: 0,
+					infoKind: 0,
+					rightKind: 0,
+					otherRightFlag: 0,
+					againFlag: 0,
+					agreeFlag: 0,
+					giveupRightFlag: 1,
 				}
 			},
 			mounted : function() {

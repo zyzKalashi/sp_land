@@ -376,7 +376,7 @@
             fixed:true,                                 //是否静止定位，为true时定位在输入框，为false时居中定位
             zIndex:20990000,                            //弹出层的层级高度
             method:{},                                 	//自定义方法                
-            theme:{bgcolor:"#357ebd",pnColor:"#00CCFF"},                                   //自定义主题色
+            theme:{bgcolor:"#F37B1D",pnColor:"#00CCFF"},                                   //自定义主题色
             shortcut:[],                                //日期选择的快捷方式
             donefun:null,                                //选中日期完成的回调
             before:null,                                //在界面加载之前执行

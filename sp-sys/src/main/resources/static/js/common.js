@@ -1,3 +1,6 @@
+function goUrl(url){
+	window.location.href=url;
+}
 /* 按钮提示 zyz */
 function showBtnTip(msg, id){
 	 layer.tips(msg, "#" + id, {

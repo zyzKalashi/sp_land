@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="../static/css/main.css">
 <link rel="stylesheet" type="text/css" href="../static/css/p01.css">
 <link rel="stylesheet" type="text/css" href="../static/css/screen.css">
+<link th:href="@{../static/plugin/jeDate/jedate.css}" type="text/css" rel="stylesheet">
 <!-- <link href="../static/plugin/amazeui/css/amazeui.min.css"
 	type="text/css" rel="stylesheet">
 <link href="../static/plugin/amazeui/css/admin.css" type="text/css"
@@ -42,7 +43,6 @@
 <!-- <link href="../static/icon-font/iconfont.css" type="text/css"
 	rel="stylesheet" -->
 <!-- vue显示css -->
-<!-- <script src="../static/js/jquery.min.js" ></script> -->
 <script src="../static/js/jquery-1.8.8.min.js"></script>
 <script src="../static/js/miaov.js"></script>
 <script src="../static/js/accordion.js"></script>
@@ -53,78 +53,82 @@
 	<div id="common—head">
 		<!--top，fragment-->
 		<header th:fragment="header">
-			<!--top start-->
-			<div class="header_1">
-				<div class="content header_1_text">
-					<div class="am-text-white am-fl">
-						<span>欢迎访问铁西区农经总站综合监管系统，</span> <span>请 登录 | 注册</span>
-					</div>
-					<div class="am-text-white am-fr">
-						<span class="am-fr" id="nowDate">[2018年12月17日 星期一]</span>
-					</div>
-				</div>
-			</div>
-			<!--top end-->
-			<!--header start-->
-			<div class="header"
-				style="background-image: url(../static/img/jk/header_bg_02.png)">
-				<div class="header_z content">
-					<div class="logo">
-						<a href="/"> <img alt="技咖在线" src="../static/img/logo1.png"></a>
-					</div>
-					<div>
-						<div class="search-main">
-							<form action="" name="">
-								<select name="sel1" class="sel1">
-									<option value="全部">全部</option>
-									<option value="行业">行业</option>
-									<option value="项目">项目</option>
-									<option value="资金">资金</option>
-								</select> <input type="text" name="" class="text" /> <input
-									type="submit" name="" class="submit" value="搜索" />
-							</form>
-						</div>
-						<div class="fabu">
-							<form action="" name="">
-								<select name="sel2" class="sel1">
-									<option value="全部">全部</option>
-									<option value="行业">行业</option>
-									<option value="项目">项目</option>
-									<option value="资金">资金</option>
-								</select> <i></i> <input type="submit" name="" class="fabuxinx"
-									value="发布信息" />
-							</form>
-						</div>
-						<ul class="remen clear">
-							<li>近期热门搜索：</li>
-							<li><a href="">互联网融资 </a></li>
-							<li><a href="">房地产融资</a></li>
-							<li><a href="">农业融资</a></li>
-							<li><a href="">旅游酒店融资</a></li>
-							<li><a href="">节能环保融资</a></li>
+			<div class="header">
+				<!-- Top begin -->
+				<div class="top">
+					<div class="top_z">
+						<ul class="fl">
+							<li>欢迎访问铁西区土地流转管理平台&nbsp;&nbsp;</li>
+							<li>请&nbsp;<a href="javascript:void(0);" class="bold">登录</a>&nbsp;|&nbsp;
+							</li>
+							<li><a href="javascript:void(0);" class="bold">注册</a></li>
+						</ul>
+
+						<ul class="fr huiyuan tform">
+							<li><a href="javascript:void(0);">会员中心</a></li>
+							<li><a href="javascript:void(0);"> 帮助咨询</a></li>
 						</ul>
 					</div>
 				</div>
-			</div>
-			<!--header end-->
-			<!--nav start-->
-			<div class="am-vertical-align header_3">
-				<div class="content">
-					<ul class="clear1">
-						<li><a href="/">首页</a></li>
-						<li><a href="/Column_Content.asp?Column_ID=27984">冲咖</a></li>
-						<li><a href="/Column_Content.asp?Column_ID=27985">品咖</a></li>
-						<li class="biank"><a href="javascript:void(0);"><span
-								class="jika"></span></a></li>
-						<li><a href="Column_Content.asp?Column_ID=27986">咖厅</a></li>
-						<li><a href="Column_Content.asp?Column_ID=27987">技咖专家</a></li>
-						<li><a href="/Column_Content.asp?Column_ID=27988"
-							class="dangq">技咖招聘</a></li>
+				<!-- top end -->
+				<div class="header_z">
+					<div class="logo">
+						<a href="/" title="四平市铁西区农经总站土地流转信息管理平台"> <img width="100%"
+							height="auto" alt="logo image" src="../static/images/logo1.png">
+						</a>
+					</div>
+					<div class="search-main tform">
+						<form action="" name="">
+							<input type="text" name="" class="text" /> <input type="submit"
+								name="" class="submit" value="搜索" /> <select name="sel1"
+								class="sel1">
+								<option value="全部">全部</option>
+								<option value="土地流转">土地流转</option>
+								<option value="林权转让">林权转让</option>
+								<option value="四荒使用">四荒使用</option>
+								<option value="养殖水面">养殖水面</option>
+							</select>
+						</form>
+					</div>
+					<div class="fabu tform">
+						<form action="" name="">
+							<select name="sel2" class="sel2">
+								<option value="全部">全部</option>
+								<option value="土地流转">土地流转</option>
+								<option value="林权转让">林权转让</option>
+								<option value="四荒使用">四荒使用</option>
+								<option value="养殖水面">养殖水面</option>
+							</select> <input type="submit" name="" class="fabuxinx" value="发布信息">
+						</form>
+					</div>
+					<ul class="remen clear tform">
+						<li>近期热门搜索：</li>
+						<li><a href="">土地转让</a></li>
+						<li><a href="">林权转让</a></li>
+						<li><a href="">养殖水面</a></li>
+						<li><a href="">四荒租赁</a></li>
 					</ul>
-
 				</div>
 			</div>
 		</header>
+		<div th:fragment="nav" xmlns:th="http://www.w3.org/1999/xhtml">
+			<!-- nav bar begin.this can fit anyscreen size -->
+			<div class="nav clear1 mb20" style="margin-top: 30px;">
+				<div class="nav-z clear1">
+					<ul class="clear1 tform">
+						<li><a href="/">首页</a></li>
+						<li><a href="/">发布信息</a></li>
+						<li><a href="/">查看信息</a></li>
+						<li><a href="/">政策法规</a></li>
+						<li><a href="/">资料下载</a></li>
+						<li><a href="/">成交报表</a></li>
+						<li><a href="/">咨询我们</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- nav end-->
+		</div>
+		
 		<!--左侧导航栏 fragment -->
 		<div th:fragment="left">
 			<ul class="sidebar-nav" th:each="menu,menuStat : ${session.menus">
@@ -160,12 +164,11 @@
 		<script src="../static/plugin/zTree/jquery.ztree.excheck.min.js"></script>
 		<script src="../static/plugin/zTree/jquery.ztree.exedit.min.js"></script>
 		<script src="../static/plugin/zTree/jquery.ztree.exhide.min.js"></script>
-		<script src="../static/plugin/jeDate/jedate.js"></script>
 		<script src="../static/js/common.js"></script>
 		<script src="../static/js/common_filter.js"></script>
-		<script src="../static/js/common_status_filter.js"></script>
 		<script src="../static/plugin/datepicker/moment.min.js"></script>
 		<script src="../static/plugin/datepicker/daterangepicker.min.js"></script>
+		<script th:src="@{../static/plugin/jeDate/jedate.js}" type="text/javascript"></script>
 		<script src="../static/plugin/autocomplate/bootstrap3-typeahead.min.js"></script>
 		<script src="../static/js/clipboard.min.js"></script>
 		<script src="../static/js/md5_32.js"></script>
