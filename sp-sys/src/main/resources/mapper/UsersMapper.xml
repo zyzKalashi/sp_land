@@ -16,9 +16,7 @@
         <result column="tel" jdbcType="VARCHAR" property="tel"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="sex" jdbcType="INTEGER" property="sex"/>
-        <result column="birthday_year" jdbcType="INTEGER" property="birthdayYear"/>
-        <result column="birthday_month" jdbcType="INTEGER" property="birthdayMonth"/>
-        <result column="birthday_day" jdbcType="INTEGER" property="birthdayDay"/>
+        <result column="birthday" jdbcType="VARCHAR" property="birthday"/>
         <result column="marry_flag" jdbcType="INTEGER" property="marryFlag"/>
         <result column="address" jdbcType="VARCHAR" property="address"/>
         <result column="postcode" jdbcType="VARCHAR" property="postcode"/>
@@ -85,9 +83,7 @@
             <if test="tel != null">tel,</if>
             <if test="email != null">email,</if>
             <if test="sex != null">sex,</if>
-            <if test="birthdayYear != null">birthday_year,</if>
-            <if test="birthdayMonth != null">birthday_month,</if>
-            <if test="birthdayDay != null">birthday_day,</if>
+            <if test="birthday != null">birthday,</if>
             <if test="marryFlag != null">marry_flag,</if>
             <if test="address != null">address,</if>
             <if test="postcode != null">postcode,</if>
@@ -108,9 +104,7 @@
             <if test="tel != null">#{tel},</if>
             <if test="email != null">#{email},</if>
             <if test="sex != null">#{sex},</if>
-            <if test="birthdayYear != null">#{birthdayYear},</if>
-            <if test="birthdayMonth != null">#{birthdayMonth},</if>
-            <if test="birthdayDay != null">#{birthdayDay},</if>
+            <if test="birthday != null">#{birthday},</if>
             <if test="marryFlag != null">#{marryFlag},</if>
             <if test="address != null">#{address},</if>
             <if test="postcode != null">#{postcode},</if>

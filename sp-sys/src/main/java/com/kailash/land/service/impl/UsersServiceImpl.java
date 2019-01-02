@@ -52,8 +52,6 @@ public class UsersServiceImpl implements UsersService {
 	public int registerUser(Users user) {
 		user.setUserStatus(StatusEnum.USER_NORMAL.getId());
 		user.setRoleId(RoleEnum.COMMON.getRoleId());
-		user.setCreateDate(DateUtils.format(new Date(), DateFormatConsts.DATE_TIME_PATTERN));
-		user.setUpdateDate(DateUtils.format(new Date(), DateFormatConsts.DATE_TIME_PATTERN));
 		this.usersMapper.instertEntity(user);
 		return user.getPkid();
 	}

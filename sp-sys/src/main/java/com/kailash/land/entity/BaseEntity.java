@@ -1,6 +1,7 @@
 package com.kailash.land.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -10,7 +11,7 @@ public class BaseEntity implements Serializable {
 
 	private Integer pkid;
 
-	private String createDate;
+	private Date createDate;
 	
 	private Integer createUser;
 	

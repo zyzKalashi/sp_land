@@ -20,9 +20,7 @@ public class Users extends BaseEntity implements Serializable {
 	private String tel;
 	private String email;
 	private Integer sex;
-	private Integer birthdayYear;
-	private Integer birthdayMonth;
-	private Integer birthdayDay;
+	private String birthday;
 	private Integer marryFlag;
 	private String address;
 	private String postcode;

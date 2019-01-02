@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.NoticeInfo;
 import com.kailash.land.service.NoticeInfoService;
+import com.kailash.land.util.DateUtils;
 import com.kailash.land.util.Result;
 
 @RestController
 @RequestMapping(value = "notice")
-public class NoticeController extends AbstractController{
+public class NoticeController extends AbstractController {
 	@Autowired
 	private NoticeInfoService noticeInfoService;
 
@@ -21,6 +22,7 @@ public class NoticeController extends AbstractController{
 		try {
 			noticeInfo.setCreateUser(getUserId());
 			noticeInfo.setUpdateUser(getUserId());
+			noticeInfo.setCreateDate(DateUtils.parse(noticeInfo.getCreateDateStr(), "yyyy年MM月dd日"));
 			noticeInfoService.instertNoticeInfo(noticeInfo);
 
 		} catch (Exception e) {

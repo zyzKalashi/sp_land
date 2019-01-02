@@ -16,4 +16,6 @@ public class NoticeInfo extends BaseEntity implements Serializable {
 	private Integer noticeKind;
 
 	private String noticeText;
+	
+	private String createDateStr;
 }

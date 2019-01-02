@@ -7,95 +7,20 @@
 <script>
 	window.onload = function() {
 		CKEDITOR.replace('editor');
+        $("#noticeKind").change(function () {
+            vm.noticeInfo.noticeKind = $('#noticeKind option:selected').val();
+        });
 	};
 </script>
 <body>
-	<div id="app">
-		<!-- Top begin -->
-		<div class="top">
-			<div class="top_z">
-				<ul class="fl">
-					<li>欢迎访问铁西区土地流转管理平台&nbsp;&nbsp;</li>
-					<li>请&nbsp;<a href="javascript:void(0);" class="bold">登录</a>&nbsp;|&nbsp;
-					</li>
-					<li><a href="javascript:void(0);" class="bold">注册</a></li>
-				</ul>
-
-				<ul class="fr huiyuan tform">
-					<li><a href="javascript:void(0);">会员中心</a></li>
-					<li><a href="javascript:void(0);"> 帮助咨询</a></li>
-				</ul>
-			</div>
-		</div>
-
-		<!-- top end -->
-
-		<!-- header start -->
-		<div class="header">
-			<div class="header_z">
-				<div class="logo">
-					<a href="/" title="四平市铁西区农经总站土地流转信息管理平台"> <img width="100%"
-						height="auto" alt="logo image" src="../static/images/logo1.png">
-					</a>
-				</div>
-				<div class="search-main tform">
-					<form action="" name="">
-						<input type="text" name="" class="text" /> <input type="submit"
-							name="" class="submit" value="搜索" /> <select name="sel1"
-							class="sel1">
-							<option value="全部">全部</option>
-							<option value="土地流转">土地流转</option>
-							<option value="林权转让">林权转让</option>
-							<option value="四荒使用">四荒使用</option>
-							<option value="养殖水面">养殖水面</option>
-						</select>
-					</form>
-				</div>
-				<div class="fabu tform">
-					<form action="" name="">
-						<select name="sel2" class="sel2">
-							<option value="全部">全部</option>
-							<option value="土地流转">土地流转</option>
-							<option value="林权转让">林权转让</option>
-							<option value="四荒使用">四荒使用</option>
-							<option value="养殖水面">养殖水面</option>
-						</select> <input type="submit" name="" class="fabuxinx" value="发布信息">
-					</form>
-				</div>
-				<ul class="remen clear tform">
-					<li>近期热门搜索：</li>
-					<li><a href="">土地转让</a></li>
-					<li><a href="">林权转让</a></li>
-					<li><a href="">养殖水面</a></li>
-					<li><a href="">四荒租赁</a></li>
-				</ul>
-			</div>
-		</div>
-		<!--<div class="clear1"></div>-->
-		<!-- header end.In this block, the right can be hidden if the screen small than 768px,and the logo image can fit the screen change class="tform" -->
-
-		<!-- nav bar begin.this can fit anyscreen size -->
-		<div class="nav clear1 mb20">
-			<div class="nav-z clear1">
-				<ul class="clear1 tform">
-					<li><a href="/">首页</a></li>
-					<li><a href="/">发布信息</a></li>
-					<li><a href="/">查看信息</a></li>
-					<li><a href="/">政策法规</a></li>
-					<li><a href="/">资料下载</a></li>
-					<li><a href="/">成交报表</a></li>
-					<li><a href="/">咨询我们</a></li>
-				</ul>
-			</div>
-		</div>
-
-		<!-- nav end-->
+	<header th:include="common :: header"></header>
+	<div th:include="common :: nav"></div>
+	<div id="app" v-cloak>
 		<!-- Content Begin -->
 		<div class="Locate">
 			<span></span>
 			<p>
-				当前位置：<a href="/">首页</a> > <a
-					href="/Column_Channel.asp?Column_ID=27985">新闻*政策*法规*公告发布</a>
+				当前位置：<a href="/index">首页</a> > 新闻*政策*法规*公告发布
 			</p>
 		</div>
 		<div class="main3 clear public2">
@@ -104,47 +29,41 @@
 			</div>
 			<div class="main_w">
 				<div class="fl pinka_left">
-					<!--		<div class="screen_sel">
--->
 					<div class="sel_attrs">
 						<table class="attrs_table">
 							<tr>
 								<td class="t_prop"><strong>标&nbsp;&nbsp;&nbsp;&nbsp;题：</strong></td>
-								<td colspan="3" class="pl5"><input type="text"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 90%; padding: 0px 2px;"
-									name="title" placeholder="输入新闻*政策*法规*公告等信息的标题"
-									v-model="newsInfo.title"></td>
-							</tr>
-							<tr>
-								<td class="t_prop"><strong>发&nbsp;布&nbsp;人：</strong></td>
-								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 280px;"
-									name="Auhtor" placeholder="发布人的姓名或单位名称等"
-									v-model="newsInfo.companyName"></td>
-								<td class="t_prop mt15"><strong>发布时间：</strong></td>
-								<td class="t_prop_a"><input type="text" size="30"
-									style="border: none; color: #000; font-size: 14px; padding: 0px 10px; height: 35px; width: 280px;"
-									name="time" placeholder="获取发布时的时间，如：2018年12月31日" v-model="newsInfo.createDate">
+								<td colspan="3" class="pl5">
+									<input type="text" class="am-form-field table-input" placeholder="输入新闻*政策*法规*公告等信息的标题" v-model="noticeInfo.title" > 
 								</td>
 							</tr>
 							<tr>
-								<td class="t_prop mt15"><strong>文章类别:</strong></td>
+								<td class="t_prop"><strong>发&nbsp;布&nbsp;人：</strong></td>
+								<td class="t_prop_a">
+									<input type="text" class="am-form-field table-input" placeholder="发布人的姓名或单位名称等" v-model="noticeInfo.companyName" > 
+								</td>
+								<td class="t_prop"><strong>发布时间：</strong></td>
+								<td class="t_prop_a">
+									{{ noticeInfo.createDateStr }}
+								</td>
+							</tr>
+							<tr>
+								<td class="t_prop"><strong>文章类别:</strong></td>
 								<td colspan="3">
-									<select name="sel2" class="sel2" v-model="newsInfo.newsKind">
-										<option value="news">新闻</option>
-										<option value="zc">政策</option>
-										<option value="fg">法规</option>
-										<option value="gg">公告</option>
+									<select id="noticeKind" data-am-selected v-model="noticeInfo.noticeKind">
+										<option value="1">新闻</option>
+										<option value="2">政策</option>
+										<option value="3">法规</option>
+										<option value="3">公告</option>
 									</select>
 								</td>
 							</tr>
 							<tr>
-								<td class="t_prop"><strong>内容编辑：</strong></td>
-								<td colspan="3" class="pl5"></td>
+								<td colspan="4" class="t_prop"><strong>内容编辑：</strong></td>
 							</tr>
 							<tr>
 								<td colspan="4" class="t_prop_a cheditor">
-									<textarea id="editor" rows="" cols="" v-model="newsInfo.newsText"></textarea>
+									<textarea id="editor" name="editor" v-model="noticeInfo.noticeText"></textarea>
 								</td>
 							</tr>
 						</table>
@@ -163,45 +82,54 @@
 		</div>
 		<!-- materials upload end -->
 		<!-- Content End and the following is Footer Begin -->
-		<div th:include="common :: footer"></div>
 		<!-- Footer END -->
 	</div>
+	<div th:include="common :: footer"></div>
 	<div th:include="common :: js"></div>
-
 	<script type="text/javascript">
 		var vm = new Vue({
 			el : '#app',
 			data : {
-				newsInfo : {
-
+				noticeInfo : {
+					createDateStr: "",
+					noticeKind: 1,
 				},
 			},
 			mounted : function() {
-
+				this.getNoWDate()
 			},
 			methods : {
 				submit : function() {
 					if (vm.checkInfo()) {
-						hzToolObj.postRpc("/user/users_register", vm.userInfo)
-								.done(function(result) {
-									if (result.code == 0) {
-										window.location.href = "/index";
-									} else {
-										layer.msg(result.msg);
-									}
-								});
+						hzToolObj.postRpc("/notice/notice_add", vm.noticeInfo).done(function(result) {
+							if (result.code == 0) {
+								window.location.href = "/index";
+							} else {
+								layer.msg(result.msg);
+							}
+						});
 					}
 				},
 				checkInfo : function() {
-					if (vm.userInfo.password != vm.surePassword) {
-						layer.alert("两次密码不一直，请确认！");
-						vm.surePassword = "";
+					if (!vm.noticeInfo.title){
+						layer.msg("标题不能为空！");
+						return false;
+					} else if (!vm.noticeInfo.companyName) {
+						layer.msg("发布人不能为空！");
+						return false;
+					} else if(CKEDITOR.instances.editor.getData() == "") {
+						layer.msg("内容不能为空！");
 						return false;
 					} else {
-						vm.userInfo.password = hex_md5(vm.userInfo.password);
+						vm.noticeInfo.noticeText = CKEDITOR.instances.editor.getData();
 						return true;
 					}
 				},
+				getNoWDate: function(){
+					var myDate = new Date();
+					var month = myDate.getMonth() + 1;
+					this.noticeInfo.createDateStr = myDate.getFullYear() + "年" + month + "月" + myDate.getDate() + "日";
+				}
 			}
 		});
 	</script>
