@@ -5,13 +5,9 @@ var accordion = function() {
 		this.arr = []
 	}
 	slider.prototype.init = function(t, c, k) {
-		var a,
-		h,
-		s,
-		l,
-		i;
+		var a, h, s, l, i;
 		a = document.getElementById(t);
-		this.sl = k ? k: '';
+		this.sl = k ? k : '';
 		h = a.getElementsByTagName('dt');
 		s = a.getElementsByTagName('dd');
 		this.l = h.length;
@@ -35,16 +31,15 @@ var accordion = function() {
 	}
 	slider.prototype.pro = function(d) {
 		for (var i = 0; i < this.l; i++) {
-			var h = this.arr[i],
-			s = h.nextSibling;
-			s = s.nodeType != 1 ? s.nextSibling: s;
+			var h = this.arr[i], s = h.nextSibling;
+			s = s.nodeType != 1 ? s.nextSibling : s;
 			clearInterval(s.tm);
-			if ((h == d && s.style.display == 'none') || (h == d && s.style.display == '')) {
+			if ((h == d && s.style.display == 'none')
+					|| (h == d && s.style.display == '')) {
 				s.style.display = '';
 				su(s, 1);
 				h.className = this.sl
-			}
-			 else if (s.style.display == '') {
+			} else if (s.style.display == '') {
 				su(s, -1);
 				h.className = ''
 			}
@@ -53,13 +48,10 @@ var accordion = function() {
 	function su(c, f) {
 		c.tm = setInterval(function() {
 			sl(c, f)
-		},
-		tm)
+		}, tm)
 	}
 	function sl(c, f) {
-		var h = c.offsetWidth,
-		m = c.mh,
-		d = f == 1 ? m - h: h;
+		var h = c.offsetWidth, m = c.mh, d = f == 1 ? m - h : h;
 		c.style.width = h + (Math.ceil(d / sp) * f) + 'px';
 		c.style.opacity = h / m;
 		c.style.filter = 'alpha(opacity=' + h * 100 / m + ')';
@@ -71,6 +63,6 @@ var accordion = function() {
 		}
 	}
 	return {
-		slider: slider
+		slider : slider
 	}
 }();

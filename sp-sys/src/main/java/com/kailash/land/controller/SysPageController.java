@@ -13,16 +13,6 @@ import com.kailash.land.common.web.AbstractController;
 @Controller
 public class SysPageController extends AbstractController {
 
-	/**
-	 * 登录url
-	 *
-	 * @author zyz
-	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login() {
-		return "login";
-	}
-
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
 		return "index";
@@ -35,6 +25,7 @@ public class SysPageController extends AbstractController {
 	
 	@RequestMapping(value = "/login/{page}", method = RequestMethod.GET)
 	public String loginPage(@PathVariable("page")String page) {
+
 		return "login/" + page;
 	}
 

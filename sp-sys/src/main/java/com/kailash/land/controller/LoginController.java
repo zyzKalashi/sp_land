@@ -9,6 +9,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,8 +39,8 @@ public class LoginController extends AbstractController {
      * @author zyz
      */
     @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Result login(Users user) {
+    @PostMapping(value = "/sysLogin")
+    public Result sysLogin(Users user) {
         Map<String, Object> map = new HashMap<String, Object>();
         if (StringUtils.isEmpty(user.getUserName()) || StringUtils.isEmpty(user.getPassword())) {
             return Result.error("用户名或密码不能为空");
@@ -81,7 +82,7 @@ public class LoginController extends AbstractController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String host(Users user) {
-        return "login";
+        return "index";
     }
 
     @ResponseBody

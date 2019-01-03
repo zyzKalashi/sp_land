@@ -5,9 +5,9 @@
 </head>
 
 <body>
+	<header th:include="common :: header"></header>
+	<div th:include="common :: nav"></div>
 	<div id="app" v-cloak onLoad="vm.GetCookie();">
-		<header th:include="common :: header"></header>
-		<div th:include="common :: nav"></div>
 		<!-- Content Begin -->
 		<div class="fabu2 public2">
 			<div class="fl">
@@ -73,14 +73,14 @@
 					if (vm.checkNull()) {
 						// 记住密码
 						vm.user.password = hex_md5(vm.user.password);
-						hzToolObj.postRpc("/login", vm.user).done(
-								function(result) {
-									if (result.code == 0) {
-										window.location.href = "/index";
-									} else {
-										layer.msg(result.msg);
-									}
-								});
+						hzToolObj.postRpc("/sysLogin", vm.user).done(
+							function(result) {
+								if (result.code == 0) {
+									window.location.href = "/index";
+								} else {
+									layer.msg(result.msg);
+								}
+							});
 					}
 				},
 				// 记住密码

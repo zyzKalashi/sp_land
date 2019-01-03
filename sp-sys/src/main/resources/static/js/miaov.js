@@ -1,80 +1,71 @@
-function startMove(obj,json,fnEnd){
+function startMove(obj, json, fnEnd) {
 	clearInterval(obj.timer);
-	obj.timer = setInterval(function(){
-		doMove(obj,json,fnEnd);
-	},30);
+	obj.timer = setInterval(function() {
+		doMove(obj, json, fnEnd);
+	}, 30);
 }
-function doMove(obj,json,fnEnd){
+function doMove(obj, json, fnEnd) {
 	var iCur = 0;
 	var attr = null;
 	var bStop = true;
-	for(attr in json){
-		if(attr=='opacity'){
-			if(parseInt(100*getStyle(obj,attr))==0){
-				iCur = parseInt(100*getStyle(obj,attr));
+	for (attr in json) {
+		if (attr == 'opacity') {
+			if (parseInt(100 * getStyle(obj, attr)) == 0) {
+				iCur = parseInt(100 * getStyle(obj, attr));
+			} else {
+				iCur = parseInt(100 * getStyle(obj, attr)) || 100;
 			}
-			else{
-				iCur = parseInt(100*getStyle(obj,attr)) || 100;
-			}
+		} else {
+			iCur = parseInt(getStyle(obj, attr)) || 0;
 		}
-		else{
-			iCur = parseInt(getStyle(obj,attr)) || 0;
-		}
-		var iSpeed = (json[attr] - iCur)/5;
-		iSpeed = (iSpeed>0) ? Math.ceil(iSpeed) : Math.floor(iSpeed);
-		if(json[attr]!=iCur){
+		var iSpeed = (json[attr] - iCur) / 5;
+		iSpeed = (iSpeed > 0) ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+		if (json[attr] != iCur) {
 			bStop = false;
 		}
-		if(attr=='opacity'){
-			obj.style.filter = 'alpha(opacity='+ (iCur + iSpeed) +')';
-			obj.style.opacity = (iCur + iSpeed)/100;
-		}
-		else{
+		if (attr == 'opacity') {
+			obj.style.filter = 'alpha(opacity=' + (iCur + iSpeed) + ')';
+			obj.style.opacity = (iCur + iSpeed) / 100;
+		} else {
 			obj.style[attr] = iCur + iSpeed + 'px';
-		}	
+		}
 	}
-	if(bStop){
+	if (bStop) {
 		clearInterval(obj.timer);
-		if(fnEnd){
+		if (fnEnd) {
 			fnEnd.call(obj);
 		}
 	}
 }
-function stopMove(obj){
+function stopMove(obj) {
 	clearInterval(obj.timer);
 }
-function getStyle(obj,attr){
-	if(obj.currentStyle){
+function getStyle(obj, attr) {
+	if (obj.currentStyle) {
 		return obj.currentStyle[attr];
-	}
-	else{
+	} else {
 		return getComputedStyle(obj)[attr];
 	}
 }
 
+function getByClass(oParent, sClass) {
 
+	if (oParent.getElementsByClassName) {
+		return oParent.getElementsByClassName(sClass)
+	}
 
- function getByClass(oParent,sClass) 
-	 {     
-	    
-	      if(oParent.getElementsByClassName) 
-		  {
-			  return  oParent.getElementsByClassName(sClass)
-		  } 
-		  
-		  var oEle=oParent.getElementsByTagName('*');
-	
-		  var arr=[];
-		  
-		  var re=new RegExp('\\b'+sClass+'\\b');
-		  for(var i=0; i<oEle.length;i++) 
-		  {
-			 
-			   if(re.test(oEle[i].className))       //\bsClass\b
-			   {
-				   arr.push(oEle[i]); 
-			   }
-			   return arr;
-		  }
-		  
-	 }
+	var oEle = oParent.getElementsByTagName('*');
+
+	var arr = [];
+
+	var re = new RegExp('\\b' + sClass + '\\b');
+	for (var i = 0; i < oEle.length; i++) {
+
+		if (re.test(oEle[i].className)) // \bsClass\b
+		{
+			arr.push(oEle[i]);
+		}
+		return arr;
+	}
+
+}
