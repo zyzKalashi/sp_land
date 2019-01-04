@@ -82,7 +82,7 @@ public class LoginController extends AbstractController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String host(Users user) {
-        return "index";
+        return "/index";
     }
 
     @ResponseBody

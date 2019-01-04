@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kailash.land.dao.DemandInfoMapper">
+  <resultMap id="BaseResultMap" type="com.kailash.land.entity.DemandInfo">
+    <id column="pkid" jdbcType="INTEGER" property="pkid" />
+    <result column="demand_status" jdbcType="INTEGER" property="demandStatus" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="province" jdbcType="INTEGER" property="province" />
+    <result column="city" jdbcType="INTEGER" property="city" />
+    <result column="town" jdbcType="INTEGER" property="town" />
+    <result column="money_area" jdbcType="INTEGER" property="moneyArea" />
+    <result column="demand_nature" jdbcType="INTEGER" property="demandNature" />
+    <result column="person" jdbcType="VARCHAR" property="person" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kailash.land.entity.DemandInfo">
+    <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pkid, demand_status, create_date, create_user, update_date, update_user, title, province, 
+    city, town, money_area, demand_nature, person, phone, email, file_url
+  </sql>
+  <sql id="Blob_Column_List">
+    detail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from demand_info
+    where pkid = #{pkid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from demand_info
+    where pkid = #{pkid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kailash.land.entity.DemandInfo">
+    insert into demand_info (pkid, demand_status, create_date, 
+      create_user, update_date, update_user, 
+      title, province, city, 
+      town, money_area, demand_nature, 
+      person, phone, email, 
+      file_url, detail)
+    values (#{pkid,jdbcType=INTEGER}, #{demandStatus,jdbcType=INTEGER}, #{createDate,jdbcType=DATE}, 
+      #{createUser,jdbcType=INTEGER}, #{updateDate,jdbcType=DATE}, #{updateUser,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, #{city,jdbcType=INTEGER}, 
+      #{town,jdbcType=INTEGER}, #{moneyArea,jdbcType=INTEGER}, #{demandNature,jdbcType=INTEGER}, 
+      #{person,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{fileUrl,jdbcType=VARCHAR}, #{detail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kailash.land.entity.DemandInfo">
+    insert into demand_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pkid != null">
+        pkid,
+      </if>
+      <if test="demandStatus != null">
+        demand_status,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="town != null">
+        town,
+      </if>
+      <if test="moneyArea != null">
+        money_area,
+      </if>
+      <if test="demandNature != null">
+        demand_nature,
+      </if>
+      <if test="person != null">
+        person,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="fileUrl != null">
+        file_url,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pkid != null">
+        #{pkid,jdbcType=INTEGER},
+      </if>
+      <if test="demandStatus != null">
+        #{demandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="town != null">
+        #{town,jdbcType=INTEGER},
+      </if>
+      <if test="moneyArea != null">
+        #{moneyArea,jdbcType=INTEGER},
+      </if>
+      <if test="demandNature != null">
+        #{demandNature,jdbcType=INTEGER},
+      </if>
+      <if test="person != null">
+        #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kailash.land.entity.DemandInfo">
+    update demand_info
+    <set>
+      <if test="demandStatus != null">
+        demand_status = #{demandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="town != null">
+        town = #{town,jdbcType=INTEGER},
+      </if>
+      <if test="moneyArea != null">
+        money_area = #{moneyArea,jdbcType=INTEGER},
+      </if>
+      <if test="demandNature != null">
+        demand_nature = #{demandNature,jdbcType=INTEGER},
+      </if>
+      <if test="person != null">
+        person = #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pkid = #{pkid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kailash.land.entity.DemandInfo">
+    update demand_info
+    set demand_status = #{demandStatus,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=DATE},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=DATE},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      town = #{town,jdbcType=INTEGER},
+      money_area = #{moneyArea,jdbcType=INTEGER},
+      demand_nature = #{demandNature,jdbcType=INTEGER},
+      person = #{person,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=LONGVARCHAR}
+    where pkid = #{pkid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kailash.land.entity.DemandInfo">
+    update demand_info
+    set demand_status = #{demandStatus,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=DATE},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=DATE},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      town = #{town,jdbcType=INTEGER},
+      money_area = #{moneyArea,jdbcType=INTEGER},
+      demand_nature = #{demandNature,jdbcType=INTEGER},
+      person = #{person,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR}
+    where pkid = #{pkid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,258 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common :: head">
+<title id="pageTitle">农业资产或设施需求信息发布</title>
+</head>
+<body>
+	<header th:include="common :: header"></header>
+	<div th:include="common :: nav"></div>
+	<div id="app" v-cloak>
+		<!-- Content Begin -->
+		<div class="Locate">
+			<span></span>
+			<p>
+				当前位置：<a href="../index">首页</a> > <a href="../login/add_index">需求发布</a> > 农业资产或设施需求信息发布
+			</p>
+		</div>
+		<div class="main3 clear public2">
+			<div class="main_r">
+				<h2 class="col_Name c4">农业资产或设施需求信息发布</h2>
+			</div>
+			<div class="main_w">
+				<div class="fl pinka_left">
+					<div class="am-form" data-am-validator >
+					<fieldset>
+						<div class="widget am-cf tpl-form-border-form tpl-form-border-br am-g">
+							<div class="row am-form-group am-padding-sm">
+								<label class="am-u-sm-2 am-form-label am-text-right">
+									<span class="am-text-danger">*</span><span>所在地区：</span>
+								</label>
+								<div class="am-u-sm-8 am-form-label am-text-center">
+										<div class="am-u-sm-4">
+											<select id="province" data-am-selected required>
+												<option value="0" selected>吉林省</option>
+											</select> 
+										</div>
+										<div class="am-u-sm-4">
+											<select id="city" data-am-selected required>
+												<option value="0" selected>四平市</option>
+											</select> 
+										</div>
+										<div class="am-u-sm-4">
+											<select id="town" data-am-selected required>
+												<option value="1" selected>铁西区</option>
+											</select>
+										</div>
+								</div>
+								<div class="am-u-sm-2 am-form-label am-text-left">
+									<font color=red>(必填)</font>
+								</div>
+							</div>
+							<div class="row am-form-group am-padding-sm">
+								<label class="am-u-sm-2 am-form-label am-text-right">
+									<span class="am-text-danger">*</span><span>需求类别：</span>
+								</label>
+								<div class="am-u-sm-10 am-form-label am-fl">
+									<div class="am-u-sm-3 am-fl" >
+										<label class="am-checkbox-inline am-warning">
+											<input type="checkbox" name="demandKind" value="1" v-model="demandInfo.demandKind" data-am-ucheck required minchecked="1" ><span>土地承包</span>
+										</label>
+									</div>
+									<div class="am-u-sm-3 am-fl" >
+										<label class="am-checkbox-inline am-warning">
+											<input type="checkbox" name="demandKind" value="2" v-model="demandInfo.demandKind" data-am-ucheck><span>山林承包</span>
+										</label>
+									</div>
+									<div class="am-u-sm-3 am-fl" >
+										<label class="am-checkbox-inline am-warning">
+											<input type="checkbox" name="demandKind" value="3" v-model="demandInfo.demandKind" data-am-ucheck><span>水面承包</span>
+										</label>
+									</div>
+									<div class="am-u-sm-3 am-fl" >
+										<label class="am-checkbox-inline am-warning">
+											<input type="checkbox" name="demandKind" value="4" v-model="demandInfo.demandKind" data-am-ucheck><span>土地合作经营</span>
+										</label>
+									</div>
+									<div class="am-u-sm-3 am-fl" >
+										<label class="am-checkbox-inline am-warning">
+											<input type="checkbox" name="demandKind" value="5" v-model="demandInfo.demandKind" data-am-ucheck><span>水利设施承包</span>
+										</label>
+									</div>
+									<div class="am-u-sm-3 am-fl" >
+										<label class="am-checkbox-inline am-warning">
+											<input type="checkbox" name="demandKind" value="6" v-model="demandInfo.demandKind" data-am-ucheck><span>农业知识产权</span>
+										</label>
+									</div>
+									<div class="am-u-sm-3 am-fl" >
+										<label class="am-checkbox-inline am-warning">
+											<input type="checkbox" name="demandKind" value="7" v-model="demandInfo.demandKind" data-am-ucheck><span>其他</span>
+										</label>
+									</div>
+									<div class="am-u-sm-3 am-fl" >
+									</div>
+								</div>
+							</div>
+							
+							<div class="row am-form-group am-padding-sm">
+								<label class="am-u-sm-2 am-form-label am-text-right">
+									<span>资金范围：</span>
+								</label>
+								<div class="am-u-sm-8 am-form-label am-text-center">
+									<select id="moneyArea" data-am-selected>
+										<option value="0" selected>不限</option>
+										<option value="1">500万-1000万</option>
+										<option value="2">1000万-5000万</option>
+									</select>
+								</div>
+								<div class="am-u-sm-2 am-form-label am-text-left">
+								</div>
+							</div>
+							<div class="row am-form-group am-padding-sm">
+								<label class="am-u-sm-2 am-form-label am-text-right">
+									<span>需求性质：</span>
+								</label>
+								<div class="am-u-sm-8 am-form-label am-text-center">
+									<label class="am-radio-inline am-warning">
+										<input type="radio" name="demandNature" value="1" data-am-ucheck v-model="demandInfo.demandNature"><span>个人需求</span>
+									</label>
+									<label class="am-radio-inline am-warning">
+										<input type="radio" name="demandNature" value="2" data-am-ucheck v-model="demandInfo.demandNature"><span>企业/集体</span>
+									</label>
+								</div>
+								<div class="am-u-sm-2 am-form-label am-text-left">
+								</div>
+							</div>
+							<div class="row am-form-group am-padding-sm">
+								<label class="am-u-sm-2 am-form-label am-text-right">
+									<span class="am-text-danger">*</span><span>项目需求名称：</span>
+								</label>
+								<div class="am-u-sm-8 am-form-label am-text-center">
+									<input type="text" class="am-form-field table-input" v-model="demandInfo.title" required>
+								</div>
+								<div class="am-u-sm-2 am-form-label am-text-left">
+									<font color=red>(必填)</font>
+								</div>
+							</div>
+							<div class="row am-form-group am-padding-sm" style="min-height: 100px;">
+								<label class="am-u-sm-2 am-form-label am-text-right">
+									<span class="am-text-danger">*</span><span>详细需求描述：</span>
+								</label>
+								<div class="am-u-sm-8 am-form-label am-text-center">
+									<textarea  class="am-form-field table-input" rows="" cols="" v-model="demandInfo.detail" style="height: 100px; max-height: 100px;" required></textarea>
+								</div>
+								<div class="am-u-sm-2 am-form-label am-text-left">
+									<font color=red>(必填)</font>
+								</div>
+							</div>
+								
+								<div class="row am-form-group am-padding-sm">
+									<label class="am-u-sm-2 am-form-label am-text-right">
+										<span class="am-text-danger">*</span><span>联 系 人：</span>
+									</label>
+									<div class="am-u-sm-8 am-form-label am-text-center">
+										<input type="text" class="am-form-field table-input" v-model="demandInfo.person" required>
+									</div>
+									<div class="am-u-sm-2 am-form-label am-text-left">
+										<font color=red>(必填)</font>
+									</div>
+								</div>
+								<div class="row am-form-group am-padding-sm">
+									<label class="am-u-sm-2 am-form-label am-text-right">
+										<span class="am-text-danger">*</span><span>联系方式：</span>
+									</label>
+									<div class="am-u-sm-8 am-form-label am-text-center">
+										<input type="text" class="am-form-field table-input" v-model="demandInfo.phone" placeholder="手机" required >
+									</div>
+									<div class="am-u-sm-2 am-form-label am-text-left">
+										<font color=red>(必填)</font>
+									</div>
+								</div>
+								<div class="row am-form-group am-padding-sm">
+									<label class="am-u-sm-2 am-form-label am-text-right">
+										<span class="am-text-danger">*</span><span>邮 箱：</span>
+									</label>
+									<div class="am-u-sm-8 am-form-label am-text-center">
+										<input type="email" class="am-form-field table-input" v-model="demandInfo.email" required>
+									</div>
+									<div class="am-u-sm-2 am-form-label am-text-left">
+										<font color=red>(必填)</font>
+									</div>
+								</div>
+								<div class="row am-form-group am-padding-sm">
+									<label class="am-u-sm-2 am-form-label am-text-right">
+										<span>附 件：</span>
+									</label>
+									<div class="am-u-sm-8 am-form-label am-text-center">
+										<input type="file" name="file" value="选择文件" style="border: none;">
+									</div>
+									<div class="am-u-sm-2 am-form-label am-text-left">
+										<font color=red>(必填)</font>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						<div class="am-text-center am-padding">
+							<button type="button"
+								class="am-btn am-btn-default am-btn-warning" @click="submit">
+								<span>立刻发布</span>
+							</button>
+							<button type="button" class="am-btn am-btn-default " onclick="goUrl('../login/add_index')">
+								<span>取消发布</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- materials upload end -->
+		<!-- Content End and the following is Footer Begin -->
+		<!-- Footer END -->
+	</div>
+	<div th:include="common :: footer"></div>
+	<div th:include="common :: js"></div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : '#app',
+			data : {
+				demandInfo: {
+					demandKind:[],
+					demandInfo.demandNature: 1,
+				},
+			},
+			mounted : function() {
+			},
+			methods : {
+				submit : function() {
+					if (vm.checkInfo()) {
+						hzToolObj.postRpc("/demand/demand_add", vm.demandInfo)
+								.done(function(result) {
+									if (result.code == 0) {
+										layer.alert("发布成功~");
+										window.location.href = "/index";
+									} else {
+										layer.msg(result.msg);
+									}
+								});
+					}
+				},
+				checkInfo : function() {
+					if (!vm.noticeInfo.title) {
+						layer.msg("标题不能为空！");
+						return false;
+					} else if (!vm.noticeInfo.companyName) {
+						layer.msg("发布人不能为空！");
+						return false;
+					} else if (CKEDITOR.instances.editor.getData() == "") {
+						layer.msg("内容不能为空！");
+						return false;
+					} else {
+						vm.noticeInfo.noticeText = CKEDITOR.instances.editor
+								.getData();
+						return true;
+					}
+				},
+			}
+		});
+	</script>
+</body>
+</html>

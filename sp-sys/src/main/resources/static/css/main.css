@@ -3251,5 +3251,5 @@ a.dengl:hover, a.zhuce:hover {
 	white-space: nowrap;
 }
 .table-input{
-	border: none;
+	border: none ! important;
 }
