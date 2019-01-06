@@ -54,18 +54,32 @@
 				<!-- Top begin -->
 				<div class="top">
 					<div class="top_z">
-						<ul class="fl">
+						<ul class="fl" >
 							<li>欢迎访问铁西区土地流转管理平台&nbsp;&nbsp;</li>
-							<li>请&nbsp;<a href="../html/login" class="bold">登录</a>&nbsp;|&nbsp;
+							<li >
+								<span  id="userNameSpan"><shiro:principal property='userName'></span>
 							</li>
-							<li><a href="../html/regist" class="bold">注册</a></li>
+							<li id="loginSpan" >
+								<span >请&nbsp;<a href="../html/login" class="bold">登录</a></span>
+								&nbsp;|&nbsp;
+							</li>
+							<li id="registerSpan"><a href="../html/register" class="bold">注册</a></li>
 						</ul>
-
 						<ul class="fr huiyuan tform">
 							<li><a href="javascript:void(0);">会员中心</a></li>
 							<li><a href="javascript:void(0);"> 帮助咨询</a></li>
 						</ul>
 					</div>
+					<script type="text/javascript">
+						$(function(){
+							if( $("#userNameSpan").text() ){
+								$("#loginSpan").hide();
+								$("#registerSpan").hide();
+							}
+						});
+					
+					</script>
+					
 				</div>
 				<!-- top end -->
 				<div class="header_z">
@@ -115,7 +129,7 @@
 					<ul class="clear1 tform">
 						<li><a href="../index">首页</a></li>
 						<li><a href="../login/add_index">发布信息</a></li>
-						<li><a href="/">查看信息</a></li>
+						<li><a href="../html/info_list">查看信息</a></li>
 						<li><a href="/">政策法规</a></li>
 						<li><a href="/">资料下载</a></li>
 						<li><a href="/">成交报表</a></li>

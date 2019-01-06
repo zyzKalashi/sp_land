@@ -1,19 +1,17 @@
 package com.kailash.land.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.kailash.land.entity.DemandInfo;
 
-public interface DemandInfoMapper {
-    int deleteByPrimaryKey(Integer pkid);
+@Mapper
+public interface DemandInfoMapper extends BaseMapper<DemandInfo> {
+	
+	int deleteByPrimaryKey(Integer pkid);
 
-    int insert(DemandInfo record);
+	int insertSelective(DemandInfo record);
 
-    int insertSelective(DemandInfo record);
+	DemandInfo selectByPrimaryKey(Integer pkid);
 
-    DemandInfo selectByPrimaryKey(Integer pkid);
-
-    int updateByPrimaryKeySelective(DemandInfo record);
-
-    int updateByPrimaryKeyWithBLOBs(DemandInfo record);
-
-    int updateByPrimaryKey(DemandInfo record);
+	int updateByPrimaryKeySelective(DemandInfo record);
 }

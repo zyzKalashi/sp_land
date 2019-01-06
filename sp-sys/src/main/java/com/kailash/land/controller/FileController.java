@@ -47,7 +47,7 @@ public class FileController {
         }
     }
 
-    @Value("${urldate.importModel}")
+//    @Value("${urldate.importModel}")
     private String importModel;
 
     /**
@@ -122,7 +122,8 @@ public class FileController {
      * @param response
      * @param file
      */
-    public void setResponse(HttpServletRequest request,HttpServletResponse response,File file) {
+    @SuppressWarnings("deprecation")
+	public void setResponse(HttpServletRequest request,HttpServletResponse response,File file) {
         ServletContext sc = request.getSession().getServletContext();
         String fileName = file.getName();
         String filePath = file.getPath();

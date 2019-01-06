@@ -76,8 +76,8 @@
 						hzToolObj.postRpc("/sysLogin", vm.user).done(
 							function(result) {
 								if (result.code == 0) {
-									console.log(window.history);
-									//window.location.href = "/index";
+									//console.log(window.history);
+									window.location.href = "../login/add_index";
 								} else {
 									layer.msg(result.msg);
 								}

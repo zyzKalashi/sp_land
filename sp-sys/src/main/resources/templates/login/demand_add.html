@@ -127,7 +127,7 @@
 									<span class="am-text-danger">*</span><span>项目需求名称：</span>
 								</label>
 								<div class="am-u-sm-8 am-form-label am-text-center">
-									<input type="text" class="am-form-field table-input" v-model="demandInfo.title" required>
+									<input type="text" class="am-form-field" v-model="demandInfo.title" required>
 								</div>
 								<div class="am-u-sm-2 am-form-label am-text-left">
 									<font color=red>(必填)</font>
@@ -138,7 +138,7 @@
 									<span class="am-text-danger">*</span><span>详细需求描述：</span>
 								</label>
 								<div class="am-u-sm-8 am-form-label am-text-center">
-									<textarea  class="am-form-field table-input" rows="" cols="" v-model="demandInfo.detail" style="height: 100px; max-height: 100px;" required></textarea>
+									<textarea  class="am-form-field" rows="" cols="" v-model="demandInfo.detail" style="height: 100px; max-height: 100px;" required></textarea>
 								</div>
 								<div class="am-u-sm-2 am-form-label am-text-left">
 									<font color=red>(必填)</font>
@@ -150,7 +150,7 @@
 										<span class="am-text-danger">*</span><span>联 系 人：</span>
 									</label>
 									<div class="am-u-sm-8 am-form-label am-text-center">
-										<input type="text" class="am-form-field table-input" v-model="demandInfo.person" required>
+										<input type="text" class="am-form-field" v-model="demandInfo.person" required>
 									</div>
 									<div class="am-u-sm-2 am-form-label am-text-left">
 										<font color=red>(必填)</font>
@@ -161,7 +161,7 @@
 										<span class="am-text-danger">*</span><span>联系方式：</span>
 									</label>
 									<div class="am-u-sm-8 am-form-label am-text-center">
-										<input type="text" class="am-form-field table-input" v-model="demandInfo.phone" placeholder="手机" required >
+										<input type="text" class="am-form-field" v-model="demandInfo.phone" placeholder="手机" required >
 									</div>
 									<div class="am-u-sm-2 am-form-label am-text-left">
 										<font color=red>(必填)</font>
@@ -172,13 +172,18 @@
 										<span class="am-text-danger">*</span><span>邮 箱：</span>
 									</label>
 									<div class="am-u-sm-8 am-form-label am-text-center">
-										<input type="email" class="am-form-field table-input" v-model="demandInfo.email" required>
+										<input type="email" class="am-form-field" v-model="demandInfo.email" required>
 									</div>
 									<div class="am-u-sm-2 am-form-label am-text-left">
 										<font color=red>(必填)</font>
 									</div>
+								</div> 
+								<div class="row am-form-group am-form-file am-padding-sm am-fl">
+									<button type="button" class="am-btn am-btn-primary am-btn-sm">
+									<i class="am-icon-cloud-upload"></i> 附 件</button>
+									<input id="doc-form-file" type="file" multiple>
 								</div>
-								<div class="row am-form-group am-padding-sm">
+								<!-- <div class="row am-form-group am-padding-sm">
 									<label class="am-u-sm-2 am-form-label am-text-right">
 										<span>附 件：</span>
 									</label>
@@ -186,9 +191,8 @@
 										<input type="file" name="file" value="选择文件" style="border: none;">
 									</div>
 									<div class="am-u-sm-2 am-form-label am-text-left">
-										<font color=red>(必填)</font>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</fieldset>
 						<div class="am-text-center am-padding">
@@ -215,8 +219,8 @@
 			el : '#app',
 			data : {
 				demandInfo: {
-					demandKind:[],
-					demandInfo.demandNature: 1,
+					town:[],
+					demandNature: 1,
 				},
 			},
 			mounted : function() {
@@ -236,18 +240,31 @@
 					}
 				},
 				checkInfo : function() {
-					if (!vm.noticeInfo.title) {
-						layer.msg("标题不能为空！");
+					vm.demandInfo.province = $("#province").val()
+					vm.demandInfo.city = $("#city").val()
+					vm.demandInfo.town = $("#town").val()
+					vm.demandInfo.moneyArea = $("#moneyArea").val()
+					if (!vm.demandInfo.province) {
 						return false;
-					} else if (!vm.noticeInfo.companyName) {
-						layer.msg("发布人不能为空！");
+					} else if (!vm.demandInfo.city) {
 						return false;
-					} else if (CKEDITOR.instances.editor.getData() == "") {
-						layer.msg("内容不能为空！");
+					} else if (!vm.demandInfo.town) {
+						return false;
+					} else if (!vm.demandInfo.town || vm.demandInfo.town.length < 1) {
+						return false;
+					} else if (!vm.demandInfo.moneyArea) {
+						return false;
+					} else if (!vm.demandInfo.title) {
+						return false;
+					} else if (!vm.demandInfo.detail) {
+						return false;
+					} else if (!vm.demandInfo.person) {
+						return false;
+					} else if (!vm.demandInfo.phone) {
+						return false;
+					} else if (!vm.demandInfo.email) {
 						return false;
 					} else {
-						vm.noticeInfo.noticeText = CKEDITOR.instances.editor
-								.getData();
 						return true;
 					}
 				},
