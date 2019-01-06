@@ -10,7 +10,14 @@ public class DemandKind implements Serializable{
 
     private Integer kind;
 
-    public Integer getPkid() {
+    public DemandKind() {
+    }
+    public DemandKind(Integer demandInfoId, Integer kind) {
+    	this.demandId = demandInfoId;
+    	this.kind = kind;
+	}
+
+	public Integer getPkid() {
         return pkid;
     }
 

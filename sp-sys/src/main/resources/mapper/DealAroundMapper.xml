@@ -11,7 +11,7 @@
 		<result column="area" jdbcType="DOUBLE" property="area" />
 		<result column="east" jdbcType="VARCHAR" property="east" />
 		<result column="south" jdbcType="VARCHAR" property="south" />
-		<result column="west" jdbcType="DATE" property="west" />
+		<result column="west" jdbcType="VARCHAR" property="west" />
 		<result column="north" jdbcType="VARCHAR" property="north" />
 		<result column="showPreice" jdbcType="DOUBLE"
 			property="showpreice" />
@@ -127,7 +127,7 @@
 				#{south,jdbcType=VARCHAR},
 			</if>
 			<if test="west != null">
-				#{west,jdbcType=DATE},
+				#{west,jdbcType=VARCHAR},
 			</if>
 			<if test="north != null">
 				#{north,jdbcType=VARCHAR},
@@ -184,7 +184,7 @@
 				south = #{south,jdbcType=VARCHAR},
 			</if>
 			<if test="west != null">
-				west = #{west,jdbcType=DATE},
+				west = #{west,jdbcType=VARCHAR},
 			</if>
 			<if test="north != null">
 				north = #{north,jdbcType=VARCHAR},

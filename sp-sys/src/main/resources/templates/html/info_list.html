@@ -98,52 +98,34 @@
 				</div>
 			</div>
 			<div class="pinka_con">
-				<div class="sel-tab-cur am-tabs" data-am-tabs="{noSwipe: 1}" id="doc-tab-demo-1">
-					<ul class="am-tabs-nav am-nav am-nav-tabs">
-						<li class="am-active"><a href="javascript: void(0)">全部信息</a></li>
-						<li><a href="javascript: void(0)">转让信息</a></li>
-						<li><a href="javascript: void(0)">承租信息</a></li>
-						<li><a href="javascript: void(0)">识产权信息</a></li>
-						<li><a href="javascript: void(0)">设施租赁信息</a></li>
-					</ul>
-
-					<div class="am-tabs-bd">
-						<div class="am-tab-panel am-active">1</div>
-						<div class="am-tab-panel">...2</div>
-						<div class="am-tab-panel">...3</div>
-						<div class="am-tab-panel">...4</div>
-						<div class="am-tab-panel">...5</div>
-					</div>
-				</div>
-
-
-
 				<div class="select-tabs">
 					<ul>
 						<li class="sel-tab-cur"><a href="">全部信息</a></li>
-						<li><a href=""></a></li>
+						<li><a href="">转让信息</a></li>
 						<li><a href="">承租信息</a></li>
-						<li><a href="">知</a></li>
+						<li><a href="">知识产权信息</a></li>
 						<li><a href="">设施租赁信息</a></li>
 					</ul>
 				</div>
+				<table class="am-table am-table-compact am-table-striped am-table-hover tpl-table-black am-table-radius am-text-nowrap">
+					 <thead>
+					 	<tr class="am-text-middle table_th">
+                           <th>项目名称</th>
+                           <th>项目类型</th>
+                           <th>发布时间</th>
+                       </tr>
+                     </thead>
+                     <tbody id="tbody">
+                     	<tr class="gradeX" v-for="item in list">
+                     	</tr>
+                     </tbody>
+				</table>
 
-
-
-
-
-				<div class="clear info-sel-title">
-					<div class="fl s-t-name">项目名称</div>
-					<div class="fl s-t-hy">项目类型</div>
-					<div class="s-t-date">发布时间</div>
-				</div>
 				<div class="tech-pro-con">
 					<div class="project-list">
 						<a href="">铁西区平西乡关于土地使用权转让项目</a><span class="">土地转让</span><span
 							class="project_date">2019-01-05</span>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
@@ -164,7 +146,9 @@
 	<script type="text/javascript">
 		var vm = new Vue({
 			el : '#app',
-			data : {},
+			data : {
+				list:{},
+			},
 			mounted : function() {
 			},
 			methods : {},

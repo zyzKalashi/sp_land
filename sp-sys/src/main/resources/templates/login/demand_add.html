@@ -55,37 +55,37 @@
 								<div class="am-u-sm-10 am-form-label am-fl">
 									<div class="am-u-sm-3 am-fl" >
 										<label class="am-checkbox-inline am-warning">
-											<input type="checkbox" name="demandKind" value="1" v-model="demandInfo.demandKind" data-am-ucheck required minchecked="1" ><span>土地承包</span>
+											<input type="checkbox" name="demandKindList" value="1" v-model="demand.demandKindList" data-am-ucheck required minchecked="1" ><span>土地承包</span>
 										</label>
 									</div>
 									<div class="am-u-sm-3 am-fl" >
 										<label class="am-checkbox-inline am-warning">
-											<input type="checkbox" name="demandKind" value="2" v-model="demandInfo.demandKind" data-am-ucheck><span>山林承包</span>
+											<input type="checkbox" name="demandKindList" value="2" v-model="demand.demandKindList" data-am-ucheck><span>山林承包</span>
 										</label>
 									</div>
 									<div class="am-u-sm-3 am-fl" >
 										<label class="am-checkbox-inline am-warning">
-											<input type="checkbox" name="demandKind" value="3" v-model="demandInfo.demandKind" data-am-ucheck><span>水面承包</span>
+											<input type="checkbox" name="demandKindList" value="3" v-model="demand.demandKindList" data-am-ucheck><span>水面承包</span>
 										</label>
 									</div>
 									<div class="am-u-sm-3 am-fl" >
 										<label class="am-checkbox-inline am-warning">
-											<input type="checkbox" name="demandKind" value="4" v-model="demandInfo.demandKind" data-am-ucheck><span>土地合作经营</span>
+											<input type="checkbox" name="demandKindList" value="4" v-model="demand.demandKindList" data-am-ucheck><span>土地合作经营</span>
 										</label>
 									</div>
 									<div class="am-u-sm-3 am-fl" >
 										<label class="am-checkbox-inline am-warning">
-											<input type="checkbox" name="demandKind" value="5" v-model="demandInfo.demandKind" data-am-ucheck><span>水利设施承包</span>
+											<input type="checkbox" name="demandKindList" value="5" v-model="demand.demandKindList" data-am-ucheck><span>水利设施承包</span>
 										</label>
 									</div>
 									<div class="am-u-sm-3 am-fl" >
 										<label class="am-checkbox-inline am-warning">
-											<input type="checkbox" name="demandKind" value="6" v-model="demandInfo.demandKind" data-am-ucheck><span>农业知识产权</span>
+											<input type="checkbox" name="demandKindList" value="6" v-model="demand.demandKindList" data-am-ucheck><span>农业知识产权</span>
 										</label>
 									</div>
 									<div class="am-u-sm-3 am-fl" >
 										<label class="am-checkbox-inline am-warning">
-											<input type="checkbox" name="demandKind" value="7" v-model="demandInfo.demandKind" data-am-ucheck><span>其他</span>
+											<input type="checkbox" name="demandKindList" value="7" v-model="demand.demandKindList" data-am-ucheck><span>其他</span>
 										</label>
 									</div>
 									<div class="am-u-sm-3 am-fl" >
@@ -113,10 +113,10 @@
 								</label>
 								<div class="am-u-sm-8 am-form-label am-text-center">
 									<label class="am-radio-inline am-warning">
-										<input type="radio" name="demandNature" value="1" data-am-ucheck v-model="demandInfo.demandNature"><span>个人需求</span>
+										<input type="radio" name="demandNature" value="1" data-am-ucheck v-model="demand.demandNature"><span>个人需求</span>
 									</label>
 									<label class="am-radio-inline am-warning">
-										<input type="radio" name="demandNature" value="2" data-am-ucheck v-model="demandInfo.demandNature"><span>企业/集体</span>
+										<input type="radio" name="demandNature" value="2" data-am-ucheck v-model="demand.demandNature"><span>企业/集体</span>
 									</label>
 								</div>
 								<div class="am-u-sm-2 am-form-label am-text-left">
@@ -127,7 +127,7 @@
 									<span class="am-text-danger">*</span><span>项目需求名称：</span>
 								</label>
 								<div class="am-u-sm-8 am-form-label am-text-center">
-									<input type="text" class="am-form-field" v-model="demandInfo.title" required>
+									<input type="text" class="am-form-field" v-model="demand.title" required>
 								</div>
 								<div class="am-u-sm-2 am-form-label am-text-left">
 									<font color=red>(必填)</font>
@@ -138,7 +138,7 @@
 									<span class="am-text-danger">*</span><span>详细需求描述：</span>
 								</label>
 								<div class="am-u-sm-8 am-form-label am-text-center">
-									<textarea  class="am-form-field" rows="" cols="" v-model="demandInfo.detail" style="height: 100px; max-height: 100px;" required></textarea>
+									<textarea  class="am-form-field" rows="" cols="" v-model="demand.detail" style="height: 100px; max-height: 100px;" required></textarea>
 								</div>
 								<div class="am-u-sm-2 am-form-label am-text-left">
 									<font color=red>(必填)</font>
@@ -150,7 +150,7 @@
 										<span class="am-text-danger">*</span><span>联 系 人：</span>
 									</label>
 									<div class="am-u-sm-8 am-form-label am-text-center">
-										<input type="text" class="am-form-field" v-model="demandInfo.person" required>
+										<input type="text" class="am-form-field" v-model="demand.person" required>
 									</div>
 									<div class="am-u-sm-2 am-form-label am-text-left">
 										<font color=red>(必填)</font>
@@ -161,7 +161,7 @@
 										<span class="am-text-danger">*</span><span>联系方式：</span>
 									</label>
 									<div class="am-u-sm-8 am-form-label am-text-center">
-										<input type="text" class="am-form-field" v-model="demandInfo.phone" placeholder="手机" required >
+										<input type="text" class="am-form-field" v-model="demand.phone" placeholder="手机" required >
 									</div>
 									<div class="am-u-sm-2 am-form-label am-text-left">
 										<font color=red>(必填)</font>
@@ -172,7 +172,7 @@
 										<span class="am-text-danger">*</span><span>邮 箱：</span>
 									</label>
 									<div class="am-u-sm-8 am-form-label am-text-center">
-										<input type="email" class="am-form-field" v-model="demandInfo.email" required>
+										<input type="email" class="am-form-field" v-model="demand.email" required>
 									</div>
 									<div class="am-u-sm-2 am-form-label am-text-left">
 										<font color=red>(必填)</font>
@@ -218,8 +218,8 @@
 		var vm = new Vue({
 			el : '#app',
 			data : {
-				demandInfo: {
-					town:[],
+				demand: {
+					demandKindList:[],
 					demandNature: 1,
 				},
 			},
@@ -228,7 +228,7 @@
 			methods : {
 				submit : function() {
 					if (vm.checkInfo()) {
-						hzToolObj.postRpc("/demand/demand_add", vm.demandInfo)
+						hzToolObj.postRpc("/demand/demand_add", vm.demand)
 								.done(function(result) {
 									if (result.code == 0) {
 										layer.alert("发布成功~");
@@ -240,29 +240,29 @@
 					}
 				},
 				checkInfo : function() {
-					vm.demandInfo.province = $("#province").val()
-					vm.demandInfo.city = $("#city").val()
-					vm.demandInfo.town = $("#town").val()
-					vm.demandInfo.moneyArea = $("#moneyArea").val()
-					if (!vm.demandInfo.province) {
+					vm.demand.province = $("#province").val()
+					vm.demand.city = $("#city").val()
+					vm.demand.town = $("#town").val()
+					vm.demand.moneyArea = $("#moneyArea").val()
+					if (!vm.demand.province) {
 						return false;
-					} else if (!vm.demandInfo.city) {
+					} else if (!vm.demand.city) {
 						return false;
-					} else if (!vm.demandInfo.town) {
+					} else if (!vm.demand.town) {
 						return false;
-					} else if (!vm.demandInfo.town || vm.demandInfo.town.length < 1) {
+					} else if (!vm.demand.town || vm.demand.town.length < 1) {
 						return false;
-					} else if (!vm.demandInfo.moneyArea) {
+					} else if (!vm.demand.moneyArea) {
 						return false;
-					} else if (!vm.demandInfo.title) {
+					} else if (!vm.demand.title) {
 						return false;
-					} else if (!vm.demandInfo.detail) {
+					} else if (!vm.demand.detail) {
 						return false;
-					} else if (!vm.demandInfo.person) {
+					} else if (!vm.demand.person) {
 						return false;
-					} else if (!vm.demandInfo.phone) {
+					} else if (!vm.demand.phone) {
 						return false;
-					} else if (!vm.demandInfo.email) {
+					} else if (!vm.demand.email) {
 						return false;
 					} else {
 						return true;

@@ -16,7 +16,7 @@ public class DealFiter {
 
 	private String south;
 
-	private Date west;
+	private String west;
 
 	private String north;
 
