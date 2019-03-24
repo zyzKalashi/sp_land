@@ -5,7 +5,9 @@ html {
 	background: #f6efe3;
 	overflow-y: scroll;
 }
-
+body {
+	background-color: rgb(246, 239, 227);
+}
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, p {
 	max-width: 100%;
 	margin: 0;
@@ -437,13 +439,13 @@ a:hover {
 	height: auto;
 	position: absolute;
 	left: 0;
-	top: 10px;
+	top: 24px;
 	z-index: 0;
 } /* top=40px; */
 /*.phone{width:240px;height:26px;position:absolute;right:0;top:15px;z-index:1;}  */
 .search-main {
 	position: absolute;
-	top: 16px;
+	top: 22px;
 	right: 6%;
 	z-index: 1;
 } /* top=53px;*/
@@ -569,6 +571,7 @@ select.sel1 {
 
 /*nav start   height:88px change to 68px;*/
 .nav {
+	top: 80px;
 	height: 60px;
 	line-height: 60px;
 	background-color: #6e3e0d;

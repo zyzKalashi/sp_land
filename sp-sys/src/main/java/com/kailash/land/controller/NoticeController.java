@@ -1,5 +1,8 @@
 package com.kailash.land.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +27,8 @@ public class NoticeController extends AbstractController {
 			noticeInfo.setUpdateUser(getUserId());
 			noticeInfo.setCreateDate(DateUtils.parse(noticeInfo.getCreateDateStr(), "yyyy年MM月dd日"));
 			noticeInfoService.instertNoticeInfo(noticeInfo);
-
+			Map m = new HashMap();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Result.error();
