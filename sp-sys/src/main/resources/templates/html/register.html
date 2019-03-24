@@ -1,0 +1,71 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::head"></head>
+
+<body>
+    <div th:replace="common::top"></div>
+	<div id="app" v-cloak>
+        <div class="sam clear" style="background:#fff;">
+            <div class="main-zc clearfix" style="margin:0 auto; margin-top:2%;">
+                <h3 class="col_Name c4" style="letter-spacing:3px; font-family:'微软雅黑';">欢迎注册本平台会员</h3>
+                <div class="row clearfix mt10">
+                    <div class="col-md-6 column clearl">
+                        <div>
+                            <form>
+                                <table class="zhucemini" style="border:none;">
+                                    <tr style="height:30px; line-height:50px;">
+                                        <td class="fr clearl" style="line-height:50px; font-size:16px;padding-right:8px;">用户名</td>
+                                        <td></td>
+                                        <td><input type="user" class="form-control" placeholder="输入用户名" style="width:90%;"></td>
+                                    </tr>
+                                    <tr style="height:30px; line-height:50px;">
+                                        <td class="fr clearl" style="line-height:50px; font-size:16px; padding-right:8px;">邮箱</td>
+                                        <td></td>
+                                        <td><input type="Email" class="form-control" placeholder="需要通过邮箱来更改密码" style="width:90%;"></td>
+                                    </tr>
+                                    <tr style="height:30px; line-height:50px;">
+                                        <td class="fr clearl" style="line-height:50px; font-size:16px; padding-right:8px;">手机</td>
+                                        <td></td>
+                                        <td><input type="phone" class="form-control" placeholder="可通过手机号码进行登录" style="width:90%;"></td>
+                                    </tr>
+                                    <tr style="height:30px; line-height:50px;">
+                                        <td class="fr clearl" style="line-height:50px; font-size:16px; padding-right:8px;">密码</td>
+                                        <td></td>
+                                        <td><input type="psw" class="form-control" placeholder="输入至少六位密码" style="width:90%;"></td>
+                                    </tr>
+                                    <tr style="height:30px; line-height:50px;">
+                                        <td class="fr clearl" style="line-height:50px; font-size:16px; padding-right:8px;">确认密码</td>
+                                        <td></td>
+                                        <td><input type="cfpsw" class="form-control" placeholder="再次输入密码" style="width:90%;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-center" style="font-size:16px;">
+                                            <input type="checkbox" style="margin-top:20px;"> 请确认您已经了解本平台相关条款及规定
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-center">
+                                            <button type="submit" class="btn btn-light" style="background:#93590d; width:80%; margin-top:20px;">注&nbsp;&nbsp;&nbsp;&nbsp;册</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-6 column tform mb20" style="border-left: 1px dashed #ddd;">
+                        <div>
+                            <img src="../static/images/nav/3.jpg" style="border-radius:5px; width:75%;  margin-left:18%; box-shadow: 1px 1px 3px 3px #abc;">
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+	</div>
+    <footer class="footer">
+        <div th:replace="common::foot"></div>
+    </footer>
+	<script type="text/javascript">
+
+	</script>
+</body>
+</html>
