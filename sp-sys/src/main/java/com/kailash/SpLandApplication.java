@@ -14,8 +14,8 @@ import com.github.pagehelper.PageHelper;
 public class SpLandApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-
         SpringApplication.run(SpLandApplication.class, args);
+        System.out.println("--------------------------启动成功-----------------------------");
     }
 
     @Override

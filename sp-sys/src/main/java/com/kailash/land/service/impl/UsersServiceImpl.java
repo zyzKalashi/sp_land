@@ -50,7 +50,6 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public int registerUser(Users user) {
-		user.setUserStatus(StatusEnum.USER_NORMAL.getId());
 		user.setRoleId(RoleEnum.COMMON.getRoleId());
 		this.usersMapper.instertEntity(user);
 		return user.getPkid();

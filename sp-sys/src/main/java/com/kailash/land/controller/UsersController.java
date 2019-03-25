@@ -24,7 +24,7 @@ public class UsersController extends AbstractController {
 
 	@RequestMapping(value = "users_register", method = RequestMethod.POST)
 	public Result register(Users user) {
-		user.setUserStatus(StatusEnum.AUDIT.getId());
+		user.setUserStatus(StatusEnum.USER_NORMAL.getId());
 		int i = this.usersService.registerUser(user);
 		if (i > 0) {
 			return Result.ok();
@@ -42,7 +42,7 @@ public class UsersController extends AbstractController {
 		}
 		return Result.error();
 	}
-	
+
 	@RequestMapping(value = "detailUser", method = RequestMethod.POST)
 	public Result detailUser(Users user) {
 		Map<String, Object> userMap = usersService.getUserByUserId(user);
