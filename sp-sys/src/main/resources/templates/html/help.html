@@ -84,50 +84,28 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Content End and the following is Footer Begin -->
+		<footer class="footer">
+			<div th:replace="common::foot"></div>
+		</footer>
+		<div th:replace="common :: js"></div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el : '#app',
+				data : {
+					helpInfoList : [],
+					dataInfoList : [],
+				},
+				mounted : function() {
+
+				},
+				methods : {
+
+				},
+			});
+		</script>
 	</div>
-
-	<!-- Content End and the following is Footer Begin -->
-	<div th:include="common :: footer"></div>
-	<!-- Footer END -->
-	<div th:include="common :: js"></div>
-	<script type="text/javascript">
-		var vm = new Vue({
-			el : '#app',
-			data : {
-				deal : {
-					sex : 0,
-					infoKind : 0,
-					rightKind : 0,
-					otherRightFlag : 0,
-					againFlag : 0,
-					agreeFlag : 0,
-					giveupRightFlag : 1,
-				}
-			},
-			mounted : function() {
-
-			},
-			methods : {
-				submitDeal : function() {
-					hzToolObj.postRpc("/deal/deal_add", vm.deal).done(
-							function(result) {
-								if (result.code == 0) {
-									window.location.href = "/index";
-								} else {
-									layer.msg(result.msg);
-								}
-							});
-					if (vm.checkDeal()) {
-					}
-				},
-				checkDeal : function() {
-					return true;
-				},
-			},
-		});
-	</script>
-
-
 
 </body>
 </html>

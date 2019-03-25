@@ -1,0 +1,452 @@
+<!doctype html>
+<html>
+<head th:include="common :: head">
+<title id="pageTitle">产权交易信息发布~四平市铁西区农经总站土地流转管理平台</title>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<!-- top begin -->
+		<div class="top">
+			<div class="top-c">
+				<ul class="fl">
+					<li>欢迎访问铁西区土地流转交易监管平台&nbsp;&nbsp;</li>
+					<li>请&nbsp;<a href="javascript:void(0);" class="bold">登录</a>&nbsp;|&nbsp;
+					</li>
+					<li><a href="javascript:void(0);" class="bold">注册</a></li>
+				</ul>
+
+				<ul class="fr huiyuan tform">
+					<li><a href="javascript:void(0);">会员中心</a></li>
+					<li><a href="javascript:void(0);"> 帮助中心</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- top end -->
+		<!-- header start -->
+		<div class="header fl" style="margin-bottom: 5px;">
+			<div class="header-c">
+				<div class="logo">
+					<a href="/" title="四平市铁西区农经总站土地流转信息管理平台"> <img width="100%"
+						height="auto" alt="logo image" src="../static/images/logo1.png">
+					</a>
+				</div>
+				<div class="search-main tform">
+					<form action="" name="">
+						<input type="text" name="" class="text" /> <input type="submit"
+							name="" class="submit" value="搜索" /> <select name="sel1"
+							class="sel1">
+							<option value="全部">全部</option>
+							<option value="土地流转">土地</option>
+							<option value="林权转让">林权</option>
+							<option value="四荒使用">四荒</option>
+							<option value="养殖水面">水面</option>
+						</select>
+					</form>
+				</div>
+				<ul class="remen clear tform">
+					<li>近期热门搜索：</li>
+					<li><a href="">土地承包</a></li>
+					<li><a href="">林权转让</a></li>
+					<li><a href="">养殖水面</a></li>
+					<li><a href="">四荒承包</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clearl"></div>
+		<!--header end -->
+
+		<!-- nav begin -->
+		<nav class="navbar navbar-expand-md bg-zong navbar-dark"
+			style="margin-bottom: 80px;">
+			<!--		<a class="navbar-brand" href="#" >菜单栏</a>
+	 	按钮边框 -->
+			<button class="navbar-toggler fr" type="button"
+				data-toggle="collapse" data-target="#collapsibleNavbar">
+				<!-- 方框里面三条线 -->
+				<span class="navbar-toggler-icon fr"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+				<ul class="navbar-nav nav-justified"
+					style="font-size: 23px; margin: 0 auto; width: 1200px;">
+					<li class="nav-item" style=""><a class="nav-link"
+						href="../index.html">首&nbsp;&nbsp;页</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../html/ckxm.html" target="_blank">查看信息</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../html/projectfb.html" target="_blank">发布信息</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../html/newslist.html" target="_blank">政策法规</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../html/help.html" target="_blank">资料下载</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../html/xuqiufabu.html" target="_blank">留言咨询</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!-- nav end -->
+		<!-- container begin -->
+		<div class="main clearfix">
+			<div class="row clearfix main5">
+				<div class="col-md-4 column"
+					style="border-right: 3px solid #93590d; box-shadow: 2px 0 0 0 #ddd;">
+					<div class="main6 mt20 clearfix">
+						<table class="nav-tabs clearl" id="mytab" role="tablist"
+							style="width: 100%;">
+							<tr class="mb10 fl"
+								style="width: 100%; border-bottom: 1px solid #ccc;">
+								<td class="mb15"><img
+									src="../static/images/cent/touxiang.jpg"
+									class="rounded ml10 mb15" width="100%" height='auto'></td>
+								<td>
+									<p class="f18 ml20" style="color: #93590d;">LiuXiaomeng</p>
+									<p class="f12 ml20" style="color: #06c; font-family: '宋体';">
+										<a href="#change" data-toggle="tab">修改资料</a>
+									</p>
+									<p class="ml20" style="font-family: '新宋体'; font-size: 11px;">
+										上次访问时间:<span>YY/MM/DD</span>
+									</p>
+								</td>
+
+							</tr>
+							<tr class="mb15"
+								style="width: 100%; border-bottom: 1px dashed #ccc;">
+								<td>
+									<p class="fl f20 ml10 mb5" style="color: #6e3e0d;">快速设置通道</p>
+								</td>
+							</tr>
+							<tr class="mb10 fl"
+								style="width: 100%; border-bottom: 1px dashed #ccc; line-height: 39px; padding: 10px 0;">
+								<td><img src="../static/images/cent/ballet_realname_2x.png"
+									class="ml10"></td>
+								<td style="">
+									<p class="fl pl20" style="margin: 0 auto;">
+										<a href="#shiming" data-toggle="tab">实名认证</a>
+									</p>
+								</td>
+							</tr>
+							<tr class="mb10 fl"
+								style="width: 100%; border-bottom: 1px dashed #ccc; line-height: 39px; padding: 10px 0;">
+								<td><img src="../static/images/cent/pws.png" class="ml10">
+								</td>
+								<td style="">
+									<p class="fl pl20" style="margin: 0 auto;">
+										<a href="#mima" data-toggle="tab">修改密码</a>
+									</p>
+								</td>
+							</tr>
+							<tr class="mb10 fl"
+								style="width: 100%; border-bottom: 1px dashed #ccc; line-height: 39px; padding: 10px 0;">
+								<td><img src="../static/images/cent/phone.png" class="ml10">
+								</td>
+								<td style="">
+									<p class="fl pl20" style="margin: 0 auto;">
+										<a href="#tel" data-toggle="tab">更换手机</a>
+									</p>
+
+								</td>
+							</tr>
+							<tr class="mb10 fl"
+								style="width: 100%; border-bottom: 1px dashed #ccc; line-height: 39px; padding: 10px 0;">
+								<td><img src="../static/images/cent/email.png" class="ml10">
+								</td>
+								<td style="">
+									<p class="fl pl20" style="margin: 0 auto;">
+										<a href="#email" data-toggle="tab">更改邮箱</a>
+									</p>
+								</td>
+							</tr>
+							<tr class="mb10 fl"
+								style="width: 100%; border-bottom: 1px dashed #ccc; line-height: 39px; padding: 10px 0;">
+								<td><img src="../static/images/cent/logout2x.png"
+									class="ml10"></td>
+								<td style="">
+									<p class="fl pl20" style="margin: 0 auto;">
+										<a href="#loginout" data-toggle="tab">账号注销</a>
+									</p>
+								</td>
+							</tr>
+							<tr class="mb10 fl"
+								style="width: 100%; border-bottom: 1px dashed #ccc; line-height: 39px; padding: 10px 0;">
+								<td><img src="../static/images/cent/help.png" class="ml10">
+								</td>
+								<td style="">
+									<p class="fl pl20" style="margin: 0 auto;">
+										<a href="../html/help.html">帮助中心</a>
+									</p>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-8 column text-center mt20">
+					<div id="mytabContent" class="tab-content clearfix">
+						<div class="tab-pane active" id="myfirst">
+							<!-- row1 start -->
+							<div class="row clearfix member ml10">
+								<table class="mb10"
+									style="width: 100%; height: auto; margin-left: 30px;">
+									<tr>
+										<td>
+											<ul>
+												<li style="width: 100px;" class="fl text-right mr5">会员名称：</li>
+												<span class="fl ml5" style="width: 280px;">Liuxiaomeng</span>
+												<li style="width: 100px;" class="fl text-right mr5">会员ID：</li>
+												<span class="fl ml5" style="width: 280px;">TX190120001</span>
+												<li style="width: 100px;" class="fl text-right mr5">手机号码：</li>
+												<span class="fl ml5" style="width: 280px;">13680000001</span>
+												<li style="width: 100px;" class="fl text-right mr5">注册时间：</li>
+												<span class="fl ml5" style="width: 280px;">2019-01-20</span>
+
+											</ul>
+
+										</td>
+										<td style="width: 200px;"><img
+											src="../static/images/cent/touxiang.jpg"
+											style="border-radius: 5px; box-shadow: 0 1px 2px 1px #666;"></td>
+									</tr>
+								</table>
+							</div>
+							<!-- row1 end -->
+							<hr width="98%" margin="0 auto">
+							<!-- row2 start -->
+							<div class="container">
+								<div class="row clearfix">
+									<div id="first" style="width: 100%;">
+										<ul class="clearfix nav nav-tabs" style="width: 100%;">
+											<li class="nav-item"><a class="active nav-link"
+												href="#xmli" role="tab" data-toggle="tab">我发布的项目信息列表</a></li>
+											<li class="nav-item"><a class="nav-link" href="#xqli"
+												role="tab" data-toggle="tab">我发布的需求信息列表</a></li>
+											<li class="fr" style="margin-left: 28%;"><a
+												href="../html/xuqiufabu.html">发布新信息</a></li>
+										</ul>
+										<div class="tab-content">
+											<div class="tab-pane active" id="xmli">
+												<div class="gerenxx clearl mb20">
+													<div class="gerendetail">
+														<table cellpadding="0" cellspacing="0" border="0">
+															<tr class="head">
+																<td class="widhead pl5 bold">项目信息</td>
+																<td class="bold">发布时间</td>
+																<td class="bold">发布状态</td>
+																<td class="bold">编辑</td>
+																<td class="bold">删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>已发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>未审批</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>拒绝发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>已发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>未审批</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>拒绝发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>已发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>未审批</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>拒绝发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>已发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>未审批</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>拒绝发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>已发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>未审批</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>拒绝发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane" id="xqli">
+												<div class="gerenxx clearl mb20">
+													<div class="gerendetail">
+														<table cellpadding="0" cellspacing="0" border="0">
+															<tr class="head">
+																<td class="widhead pl5 bold">需求/留言信息</td>
+																<td class="bold">发布时间</td>
+																<td class="bold">发布状态</td>
+																<td class="bold">编辑</td>
+																<td class="bold">删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xqdetail.html">如何发布信息？</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>已发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xqdetail.html">怎样承包土地？</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>未审批</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>拒绝发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>已发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>未审批</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>拒绝发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+															<tr>
+																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
+																<td><span>2019-1-15</span></td>
+																<td>已发布</td>
+																<td><span>编辑</span></td>
+																<td>删除</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 以上是首页的内容,以下是’修改资料‘的内容 -->
+						<div class="tab-pane" id="myfirst"></div>
+						<!-- 以下是实名认证的内容 -->
+						<div class="tab-pane" id="shiming">
+							<div class="main8 clearfix"></div>
+						</div>
+						<!-- 以下是修改密码的内容 -->
+						<div class="tab-pane" id="mima">xiugaimima</div>
+						<!-- 以下是更换手机的内容 -->
+						<div class="tab-pane" id="tel">genggaishouji</div>
+						<!-- 以下更改邮箱的内容 -->
+						<div class="tab-pane" id="email">email</div>
+						<!-- 以下是账号注销的内容 -->
+						<div class="tab-pane" id="loginout">zhanghuzhuxiao</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<div th:replace="common :: foot"></div>
+		</footer>
+		<div th:replace="common :: js"></div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el : '#app',
+				data : {
+					helpInfoList : [],
+					dataInfoList : [],
+				},
+				mounted : function() {
+
+				},
+				methods : {
+
+				},
+			});
+		</script>
+	</div>
+</body>
+</html>
