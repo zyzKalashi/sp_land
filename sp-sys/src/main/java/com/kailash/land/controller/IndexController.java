@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kailash.land.service.DealInfoService;
 import com.kailash.land.service.NoticeInfoService;
+import com.kailash.land.service.ProjectService;
 import com.kailash.land.util.Result;
 
 @RestController
@@ -18,14 +18,14 @@ import com.kailash.land.util.Result;
 public class IndexController {
 
 	@Autowired
-	private DealInfoService dealInfoService;
+	private ProjectService projectService;
 	@Autowired
 	private NoticeInfoService noticeInfoService;
 
 	@ResponseBody
 	@GetMapping("dealInfoList_new")
 	public Result dealInfoList_new() {
-		List<Map<String, Object>> dealInfoList = this.dealInfoService.queryIndexNewList();
+		List<Map<String, Object>> dealInfoList = this.projectService.queryIndexNewList();
 		return Result.ok().put("dealInfoList", dealInfoList);
 	}
 
@@ -35,7 +35,7 @@ public class IndexController {
 		if (kind == null) {
 			return Result.error();
 		}
-		List<Map<String, Object>> dealInfoList = this.dealInfoService.queryIndexKindList(kind);
+		List<Map<String, Object>> dealInfoList = this.projectService.queryIndexKindList(kind);
 		return Result.ok().put("dealInfoList", dealInfoList);
 	}
 

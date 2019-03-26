@@ -2,7 +2,7 @@ package com.kailash.land.entity;
 
 import java.io.Serializable;
 
-import com.kailash.land.filter.DealFiter;
+import com.kailash.land.filter.ProjectFiter;
 
 import lombok.Data;
 @Data
@@ -46,7 +46,7 @@ public class DealAround extends BaseEntity implements Serializable {
 	public DealAround() {
 	}
 
-	public DealAround(DealFiter filter) {
+	public DealAround(ProjectFiter filter) {
 		this.dealInfoId = filter.getDealInfoId();
 		this.areaName = filter.getAreaName();
 		this.area = filter.getArea();

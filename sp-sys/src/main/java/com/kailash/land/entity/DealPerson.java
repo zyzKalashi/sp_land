@@ -2,7 +2,7 @@ package com.kailash.land.entity;
 
 import java.io.Serializable;
 
-import com.kailash.land.filter.DealFiter;
+import com.kailash.land.filter.ProjectFiter;
 
 import lombok.Data;
 
@@ -28,7 +28,7 @@ public class DealPerson extends BaseEntity implements Serializable {
 	public DealPerson() {
 	}
 
-	public DealPerson(DealFiter filter) {
+	public DealPerson(ProjectFiter filter) {
 		this.name = filter.getName();
 		this.sex = filter.getSex();
 		this.infoKind = filter.getInfoKind();

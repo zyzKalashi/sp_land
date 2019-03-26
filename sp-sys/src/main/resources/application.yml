@@ -11,7 +11,5 @@ spring:
     cache: false
     prefix: classpath:/templates/
 
-mybatis:
-  type-handlers-package: com.kailash.land.entity
-  mapper-locations: classpath:mapper/*.xml
+
   

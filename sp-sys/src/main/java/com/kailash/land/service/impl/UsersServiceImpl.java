@@ -1,25 +1,22 @@
 package com.kailash.land.service.impl;
 
-import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.kailash.land.common.enums.RoleEnum;
-import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.dao.UsersMapper;
 import com.kailash.land.entity.Users;
 import com.kailash.land.service.UsersService;
-import com.kailash.land.util.DateFormatConsts;
-import com.kailash.land.util.DateUtils;
 
 /**
  * @Author: zyz
  * @Date: Create in 2018/4/24
  */
 @Service
-public class UsersServiceImpl implements UsersService {
+public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements UsersService {
 
 	@Autowired
 	private UsersMapper usersMapper;
@@ -51,7 +48,7 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public int registerUser(Users user) {
 		user.setRoleId(RoleEnum.COMMON.getRoleId());
-		this.usersMapper.instertEntity(user);
+		this.baseMapper.insert(user);
 		return user.getPkid();
 	}
 

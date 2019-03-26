@@ -3,14 +3,16 @@ package com.kailash.land.service;
 import java.util.List;
 import java.util.Map;
 
-import com.kailash.land.entity.DealInfo;
+import com.kailash.land.entity.ProjectEntity;
 
-public interface DealInfoService {
+public interface ProjectService {
 
-	int instertDealInfo(DealInfo dealInfo);
+	int instertProject(ProjectEntity projectEntity);
 
 	List<Map<String, Object>> queryIndexNewList();
 
 	List<Map<String, Object>> queryIndexKindList(Integer kind);
+	
+	
 
 }

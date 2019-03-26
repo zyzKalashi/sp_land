@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class DealFiter {
+public class ProjectFiter {
 	private Integer dealInfoId;
 
 	private String areaName;
