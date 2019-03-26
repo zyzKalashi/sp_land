@@ -1,0 +1,156 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<title>铁西区农村经济总站土地流转交易监管平台</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/admin.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/info.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
+	<script th:src="@{/static/js/jquery.min.js}"></script>
+	<script th:src="@{/static/js/popper.min.js}"></script>
+	<script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
+	<script th:src="@{/static/js/miaov.js}"></script>
+	<script th:src="@{/static/js/vue.min.js}"></script>
+	<script th:src="@{/static/js/md5_32.js}"></script>
+	<script th:src="@{/static/plugin/layer/layer.js}"></script>
+</head>
+<body>
+<div class="main7" id="app">
+	<div class="row clearfix tform"  style="height:35%;">
+			<div class="col-md-12 column text-center">
+			</div>
+	</div>
+	<div class="row clearfix">
+			<div class="col-md-4 column text-center">
+			</div>
+			<div class="col-md-4 column text-center" ><form>
+					<table class="zhucemini" style="border:none;">
+						<tr style="height:30px; line-height:50px;">
+							<td class="fr clearl" style="line-height:50px; font-size:16px;padding-right:8px;">管理员</td>
+							<td></td>
+							<td>
+								<input type="manager" class="form-control" id="userName" v-model="user.userName" placeholder="输入管理用户名或手机号" style="width:90%; border-color:#666;">
+							</td>
+						</tr>
+						<tr style="height:30px; line-height:50px;">
+							<td class="fr clearl" style="line-height:50px; font-size:16px; padding-right:8px;">密&nbsp;&nbsp;&nbsp;码</td>
+							<td></td>
+							<td>
+								<input type="password" class="form-control" id="password" v-model="user.password"  placeholder="输入管理员密码" style="width:90%; border-color:#666;">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" style="width:90%;">
+								<div class="checkbox" style="vertical-align:middle; font-size:13px;">
+									<p class="fl agreement" style="margin-left:10%;">
+										<input type="checkbox" name="agreement">&nbsp;记住密码
+									</p>
+									<p class="fr mr15" style="margin-right:10%; color:#777;">找回密码</p>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" class="text-center">
+								<button type="button" class="btn btn-light text-center" @click="login" style="background:#93590d; color:#fff; margin-top:5px; width:85%;">进入管理平台</button>
+							</td>
+						</tr>
+
+					</table></form>
+			</div>
+			<div class="col-md-4 column text-center">
+			</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el : '#app',
+		data : {
+			user : {
+				userName : '',
+				password : '',
+			},
+		},
+		mounted : function() {
+		},
+		methods : {
+			checkNull : function() {
+				if (!vm.user.userName) {
+					layer.msg("请输入用户名！");
+					$("#userName").focus();
+					return false;
+				}
+				if (!vm.user.password) {
+					layer.msg("请输入密码！");
+					$("#password").focus();
+					return false;
+				} else {
+					this.remeber();
+					return true;
+				}
+			},
+			login : function() {
+				if (vm.checkNull()) {
+					var tUser = new Object();
+					tUser.userName = this.user.userName;
+					tUser.password = hex_md5(this.user.password);
+					$.post("/sysLogin",tUser,function(result){
+						if (result.code == 0) {
+							//console.log(window.history);
+							window.location.href = "/admin/index";
+						} else {
+							layer.msg(result.msg);
+						}
+					});
+				}
+				return false;
+			},
+			// 记住密码
+			remeber : function() {
+				var isChecked = $("input[type='checkbox']").is(':checked');
+				if (isChecked) {
+					// 用户名为空，undefined、“”、null都可以判断
+					if (!vm.user.userName && !vm.user.password) {
+						return;
+					}
+					this.SetCookie(vm.user.userName, vm.user.password);
+				}
+			},
+			SetCookie : function(username, password) {
+				var Then = new Date();
+				Then.setTime(Then.getTime() + 1866240000000);
+				document.cookie = "username=" + username + "%%" + password + ";expires=" + Then.toGMTString();
+			},
+			GetCookie : function() {
+				var nmpsd;
+				var nm;
+				var psd;
+				var cookieString = new String(document.cookie);
+				var cookieHeader = "username=";
+				var beginPosition = cookieString.indexOf(cookieHeader);
+				cookieString = cookieString.substring(beginPosition);
+				var ends = cookieString.indexOf(";");
+				if (ends != -1) {
+					cookieString = cookieString.substring(0, ends);
+				}
+				if (beginPosition > -1) {
+					nmpsd = cookieString.substring(cookieHeader.length);
+					if (nmpsd != "") {
+						beginPosition = nmpsd.indexOf("%%");
+						nm = nmpsd.substring(0, beginPosition);
+						psd = nmpsd.substring(beginPosition + 2);
+						this.user.userName = nm;
+						this.user.password = psd;
+						if (nm != "" && psd != "") {
+							$("#remember-me").prop("checked", true);
+						}
+					}
+				}
+			}
+
+		},
+	});
+</script>
+</html>

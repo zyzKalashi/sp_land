@@ -1,0 +1,122 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<title>铁西区农村经济总站土地流转交易监管平台</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/admin.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/info.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
+	<script th:src="@{/static/js/jquery.min.js}"></script>
+	<script th:src="@{/static/js/popper.min.js}"></script>
+	<script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
+	<script th:src="@{/static/js/miaov.js}"></script>
+	<script th:src="@{/static/js/vue.min.js}"></script>
+	<script th:src="@{/static/js/md5_32.js}"></script>
+	<script th:src="@{/static/plugin/layer/layer.js}"></script>
+</head>
+<body>
+<!-- top begin -->
+<div class="header clearfix">
+	<div class="header-c clear">
+		<img class="fl mt10" src="/static/images/logo1.png" style="width:32%; height:auto;">
+    	<ul class="fr">
+        	<li><img src="/static/images/cent/pers36.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
+        	<li class="mt35 mr10">管理员名称</li>
+        	<li><img src="/static/images/cent/pws.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
+            <li class="mt35 mr10">密码设置</li>
+        	<li><img src="/static/images/cent/371.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
+            <li class="mt35 mr10">退出</li>
+        </ul>
+	</div>
+    <div class="top text-center" style="heiht:5px; color:#fff; font-family:'宋体'; font-size:11px;box-shadow:1px 1px 3px 1px #666; letter-spacing:3px;">
+    铁西区农村经济总站土地流转交易与办公系统综合监管平台&nbsp;后台管理系统
+    </div>
+</div>
+<!-- top end -->
+<!-- left begin -->
+<div class="clearfix row main5">
+		<div class="col-md-3 column" style="border-right: 3px solid #93590d;">
+        	<div class="main6 mt20">
+            <table class="mb10" style="width:100%; min-height:410px;">
+            	<tr class="mb5 fl" style="width:100%; border-bottom:3px double #bbb;">
+            	<td style="margin-left:5px;"><ul>
+                	<li><img src="../../../../../../../../../new2019/new2019/images/cent/set.png" style="width:30px; height:30px; line-height:35px;"></li>
+                    <li><h5 class="c2 ml5 bold" style="line-height:35px; font-family:'华文细黑';">后台内容管理</h5></li></ul>
+                </td>
+				</tr>
+
+                <tr class="clearfix fr" style="display:table; width:95%;">
+					<td>
+                		<div id="firstpaneDiv" class="menu_list">
+
+							<h3 class="menu_head current">
+								<img src="../../../../../../../../../new2019/new2019/images/cent/379.png" no-repeat width="20" height="20" ;>&nbsp;系统管理
+							</h3>
+							<div style="display:block;" class="menu_nva">
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;宣传图片管理</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;页面信息管理</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;标签系统管理</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;页脚信息管理</a>
+							</div>
+							<h3 class="menu_head"><img src="../../../../../../../../../new2019/new2019/images/cent/pers.png" no-repeat width="20" height="20" ;>&nbsp;会员管理</h3>
+							<div style="display:none" class="menu_nva">
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;管理员设置</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;会员权限管理</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;会员密码管理</a>
+							</div>
+							<h3 class="menu_head"><img src="../../../../../../../../../new2019/new2019/images/cent/ss.png" no-repeat width="20" height="20" ;>&nbsp;文档管理</h3>
+							<div style="display:none" class="menu_nva">
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;帮助文档上传/编辑</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;新闻文档上传/编辑</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;政策文档上传/编辑</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;法规文档上传/编辑</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;公告文档上传/编辑</a>
+							</div>
+							<h3 class="menu_head"><img src="../../../../../../../../../new2019/new2019/images/cent/376.png" no-repeat width="20" height="20" ;>&nbsp;审批系统</h3>
+							<div style="display:none" class="menu_nva">
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;项目发布信息审批</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;需求发布信息审批</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;其他信息审批</a>
+							</div>
+							<h3 class="menu_head"><img src="../../../../../../../../../new2019/new2019/images/cent/381.png" no-repeat width="20" height="20" ;>&nbsp;交易报表</h3>
+							<div style="display:none" class="menu_nva">
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;综合报表</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;图文报表</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;表格报表</a>
+								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;报表下载</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			</div>
+        </div>
+		<div class="col-md-9 column">
+        	<div class="clearfix mt10 main6r">dasfsa<hr></div>
+        </div>
+</div>
+<footer class="footer">
+	<div th:replace="common::foot"></div>
+</footer>
+</body>
+<script>
+	$.post("/admin/menus",null,function (menus) {
+		alert(JSON.stringify(menus));
+	})
+
+	$(document).ready(function(){
+		$("#firstpaneDiv .menu_nva:eq(0)").show();
+		$("#firstpaneDiv h3.menu_head").click(function(){
+			$(this).addClass("current").next("div.menu_nva").slideToggle(200).siblings("div.menu_nva").slideUp("slow");
+			$(this).siblings().removeClass("current");
+		});
+		$("#secondpane .menu_nva:eq(0)").show();
+		$("#secondpane h3.menu_head").mouseover(function(){
+			$(this).addClass("current").next("div.menu_nva").slideDown(400).siblings("div.menu_nva").slideUp("slow");
+			$(this).siblings().removeClass("current");
+		});
+	});
+</script>
+</html>

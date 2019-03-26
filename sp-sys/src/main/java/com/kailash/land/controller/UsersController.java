@@ -14,7 +14,7 @@ import com.kailash.land.service.UsersService;
 import com.kailash.land.util.Result;
 
 @RestController
-@RequestMapping(value = "userControl")
+@RequestMapping(value = "/user")
 public class UsersController extends AbstractController {
 
 	@Autowired
