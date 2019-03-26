@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.baomidou.mybatisplus.service.IService;
 import com.kailash.land.entity.MenuEntity;
 
-public interface MenuService {
+public interface MenuService extends IService<MenuEntity>{
     /**
      * 根据menuId查询对象
      *

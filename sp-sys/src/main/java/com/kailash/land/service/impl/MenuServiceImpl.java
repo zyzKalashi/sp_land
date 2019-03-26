@@ -9,12 +9,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kailash.land.dao.MenuMapper;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.kailash.land.entity.MenuEntity;
+import com.kailash.land.mapper.MenuMapper;
 import com.kailash.land.service.MenuService;
 
-@Service
-public class MenuServiceImpl implements MenuService {
+@Service("menuService")
+public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> implements MenuService {
 
 	@Autowired
 	private MenuMapper menuMapper;

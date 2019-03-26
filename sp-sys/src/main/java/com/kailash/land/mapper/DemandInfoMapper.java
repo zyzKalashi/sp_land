@@ -1,4 +1,4 @@
-package com.kailash.land.dao;
+package com.kailash.land.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

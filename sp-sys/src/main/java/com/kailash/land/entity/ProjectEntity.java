@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 @SuppressWarnings("serial")
 public class ProjectEntity extends BaseEntity implements Serializable {
+	
 	private Integer dealStatus;
 
 	private String dealName;

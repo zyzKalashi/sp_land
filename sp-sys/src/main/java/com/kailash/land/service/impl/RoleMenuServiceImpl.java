@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kailash.land.dao.RoleMenuMapper;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.kailash.land.entity.RoleMenuEntity;
+import com.kailash.land.mapper.RoleMenuMapper;
 import com.kailash.land.service.RoleMenuService;
 
 @Service
-public class RoleMenuServiceImpl implements RoleMenuService {
+public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuEntity> implements RoleMenuService {
     @Autowired
     private RoleMenuMapper roleMenuMapper;
     @Override

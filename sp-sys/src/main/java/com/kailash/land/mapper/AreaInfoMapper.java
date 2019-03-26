@@ -1,4 +1,4 @@
-package com.kailash.land.dao;
+package com.kailash.land.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.kailash.land.entity.AreaInfo;

@@ -1,7 +1,5 @@
 package com.kailash.land.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,24 +42,24 @@ public class UsersController extends AbstractController {
 		return Result.error();
 	}
 
-	@RequestMapping(value = "detailUser", method = RequestMethod.POST)
-	public Result detailUser(Users user) {
-		Map<String, Object> userMap = usersService.getUserByUserId(user);
-		return Result.ok().put("user", userMap);
-	}
-
-	@ResponseBody
-	@PostMapping(value = "/users_checkNameOrPhone")
-	public Result usersCheckName(Users user) {
-		int flag = this.usersService.checkUserNameOrPhone(user);
-		return Result.ok().put("flag", flag);
-	}
-
-	@ResponseBody
-	@PostMapping(value = "/users_update")
-	public Result usersUpdate(Users user) {
-		this.usersService.updateUsers(user);
-		return Result.ok();
-	}
+//	@RequestMapping(value = "detailUser", method = RequestMethod.POST)
+//	public Result detailUser(Users user) {
+//		Map<String, Object> userMap = usersService.getUserByUserId(user);
+//		return Result.ok().put("user", userMap);
+//	}
+//
+//	@ResponseBody
+//	@PostMapping(value = "/users_checkNameOrPhone")
+//	public Result usersCheckName(Users user) {
+//		int flag = this.usersService.checkUserNameOrPhone(user);
+//		return Result.ok().put("flag", flag);
+//	}
+//
+//	@ResponseBody
+//	@PostMapping(value = "/users_update")
+//	public Result usersUpdate(Users user) {
+//		this.usersService.updateUsers(user);
+//		return Result.ok();
+//	}
 
 }

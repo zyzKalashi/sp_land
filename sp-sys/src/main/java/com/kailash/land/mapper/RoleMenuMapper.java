@@ -1,14 +1,15 @@
-package com.kailash.land.dao;
+package com.kailash.land.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.kailash.land.entity.RoleMenuEntity;
 
 @Mapper
-public interface RoleMenuMapper {
+public interface RoleMenuMapper extends BaseMapper<RoleMenuEntity>{
     List<RoleMenuEntity> selectByRoleId(Integer roldId);
     int deleteByPrimaryKey(Integer pkid);
 

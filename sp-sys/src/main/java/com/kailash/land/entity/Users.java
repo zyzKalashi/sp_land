@@ -1,13 +1,25 @@
 package com.kailash.land.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 
 import lombok.Data;
 
 @Data
+@TableName("users")
 @SuppressWarnings("serial")
-public class Users extends BaseEntity implements Serializable {
-
+public class Users extends Model<Users> implements Serializable {
+	@TableId(value = "pkid", type = IdType.AUTO)
+	private Integer pkid;
+	private Date createDate;
+	private Integer createUser;
+	private String updateDate;
+	private Integer updateUser;
 	private String userName;
 	private String password;
 	private Integer roleId;
@@ -27,4 +39,9 @@ public class Users extends BaseEntity implements Serializable {
 	private String idCardPic;
 	private String idCardPicBack;
 	private String userPic;
+
+	@Override
+	protected Serializable pkVal() {
+		return this.pkid;
+	}
 }

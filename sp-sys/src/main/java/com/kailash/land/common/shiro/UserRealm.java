@@ -28,6 +28,7 @@ import com.kailash.land.util.ShiroUtils;
  */
 
 public class UserRealm extends AuthorizingRealm {
+	
 	@Autowired
 	private UsersService usersService;
 

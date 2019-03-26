@@ -1,4 +1,4 @@
-package com.kailash.land.dao;
+package com.kailash.land.mapper;
 
 import java.util.List;
 import java.util.Map;
