@@ -36,13 +36,13 @@
 </div>
 <!-- top end -->
 <!-- left begin -->
-<div class="clearfix row main5">
+<div id="app" class="clearfix row main5">
 		<div class="col-md-3 column" style="border-right: 3px solid #93590d;">
         	<div class="main6 mt20">
             <table class="mb10" style="width:100%; min-height:410px;">
             	<tr class="mb5 fl" style="width:100%; border-bottom:3px double #bbb;">
             	<td style="margin-left:5px;"><ul>
-                	<li><img src="../../../../../../../../../new2019/new2019/images/cent/set.png" style="width:30px; height:30px; line-height:35px;"></li>
+                	<li><img src="/static/images/cent/set.png" style="width:30px; height:30px; line-height:35px;"></li>
                     <li><h5 class="c2 ml5 bold" style="line-height:35px; font-family:'华文细黑';">后台内容管理</h5></li></ul>
                 </td>
 				</tr>
@@ -50,42 +50,13 @@
                 <tr class="clearfix fr" style="display:table; width:95%;">
 					<td>
                 		<div id="firstpaneDiv" class="menu_list">
-
-							<h3 class="menu_head current">
-								<img src="../../../../../../../../../new2019/new2019/images/cent/379.png" no-repeat width="20" height="20" ;>&nbsp;系统管理
-							</h3>
-							<div style="display:block;" class="menu_nva">
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;宣传图片管理</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;页面信息管理</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;标签系统管理</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;页脚信息管理</a>
-							</div>
-							<h3 class="menu_head"><img src="../../../../../../../../../new2019/new2019/images/cent/pers.png" no-repeat width="20" height="20" ;>&nbsp;会员管理</h3>
-							<div style="display:none" class="menu_nva">
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;管理员设置</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;会员权限管理</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;会员密码管理</a>
-							</div>
-							<h3 class="menu_head"><img src="../../../../../../../../../new2019/new2019/images/cent/ss.png" no-repeat width="20" height="20" ;>&nbsp;文档管理</h3>
-							<div style="display:none" class="menu_nva">
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;帮助文档上传/编辑</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;新闻文档上传/编辑</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;政策文档上传/编辑</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;法规文档上传/编辑</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;公告文档上传/编辑</a>
-							</div>
-							<h3 class="menu_head"><img src="../../../../../../../../../new2019/new2019/images/cent/376.png" no-repeat width="20" height="20" ;>&nbsp;审批系统</h3>
-							<div style="display:none" class="menu_nva">
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;项目发布信息审批</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;需求发布信息审批</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;其他信息审批</a>
-							</div>
-							<h3 class="menu_head"><img src="../../../../../../../../../new2019/new2019/images/cent/381.png" no-repeat width="20" height="20" ;>&nbsp;交易报表</h3>
-							<div style="display:none" class="menu_nva">
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;综合报表</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;图文报表</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;表格报表</a>
-								<a href="#"><img src="../../../../../../../../../new2019/new2019/images/cent/361.png" no-repeat width="16" height="16" ;>&nbsp;报表下载</a>
+							<div v-for="first in menus">
+								<h3 class="menu_head">
+									<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;{{ first.name }}
+								</h3>
+								<div style="display:none;" class="menu_nva">
+									<a href="#" v-for="second in first.seconds" ><img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}</a>
+								</div>
 							</div>
 						</div>
 					</td>
@@ -94,29 +65,46 @@
 			</div>
         </div>
 		<div class="col-md-9 column">
-        	<div class="clearfix mt10 main6r">dasfsa<hr></div>
+        	<div class="clearfix mt10 main6r">dasfsa<hr>
+			</div>
         </div>
+
 </div>
 <footer class="footer">
 	<div th:replace="common::foot"></div>
 </footer>
 </body>
 <script>
-	$.post("/admin/menus",null,function (menus) {
-		alert(JSON.stringify(menus));
-	})
-
+	var menus = eval('[[${session.menus}]]'.replace(/&quot;/g,'"'));
 	$(document).ready(function(){
 		$("#firstpaneDiv .menu_nva:eq(0)").show();
+		$("#firstpaneDiv .menu_head:eq(0)").addClass("current")
+
+
 		$("#firstpaneDiv h3.menu_head").click(function(){
-			$(this).addClass("current").next("div.menu_nva").slideToggle(200).siblings("div.menu_nva").slideUp("slow");
-			$(this).siblings().removeClass("current");
+			var opened = $(this).hasClass("current");
+
+			$(".menu_nva").each(function(){
+				$(this).hide();
+			})
+			$(".menu_head").each(function(){
+				$(this).removeClass("current");
+			})
+			if(!opened){
+				$(this).show();
+				$(this).addClass("current").next("div.menu_nva").slideToggle(200).siblings("div.menu_nva").slideUp("slow");
+			}
 		});
-		$("#secondpane .menu_nva:eq(0)").show();
-		$("#secondpane h3.menu_head").mouseover(function(){
-			$(this).addClass("current").next("div.menu_nva").slideDown(400).siblings("div.menu_nva").slideUp("slow");
-			$(this).siblings().removeClass("current");
-		});
+	});
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			menus: menus,
+		},
+		methods: {
+
+		}
 	});
 </script>
 </html>

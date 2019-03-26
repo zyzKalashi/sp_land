@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -31,7 +32,27 @@ public class LoginController extends AbstractController {
 
     @Autowired
     private MenuService menuService;
-
+    
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(Users user) {
+        return "/index";
+    }
+    
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin_login(Users user) {
+        return "/admin/login";
+    }
+    
+    @RequestMapping(value = "/admin/main", method = RequestMethod.GET)
+    public String admin_index() {
+        Users user = getUser();
+        if(String.valueOf(user.getRoleId()).matches("1|2|3")){
+            return "/admin/index";
+        } else {
+            return "/index";
+        }
+    }
+    
     /**
      * 用户登录
      *
@@ -65,7 +86,7 @@ public class LoginController extends AbstractController {
                 List<MenuEntity> second = menuService.selectSecondByParentId(menuMap);
                 menuEntity.setSeconds(second);
             }
-            ShiroUtils.setSessionAttribute("menus", menuEntities);
+            ShiroUtils.setSessionAttribute("menus", JSONObject.toJSONString(menuEntities));
 
 
         } catch (AuthenticationException e) {
@@ -79,11 +100,8 @@ public class LoginController extends AbstractController {
         logout();
         return "index";
     }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String host(Users user) {
-        return "/index";
-    }
+    
+    
 
     @ResponseBody
     @RequestMapping(value = "/loginInfo", method = RequestMethod.POST)

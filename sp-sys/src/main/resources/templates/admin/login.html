@@ -99,7 +99,7 @@
 					$.post("/sysLogin",tUser,function(result){
 						if (result.code == 0) {
 							//console.log(window.history);
-							window.location.href = "/admin/index";
+							window.location.href = "/admin/main";
 						} else {
 							layer.msg(result.msg);
 						}
