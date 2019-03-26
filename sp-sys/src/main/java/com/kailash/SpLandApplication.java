@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import com.github.pagehelper.PageHelper;
 
 @SpringBootApplication
+@MapperScan("com.kailash.land.mapper")
 public class SpLandApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
