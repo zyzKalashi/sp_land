@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+<head th:include="common :: header">
+<title id="pageTitle">需求咨询信息发布—铁西区农村经济总站土地流转交易监管平台</title>
+</head>
+
+<script type="text/javascript" src="../js/mainndy.js"></script>
+
+<body>
+	<div id="app" v-cloak>
+		<div th:replace="common::top"></div>
+
+		<!-- container begin -->
+		<div class="main clear mt5">
+			<div class="locate clearl">
+				<p class="location2 fl clear pl10">
+					<span></span>当前位置：
+					<a style="font-size: 13px; font-family:'宋体';" href="../index.html">首页</a> > 
+					<a style="font-size: 13px; font-family:'宋体';" href="">需求信息发布/咨询</a>
+				</p>
+			</div>
+			<div class="xqfb pub">
+				<div class="Box_title"
+					style="padding-bottom: 10px; width: 100%; border-bottom: 1px dashed #c6c6c6;">
+					<span class="ml5 c2 f20 font-weight-bold"
+						style="font-family: '幼圆', '微软雅黑';">发布需求信息</span>
+
+				</div>
+				<table class="Box_table pb15">
+					<tr>
+						<td align=right><b>*</b>需求类别：</td>
+						<td class="checkBox"><input type="checkbox" name=""><span>土地承包</span><input
+							type="checkbox" name=""><span>林权转让</span><input
+							type="checkbox" name=""><span>养殖水面</span><input
+							type="checkbox" name=""><span>四荒租赁</span><input
+							type="checkbox" name=""><span>其他</span></td>
+					</tr>
+					<tr>
+						<td align=right>资金范围：</td>
+						<td><select name="">
+								<option value="">请选择</option>
+								<option value="">1万-10万</option>
+								<option value="">10万-50万</option>
+								<option value="">50万-100万</option>
+								<option value="">100万以上</option>
+
+						</select></td>
+					</tr>
+					<tr>
+						<td align=right>需求性质：</td>
+						<td class="checkBox"><input type="checkbox" name=""><span>家庭承包</span>
+							<input type="checkbox" name=""><span>集体单位</span></td>
+					</tr>
+					<tr>
+						<td align=right><b>*</b>项目需求名称：</td>
+						<td class="pop_jj"><input type="text" name=""></td>
+					</tr>
+					<tr>
+						<td align=right><b>*</b>详细需求描述：</td>
+						<td class="pop_descript"><textarea name="" rows="" cols=""></textarea></td>
+					</tr>
+					<tr>
+						<td align=right><b>*</b>联 系 人：</td>
+						<td class="pop_contact"><input type="text" name=""><b>*</b>联系方式：<input
+							type="text" name="" value="手机"
+							onfocus="if(this.value=='手机') this.value='';"
+							onblur="if(this.value=='') this.value='手机';"></td>
+					</tr>
+					<tr>
+						<td align=right><b>*</b>邮 箱：</td>
+						<td><input type="text" name="" style="width: 50%;"></td>
+					</tr>
+					<tr>
+						<td align=right>附 件：</td>
+						<td><input type="file" name="file" value="选择文件"
+							style="border: none;"></td>
+					</tr>
+					<tr>
+						<td align=right></td>
+						<td class="pop_agree"><input type="checkbox" name="">阅读并同意本平台相关条款</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span class="btn_fb"><a href="#">立即发布需求信息</a></span><a
+							class="pop_cancel" href="javascript:void(0)" id="closebtn">取
+								&nbsp;消</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- container end -->
+		<footer class="footer">
+			<div th:replace="common :: foot"></div>
+		</footer>
+	</div>
+	<div th:replace="common :: js"></div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : '#app',
+			data : {
+				helpInfoList : [],
+				dataInfoList : [],
+			},
+			mounted : function() {
+
+			},
+			methods : {
+
+			},
+		});
+	</script>
+</body>
+</html>

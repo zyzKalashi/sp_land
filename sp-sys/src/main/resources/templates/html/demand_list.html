@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head th:include="common :: header">
+<title id="pageTitle">需求信息列表—铁西区农村经济总站土地流转交易监管平台</title>
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<div th:replace="common::top"></div>
+
+
+		<!-- container begin -->
+		<div class="main clearfix mt10">
+			<div class="locate clearl">
+				<p class="location2 fl pl10">
+					<span></span>当前位置：
+					<a style="font-size: 13px; font-family:'宋体';" href="../index.html">首页</a> > 
+					<a style="font-size: 13px; font-family:'宋体';" href="">需求信息列表</a>
+				</p>
+			</div>
+
+			<div class="main_w">
+
+				<div class="pinka_con">
+					<div class="select-tabs">
+						<ul>
+							<li class="sel-tab-cur"><a href="">全部需求</a></li>
+							<li><a href="">土地承包</a></li>
+							<li><a href="">林权转让</a></li>
+							<li><a href="">养殖水面</a></li>
+							<li><a href="">四荒租赁</a></li>
+						</ul>
+					</div>
+					<div class="clearfix info-sel-title">
+						<div class="fl s-t-name">需求项目名称</div>
+						<div class="fl s-t-hy">项目类型</div>
+						<div class="s-t-date">发布时间</div>
+					</div>
+					<div class="tech-pro-con">
+						<div class="project-list">
+							<a href="">求租承包农耕土地20亩</a><span class="">土地承包</span><span
+								class="project_date">2019-01-05</span>
+						</div>
+						<div class="project-list">
+							<a href="">承包林权100亩使用权</a><span class="">林权转让</span><span
+								class="project_date">2018-12-25</span>
+						</div>
+						<div class="project-list">
+							<a href="">承包养殖水面</a><span class="">养殖水面</span><span
+								class="project_date">2019-01-05</span>
+						</div>
+						<div class="project-list">
+							<a href="">哪个村有四荒土地可以租赁</a><span class="">四荒租赁</span><span
+								class="project_date">2018-12-25</span>
+						</div>
+						<div class="project-list">
+							<a href="">求租承包农耕土地20亩</a><span class="">土地承包</span><span
+								class="project_date">2019-01-05</span>
+						</div>
+						<div class="project-list">
+							<a href="">承包林权100亩使用权</a><span class="">林权转让</span><span
+								class="project_date">2018-12-25</span>
+						</div>
+						<div class="project-list">
+							<a href="">承包养殖水面</a><span class="">养殖水面</span><span
+								class="project_date">2019-01-05</span>
+						</div>
+						<div class="project-list">
+							<a href="">哪个村有四荒土地可以租赁</a><span class="">四荒租赁</span><span
+								class="project_date">2018-12-25</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page mt10 mb20">
+				<a href="#" class="first_1">首页</a> <a href="#" class="prev">&lt;上一页</a>
+				<a href="#" class="on">1</a> <a href="#">2</a> <a href="#">3</a> <a
+					href="#">4</a> <span>...</span> <a href="#" class="next">下一页&gt;</a>
+				<a href="#" class="last">尾页</a>
+			</div>
+		</div>
+
+		<!-- container end -->
+		<footer class="footer">
+			<div th:replace="common :: foot"></div>
+		</footer>
+	</div>
+	<div th:replace="common :: js"></div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : '#app',
+			data : {
+				helpInfoList : [],
+				dataInfoList : [],
+			},
+			mounted : function() {
+
+			},
+			methods : {
+
+			},
+		});
+	</script>
+
+</body>
+</html>

@@ -1,40 +1,48 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common::head"></head>
+<head th:include="common :: header">
+<title id="pageTitle">会员登录——铁西区农村经济总站土地流转交易监管平台</title>
+</head>
 <body>
 	<div th:replace="common::top"></div>
 	<div id="app" v-cloak onLoad="vm.GetCookie();">
 		<!-- Content Begin -->
-		<div class="sam clear" style="background:#fff;">
+		<div class="sam clear" style="background: #fff;">
 			<div class="row clearfix">
 				<div class="col-md-6 column">
-					<div class="table tform" style="margin:0 auto;">
+					<div class="table tform" style="margin: 0 auto;">
 						<img class="fr" src="../static/images/main/denglu.png">
 					</div>
 				</div>
 				<div class="col-md-6 column mt20 mb20">
-					<div class="card clearl mt10" style="background:#fff; width:80%; height:300px; margin:0 auto; box-shadow:2px 2px 2px 5px #6e3e0d; color:#6e3e0d;">
-						<div class="card-header bold" style="text-align:center; font-size:20px;">
-							用&nbsp;&nbsp;户&nbsp;&nbsp;登&nbsp;&nbsp;录
-						</div>
+					<div class="card clearl mt10"
+						style="background: #fff; width: 80%; height: 330px; margin: 0 auto; box-shadow: 2px 2px 2px 5px #6e3e0d; color: #6e3e0d;">
+						<div class="card-header bold"
+							style="text-align: center; font-size: 20px;">
+							用&nbsp;&nbsp;户&nbsp;&nbsp;登&nbsp;&nbsp;录</div>
 						<div style="padding: 10px 10px;">
 							<form>
 								<div class="input-group mt10 mb20">
-									<span class="input-group-text" style="margin-right:-3px;">用户名</span>
-									<input type="text" class="form-control" placeholder="用户名/手机/邮箱" v-model="user.userName">
+									<span class="input-group-text" style="margin-right: -3px;">用户名</span>
+									<input type="text" class="form-control" placeholder="用户名/手机/邮箱"
+										v-model="user.userName">
 								</div>
 								<div class="input-group mt10 mb10">
-									<span class="input-group-text" style="margin-right:-3px;">密&nbsp;&nbsp;&nbsp;码</span>
-									<input type="text" class="form-control" placeholder="密码" v-model="user.password">
+									<span class="input-group-text" style="margin-right: -3px;">密&nbsp;&nbsp;&nbsp;码</span>
+									<input type="password" class="form-control" placeholder="密码"
+										v-model="user.password">
 								</div>
-								<div class="checkbox" style="vertical-align:middle; font-size:13px;">
-									<p class="fl agreement"><input type="checkbox" name="agreement">&nbsp;记住密码</p>
+								<div class="checkbox"
+									style="vertical-align: middle; font-size: 13px;">
+									<p class="fl agreement">
+										<input type="checkbox" name="agreement">&nbsp;记住密码
+									</p>
 									<p class="fr mr15">找回密码</p>
 								</div>
-								<button type="submit" class="btn btn-def btn-default" style="background:#93590d; color:#fff;">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
-								<p class="text-center mt10 f12" style="color:#666;">
-									新用户请
-									<span class="c1 bold" style="letter-spacing:3px;"> 
+								<span class="btn btn-def btn-default"
+									style="background: #93590d; color: #fff;" @click="login">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</span>
+								<p class="text-center mt10 f12" style="color: #666;">
+									新用户请 <span class="c1 bold" style="letter-spacing: 3px;">
 										<a href="register">注册</a>
 									</span>
 								</p>
@@ -44,99 +52,106 @@
 				</div>
 			</div>
 		</div>
-		<footer class="footer">
-			<div th:replace="common::foot"></div>
-		</footer>
 	</div>
+	<footer class="footer">
+		<div th:replace="common::foot"></div>
+	</footer>
+	<div th:include="common :: js"></div>
 	<script type="text/javascript">
-		var vm = new Vue({
-			el : '#app',
-			data : {
-				user : {
-					userName : '',
-					password : '',
-				},
-			},
-			mounted : function() {
-			},
-			methods : {
-				checkNull : function() {
-					if (!vm.user.userName) {
-						layer.msg("请输入用户名！");
-						$("#userName").focus();
-						return false;
-					}
-					if (!vm.user.password) {
-						layer.msg("请输入密码！");
-						$("#password").focus();
-						return false;
-					} else {
-						this.remeber();
-						return true;
-					}
-				},
-				login : function() {
-					if (vm.checkNull()) {
+		var vm = new Vue(
+				{
+					el : '#app',
+					data : {
+						user : {
+							userName : '',
+							password : '',
+						},
+					},
+					mounted : function() {
+					},
+					methods : {
+						checkNull : function() {
+							if (!vm.user.userName) {
+								layer.msg("请输入用户名！");
+								$("#userName").focus();
+								return false;
+							}
+							if (!vm.user.password) {
+								layer.msg("请输入密码！");
+								$("#password").focus();
+								return false;
+							} else {
+								this.remeber();
+								return true;
+							}
+						},
+						login : function() {
+							if (vm.checkNull()) {
+								// 记住密码
+								vm.user.password = hex_md5(vm.user.password);
+								hzToolObj.postRpc("/sysLogin", vm.user).done(
+								function(result) {
+									if (result.code == 0) {
+										//console.log(window.history);
+										window.location.href = "../login/add_index";
+									} else {
+										layer.msg(result.msg);
+									}
+								});
+							}
+						},
 						// 记住密码
-						vm.user.password = hex_md5(vm.user.password);
-						hzToolObj.postRpc("/sysLogin", vm.user).done(
-							function(result) {
-								if (result.code == 0) {
-									//console.log(window.history);
-									window.location.href = "../login/add_index";
-								} else {
-									layer.msg(result.msg);
+						remeber : function() {
+							var isChecked = $("input[type='checkbox']").is(
+									':checked');
+							if (isChecked) {
+								// 用户名为空，undefined、“”、null都可以判断
+								if (!vm.user.userName && !vm.user.password) {
+									return;
+								}
+								this.SetCookie(vm.user.userName,
+										vm.user.password);
+							}
+						},
+						SetCookie : function(username, password) {
+							var Then = new Date();
+							Then.setTime(Then.getTime() + 1866240000000);
+							document.cookie = "username=" + username + "%%"
+									+ password + ";expires="
+									+ Then.toGMTString();
+						},
+						GetCookie : function() {
+							var nmpsd;
+							var nm;
+							var psd;
+							var cookieString = new String(document.cookie);
+							var cookieHeader = "username=";
+							var beginPosition = cookieString
+									.indexOf(cookieHeader);
+							cookieString = cookieString
+									.substring(beginPosition);
+							var ends = cookieString.indexOf(";");
+							if (ends != -1) {
+								cookieString = cookieString.substring(0, ends);
+							}
+							if (beginPosition > -1) {
+								nmpsd = cookieString
+										.substring(cookieHeader.length);
+								if (nmpsd != "") {
+									beginPosition = nmpsd.indexOf("%%");
+									nm = nmpsd.substring(0, beginPosition);
+									psd = nmpsd.substring(beginPosition + 2);
+									this.user.userName = nm;
+									this.user.password = psd;
+									if (nm != "" && psd != "") {
+										$("#remember-me").prop("checked", true);
+									}
 								}
 							}
-						});
-					}
-				},
-				// 记住密码
-				remeber : function() {
-					var isChecked = $("input[type='checkbox']").is(':checked');
-					if (isChecked) {
-						// 用户名为空，undefined、“”、null都可以判断
-						if (!vm.user.userName && !vm.user.password) {
-							return;
 						}
-						this.SetCookie(vm.user.userName, vm.user.password);
-					}
-				},
-				SetCookie : function(username, password) {
-					var Then = new Date();
-					Then.setTime(Then.getTime() + 1866240000000);
-					document.cookie = "username=" + username + "%%" + password
-							+ ";expires=" + Then.toGMTString();
-				},
-				GetCookie : function() {
-					var nmpsd;
-					var nm;
-					var psd;
-					var cookieString = new String(document.cookie);
-					var cookieHeader = "username=";
-					var beginPosition = cookieString.indexOf(cookieHeader);
-					cookieString = cookieString.substring(beginPosition);
-					var ends = cookieString.indexOf(";");
-					if (ends != -1) {
-						cookieString = cookieString.substring(0, ends);
-					}
-					if (beginPosition > -1) {
-						nmpsd = cookieString.substring(cookieHeader.length);
-						if (nmpsd != "") {
-							beginPosition = nmpsd.indexOf("%%");
-							nm = nmpsd.substring(0, beginPosition);
-							psd = nmpsd.substring(beginPosition + 2);
-							this.user.userName = nm;
-							this.user.password = psd;
-							if (nm != "" && psd != "") {
-								$("#remember-me").prop("checked", true);
-							}
-						}
-					}
-				}
 
-			},
-		});
+					},
+				});
 	</script>
 </body>
 </html>

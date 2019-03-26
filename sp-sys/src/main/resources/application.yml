@@ -5,6 +5,13 @@ spring:
     throw-exception-if-no-handler-found: true
   resources:
     add-mappings: false
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    cache: false
+    prefix: classpath:/templates/
+
 mybatis:
   type-handlers-package: com.kailash.land.entity
   mapper-locations: classpath:mapper/*.xml
+  

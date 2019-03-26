@@ -16,13 +16,14 @@ import com.kailash.land.service.UsersService;
 import com.kailash.land.util.Result;
 
 @RestController
-@RequestMapping(value = "user")
+@RequestMapping(value = "userControl")
 public class UsersController extends AbstractController {
 
 	@Autowired
 	private UsersService usersService;
 
-	@RequestMapping(value = "users_register", method = RequestMethod.POST)
+	@ResponseBody
+	@PostMapping(value = "/users_register")
 	public Result register(Users user) {
 		user.setUserStatus(StatusEnum.USER_NORMAL.getId());
 		int i = this.usersService.registerUser(user);
