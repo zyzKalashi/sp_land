@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -86,7 +87,8 @@ public class LoginController extends AbstractController {
                 List<MenuEntity> second = menuService.selectSecondByParentId(menuMap);
                 menuEntity.setSeconds(second);
             }
-            ShiroUtils.setSessionAttribute("menus", JSONObject.toJSONString(menuEntities));
+            
+            ShiroUtils.setSessionAttribute("menus", menuEntities);
 
 
         } catch (AuthenticationException e) {
@@ -95,19 +97,30 @@ public class LoginController extends AbstractController {
         return Result.ok(map);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(Users user) {
-        logout();
-        return "index";
+    public Result logoutSystem() {
+        try {
+            super.logout();
+        } catch (Exception e){
+            e.printStackTrace();
+            return Result.error("退出登陆失败！");
+        }
+        return Result.ok();
     }
     
     
 
     @ResponseBody
-    @RequestMapping(value = "/loginInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginInfo", method = RequestMethod.GET)
     public Result loginInfo() {
         Users user = getUser();
         return Result.ok().put("user", user);
     }
-
+    
+    @ResponseBody
+    @RequestMapping(value = "/menuInfo", method = RequestMethod.GET)
+    public Result menuInfo() {
+        return Result.ok().put("menu", ShiroUtils.getSessionAttribute("menus"));
+    }
 }

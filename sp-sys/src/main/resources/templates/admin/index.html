@@ -17,65 +17,62 @@
 	<script th:src="@{/static/plugin/layer/layer.js}"></script>
 </head>
 <body>
-<!-- top begin -->
-<div class="header clearfix">
-	<div class="header-c clear">
-		<img class="fl mt10" src="/static/images/logo1.png" style="width:32%; height:auto;">
-    	<ul class="fr">
-        	<li><img src="/static/images/cent/pers36.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
-        	<li class="mt35 mr10">管理员名称</li>
-        	<li><img src="/static/images/cent/pws.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
-            <li class="mt35 mr10">密码设置</li>
-        	<li><img src="/static/images/cent/371.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
-            <li class="mt35 mr10">退出</li>
-        </ul>
+<div id="app">
+	<div class="header clearfix">
+		<div class="header-c clear">
+			<img class="fl mt10" src="/static/images/logo1.png" style="width:32%; height:auto;">
+			<ul class="fr">
+				<li><img src="/static/images/cent/pers36.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
+				<li class="mt35 mr10">{{user.userName}}</li>
+				<li><img src="/static/images/cent/pws.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
+				<li class="mt35 mr10">密码设置</li>
+				<li><img src="/static/images/cent/371.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
+				<li class="mt35 mr10" @click="logout">退出</li>
+			</ul>
+		</div>
+		<div class="top text-center" style="heiht:5px; color:#fff; font-family:'宋体'; font-size:11px;box-shadow:1px 1px 3px 1px #666; letter-spacing:3px;">
+		铁西区农村经济总站土地流转交易与办公系统综合监管平台&nbsp;后台管理系统
+		</div>
 	</div>
-    <div class="top text-center" style="heiht:5px; color:#fff; font-family:'宋体'; font-size:11px;box-shadow:1px 1px 3px 1px #666; letter-spacing:3px;">
-    铁西区农村经济总站土地流转交易与办公系统综合监管平台&nbsp;后台管理系统
-    </div>
-</div>
-<!-- top end -->
-<!-- left begin -->
-<div id="app" class="clearfix row main5">
-		<div class="col-md-3 column" style="border-right: 3px solid #93590d;">
-        	<div class="main6 mt20">
-            <table class="mb10" style="width:100%; min-height:410px;">
-            	<tr class="mb5 fl" style="width:100%; border-bottom:3px double #bbb;">
-            	<td style="margin-left:5px;"><ul>
-                	<li><img src="/static/images/cent/set.png" style="width:30px; height:30px; line-height:35px;"></li>
-                    <li><h5 class="c2 ml5 bold" style="line-height:35px; font-family:'华文细黑';">后台内容管理</h5></li></ul>
-                </td>
-				</tr>
-
-                <tr class="clearfix fr" style="display:table; width:95%;">
-					<td>
-                		<div id="firstpaneDiv" class="menu_list">
-							<div v-for="first in menus">
-								<h3 class="menu_head">
-									<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;{{ first.name }}
-								</h3>
-								<div style="display:none;" class="menu_nva">
-									<a href="#" v-for="second in first.seconds" ><img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}</a>
+	<div class="clearfix row main5" style="width:100%;">
+			<div class="col-lg-3 col-md-3 col-sm-4 column" style="border-right: 3px solid #93590d;" >
+				<div class="main6 mt20" :style="contentStyleObj">
+					<table class="mb10" style="width:100%;">
+						<tr class="mb5 fl" style="width:100%; border-bottom:3px double #bbb;">
+						<td style="margin-left:5px;"><ul>
+							<li><img src="/static/images/cent/set.png" style="width:30px; height:30px; line-height:35px;"></li>
+							<li><h5 class="c2 ml5 bold" style="line-height:35px; font-family:'华文细黑';">后台内容管理</h5></li></ul>
+						</td>
+						</tr>
+						<tr class="clearfix fr" style="display:table; width:95%;">
+							<td>
+								<div id="firstpaneDiv" class="menu_list">
+									<div v-for="first in menus">
+										<h3 class="menu_head">
+											<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;{{ first.name }}
+										</h3>
+										<div style="display:none;" class="menu_nva">
+											<a href="#" v-for="second in first.seconds" ><img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}</a>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-					</td>
-				</tr>
-			</table>
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
-        </div>
-		<div class="col-md-9 column">
-        	<div class="clearfix mt10 main6r">dasfsa<hr>
+			<div class="col-lg-9 col-md-9 col-sm-8 column">
+				<div class="clearfix mt10 main6r">
+					<iframe name="myiframe" id="myrame" src="/" frameborder="0" align="left" width="100%" :style="contentStyleObj"></iframe>
+				</div>
 			</div>
-        </div>
-
+	</div>
 </div>
-<footer class="footer">
+<footer class="footer" style="margin-bottom: 0px;">
 	<div th:replace="common::foot"></div>
 </footer>
 </body>
 <script>
-	var menus = eval('[[${session.menus}]]'.replace(/&quot;/g,'"'));
 	$(document).ready(function(){
 		$("#firstpaneDiv .menu_nva:eq(0)").show();
 		$("#firstpaneDiv .menu_head:eq(0)").addClass("current")
@@ -100,10 +97,46 @@
 	var vm = new Vue({
 		el: '#app',
 		data: {
-			menus: menus,
+			menus: [],
+			user: {},
+			contentStyleObj:{
+				height:'',
+				overflow: 'auto'
+			}
+		},
+		created: function() {
+			var _this = this;
+			$.get("/loginInfo","",function(result){
+				if(0 == result.code){
+					_this.user = result.user;
+				}
+			});
+
+			$.get("/menuInfo","",function(result){
+				if(0 == result.code){
+					_this.menus = result.menu;
+				}
+			});
+			window.addEventListener('resize', this.getHeight);
+			this.getHeight()
+		},
+		mounted: function(){
+			//$("#datadiv").css("height",(document.body.clientHeight) + 'px');
 		},
 		methods: {
-
+			logout: function(){
+				$.get("/logout","",function(result){
+					if (result.code == 0) {
+						window.location.href = "/admin";
+					} else {
+						layer.msg(result.msg);
+					}
+				});
+			},
+			getHeight: function(){
+				var height = $(".header").outerHeight(true) + $(".footer").outerHeight(true) + 38;
+				this.contentStyleObj.height=(window.innerHeight-height)+'px';
+			},
 		}
 	});
 </script>
