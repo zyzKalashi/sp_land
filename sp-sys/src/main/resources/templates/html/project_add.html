@@ -10,9 +10,8 @@
 		<div class="main clearfix mt10">
 			<div class="locate clearl">
 				<p class="location2 fl pl10">
-					<span></span>当前位置：<a style="font-size: 13px; font-family:"
-						宋体";" href="../index.html">首页</a> > <a
-						style="font-size: 13px; font-family:" 宋体";" href="">土地流转项目信息发布</a>
+					<span></span>当前位置：<a style="font-size: 13px; font-family:'宋体';" href="../index.html">首页</a> > <a
+						style="font-size: 13px; font-family:'宋体';" href="">土地流转项目信息发布</a>
 				</p>
 			</div>
 			<!-- table1 begin -->
@@ -29,19 +28,22 @@
 									<td class="t_prop"><strong>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;"
-										name="name" placeholder="输入产权人（或发布者）姓名"></td>
+										name="name" placeholder="输入产权人（或发布者）姓名" v-model="project.name"></td>
 									<td class="t_prop mt15"><strong>性&nbsp;&nbsp;&nbsp;&nbsp;别：</strong></td>
-									<td class="pl10"><input type="radio" name="male">&nbsp;&nbsp;男&nbsp;&nbsp;&nbsp;&nbsp;<input
-										type="radio" name="female">&nbsp;&nbsp;女</td>
+									<td class="pl10"><input type="radio" name="sex" value="0"
+										v-model="project.sex">&nbsp;&nbsp;男&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="sex" value="1" v-model="project.sex">&nbsp;&nbsp;女</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>手&nbsp;&nbsp;&nbsp;&nbsp;机：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 100%;"
-										name="mobile" placeholder="有效手机号码"></td>
+										name="mobile" placeholder="有效手机号码" v-model="project.moibel"></td>
 									<td class="t_prop mt15"><strong>信息属权：</strong></td>
-									<td class="pl10"><input type="radio" name="geren">&nbsp;&nbsp;家庭个人&nbsp;&nbsp;<input
-										type="radio" name="jiti">&nbsp;&nbsp;集体单位</td>
+									<td class="pl10"><input type="radio" name="infoKind"
+										value="0" v-model="project.infoKind">&nbsp;&nbsp;家庭个人&nbsp;&nbsp;
+										<input type="radio" name="infoKind" value="1"
+										v-model="project.infoKind">&nbsp;&nbsp;集体单位</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>联系地址：</strong></td>
@@ -73,7 +75,8 @@
 											<option value="20">新发</option>
 									</select> <input type="text"
 										style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 68%; padding: 0px 2px;"
-										name="name" placeholder="输入产权人（或发布者）现住址"></td>
+										name="name" placeholder="输入产权人（或发布者）现住址"
+										v-model="project.address"></td>
 								</tr>
 							</table>
 						</div>
@@ -93,154 +96,179 @@
 									<td class="t_prop"><strong>项目名称：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 100%;"
-										name="xmmc" placeholder="项目详细名称"></td>
+										name="xmmc" placeholder="项目详细名称" v-model="project.projectName"></td>
 									<td class="t_prop"><strong>流转方式：</strong></td>
 
 									<td class="pl10"><select name="">
-											<option value="">请选择流转方式</option>
-											<option value="">土地承包</option>
-											<option value="">林权转让</option>
-											<option value="">养殖水面</option>
-											<option value="">四荒承包</option>
-
+											<option value="0">请选择流转方式</option>
+											<option value="1">土地承包</option>
+											<option value="2">林权转让</option>
+											<option value="3">养殖水面</option>
+											<option value="4">四荒承包</option>
 									</select></td>
-
-
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>项目地址：</strong></td>
 									<td colspan="3" class="pl5"><input type="text"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 100%; padding: 0px 2px;"
-										name="xmdz" placeholder="输入流转项目的具体地址（位置）"></td>
+										name="xmdz" placeholder="输入流转项目的具体地址（位置）"
+										v-model="project.projectAddress"></td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>转出方：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="zcf" placeholder="联系人姓名"></td>
+										name="zcf" placeholder="联系人姓名"
+										v-model="project.outputPersonName"></td>
 									<td class="t_prop mt15"><strong>项目属权：</strong></td>
-									<td class='pl10'><input type="radio" name="geren">&nbsp;&nbsp;家庭个人&nbsp;&nbsp;&nbsp;&nbsp;<input
-										type="radio" name="jiti">&nbsp;&nbsp;集体单位</td>
+									<td class='pl10'><input type="radio" name="rightKind"
+										value="0" v-model="project.rightKind">&nbsp;&nbsp;家庭个人&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="rightKind" value="1"
+										v-model="project.rightKind">&nbsp;&nbsp;集体单位</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>权证编号：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="qzbh" placeholder="产权证编号"></td>
+										name="qzbh" placeholder="产权证编号" v-model="project.warrantNum"></td>
 									<td class="t_prop"><strong>面积|数量（亩|㎡）：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="mjsl" placeholder="项目数量"></td>
+										name="mjsl" placeholder="项目数量" v-model="project.areaNum"></td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>承包经营权人：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="cbjyqr" placeholder="现承包经营权人姓名"></td>
+										name="cbjyqr" placeholder="现承包经营权人姓名"
+										v-model="project.personName"></td>
 									<td class="t_prop mt15"><strong>是否他项权利人：</strong></td>
-									<td class='pl10'><input type="radio" name="yes">&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;<input
-										type="radio" name="no">&nbsp;&nbsp;否</td>
+									<td class='pl10'><input type="radio" name="otherRightFlag"
+										value="1" v-model="project.otherRightFlag">&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="otherRightFlag" value="0"
+										v-model="project.otherRightFlag">&nbsp;&nbsp;否</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>他项权利人：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="txqlr" placeholder="他项权利人名称"></td>
+										name="txqlr" placeholder="他项权利人名称"
+										v-model="project.otherRightName"></td>
 									<td class="t_prop"><strong>他项权利内容：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="txqlnr" placeholder="他项权利内容（如存在）"></td>
+										name="txqlnr" placeholder="他项权利内容（如存在）"
+										v-model="project.otherRightContext"></td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>涉及农户数：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="sjnhs" placeholder="涉项农户总数"></td>
+										name="sjnhs" placeholder="涉项农户总数" v-model="project.famerNum"></td>
 									<td class="t_prop"><strong>原承包/租赁期：</strong></td>
-									<td class="t_prop_a"><input type="text" size="30"
-										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="zlq" placeholder="采用时间选择项决定起始终止时间"></td>
+									<td class="t_prop_a">
+										<!-- <input type="text" size="30" class="jeinput"
+·											style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
+											name="zlq" placeholder="采用时间选择项决定起始终止时间" id="oldRentDate"
+											readonly="readonly"> -->
+									</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>地&nbsp;&nbsp;&nbsp;级：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="dj" placeholder="用地级别"></td>
+										name="dj" placeholder="用地级别" v-model="project.landLevel"></td>
 									<td class="t_prop"><strong>地上物情况：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="dswqk" placeholder="地上物情况"></td>
+										name="dswqk" placeholder="地上物情况" v-model="project.upThings"></td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>交通情况：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="jtqk" placeholder="交通情况"></td>
+										name="jtqk" placeholder="交通情况" v-model="project.traffic"></td>
 									<td class="t_prop"><strong>是否属再次转出：</strong></td>
-									<td class='pl10'><input type="radio" name="yes">&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;<input
-										type="radio" name="no">&nbsp;&nbsp;否</td>
+									<td class='pl10'><input type="radio" name="againFlag"
+										value="1" v-model="project.againFlag">&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="againFlag" value="0"
+										v-model="project.againFlag">&nbsp;&nbsp;否</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>流转承包用途：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="lzcbyt" placeholder="流转承包用途"></td>
+										name="lzcbyt" placeholder="流转承包用途" v-model="project.rentUse"></td>
 									<td class="t_prop"><strong>原承包/出租人（发包人）是否同意：</strong></td>
-									<td class='pl10'><input type="radio" name="yes">&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;<input
-										type="radio" name="no">&nbsp;&nbsp;否</td>
+									<td class='pl10'><input type="radio" name="agreeFlag"
+										value="1" v-model="project.agreeFlag">&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="agreeFlag" value="0"
+										v-model="project.agreeFlag">&nbsp;&nbsp;否</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>前次转出方式：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="qczcfs" placeholder="前次转出方式"></td>
+										name="qczcfs" placeholder="前次转出方式" v-model="project.oldOutput"></td>
 									<td class="t_prop"><strong>拟转出方式：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="nzcfs" placeholder="拟转出方式：承包、租赁、继承等"></td>
+										name="nzcfs" placeholder="拟转出方式：承包、租赁、继承等"
+										v-model="project.hopeOutput"></td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>放弃行使优先权：</strong></td>
 									<td class='pl10' colspan="3"><input type="radio"
-										name="yes">&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;<input
-										type="radio" name="no">&nbsp;&nbsp;否</td>
+										name="giveupRightFlag" value="1"
+										v-model="project.giveupRightFlag">&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="giveupRightFlag" value="0"
+										v-model="project.giveupRightFlag">&nbsp;&nbsp;否</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>评估机构：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="pgjg" placeholder="评估机构名称"></td>
+										name="pgjg" placeholder="评估机构名称" v-model="project.assessOrg"></td>
 									<td class="t_prop"><strong>评估基准日：</strong></td>
-									<td class="t_prop_a"><input type="text" size="30"
+									<td class="t_prop_a">
+										<!-- <input type="text" class="jeinput"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="pgjzr" placeholder="输入日期:yyyy-mm-dd"></td>
+										placeholder="输入日期:yyyy-mm-dd" id="assessDate"
+										readonly="readonly"> -->
+									</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>评估值（元）：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="pgz" placeholder="标准计价方式，如：1,000.00"></td>
+										name="pgz" placeholder="标准计价方式，如：1,000.00"
+										v-model="project.assessValue"></td>
 									<td class="t_prop"><strong>转出方式：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-										name="zcfs" placeholder="传出方式：个人承包，非家庭承包等"></td>
+										name="zcfs" placeholder="传出方式：个人承包，非家庭承包等"
+										v-model="project.outputWay"></td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>拟转出期限：</strong></td>
-									<td colspan="3" class="t_prop_a"><input type="text"
+									<td colspan="3" class="t_prop_a">
+									<!-- <input type="text"
+										class="jeinput" placeholder="采用时间选择项决定起始终止时间"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 90%; padding: 0px 2px;"
-										name="nzcrq" placeholder="采用时间选择项决定起始终止时间"></td>
+										id="hopeOutputDate" readonly="readonly"> -->
+									
+									</td>
 								</tr>
 
 							</table>
@@ -263,39 +291,39 @@
 								<td class="t_prop">地块名称：</td>
 								<td class="t_prop_c"><input type="text" size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px;"
-									name="dkmc" placeholder=" 四至地块名称"></td>
+									name="dkmc" placeholder=" 四至地块名称" v-model="project.areaName"></td>
 								<td class="t_prop">面积（亩）：</td>
 								<td class="t_prop_c"><input type="text" size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px;"
-									name="szdkmj" placeholder="地块面积数量"></td>
+									name="szdkmj" placeholder="地块面积数量" v-model="project.area"></td>
 							</tr>
 							<tr>
 								<td class="t_prop">东</td>
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="east" placeholder="东向接壤情况"></td>
+									name="east" placeholder="东向接壤情况" v-model="project.east"></td>
 							</tr>
 							<tr>
 								<td class="t_prop">南</td>
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="south" placeholder="南向接壤情况"></td>
+									name="south" placeholder="南向接壤情况" v-model="project.south"></td>
 							</tr>
 							<tr>
 								<td class="t_prop">西</td>
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="west" placeholder="西向接壤情况"></td>
+									name="west" placeholder="西向接壤情况" v-model="project.west"></td>
 							</tr>
 							<tr>
 								<td class="t_prop">北</td>
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="north" placeholder="北向接壤情况"></td>
+									name="north" placeholder="北向接壤情况" v-model="project.north"></td>
 							</tr>
 
 							<tr>
@@ -306,42 +334,44 @@
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="ggjg" placeholder="总成交金额"></td>
+									name="ggjg" placeholder="总成交金额" v-model="project.showPreice"></td>
 							</tr>
 							<tr>
 								<td class="t_prop">合同支付方式</td>
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="pay" placeholder="按合同约束支付"></td>
+									name="pay" placeholder="按合同约束支付" v-model="project.payWay"></td>
 							</tr>
 							<tr>
 								<td class="t_prop">支付期限</td>
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="zfqx" placeholder="按合同约束执行"></td>
+									name="zfqx" placeholder="按合同约束执行" v-model="project.payLimit"></td>
 							</tr>
 							<tr>
 								<td class="t_prop">其他交易条件</td>
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="qtjytj" placeholder="其他附属交易补充条款"></td>
+									name="qtjytj" placeholder="其他附属交易补充条款"
+									v-model="project.otherPay"></td>
 							</tr>
 							<tr>
 								<td class="t_prop">受让方应具备的条件</td>
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="srftj" placeholder="受让方应当具备的条件限制"></td>
+									name="srftj" placeholder="受让方应当具备的条件限制"
+									v-model="project.shouldHave"></td>
 							</tr>
 							<tr>
 								<td class="t_prop">到期未征集到受让方</td>
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="mysrf" placeholder="自动撒牌"></td>
+									name="mysrf" placeholder="自动撒牌" v-model="project.overdue"></td>
 							</tr>
 							<tr>
 
@@ -349,7 +379,8 @@
 								<td colspan="3" class="t_prop_c"><input type="text"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="bcsx" placeholder="其他需要批漏的事项"></td>
+									name="bcsx" placeholder="其他需要批漏的事项"
+									v-model="project.supplement"></td>
 							</tr>
 						</table>
 					</div>
@@ -392,10 +423,11 @@
 			</div>
 		</div>
 		<div class="clear mb25" style="text-align: center;">
-			<button type="button" class="btn btn-default active btn-info"
-				style="width: 20%; background: #6e3e0d; margin-right: 25px;">提交审批</button>
-			<button type="button" class="btn btn-default active btn-info"
-				style="width: 20%; background: #6e3e0d;">取消</button>
+			<span type="button" class="btn btn-default active btn-info"
+				style="width: 20%; background: #6e3e0d; margin-right: 25px;"
+				@click="submitProject">提交审批</span>
+			<span type="button" class="btn btn-default active btn-info"
+				style="width: 20%; background: #6e3e0d;" onclick="reload()">取消</span>
 
 		</div>
 		<footer class="footer">
@@ -404,7 +436,126 @@
 	</div>
 	<div th:include="common :: js"></div>
 	<script type="text/javascript">
+		var vm = new Vue({
+			el : '#app',
+			data : {
+				project : {
+					sex : 0,
+					infoKind : 0,
+					rightKind : 0,
+					otherRightFlag : 0,
+					againFlag : 0,
+					agreeFlag : 0,
+					giveupRightFlag : 1,
+				}
+			},
+			mounted : function() {
+
+			},
+			methods : {
+				submitProject : function() {
+					
+					
+					
+					
+					if (vm.checkProject()) {
+						  $.post("/project/project_add", vm.project, function (result) {
+		                        if (result.code == 0) {
+		                            layer.msg("添加成功！",{icon:1, time:2000, shade:0.4},function () {
+		                                window.location.href = "../html/project_list";
+		                            });
+		                        } else {
+		                            layer.msg(result.msg);
+		                        }
+		                    });
+					}
+				},
+				checkProject : function() {
+					return true;
+				},
+			},
+		});
 		
+		
+		/* 
+		jeDate("#oldRentDate", {
+			multiPane : false,
+			range : " 至 ",
+			minDate : '1949-10-01',
+			maxDate : '2100-10-01',
+			format : 'YYYY-MM-DD',
+			shortcut : [ {
+				name : "一周",
+				val : {
+					DD : 7
+				}
+			}, {
+				name : "一个月",
+				val : {
+					DD : 30
+				}
+			}, {
+				name : "二个月",
+				val : {
+					MM : 2
+				}
+			}, {
+				name : "三个月",
+				val : {
+					MM : 3
+				}
+			}, {
+				name : "一年",
+				val : {
+					DD : 365
+				}
+			} ],
+			donefun : function(obj) {
+				vm.project.oldRentDate = $("#oldRentDate").val();
+			}
+		});
+		jeDate("#assessDate", {
+			format : "YYYY-MM-DD",
+			donefun : function(obj) {
+				vm.project.oldRentDate = $("#assessDate").val();
+			}
+		});
+		jeDate("#hopeOutputDate", {
+			multiPane : false,
+			range : " 至 ",
+			minDate : '1949-10-01',
+			maxDate : '2100-10-01',
+			format : 'YYYY-MM-DD',
+			shortcut : [ {
+				name : "一周",
+				val : {
+					DD : 7
+				}
+			}, {
+				name : "一个月",
+				val : {
+					DD : 30
+				}
+			}, {
+				name : "二个月",
+				val : {
+					MM : 2
+				}
+			}, {
+				name : "三个月",
+				val : {
+					MM : 3
+				}
+			}, {
+				name : "一年",
+				val : {
+					DD : 365
+				}
+			} ],
+			donefun : function(obj) {
+				vm.project.oldRentDate = $("#hopeOutputDate").val();
+			}
+		}); */
 	</script>
 </body>
 </html>

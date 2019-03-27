@@ -1,12 +1,10 @@
 package com.kailash.land.filter;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
 public class ProjectFiter {
-	private Integer dealInfoId;
+	private Integer projectId;
 
 	private String areaName;
 
@@ -38,15 +36,15 @@ public class ProjectFiter {
 
 	private String rightpic;
 
-	private String dealpic;
+	private String projectpic;
 
-	private Integer dealStatus;
+	private Integer projectStatus;
 
-	private String dealName;
+	private String projectName;
 
-	private String dealNum;
+	private String projectNum;
 
-	private String dealAddress;
+	private String projectAddress;
 
 	private String output;
 

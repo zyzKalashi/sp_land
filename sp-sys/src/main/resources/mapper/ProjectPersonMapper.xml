@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kailash.land.mapper.ProjectPersonMapper">
+	<resultMap id="BaseResultMap"
+		type="com.kailash.land.entity.ProjectPerson">
+		<id column="pkid" jdbcType="INTEGER" property="pkid" />
+		<result column="project_id" jdbcType="INTEGER"
+			property="projectId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="INTEGER" property="sex" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="info_kind" jdbcType="INTEGER"
+			property="infoKind" />
+	</resultMap>
+
+
+</mapper>

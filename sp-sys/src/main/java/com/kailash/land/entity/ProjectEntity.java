@@ -1,22 +1,38 @@
 package com.kailash.land.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.kailash.land.filter.ProjectFiter;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @SuppressWarnings("serial")
-public class ProjectEntity extends BaseEntity implements Serializable {
+public class ProjectEntity extends Model<ProjectEntity> implements Serializable {
+
+	private Integer pkid;
+
+	private Date createDate;
 	
-	private Integer dealStatus;
+	private Integer createUser;
+	
+	private String updateDate;
+	
+	private Integer updateUser;
+	
+	private Integer projectStatus;
 
-	private String dealName;
+	private String projectName;
 
-	private String dealNum;
+	private String projectNum;
 
-	private String dealAddress;
+	private String projectAddress;
 
 	private String output;
 
@@ -66,14 +82,11 @@ public class ProjectEntity extends BaseEntity implements Serializable {
 
 	private String hopeOutputDate;
 
-	public ProjectEntity() {
-	}
-
 	public ProjectEntity(ProjectFiter filter) {
-		this.dealStatus = filter.getDealStatus();
-		this.dealName = filter.getDealName();
-		this.dealNum = filter.getDealNum();
-		this.dealAddress = filter.getDealAddress();
+		this.projectStatus = filter.getProjectStatus();
+		this.projectName = filter.getProjectName();
+		this.projectNum = filter.getProjectNum();
+		this.projectAddress = filter.getProjectAddress();
 		this.output = filter.getOutput();
 		this.rightKind = filter.getRightKind();
 		this.warrantNum = filter.getWarrantNum();
@@ -98,6 +111,11 @@ public class ProjectEntity extends BaseEntity implements Serializable {
 		this.assessValue = filter.getAssessValue();
 		this.outputWay = filter.getOutputWay();
 		this.hopeOutputDate = filter.getHopeOutputDate();
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return pkid;
 	}
 
 }

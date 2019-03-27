@@ -4,13 +4,13 @@
 	<resultMap id="BaseResultMap"
 		type="com.kailash.land.entity.ProjectEntity">
 		<id column="pkid" jdbcType="INTEGER" property="pkid" />
-		<result column="deal_status" jdbcType="INTEGER"
-			property="dealStatus" />
-		<result column="deal_name" jdbcType="VARCHAR"
-			property="dealName" />
-		<result column="deal_num" jdbcType="VARCHAR" property="dealNum" />
-		<result column="deal_address" jdbcType="VARCHAR"
-			property="dealAddress" />
+		<result column="project_status" jdbcType="INTEGER"
+			property="projectStatus" />
+		<result column="project_name" jdbcType="VARCHAR"
+			property="projectName" />
+		<result column="project_num" jdbcType="VARCHAR" property="projectNum" />
+		<result column="project_address" jdbcType="VARCHAR"
+			property="projectAddress" />
 		<result column="output" jdbcType="VARCHAR" property="output" />
 		<result column="right_kind" jdbcType="INTEGER"
 			property="rightKind" />
@@ -66,7 +66,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		pkid, deal_status, deal_name, deal_num, deal_address, output, right_kind,
+		pkid, project_status, project_name, project_num, project_address, output, right_kind,
 		warrant_num,
 		area_num, person_name, other_right_flag, other_right_name, other_right_context,
 		famer_num,

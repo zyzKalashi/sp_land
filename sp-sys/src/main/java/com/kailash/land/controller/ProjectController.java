@@ -6,42 +6,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kailash.land.common.web.AbstractController;
+import com.kailash.land.entity.ProjectAround;
+import com.kailash.land.entity.ProjectEntity;
+import com.kailash.land.entity.ProjectPerson;
 import com.kailash.land.filter.ProjectFiter;
+import com.kailash.land.service.ProjectAroundService;
+import com.kailash.land.service.ProjectPersonService;
 import com.kailash.land.service.ProjectService;
 import com.kailash.land.util.Result;
 
 @RestController
-@RequestMapping(value = "deal")
+@RequestMapping(value = "project")
 public class ProjectController extends AbstractController {
 
 	@Autowired
 	private ProjectService projectService;
 
-//	@Autowired
-//	private DealAroundService dealAroundService;
-//
-//	@Autowired
-//	private DealPersonService dealPersonService;
+	@Autowired
+	private ProjectAroundService projectAroundService;
 
-	@RequestMapping(value = "deal_add", method = RequestMethod.POST)
-	public Result dealAdd(ProjectFiter filter) {
-//		try {
-//			ProjectEntity di = new ProjectEntity(filter);
-//			di.setCreateUser(getUserId());
-//			di.setUpdateUser(getUserId());
-//			this.projectService.instertProject(di);
-//			
-//			DealPerson dp = new DealPerson(filter);
-//			dp.setDealInfoId(di.getPkid());
-//			this.dealPersonService.instertDealPerson(dp);
-//			
-//			DealAround dealAround = new DealAround(filter);
-//			dealAround.setDealInfoId(di.getPkid());
-//			this.dealAroundService.instertDealAround(dealAround);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return Result.error();
-//		}
+	@Autowired
+	private ProjectPersonService projectPersonService;
+
+	@RequestMapping(value = "project_add", method = RequestMethod.POST)
+	public Result projectAdd(ProjectFiter filter) {
+		try {
+			ProjectEntity di = new ProjectEntity(filter);
+			di.setCreateUser(getUserId());
+			di.setUpdateUser(getUserId());
+			this.projectService.insert(di);
+			
+			ProjectPerson dp = new ProjectPerson(filter);
+			dp.setProjectId(di.getPkid());
+			
+			
+			this.projectPersonService.insert(dp);
+			
+			ProjectAround projectAround = new ProjectAround(filter);
+			projectAround.setProjectId(di.getPkid());
+			this.projectAroundService.insert(projectAround);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error();
+		}
 		return Result.ok();
 	}
 

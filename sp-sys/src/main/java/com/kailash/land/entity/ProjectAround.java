@@ -1,15 +1,32 @@
 package com.kailash.land.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.kailash.land.filter.ProjectFiter;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-@Data
-@SuppressWarnings("serial")
-public class DealAround extends BaseEntity implements Serializable {
+import lombok.NoArgsConstructor;
 
-	private Integer dealInfoId;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@SuppressWarnings("serial")
+public class ProjectAround extends Model<ProjectAround> implements Serializable {
+
+	private Integer pkid;
+
+	private Date createDate;
+
+	private Integer createUser;
+
+	private String updateDate;
+
+	private Integer updateUser;
+
+	private Integer projectId;
 
 	private String areaName;
 
@@ -43,11 +60,8 @@ public class DealAround extends BaseEntity implements Serializable {
 
 	private String dealpic;
 
-	public DealAround() {
-	}
-
-	public DealAround(ProjectFiter filter) {
-		this.dealInfoId = filter.getDealInfoId();
+	public ProjectAround(ProjectFiter filter) {
+		this.projectId = filter.getProjectId();
 		this.areaName = filter.getAreaName();
 		this.area = filter.getArea();
 		this.east = filter.getEast();
@@ -63,8 +77,12 @@ public class DealAround extends BaseEntity implements Serializable {
 		this.supplement = filter.getSupplement();
 		this.idcardpic = filter.getIdcardpic();
 		this.rightpic = filter.getRightpic();
-		this.dealpic = filter.getDealpic();
+		this.dealpic = filter.getProjectpic();
 	}
 
+	@Override
+	protected Serializable pkVal() {
+		return pkid;
+	}
 
 }
