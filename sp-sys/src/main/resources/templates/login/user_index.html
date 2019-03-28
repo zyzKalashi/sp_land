@@ -25,7 +25,7 @@
 										<a href="#change" data-toggle="tab">修改资料</a>
 									</p>
 									<p class="ml20" style="font-family: '新宋体'; font-size: 11px;">
-										上次访问时间:<span>YY/MM/DD</span>
+										上次访问时间:<span>{{ loginLog.logDateStr }}</span>
 									</p>
 								</td>
 
@@ -140,7 +140,7 @@
 											<li class="nav-item"><a class="nav-link" href="#xqli"
 												role="tab" data-toggle="tab">我发布的需求信息列表</a></li>
 											<li class="fr" style="margin-left: 28%;"><a
-												href="../html/xuqiufabu.html">发布新信息</a></li>
+												href="../login/project_add.html">发布新信息</a></li>
 										</ul>
 										<div class="tab-content">
 											<div class="tab-pane active" id="xmli">
@@ -359,9 +359,8 @@
 		var vm = new Vue({
 			el : '#app',
 			data : {
-				userData:{
-					
-				}
+				userData: {},
+				loginLog: {},
 			},
 			mounted : function() {
 				this.userData.userId = $("#baseUserId").text();
@@ -377,6 +376,7 @@
 						 	console.log(result)
 							if (result.code == 0) {
 	                        	vm.userData = result.userData;
+	                        	vm.loginLog = result.loginLog;
 	                        } else {
 	                            layer.msg(result.msg);
 	                        }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -22,6 +23,9 @@ public class LoginLog extends Model<LoginLog> {
 
 	private Long userId;
 	private Date logDate;
+	
+	@TableField(exist = false)
+	private String logDateStr;
 
 	@Override
 	protected Serializable pkVal() {

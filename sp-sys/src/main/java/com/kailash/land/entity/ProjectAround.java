@@ -31,10 +31,10 @@ public class ProjectAround extends Model<ProjectAround> {
 	private String west;
 	private String north;
 	private Double showpreice;
-	private String payway;
-	private String paylimit;
-	private String otherpay;
-	private String shouldhave;
+	private String payWay;
+	private String payLimit;
+	private String otherPay;
+	private String shouldHave;
 	private String overdue;
 	private String supplement;
 
@@ -51,10 +51,10 @@ public class ProjectAround extends Model<ProjectAround> {
 		this.west = filter.getWest();
 		this.north = filter.getNorth();
 		this.showpreice = filter.getShowpreice();
-		this.payway = filter.getPayway();
-		this.paylimit = filter.getPaylimit();
-		this.otherpay = filter.getOtherpay();
-		this.shouldhave = filter.getShouldhave();
+		this.payWay = filter.getPayWay();
+		this.payLimit = filter.getPayLimit();
+		this.otherPay = filter.getOtherPay();
+		this.shouldHave = filter.getShouldHave();
 		this.overdue = filter.getOverdue();
 		this.supplement = filter.getSupplement();
 	}

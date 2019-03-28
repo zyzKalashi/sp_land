@@ -15,10 +15,11 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.LoginLog;
-import com.kailash.land.entity.ProjectAround;
 import com.kailash.land.entity.Users;
 import com.kailash.land.service.LoginLogService;
 import com.kailash.land.service.UsersService;
+import com.kailash.land.util.DateFormatConsts;
+import com.kailash.land.util.DateUtils;
 import com.kailash.land.util.Result;
 
 @RestController
@@ -63,8 +64,10 @@ public class UsersController extends AbstractController {
 
 		EntityWrapper<LoginLog> ewLoginLog = new EntityWrapper<LoginLog>();
 		ewLoginLog.setEntity(new LoginLog());
-		ewLoginLog.where("userId = {0}", userData.getUserId());
+		ewLoginLog.where("user_id = {0}", userData.getUserId());
 		LoginLog loginLog = this.loginLogService.selectOne(ewLoginLog);
+		
+		loginLog.setLogDateStr(DateUtils.format(loginLog.getLogDate(), DateFormatConsts.DATE_PATTERN));
 		returnMap.put("loginLog", loginLog);
 
 		return Result.ok(returnMap);

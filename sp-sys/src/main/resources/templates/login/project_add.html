@@ -252,7 +252,7 @@
 
 								<tr>
 									<td class="t_prop"><strong>评估值（元）：</strong></td>
-									<td class="t_prop_a"><input type="text" size="30"
+									<td class="t_prop_a"><input type="number" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
 										name="pgz" placeholder="标准计价方式，如：1,000.00"
 										v-model="projectData.assessValue"></td>
@@ -455,7 +455,7 @@
 					
 					// project
 					projectName:"",
-					projectKind:"",
+					projectKind: 0,
 					projectAddress:"",
 					outputPersonName:"",
 					rightKind: 0,
@@ -505,18 +505,8 @@
 			},
 			methods : {
 				submitProject : function() {
-					/* hzToolObj.postRpc("/project/project_add", vm.project ).done(function(result){
-						if (result.code == 0) {
-							window.location.href="/index";
-						} else {
-							layer.msg(result.msg);
-						}
-					}); */
-					
-					
-					
 					if (vm.checkProject()) {
-						  $.post("/project/project_add", vm.project, function (result) {
+						  $.post("/project/project_add", vm.projectData, function (result) {
 		                        if (result.code == 0) {
 		                            layer.msg("添加成功！",{icon:1, time:2000, shade:0.4},function () {
 		                                window.location.href = "../html/project_list";

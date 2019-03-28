@@ -39,6 +39,8 @@ public class ProjectController extends AbstractController {
 	public Result projectAdd(ProjectFiter filter) {
 		try {
 			Project di = new Project(filter);
+			di.setCreateDate(new Date());
+			di.setUpdateDate(new Date());
 			di.setCreateUser(getUserId().intValue());
 			di.setUpdateUser(getUserId().intValue());
 			di.setProjectNo("TX-" + DateUtils.format(new Date(), DateFormatConsts.DATE_PATTERN_MO) + "-100100");

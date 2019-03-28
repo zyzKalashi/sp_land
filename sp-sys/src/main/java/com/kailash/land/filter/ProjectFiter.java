@@ -60,10 +60,10 @@ public class ProjectFiter {
 	private String west;
 	private String north;
 	private Double showpreice;
-	private String payway;
-	private String paylimit;
-	private String otherpay;
-	private String shouldhave;
+	private String payWay;
+	private String payLimit;
+	private String otherPay;
+	private String shouldHave;
 	private String overdue;
 	private String supplement;
 	

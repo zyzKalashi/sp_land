@@ -25,7 +25,7 @@ public class Project extends Model<Project> implements Serializable {
 	private Long pkid;
 	private Date createDate;
 	private Integer createUser;
-	private String updateDate;
+	private Date updateDate;
 	private Integer updateUser;
 	private String projectNo;
 	private Integer projectStatus;
