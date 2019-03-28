@@ -6,10 +6,10 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.kailash.land.entity.ProjectEntity;
+import com.kailash.land.entity.Project;
 
 @Mapper
-public interface ProjectMapper extends BaseMapper<ProjectEntity>{
+public interface ProjectMapper extends BaseMapper<Project>{
 
 	List<Map<String, Object>> queryIndexNewList();
 

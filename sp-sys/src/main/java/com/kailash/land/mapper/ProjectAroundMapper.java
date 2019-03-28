@@ -13,4 +13,5 @@ import com.kailash.land.entity.ProjectAround;
 @Mapper
 public interface ProjectAroundMapper extends BaseMapper<ProjectAround> {
 
+
 }

@@ -8,8 +8,7 @@ import com.kailash.land.mapper.ProjectAroundMapper;
 import com.kailash.land.service.ProjectAroundService;
 
 @Service
-public class ProjectAroundServiceImpl extends ServiceImpl<ProjectAroundMapper, ProjectAround> implements ProjectAroundService {
-	
-	
+public class ProjectAroundServiceImpl extends ServiceImpl<ProjectAroundMapper, ProjectAround>
+		implements ProjectAroundService {
 
 }

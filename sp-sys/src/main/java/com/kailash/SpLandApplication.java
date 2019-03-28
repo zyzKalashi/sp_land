@@ -24,7 +24,7 @@ public class SpLandApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(SpLandApplication.class);
     }
-
+    
     //配置mybatis的分页插件pageHelper
     @Bean
     public PageHelper pageHelper() {

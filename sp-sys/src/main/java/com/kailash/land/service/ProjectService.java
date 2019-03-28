@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.kailash.land.entity.ProjectEntity;
+import com.kailash.land.entity.Project;
 
-public interface ProjectService extends IService<ProjectEntity> {
+public interface ProjectService extends IService<Project> {
 
 	List<Map<String, Object>> queryIndexNewList();
 

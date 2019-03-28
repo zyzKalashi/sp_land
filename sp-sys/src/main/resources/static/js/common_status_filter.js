@@ -1,26 +1,21 @@
 //task
 // 状态过滤-zyz
-Vue.filter('taskStatusFilter', function (val) {
+Vue.filter('projectKindFilter', function(val) {
 	var ss = "--";
 	if (val == 0) {
 		ss = "待审核";
 	}
 	if (val == 1) {
-		ss = "正在运行";
+		ss = "土地承包";
 	}
 	if (val == 2) {
-		ss = "暂停";
+		ss = "林权转让";
 	}
 	if (val == 3) {
-		ss = "结束";
+		ss = "养殖水面";
 	}
-	if (val == -1) {
-		ss = "审核失败";
-	}
-	if (val == -2) {
-		ss = "删除";
+	if (val == 4) {
+		ss = "四荒承包";
 	}
 	return ss;
 });
-
-

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kailash.land.dao.ProjectMapper">
-	<resultMap id="BaseResultMap"
-		type="com.kailash.land.entity.ProjectEntity">
+	<resultMap id="BaseResultMap" type="com.kailash.land.entity.Project">
 		<id column="pkid" jdbcType="INTEGER" property="pkid" />
 		<result column="project_status" jdbcType="INTEGER"
 			property="projectStatus" />

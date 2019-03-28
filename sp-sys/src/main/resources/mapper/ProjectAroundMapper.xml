@@ -25,19 +25,13 @@
 		<result column="overdue" jdbcType="VARCHAR" property="overdue" />
 		<result column="supplement" jdbcType="VARCHAR"
 			property="supplement" />
-		<result column="idCardPic" jdbcType="VARCHAR"
-			property="idcardpic" />
-		<result column="rightPic" jdbcType="VARCHAR"
-			property="rightpic" />
-		<result column="projectPic" jdbcType="VARCHAR"
-			property="projectpic" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		pkid, project_id, area_name, area, east, south, west,
 		north, showPreice,
 		payWay,
 		payLimit, otherPay, shouldHave, overdue,
-		supplement, idCardPic, rightPic,
+		supplement, 
 		projectPic
 	</sql>
 

@@ -6,12 +6,12 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.kailash.land.entity.ProjectEntity;
+import com.kailash.land.entity.Project;
 import com.kailash.land.mapper.ProjectMapper;
 import com.kailash.land.service.ProjectService;
 
 @Service("projectService")
-public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, ProjectEntity> implements ProjectService {
+public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> implements ProjectService {
 
 
 	@Override

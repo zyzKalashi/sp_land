@@ -1,13 +1,15 @@
 package com.kailash.land.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.kailash.land.common.web.AbstractController;
+import com.kailash.land.entity.Project;
 import com.kailash.land.entity.ProjectAround;
-import com.kailash.land.entity.ProjectEntity;
 import com.kailash.land.entity.ProjectPerson;
 import com.kailash.land.filter.ProjectFiter;
 import com.kailash.land.service.ProjectAroundService;
@@ -28,23 +30,53 @@ public class ProjectController extends AbstractController {
 	@Autowired
 	private ProjectPersonService projectPersonService;
 
-	@RequestMapping(value = "project_add", method = RequestMethod.POST)
+	@ResponseBody
+	@PostMapping(value = "/project_add")
 	public Result projectAdd(ProjectFiter filter) {
 		try {
-			ProjectEntity di = new ProjectEntity(filter);
+			Project di = new Project(filter);
 			di.setCreateUser(getUserId());
 			di.setUpdateUser(getUserId());
 			this.projectService.insert(di);
-			
+
 			ProjectPerson dp = new ProjectPerson(filter);
 			dp.setProjectId(di.getPkid());
-			
-			
 			this.projectPersonService.insert(dp);
-			
+
 			ProjectAround projectAround = new ProjectAround(filter);
 			projectAround.setProjectId(di.getPkid());
 			this.projectAroundService.insert(projectAround);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error();
+		}
+		return Result.ok();
+	}
+
+	@ResponseBody
+	@PostMapping(value = "/project_modify")
+	public Result projectModify(ProjectFiter filter) {
+		try {
+			if (filter.getProjectId() == null) {
+				return Result.error();
+			}
+			Project di = new Project(filter);
+			di.setUpdateUser(getUserId());
+			this.projectService.updateAllColumnById(di);
+
+			EntityWrapper<ProjectPerson> ewProjectPerson = new EntityWrapper<ProjectPerson>();
+			ewProjectPerson.setEntity(new ProjectPerson());
+			ewProjectPerson.where("project = {0}", di.getPkid());
+			ProjectPerson dp = new ProjectPerson(filter);
+			this.projectPersonService.update(dp, ewProjectPerson);
+
+			EntityWrapper<ProjectAround> ewProjectAround = new EntityWrapper<ProjectAround>();
+			ewProjectAround.setEntity(new ProjectAround());
+			ewProjectAround.where("project = {0}", di.getPkid());
+			ProjectAround projectAround = new ProjectAround(filter);
+			this.projectAroundService.update(projectAround, ewProjectAround);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Result.error();
