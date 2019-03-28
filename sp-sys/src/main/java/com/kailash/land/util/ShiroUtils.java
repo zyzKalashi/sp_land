@@ -16,7 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.kailash.land.entity.Users;
 
-
 /**
  * Shiro工具类
  * 
@@ -40,9 +39,9 @@ public class ShiroUtils {
 	}
 
 	public static int getUserId() {
-		return getUsers().getPkid();
+		return getUsers().getUserId().intValue();
 	}
-	
+
 	public static int getRoleId() {
 		return getUsers().getRoleId();
 	}
@@ -68,25 +67,23 @@ public class ShiroUtils {
 		getSession().removeAttribute(key);
 		return kaptcha;
 	}
-	
-	public static String getIp()
-    {
-        return getSession().getHost();
-    }
-	
+
+	public static String getIp() {
+		return getSession().getHost();
+	}
+
 	// 判断是否包含某权限
-	public static boolean isPerm(String perm){
+	public static boolean isPerm(String perm) {
 		return getSubject().isPermitted(perm);
 	}
 
 	/**
-     * 获取request对象
-     */
-    public static HttpServletRequest getHttpServletRequest()
-    {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-    }
-    
+	 * 获取request对象
+	 */
+	public static HttpServletRequest getHttpServletRequest() {
+		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+	}
+
 	public static boolean isAjax(HttpServletRequest httpServletRequest) {
 		String header = httpServletRequest.getHeader(X_REQUESTED_WITH_STRING);
 		if (XML_HTTP_REQUEST_STRING.equalsIgnoreCase(header)) {

@@ -22,8 +22,8 @@ public abstract class AbstractController {
 		return ShiroUtils.getUsers();
 	}
 
-	protected int getUserId() {
-		return getUser().getPkid();
+	protected Long getUserId() {
+		return getUser().getUserId();
 	}
 
 	protected int getRoleId() {

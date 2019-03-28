@@ -1,5 +1,9 @@
-<!doctype html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+      layout:decorator="layout">
 <head th:fragment="header">
 	<meta charset="utf-8">
 	<title>铁西区农村经济总站土地流转交易监管平台</title>
@@ -11,7 +15,9 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/static/plugin/layer/theme/default/layer.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/static/plugin/jeDate/jeDate.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/static/plugin/jeDate/jeDate.css}">
-	
+	<!--阿里icon库-->
+    <link rel="stylesheet" type="text/css" th:href="@{../static/plugin/icon-font/iconfont.css}" >
+    
 	<script th:src="@{/static/js/jquery.min.js}"></script>
 	<!-- <script th:src="@{/static/js/popper.min.js}"></script>
 	<script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
@@ -27,15 +33,29 @@
 		<div class="top-c">
 			<ul class="fl">
 				<li>欢迎访问铁西区土地流转交易监管平台&nbsp;&nbsp;</li>
-				<li>请&nbsp;<a href="/html/login" class="bold">登录</a>&nbsp;|&nbsp;
-				</li>
-				<li><a href="/html/register" class="bold">注册</a></li>
+				<span id="loginWin">
+					<li>请&nbsp;<a href="/html/login" class="bold">登录</a>&nbsp;|&nbsp; </li><li><a href="/html/register" class="bold">注册</a></li>
+				</span>
+				<span id="userWin" hidden="true">
+					欢迎你~，
+					<span id="baseUserName"><shiro:principal property='userName'></span>&nbsp;|&nbsp;
+					<a href="/logout"> <span class="am-icon-sign-out"></span> 退出 </a>
+					<span hidden="true" id="baseUserId"><shiro:principal property='userId'/></span>
+				</span>
 			</ul>
 			<ul class="fr huiyuan tform">
-				<li><a href="html/huiyuanzx.html">会员中心</a></li>
-				<li><a href="html/help.html"> 帮助中心</a></li>
+				<li><a href="../login/user_index.html">会员中心</a></li>
+				<li><a href="../html/help.html"> 帮助中心</a></li>
 			</ul>
 		</div>
+		<script type="text/javascript">
+			$(function(){
+				if( $("#baseUserName").text() ){
+					$("#loginWin").hide();
+					$("#userWin").show();
+				}
+			});
+		</script>
 	</div>
 	<div class="header fl" style="margin-bottom: 5px;">
 		<div class="header-c">
@@ -82,7 +102,7 @@
 					<a class="nav-link" href="../html/project_list" target="_blank">查看信息</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="../html/project_add" target="_blank">发布信息</a>
+					<a class="nav-link" href="../login/project_add" target="_blank">发布信息</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="../html/news_list" target="_blank">政策法规</a>
@@ -125,4 +145,5 @@
 	<script th:src="@{/static/js/common.js}"></script>
 	<script th:src="@{/static/js/common_status_filter.js}"></script>
 	<script th:src="@{/static/plugin/jeDate/jeDate.js}"></script>
+	<script th:src="@{/static/js/md5_32.js}"></script>
 </div>

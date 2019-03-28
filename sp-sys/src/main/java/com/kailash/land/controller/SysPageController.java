@@ -25,7 +25,6 @@ public class SysPageController extends AbstractController {
 	
 	@RequestMapping(value = "/login/{page}", method = RequestMethod.GET)
 	public String loginPage(@PathVariable("page")String page) {
-
 		return "login/" + page;
 	}
 

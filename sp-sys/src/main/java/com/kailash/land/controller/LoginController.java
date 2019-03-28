@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -18,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kailash.land.common.shiro.UserToken;
 import com.kailash.land.common.web.AbstractController;
+import com.kailash.land.entity.LoginLog;
 import com.kailash.land.entity.MenuEntity;
 import com.kailash.land.entity.Users;
+import com.kailash.land.service.LoginLogService;
 import com.kailash.land.service.MenuService;
 import com.kailash.land.util.Result;
 import com.kailash.land.util.ShiroUtils;
@@ -33,6 +33,9 @@ public class LoginController extends AbstractController {
 
     @Autowired
     private MenuService menuService;
+    
+    @Autowired
+    private LoginLogService loginLogService;
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Users user) {
@@ -89,7 +92,8 @@ public class LoginController extends AbstractController {
             }
             
             ShiroUtils.setSessionAttribute("menus", menuEntities);
-
+            
+            this.loginLogService.insert(new LoginLog(user.getUserId()));
 
         } catch (AuthenticationException e) {
             return Result.error("用户名/密码不正确");

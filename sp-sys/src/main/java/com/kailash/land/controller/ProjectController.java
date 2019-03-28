@@ -1,5 +1,7 @@
 package com.kailash.land.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,8 @@ import com.kailash.land.filter.ProjectFiter;
 import com.kailash.land.service.ProjectAroundService;
 import com.kailash.land.service.ProjectPersonService;
 import com.kailash.land.service.ProjectService;
+import com.kailash.land.util.DateFormatConsts;
+import com.kailash.land.util.DateUtils;
 import com.kailash.land.util.Result;
 
 @RestController
@@ -35,8 +39,9 @@ public class ProjectController extends AbstractController {
 	public Result projectAdd(ProjectFiter filter) {
 		try {
 			Project di = new Project(filter);
-			di.setCreateUser(getUserId());
-			di.setUpdateUser(getUserId());
+			di.setCreateUser(getUserId().intValue());
+			di.setUpdateUser(getUserId().intValue());
+			di.setProjectNo("TX-" + DateUtils.format(new Date(), DateFormatConsts.DATE_PATTERN_MO) + "-100100");
 			this.projectService.insert(di);
 
 			ProjectPerson dp = new ProjectPerson(filter);
@@ -62,7 +67,7 @@ public class ProjectController extends AbstractController {
 				return Result.error();
 			}
 			Project di = new Project(filter);
-			di.setUpdateUser(getUserId());
+			di.setUpdateUser(getUserId().intValue());
 			this.projectService.updateAllColumnById(di);
 
 			EntityWrapper<ProjectPerson> ewProjectPerson = new EntityWrapper<ProjectPerson>();

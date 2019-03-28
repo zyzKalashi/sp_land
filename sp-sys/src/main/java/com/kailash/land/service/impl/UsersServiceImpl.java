@@ -46,7 +46,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	public int registerUser(Users user) {
 		user.setRoleId(RoleEnum.COMMON.getRoleId());
 		this.baseMapper.insert(user);
-		return user.getPkid();
+		return user.getUserId().intValue();
 	}
 
 }

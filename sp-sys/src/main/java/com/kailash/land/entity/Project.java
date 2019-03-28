@@ -1,3 +1,4 @@
+
 package com.kailash.land.entity;
 
 import java.io.Serializable;
@@ -26,9 +27,9 @@ public class Project extends Model<Project> implements Serializable {
 	private Integer createUser;
 	private String updateDate;
 	private Integer updateUser;
+	private String projectNo;
 	private Integer projectStatus;
 	private String projectName;
-	private String projectNo;
 	private String projectAddress;
 	private String outputPersonName;
 	private Integer projectKind;

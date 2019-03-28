@@ -20,7 +20,7 @@
 									src="../static/images/cent/touxiang.jpg"
 									class="rounded ml10 mb15" width="100%" height='auto'></td>
 								<td>
-									<p class="f18 ml20" style="color: #93590d;">LiuXiaomeng</p>
+									<p class="f18 ml20" style="color: #93590d;">{{ userData.userName}}</p>
 									<p class="f12 ml20" style="color: #06c; font-family: '宋体';">
 										<a href="#change" data-toggle="tab">修改资料</a>
 									</p>
@@ -111,13 +111,13 @@
 										<td>
 											<ul>
 												<li style="width: 100px;" class="fl text-right mr5">会员名称：</li>
-												<span class="fl ml5" style="width: 280px;">Liuxiaomeng</span>
+												<span class="fl ml5" style="width: 280px;">{{ userData.userName }}</span>
 												<li style="width: 100px;" class="fl text-right mr5">会员ID：</li>
-												<span class="fl ml5" style="width: 280px;">TX190120001</span>
+												<span class="fl ml5" style="width: 280px;">{{ userData.userId }}</span>
 												<li style="width: 100px;" class="fl text-right mr5">手机号码：</li>
-												<span class="fl ml5" style="width: 280px;">13680000001</span>
+												<span class="fl ml5" style="width: 280px;">{{ userData.mobile }}</span>
 												<li style="width: 100px;" class="fl text-right mr5">注册时间：</li>
-												<span class="fl ml5" style="width: 280px;">2019-01-20</span>
+												<span class="fl ml5" style="width: 280px;">{{ userData.createDate }}</span>
 
 											</ul>
 
@@ -359,14 +359,29 @@
 		var vm = new Vue({
 			el : '#app',
 			data : {
-				helpInfoList : [],
-				dataInfoList : [],
+				userData:{
+					
+				}
 			},
 			mounted : function() {
-
+				this.userData.userId = $("#baseUserId").text();
+				if(this.userData.userId){
+					this.initUser();
+				} else {
+					location.href = "../html/login";
+				}
 			},
 			methods : {
-
+				initUser: function () {
+					$.post("/user/userDetail", this.userData, function (result) {
+						 	console.log(result)
+							if (result.code == 0) {
+	                        	vm.userData = result.userData;
+	                        } else {
+	                            layer.msg(result.msg);
+	                        }
+	                });
+				}
 			},
 		});
 	</script>
