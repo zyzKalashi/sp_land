@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectFiter {
-	
+@SuppressWarnings("serial")
+public class ProjectFiter extends BasePageFilter {
+
 	// projectPerson
 	private String name;
 	private Integer sex;
@@ -19,7 +20,7 @@ public class ProjectFiter {
 	private String idCardFrontUrl;
 	private String idCardBackUrl;
 	private String address;
-	
+
 	// project
 	private String projectName;
 	private Integer projectKind;
@@ -49,9 +50,9 @@ public class ProjectFiter {
 	private String outputWay;
 	private String hopeOutputDate;
 	private Long projectId;
-//	private Integer projectStatus;
-//	private String projectNo;
-	
+	private Integer projectStatus;
+	private String projectNo;
+
 	// projectAround
 	private String areaName;
 	private Double area;
@@ -67,5 +68,6 @@ public class ProjectFiter {
 	private String overdue;
 	private String supplement;
 	
+	private Integer createUser;
 
 }

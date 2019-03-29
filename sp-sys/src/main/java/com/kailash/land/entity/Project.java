@@ -23,6 +23,7 @@ public class Project extends Model<Project> implements Serializable {
 
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long pkid;
+	
 	private Date createDate;
 	private Integer createUser;
 	private Date updateDate;
@@ -85,6 +86,8 @@ public class Project extends Model<Project> implements Serializable {
 		this.assessValue = filter.getAssessValue();
 		this.outputWay = filter.getOutputWay();
 		this.hopeOutputDate = filter.getHopeOutputDate();
+		this.pkid = filter.getProjectId();
+		this.projectStatus = filter.getProjectStatus();
 	}
 
 	@Override

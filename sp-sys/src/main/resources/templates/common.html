@@ -36,7 +36,7 @@
 				<span id="loginWin">
 					<li>请&nbsp;<a href="/html/login" class="bold">登录</a>&nbsp;|&nbsp; </li><li><a href="/html/register" class="bold">注册</a></li>
 				</span>
-				<span id="userWin" hidden="true">
+				<span id="userWin" style="display:none">
 					欢迎你~，
 					<span id="baseUserName"><shiro:principal property='userName'></span>&nbsp;|&nbsp;
 					<a href="/logout"> <span class="am-icon-sign-out"></span> 退出 </a>
@@ -52,7 +52,7 @@
 			$(function(){
 				if( $("#baseUserName").text() ){
 					$("#loginWin").hide();
-					$("#userWin").show();
+					document.getElementById("userWin").style.display = ""; 
 				}
 			});
 		</script>

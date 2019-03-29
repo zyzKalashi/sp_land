@@ -1,4 +1,4 @@
-package com.kailash.land.common.gengerate;
+package com.kailash.land.common.mybatisPlus;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;

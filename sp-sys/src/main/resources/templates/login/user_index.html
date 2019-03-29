@@ -117,7 +117,7 @@
 												<li style="width: 100px;" class="fl text-right mr5">手机号码：</li>
 												<span class="fl ml5" style="width: 280px;">{{ userData.mobile }}</span>
 												<li style="width: 100px;" class="fl text-right mr5">注册时间：</li>
-												<span class="fl ml5" style="width: 280px;">{{ userData.createDate }}</span>
+												<span class="fl ml5" style="width: 280px;">{{ userData.createDateStr }}</span>
 
 											</ul>
 
@@ -154,111 +154,14 @@
 																<td class="bold">编辑</td>
 																<td class="bold">删除</td>
 															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>已发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
+															<tr v-for="item in projectList">
+																<td class="widhead"><a href="../html/xmdetail.html">{{ item.projectName }}</a></td>
+																<td><span>{{ item.createDateStr }}</span></td>
+																<td>{{ item.projectStatus | commonStatusFilter}}</td>
+																<td><span @click="modifyProject(item.projectId)">编辑</span></td>
+																<td><span @click="delProject(item.projectId)">删除<span></td>
 															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>未审批</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>拒绝发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>已发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>未审批</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>拒绝发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>已发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>未审批</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>拒绝发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>已发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>未审批</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>拒绝发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>已发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>未审批</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xmdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>拒绝发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
+															
 														</table>
 													</div>
 												</div>
@@ -359,28 +262,70 @@
 		var vm = new Vue({
 			el : '#app',
 			data : {
+				queryData: {
+					createUser: "",
+					pageSize: 15,
+					pageNo: 1,
+				},
 				userData: {},
 				loginLog: {},
+				projectList:[],
 			},
 			mounted : function() {
-				this.userData.userId = $("#baseUserId").text();
-				if(this.userData.userId){
-					this.initUser();
-				} else {
+				this.userData.userId = this.queryData.createUser = $("#baseUserId").text();
+				if(!this.userData.userId){
 					location.href = "../html/login";
-				}
+				} 
+				this.initUser();
+				this.initProjectList();
 			},
 			methods : {
 				initUser: function () {
 					$.post("/user/userDetail", this.userData, function (result) {
-						 	console.log(result)
-							if (result.code == 0) {
-	                        	vm.userData = result.userData;
-	                        	vm.loginLog = result.loginLog;
-	                        } else {
-	                            layer.msg(result.msg);
-	                        }
+						if (result.code == 0) {
+                        	vm.userData = result.userData;
+                        	vm.loginLog = result.loginLog;
+                        } else {
+                            layer.msg(result.msg);
+                        }
 	                });
+				},
+				initProjectList: function () {
+					$.post("/project/simpleList", this.queryData, function (result) {
+					 	console.log(result)
+						if (result.code == 0) {
+                        	vm.projectList = result.pageList.records;
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                	});
+				},
+				modifyProject: function(projectId){
+					window.location.href = "../login/project_add?projectId=" + projectId;
+				},
+				delProject: function(projectId){
+					 layer.confirm("确认删除吗？", {
+		                    icon: 3,
+		                    title: '提示',
+		                    btn: ["删除", "取消"]
+		                }, function (index) {
+		                	layer.closeAll('dialog');
+		                    var newObj = {
+		                    	projectId: projectId,
+		                        projectStatus: 0,
+		                    }
+		                    vm.updateProject(newObj);
+		                });
+				},
+				updateProject: function(obj){
+					$.post("/project/project_modify", obj, function (result) {
+						if (result.code == 0) {
+                        	vm.initProjectList();
+                        	layer.alert("操作成功");
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                	});
 				}
 			},
 		});
