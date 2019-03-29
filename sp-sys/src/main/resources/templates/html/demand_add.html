@@ -2,7 +2,7 @@
 <html>
 
 <head th:include="common :: header">
-<title id="pageTitle">需求咨询信息发布—铁西区农村经济总站土地流转交易监管平台</title>
+	<title id="pageTitle">需求咨询信息发布—铁西区农村经济总站土地流转交易监管平台</title>
 </head>
 
 <script type="text/javascript" src="../js/mainndy.js"></script>
@@ -12,13 +12,11 @@
 		<div th:replace="common::top"></div>
 		<!-- container begin -->
 		<div class="main clear mt5">
-			<div class="locate clearl">
-				<p class="location2 fl clear pl10">
-					<span></span>当前位置：
-					<a style="font-size: 13px; font-family:'宋体';" href="../index.html">首页</a> > 
-					<a style="font-size: 13px; font-family:'宋体';" href="">需求信息发布/咨询</a>
-				</p>
+			
+			<div th:include="common :: location">
+				<div id="pageLocaton">需求信息发布/咨询</div>
 			</div>
+			
 			<div class="xqfb pub">
 				<div class="Box_title"
 					style="padding-bottom: 10px; width: 100%; border-bottom: 1px dashed #c6c6c6;">

@@ -3,6 +3,7 @@ package com.kailash.land.controller;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -111,10 +112,23 @@ public class ProjectController extends AbstractController {
 	@ResponseBody
 	@PostMapping(value = "/simpleList")
 	public Result simpleList(ProjectFiter filter) {
-
-		String selectColumn = "pkid AS projectId, project_name as projectName, project_status AS projectStatus, DATE_FORMAT(create_date,'%Y-%m-%d') AS createDateStr";
-		Wrapper<Project> eWrapper = new EntityWrapper<Project>(new Project(), selectColumn);
-		eWrapper.where("project_status != 0 AND create_user = {0}", filter.getCreateUser());
+		StringBuilder selectColumn = new StringBuilder();
+		selectColumn.append("pkid AS projectId, ");
+		selectColumn.append("project_name as projectName,  ");
+		selectColumn.append("project_status AS projectStatus, ");
+		selectColumn.append("DATE_FORMAT(create_date,'%Y-%m-%d') AS createDateStr, ");
+		selectColumn.append("project_kind AS projectKind ");
+		Wrapper<Project> eWrapper = new EntityWrapper<Project>(new Project(), selectColumn.toString());
+		
+		StringBuilder selectSql = new StringBuilder("project_status != 0");
+		if (Objects.nonNull(filter.getCreateUser())) {
+			selectSql.append(" AND create_user = " + filter.getCreateUser());
+		}
+		if (Objects.nonNull(filter.getProjectKind())) {
+			selectSql.append(" AND project_kind = " + filter.getProjectKind());
+		}
+		
+		eWrapper.where(selectSql.toString());
 		eWrapper.orderBy("pkid DESC");
 		Page<Map<String, Object>> page = new Page<Map<String, Object>>(1, 50);
 

@@ -2,7 +2,7 @@
 <html>
 
 <head th:include="common :: header">
-<title id="pageTitle">需求信息列表—铁西区农村经济总站土地流转交易监管平台</title>
+	<title id="pageTitle">需求信息列表—铁西区农村经济总站土地流转交易监管平台</title>
 </head>
 
 <body>
@@ -12,16 +12,12 @@
 
 		<!-- container begin -->
 		<div class="main clearfix mt10">
-			<div class="locate clearl">
-				<p class="location2 fl pl10">
-					<span></span>当前位置：
-					<a style="font-size: 13px; font-family:'宋体';" href="../index.html">首页</a> > 
-					<a style="font-size: 13px; font-family:'宋体';" href="">需求信息列表</a>
-				</p>
+			
+			<div th:include="common :: location">
+				<div id="pageLocaton">需求信息列表</div>
 			</div>
 
 			<div class="main_w">
-
 				<div class="pinka_con">
 					<div class="select-tabs">
 						<ul>

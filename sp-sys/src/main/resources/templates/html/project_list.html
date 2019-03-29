@@ -1,21 +1,20 @@
 <!doctype html>
 <html>
+
 <head th:include="common :: header">
-<title id="pageTitle">需求信息列表-铁西区农村经济总站土地流转交易监管平台</title>
+	<title id="pageTitle">需求信息列表-铁西区农村经济总站土地流转交易监管平台</title>
 </head>
+
 <body>
 	<div id="app" v-cloak>
 		<div th:replace="common::top"></div>
 		<!-- container begin -->
 		<div class="main clearfix mt10">
-			<div class="locate clearl">
-				<p class="location2 fl pl10">
-					<span></span>当前位置：<a style="font-size: 13px; font-family:"
-						宋体";" href="../index.html">首页</a> > <a
-						style="font-size: 13px; font-family:" 宋体";" href="">土地流转项目信息列表</a>
-				</p>
+			
+			<div th:include="common :: location">
+				<div id="pageLocaton">土地流转项目信息列表</div>
 			</div>
-
+			
 			<div class="main_w">
 				<div class="screen_sel">
 					<div class="selected_c">
@@ -79,70 +78,12 @@
 						<div class="s-t-date">发布时间</div>
 					</div>
 					<div class="tech-pro-con">
-						<div class="project-list">
-							<a href="">铁西区平西乡关于土地使用权转让项目</a><span class="">土地转让</span><span
-								class="project_date">2019-01-05</span>
+						<div class="project-list" v-for="item in projectList">
+							<a href="">{{ item.projectName }}</a>
+							<span class="">{{ item.projectKind | projectKindFilter  }}</span>
+							<span class="project_date">{{ item.createDateStr }}</span>
 						</div>
-						<div class="project-list">
-							<a href="">经济开发区用于商业住房土地承包项目</a><span class="">土地承包</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">铁西区平西乡关于土地使用权转让项目</a><span class="">土地转让</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">经济开发区用于商业住房土地承包项目</a><span class="">土地承包</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">铁西区平西乡关于土地使用权转让项目</a><span class="">土地转让</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">经济开发区用于商业住房土地承包项目</a><span class="">土地承包</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">铁西区平西乡关于土地使用权转让项目</a><span class="">土地转让</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">经济开发区用于商业住房土地承包项目</a><span class="">土地承包</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">铁西区平西乡关于土地使用权转让项目</a><span class="">土地转让</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">经济开发区用于商业住房土地承包项目</a><span class="">土地承包</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">铁西区平西乡关于土地使用权转让项目</a><span class="">土地转让</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">经济开发区用于商业住房土地承包项目</a><span class="">土地承包</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">铁西区平西乡关于土地使用权转让项目</a><span class="">土地转让</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">经济开发区用于商业住房土地承包项目</a><span class="">土地承包</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">铁西区平西乡关于土地使用权转让项目</a><span class="">土地转让</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">经济开发区用于商业住房土地承包项目</a><span class="">土地承包</span><span
-								class="project_date">2018-12-25</span>
-						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -163,12 +104,26 @@
 	var vm = new Vue({
 		el : '#app',
 		data : {
-			
+			queryData: {
+				pageSize: 15,
+				pageNo: 1,
+			},
+			projectList:[],
 		},
 		mounted : function() {
+			this.initProjectList();
 		},
 		methods : {
-			
+			initProjectList: function () {
+				$.post("/project/simpleList", this.queryData, function (result) {
+				 	console.log(result)
+					if (result.code == 0) {
+                    	vm.projectList = result.pageList.records;
+                    } else {
+                        layer.msg(result.msg);
+                    }
+            	});
+			},
 		},
 	});
 	</script>

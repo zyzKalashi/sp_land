@@ -9,6 +9,7 @@
 	<title>铁西区农村经济总站土地流转交易监管平台</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title th:include=":: #pageTitle">Title</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/static/css/admin.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/static/css/info.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
@@ -118,6 +119,18 @@
 	</nav>
 </div>
 
+<div th:fragment="location">
+	<div class="locate clearl">
+		<p class="location2 fl pl10">
+			<span></span>当前位置：
+			<a style="font-size: 13px; font-family:'宋体';" href="../index">首页</a> 
+			&nbsp;&nbsp;>&nbsp;&nbsp; 
+			<a style="font-size: 13px; font-family:'宋体';" href="">
+				<div th:include=":: #pageLocaton">pageLocaton</div>
+			</a>
+		</p>
+	</div>
+</div>
 <div th:fragment="foot">
 	<ul class="clear youqinglj tform" style="width: 100%;">
 		<li>友情链接： &nbsp;</li>
@@ -142,6 +155,7 @@
 	<script th:src="@{/static/plugin/layer/layer.js}"></script>
 	<script th:src="@{/static/plugin/jeDate/jeDate.js}"></script>
 	<script th:src="@{/static/js/vue.min.js}"></script>
+	<script th:src="@{/static/js/public.js}"></script>
 	<script th:src="@{/static/js/common.js}"></script>
 	<script th:src="@{/static/js/common_status_filter.js}"></script>
 	<script th:src="@{/static/plugin/jeDate/jeDate.js}"></script>

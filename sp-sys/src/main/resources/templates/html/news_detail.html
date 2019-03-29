@@ -1,20 +1,20 @@
 <!doctype html>
 <html>
+
 <head th:include="common :: header">
-<title id="pageTitle">新闻及政策法规详情-铁西区农村经济总站土地流转交易监管平台</title>
+	<title id="pageTitle">新闻及政策法规详情-铁西区农村经济总站土地流转交易监管平台</title>
 </head>
+
 <body>
 	<div id="app" v-cloak>
 		<div th:replace="common::top"></div>
 		<!-- container begin -->
 		<div class="sam clear" style="background: #fff;">
-			<div class="locate clearl">
-				<p class="location2 fl pl25 pt10">
-					<span></span>当前位置：<a style="font-size: 13px; font-family:"
-						宋体";" href="../index.html">首页</a> > <a
-						style="font-size: 13px; font-family:" 宋体";" href="">土地流转项目信息详情</a>
-				</p>
+		
+			<div th:include="common :: location">
+				<div id="pageLocaton">土地流转项目信息详情</div>
 			</div>
+		
 			<h3 class="c2 text-center" style="letter-spacing: 5px;">
 				[<span class="bold" style="color: red; font-family: '新宋体';">新闻</span>]土地流转交易管理平台正式上线
 			</h3>
