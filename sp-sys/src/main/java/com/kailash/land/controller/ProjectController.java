@@ -1,6 +1,7 @@
 package com.kailash.land.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,12 +115,41 @@ public class ProjectController extends AbstractController {
 		String selectColumn = "pkid AS projectId, project_name as projectName, project_status AS projectStatus, DATE_FORMAT(create_date,'%Y-%m-%d') AS createDateStr";
 		Wrapper<Project> eWrapper = new EntityWrapper<Project>(new Project(), selectColumn);
 		eWrapper.where("project_status != 0 AND create_user = {0}", filter.getCreateUser());
-
+		eWrapper.orderBy("pkid DESC");
 		Page<Map<String, Object>> page = new Page<Map<String, Object>>(1, 50);
 
 		Page<Map<String, Object>> pageList = this.projectService.selectMapsPage(page, eWrapper);
 
 		return Result.ok().put("pageList", pageList);
+	}
+
+	@ResponseBody
+	@PostMapping(value = "/queryDetail")
+	public Result queryDetail(ProjectFiter filter) {
+		if (filter.getProjectId() == null) {
+			return Result.error();
+		}
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+
+		Wrapper<Project> eWrapper = new EntityWrapper<Project>(new Project());
+		eWrapper.where("project_status != 0 AND pkid = {0}", filter.getProjectId());
+		Map<String, Object> projectMap = this.projectService.selectMap(eWrapper);
+
+		returnMap.putAll(projectMap);
+
+		Wrapper<ProjectAround> aroundWrapper = new EntityWrapper<ProjectAround>(new ProjectAround());
+		eWrapper.where("project_id = {0}", filter.getProjectId());
+		Map<String, Object> aroundMap = this.projectAroundService.selectMap(aroundWrapper);
+
+		returnMap.putAll(aroundMap);
+
+		Wrapper<ProjectPerson> personWrapper = new EntityWrapper<ProjectPerson>(new ProjectPerson());
+		eWrapper.where("project_id = {0}", filter.getProjectId());
+		Map<String, Object> personMap = this.projectPersonService.selectMap(personWrapper);
+
+		returnMap.putAll(personMap);
+
+		return Result.ok().put("projectData", returnMap);
 	}
 
 }

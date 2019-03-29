@@ -491,34 +491,46 @@
 					south: "",
 					west: "",
 					north: "",
-					showpreice: "",
-					payway: "",
-					paylimit: "",
-					otherpay: "",
-					shouldhave: "",
+					showPreice: "",
+					payWay: "",
+					payLimit: "",
+					otherPay: "",
+					shouldHave: "",
 					overdue: "",
 					supplement: "",
 				}
 			},
 			mounted : function() {
-
+				this.projectData.projectId = getUrlParam('projectId');
+				this.initProject();
 			},
 			methods : {
 				submitProject : function() {
 					if (vm.checkProject()) {
-						  $.post("/project/project_add", vm.projectData, function (result) {
-		                        if (result.code == 0) {
-		                            layer.msg("添加成功！",{icon:1, time:2000, shade:0.4},function () {
-		                                window.location.href = "../html/project_list";
-		                            });
-		                        } else {
-		                            layer.msg(result.msg);
-		                        }
-		                    });
+					  	$.post("/project/project_add", vm.projectData, function (result) {
+	                        if (result.code == 0) {
+	                            layer.msg("添加成功！",{icon:1, time:2000, shade:0.4},function () {
+	                                window.location.href = "../html/project_list";
+	                            });
+	                        } else {
+	                            layer.msg(result.msg);
+	                        }
+	                    });
 					}
 				},
 				checkProject : function() {
 					return true;
+				},
+				initProject: function(){
+					if (this.projectData.projectId) {
+						$.post("/project/queryDetail", this.projectData, function (result) {
+	                        if (result.code == 0) {
+	                            vm.projectData = result.projectData;
+	                        } else {
+	                            layer.msg(result.msg);
+	                        }
+	                    });
+					}
 				},
 			},
 		});

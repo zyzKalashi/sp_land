@@ -30,7 +30,7 @@ public class ProjectAround extends Model<ProjectAround> {
 	private String south;
 	private String west;
 	private String north;
-	private Double showpreice;
+	private Double showPreice;
 	private String payWay;
 	private String payLimit;
 	private String otherPay;
@@ -49,7 +49,7 @@ public class ProjectAround extends Model<ProjectAround> {
 		this.south = filter.getSouth();
 		this.west = filter.getWest();
 		this.north = filter.getNorth();
-		this.showpreice = filter.getShowpreice();
+		this.showPreice = filter.getShowPreice();
 		this.payWay = filter.getPayWay();
 		this.payLimit = filter.getPayLimit();
 		this.otherPay = filter.getOtherPay();

@@ -60,7 +60,7 @@ public class ProjectFiter extends BasePageFilter {
 	private String south;
 	private String west;
 	private String north;
-	private Double showpreice;
+	private Double showPreice;
 	private String payWay;
 	private String payLimit;
 	private String otherPay;
