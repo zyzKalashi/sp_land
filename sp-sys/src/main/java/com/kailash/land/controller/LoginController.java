@@ -39,21 +39,21 @@ public class LoginController extends AbstractController {
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Users user) {
-        return "/index";
+        return "index";
     }
     
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin_login(Users user) {
-        return "/admin/login";
+        return "admin/login";
     }
     
     @RequestMapping(value = "/admin/main", method = RequestMethod.GET)
     public String admin_index() {
         Users user = getUser();
         if(String.valueOf(user.getRoleId()).matches("1|2|3")){
-            return "/admin/index";
+            return "admin/main";
         } else {
-            return "/index";
+            return "index";
         }
     }
     

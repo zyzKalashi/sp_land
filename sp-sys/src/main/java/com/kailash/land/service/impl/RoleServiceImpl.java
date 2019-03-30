@@ -38,5 +38,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> impleme
 		List<RoleEntity> roles = roleMapper.selectList();
 		return new PageInfo<>(roles);
 	}
+	
+	/**
+	 * 获取所角色信息
+	 * @return
+	 */
+	public List<RoleEntity> selectAllRoles(){
+		return roleMapper.selectList();
+	}
 
 }

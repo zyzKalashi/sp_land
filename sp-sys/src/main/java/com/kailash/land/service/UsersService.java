@@ -1,6 +1,7 @@
 package com.kailash.land.service;
 
 import com.baomidou.mybatisplus.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.kailash.land.entity.Users;
 
 /**
@@ -12,6 +13,7 @@ public interface UsersService extends IService<Users> {
 	Users queryByUserName(String username);
 
 	int registerUser(Users user);
-
+	
+	PageInfo<Users> selectUsersPage(Users user, Integer pageNum, Integer pageSize);
 
 }

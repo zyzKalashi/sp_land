@@ -1,15 +1,14 @@
 package com.kailash.land.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.github.pagehelper.PageInfo;
+import com.kailash.land.entity.RoleEntity;
+import com.kailash.land.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.kailash.land.common.enums.StatusEnum;
@@ -31,6 +30,9 @@ public class UsersController extends AbstractController {
 
 	@Autowired
 	private LoginLogService loginLogService;
+	
+	@Autowired
+	private RoleService roleService;
 
 	@ResponseBody
 	@PostMapping(value = "/users_register")
@@ -66,12 +68,56 @@ public class UsersController extends AbstractController {
 		ewLoginLog.setEntity(new LoginLog());
 		ewLoginLog.where("user_id = {0}", userData.getUserId());
 		LoginLog loginLog = this.loginLogService.selectOne(ewLoginLog);
-		
-		loginLog.setLogDateStr(DateUtils.format(loginLog.getLogDate(), DateFormatConsts.DATE_PATTERN));
+		if(null != loginLog){
+			loginLog.setLogDateStr(DateUtils.format(loginLog.getLogDate(), DateFormatConsts.DATE_PATTERN));
+		}
 		returnMap.put("loginLog", loginLog);
 
 		return Result.ok(returnMap);
 	}
+	
+	@RequestMapping(value = "userSearch", method = RequestMethod.POST)
+	public Result userSearch(Users user, Integer pageNum, Integer pageSize) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		PageInfo<Users> result = this.usersService.selectUsersPage(user, pageNum, pageSize);
+		returnMap.put("result", result);
+		return Result.ok(returnMap);
+	}
+	
+	@RequestMapping(value = "allRoles", method = RequestMethod.POST)
+	public Result allRoles(){
+		List<RoleEntity> allRoles = roleService.selectAllRoles();
+		Map<String, Object> returnMap = new Hashtable<>();
+		returnMap.put("result", allRoles);
+		return Result.ok(returnMap);
+	}
+	
+	@RequestMapping(value = "getUserStatus", method = RequestMethod.GET)
+	public Result getUserStatus(){
+		Map<String,String> status = new HashMap<>();
+		Map<String, Object> returnMap = new Hashtable<>();
+		status.put("0", "正常");
+		status.put("1", "禁用");
+		status.put("2", "删除");
+		status.put("3", "待审核");
+		status.put("4", "拒绝");
+		returnMap.put("status",status);
+		return Result.ok(returnMap);
+	}
+	
+	@PostMapping(value = "/users_modify")
+	public Result modify(Users user) {
+		EntityWrapper<Users> ewUser = new EntityWrapper<>();
+		ewUser.setEntity(new Users());
+		ewUser.where(" pkid = {0} ", user.getUserId());
+		boolean zt = this.usersService.update(user, ewUser);
+		if (zt) {
+			return Result.ok();
+		}
+		return Result.error();
+	}
+	
+	
 //
 //	@ResponseBody
 //	@PostMapping(value = "/users_checkNameOrPhone")
