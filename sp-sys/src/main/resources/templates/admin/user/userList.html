@@ -112,7 +112,7 @@
     var default_pageNum = 1;
     var default_pageSize = 10;
 
-    new Vue({
+    var vm = new Vue({
         el: "#vueApp",
         data: {
             form: {
@@ -169,7 +169,7 @@
             doAudit: function(user){
                 var userId =  user.userId;
                 var buttons = [];
-                if(user.userStatus == 3 || user.userStatus == 4){
+                if(user.userStatus == '3' || user.userStatus == '4'){
                     buttons.push("通过");
                     buttons.push("拒绝");
                 }
@@ -184,16 +184,22 @@
                     maxmin: true,
                     content: '/admin/userAudit?userId=' + userId,
                     btn:buttons,
-                    yes: function(){
+                    yes: function(index, layero){
                         if(buttons.length == 3){
-                            layer.alert("btn1");
+                            var iframeWin = window[layero.find('iframe')[0]['name']];
+                            iframeWin.vm.audit(userId,"0");
+                        } else{
+                            layer.close(layer.index);
                         }
+                        return false;
                     },
-                    btn2: function(){
-                        layer.alert("btn2");
+                    btn2: function(index, layero){
+                        var iframeWin = window[layero.find('iframe')[0]['name']];
+                        iframeWin.vm.audit(userId,"4");
                         return false;
                     },
                     btn3: function(){
+                        return true;
                     },
                 });
             },

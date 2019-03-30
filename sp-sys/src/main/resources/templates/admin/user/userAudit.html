@@ -6,62 +6,70 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
 </head>
 <style>
-    .control-group{
-        margin-top: 10px;
+    label{
+        margin-right: 10px;
     }
 </style>
 <body>
 <div id="app" v-cloak>
-    <div>
-        <form class="form-horizontal" style="margin-top: 50px;" role="form">
-            <div class="control-group form-inline">
-                <label class="control-label col-md-2 offset-md-2" for="userName">用户名</label>
-                <div class="controls col-md-6">
-                    <input type="text" placeholder="请输入用户名" class="form-control" style="width: 90%;" id="userName" v-model="user.userName">
+    <div class="row inline" style="width: 95%;margin-top: 10px;">
+        <div class="col-sm-7">
+            <div class="row inline">
+                <div class="col-sm-2 offset-sm-6 text-right">
+                    <label class="control-label">会员ID:</label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">{{user.userId}}</label>
                 </div>
             </div>
-            <div class="control-group form-inline">
-                <label class="control-label col-md-2 offset-md-2" for="email">邮箱</label>
-                <div class="controls col-md-6">
-                    <input type="text" placeholder="请输入用户邮箱" class="form-control" style="width: 90%;" id="email" v-model="user.email">
+            <div class="row inline">
+                <div class="col-sm-2 offset-sm-6 text-right">
+                    <label class="control-label">会员名称:</label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">{{user.userName}}
                 </div>
             </div>
-            <div class="control-group form-inline">
-                <label class="control-label col-md-2 offset-md-2" for="mobile">手机号</label>
-                <div class="controls col-md-6">
-                    <input type="text" placeholder="请输入手机号" class="form-control" style="width: 90%;" id="mobile" v-model="user.mobile">
+            <div class="row inline">
+                <div class="col-sm-2 offset-sm-6 text-right">
+                    <label class="control-label">邮箱:</label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">{{user.email}}
                 </div>
             </div>
-            <div class="control-group form-inline">
-                <label class="control-label col-md-2 offset-md-2" for="password">密码</label>
-                <div class="controls col-md-6">
-                    <input type="text" placeholder="请输入密码" class="form-control" style="width: 90%;" id="password" v-model="user.password">
+            <div class="row inline">
+                <div class="col-sm-2 offset-sm-6 text-right">
+                    <label class="control-label">手机号:</label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">{{user.mobile}}</label>
                 </div>
             </div>
-            <div class="control-group form-inline">
-                <label class="control-label col-md-2 offset-md-2" for="password_v">确认密码</label>
-                <div class="controls col-md-6">
-                    <input type="text" placeholder="请再次输入密码" class="form-control" style="width: 90%;" id="password_v" v-model="user.password_v">
+            <div class="row inline">
+                <div class="col-sm-2 offset-sm-6 text-right">
+                    <label class="control-label">用户状态:</label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">{{userStatus}}</label>
                 </div>
             </div>
-            <div class="control-group form-inline">
-                <label class="control-label col-md-2 offset-md-2" for="userStatus">用户状态</label>
-                <div class="controls col-md-6">
-                    <select class="form-control" id="userStatus" v-model="user.userStatus" placeholder="请选择用户状态" style="width: 90%;" >
-                        <option v-for="(name,key) in status" :value="key">{{name}}</option>
-                    </select>
+            <div class="row inline">
+                <div class="col-sm-2 offset-sm-6 text-right">
+                    <label class="control-label">所属角色:</label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">{{roleName}}</label>
                 </div>
             </div>
-            <div class="control-group form-inline">
-                <label class="control-label col-md-2 offset-md-2" for="roleId">用户角色</label>
-                <div class="controls col-md-6">
-                    <select class="form-control" id="roleId" v-model="user.roleId" placeholder="请选择用户角色" style="width: 90%;" >
-                        <option v-for="(roleName,roleId) in roleInfos" :value="roleId">{{roleName}}</option>
-                    </select>
-                </div>
+        </div>
+        <div class="col-sm-4" style="height: auto;">
+            <div class="row" style="margin-top: 30px;">
+                    <img src="../static/images/cent/touxiang.jpg" style="border-radius: 5px; box-shadow: 0 1px 2px 1px #666;">
             </div>
-        </form>
+        </div>
     </div>
+    <hr>
 </div>
 </body>
 <script th:src="@{/static/js/jquery.min.js}"></script>
@@ -76,16 +84,40 @@
         el: '#app',
         data: {
             user: {
+                userId: userId,
                 userName: '',
                 email: '',
                 mobile: '',
                 password: '',
                 password_v: '',
-                userStatus: '3',
-                roleId: '4',
+                userStatus: '',
+                roleId: '',
             },
             status:{},
             roleInfos:{},
+            userStatus:'',
+            roleName:'',
+        },
+        watch: {
+            status: {
+                handler(newValue, oldValue) {
+                    this.flushStatus();
+                },
+                deep: true
+            },
+            roleInfos: {
+                handler(newValue, oldValue) {
+                    this.flushRoleName()
+                },
+                deep: true
+            },
+            user: {
+                handler(newValue, oldValue) {
+                    this.flushStatus();
+                    this.flushRoleName();
+                },
+                deep: true
+            },
         },
         created: function(){
             var _this = this;
@@ -121,7 +153,33 @@
             }
         },
         methods : {
+            audit: function (userId, type) {
+                var tUser = new Object();
+                tUser.userId = userId;
+                tUser.userStatus = type;
 
+                $.post("/user/users_modify", tUser, function (result) {
+                    if (result.code == 0) {
+                        layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                            parent.vm.doQuery();
+                        });
+                    } else {
+                        layer.msg(result.msg);
+                    }
+                });
+            },
+            flushStatus: function(){
+                if(("0" == this.user.userStatus || this.user.userStatus) && this.status[this.user.userStatus]){
+                    this.userStatus = this.status[this.user.userStatus];
+                }
+            },
+            flushRoleName: function(){
+                if(("0" == this.user.roleId || this.user.roleId) && this.roleInfos[this.user.roleId]){
+                    this.roleName = this.roleInfos[this.user.roleId];
+                }
+            }
         },
     });
 </script>
