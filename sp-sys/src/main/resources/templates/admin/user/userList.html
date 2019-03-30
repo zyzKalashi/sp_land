@@ -39,7 +39,7 @@
             <div class="col-sm-2">
                 <select class="form-control" id="userStatus" v-model="form.userStatus" placeholder="请选择用户状态" style="width: 90%;" >
                     <option></option>
-                    <option v-for="(roleName,roleId) in roleInfos" :value="roleId">{{roleName}}</option>
+                    <option v-for="(name,key) in status" :value="key">{{name}}</option>
                 </select>
             </div>
         </div>
@@ -69,21 +69,23 @@
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-default">
                 <tr class="text-center">
-                    <th>序号</th>
-                    <th>用户名</th>
+                    <th>会员ID</th>
+                    <th>会员名称</th>
                     <th>邮箱</th>
                     <th>手机号</th>
-                    <th>角色名称</th>
+                    <th>所属角色</th>
+                    <th>会员状态</th>
                     <th style="width: 20%;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="(user,index) in list" class="text-center">
-                    <td>{{index+1}}</td>
+                    <td>{{user.userId}}</td>
                     <td>{{user.userName}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.mobile}}</td>
-                    <td>{{user.roleName}}</td>
+                    <td>{{roleInfos[user.roleId]}}</td>
+                    <td>{{status[user.userStatus]}}</td>
                     <td class="inline">
                         <button type="button" class="btn btn-sm btn-warning" @click="doAudit(user)">审核</button>
                         <button type="button" class="btn btn-sm btn-warning" @click="doModify(user)">修改</button>
@@ -127,6 +129,7 @@
             pages: 1,
             pageNum: 1,
             roleInfos:{},
+            status:{},
         },
         created: function(){
             var _this = this;
@@ -136,6 +139,11 @@
                     obj[resp.result[i].roleId] = resp.result[i].roleName;
                 }
                 _this.roleInfos = obj;
+            });
+            $.get("/user/getUserStatus","", function (resp) {
+                if(0 == resp.code){
+                    _this.status = resp.status;
+                }
             });
         },
         methods:{
