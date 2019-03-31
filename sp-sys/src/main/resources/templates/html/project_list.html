@@ -7,7 +7,7 @@
 
 <body>
 	<div id="app" v-cloak>
-		<div th:replace="common::top"></div>
+		<div th:replace="common :: top"></div>
 		<!-- container begin -->
 		<div class="main clearfix mt10">
 			
@@ -79,7 +79,7 @@
 					</div>
 					<div class="tech-pro-con">
 						<div class="project-list" v-for="item in projectList">
-							<a href="">{{ item.projectName }}</a>
+							<a @click="goDetail(item.projectId)">{{ item.projectName }}</a>
 							<span class="">{{ item.projectKind | projectKindFilter  }}</span>
 							<span class="project_date">{{ item.createDateStr }}</span>
 						</div>
@@ -96,7 +96,7 @@
 			</div>
 		</div>
 		<footer class="footer">
-			<div th:replace="common::foot"></div>
+			<div th:replace="common :: foot"></div>
 		</footer>
 	</div>
 	<div th:include="common :: js"></div>
@@ -124,6 +124,10 @@
                     }
             	});
 			},
+			goDetail: function(projectId){
+				window.location.href="../html/project_detail?projectId=" + projectId;
+			}
+			
 		},
 	});
 	</script>

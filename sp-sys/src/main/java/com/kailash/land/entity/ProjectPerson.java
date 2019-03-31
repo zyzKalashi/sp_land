@@ -47,6 +47,7 @@ public class ProjectPerson extends Model<ProjectPerson> implements Serializable 
 	}
 
 	public ProjectPerson(ProjectFiter filter) {
+		this.pkid = filter.getProjectPersonId();
 		this.name = filter.getName();
 		this.sex = filter.getSex();
 		this.townCode = filter.getTownCode();

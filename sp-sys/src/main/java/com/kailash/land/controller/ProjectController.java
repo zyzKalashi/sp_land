@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,27 +42,29 @@ public class ProjectController extends AbstractController {
 	@Autowired
 	private ProjectPersonService projectPersonService;
 
+	@Transactional
 	@ResponseBody
-	@PostMapping(value = "/project_add")
+	@PostMapping(value = "/projectAdd")
 	public Result projectAdd(ProjectFiter filter) {
 		try {
 			Project di = new Project(filter);
-			di.setCreateDate(new Date());
 			di.setUpdateDate(new Date());
-			di.setCreateUser(getUserId().intValue());
 			di.setUpdateUser(getUserId().intValue());
+
+			di.setCreateDate(new Date());
+			di.setCreateUser(getUserId().intValue());
 			di.setProjectNo("TX-" + DateUtils.format(new Date(), DateFormatConsts.DATE_PATTERN_MO) + "-100100");
 
 			di.setProjectStatus(StatusEnum.COMMON_AUDIT.getId());
-			this.projectService.insert(di);
+			this.projectService.insertOrUpdate(di);
 
 			ProjectPerson dp = new ProjectPerson(filter);
 			dp.setProjectId(di.getPkid());
-			this.projectPersonService.insert(dp);
+			this.projectPersonService.insertOrUpdate(dp);
 
 			ProjectAround projectAround = new ProjectAround(filter);
 			projectAround.setProjectId(di.getPkid());
-			this.projectAroundService.insert(projectAround);
+			this.projectAroundService.insertOrUpdate(projectAround);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,14 +73,15 @@ public class ProjectController extends AbstractController {
 		return Result.ok();
 	}
 
+	@Transactional
 	@ResponseBody
-	@PostMapping(value = "/project_modify")
+	@PostMapping(value = "/projectModify")
 	public Result projectModify(ProjectFiter filter) {
 		try {
 			if (filter.getProjectId() == null) {
 				return Result.error();
 			}
-
+			
 			Project di = new Project(filter);
 			di.setUpdateUser(getUserId().intValue());
 			di.setUpdateDate(new Date());
@@ -119,7 +123,7 @@ public class ProjectController extends AbstractController {
 		selectColumn.append("DATE_FORMAT(create_date,'%Y-%m-%d') AS createDateStr, ");
 		selectColumn.append("project_kind AS projectKind ");
 		Wrapper<Project> eWrapper = new EntityWrapper<Project>(new Project(), selectColumn.toString());
-		
+
 		StringBuilder selectSql = new StringBuilder("project_status != 0");
 		if (Objects.nonNull(filter.getCreateUser())) {
 			selectSql.append(" AND create_user = " + filter.getCreateUser());
@@ -127,7 +131,7 @@ public class ProjectController extends AbstractController {
 		if (Objects.nonNull(filter.getProjectKind())) {
 			selectSql.append(" AND project_kind = " + filter.getProjectKind());
 		}
-		
+
 		eWrapper.where(selectSql.toString());
 		eWrapper.orderBy("pkid DESC");
 		Page<Map<String, Object>> page = new Page<Map<String, Object>>(1, 50);
@@ -160,9 +164,15 @@ public class ProjectController extends AbstractController {
 		Wrapper<ProjectPerson> personWrapper = new EntityWrapper<ProjectPerson>(new ProjectPerson());
 		personWrapper.where("project_id = {0}", filter.getProjectId());
 		Map<String, Object> personMap = this.projectPersonService.selectMap(personWrapper);
-
+		
 		returnMap.putAll(personMap);
 
+		
+		Date createDate = (Date) projectMap.get("createDate");
+		String createDateStr = DateUtils.format(createDate, DateFormatConsts.DATE_PATTERN);
+		
+		returnMap.put("createDateStr", createDateStr);
+		
 		return Result.ok().put("projectData", returnMap);
 	}
 

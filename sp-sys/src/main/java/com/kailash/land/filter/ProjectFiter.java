@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class ProjectFiter extends BasePageFilter {
 
 	// projectPerson
+	private Long projectPersonId;
 	private String name;
 	private Integer sex;
 	private Integer townCode;
@@ -22,6 +23,7 @@ public class ProjectFiter extends BasePageFilter {
 	private String address;
 
 	// project
+	private Long projectId;
 	private String projectName;
 	private Integer projectKind;
 	private String projectAddress;
@@ -49,11 +51,11 @@ public class ProjectFiter extends BasePageFilter {
 	private Double assessValue;
 	private String outputWay;
 	private String hopeOutputDate;
-	private Long projectId;
 	private Integer projectStatus;
 	private String projectNo;
 
 	// projectAround
+	private Long projectAroundId;
 	private String areaName;
 	private Double area;
 	private String east;

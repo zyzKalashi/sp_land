@@ -43,6 +43,7 @@ public class ProjectAround extends Model<ProjectAround> {
 	}
 
 	public ProjectAround(ProjectFiter filter) {
+		this.pkid = filter.getProjectAroundId();
 		this.areaName = filter.getAreaName();
 		this.area = filter.getArea();
 		this.east = filter.getEast();

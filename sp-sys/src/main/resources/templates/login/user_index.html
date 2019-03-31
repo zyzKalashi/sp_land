@@ -120,7 +120,6 @@
 												<span class="fl ml5" style="width: 280px;">{{ userData.mobile }}</span>
 												<li style="width: 100px;" class="fl text-right mr5">注册时间：</li>
 												<span class="fl ml5" style="width: 280px;">{{ userData.createDateStr }}</span>
-
 											</ul>
 
 										</td>
@@ -160,8 +159,12 @@
 																<td class="widhead"><a href="../html/xmdetail.html">{{ item.projectName }}</a></td>
 																<td><span>{{ item.createDateStr }}</span></td>
 																<td>{{ item.projectStatus | commonStatusFilter}}</td>
-																<td><span @click="modifyProject(item.projectId)">编辑</span></td>
-																<td><span @click="delProject(item.projectId)">删除<span></td>
+																<td>
+																	<span v-if="item.projectStatus == 2" @click="modifyProject(item.projectId)">编辑</span>
+																</td>
+																<td>
+																	<span v-if="item.projectStatus == 2" @click="delProject(item.projectId)">删除</span>
+																</td>
 															</tr>
 															
 														</table>

@@ -39,11 +39,11 @@
 									<td class="t_prop"><strong>手&nbsp;&nbsp;&nbsp;&nbsp;机：</strong></td>
 									<td class="t_prop_a"><input type="text" size="30"
 										style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 100%;"
-										name="mobile" placeholder="有效手机号码" v-model="projectData.moibel"></td>
+										name="mobile" placeholder="有效手机号码" v-model="projectData.mobile"></td>
 									<td class="t_prop mt15"><strong>信息属权：</strong></td>
 									<td class="pl10">
-										<input type="radio" name="infoKind" value="0" v-model="projectData.infoKind">&nbsp;&nbsp;家庭个人&nbsp;&nbsp;
-										<input type="radio" name="infoKind" value="1" v-model="projectData.infoKind">&nbsp;&nbsp;集体单位</td>
+										<input type="radio" name="infoKind" value="0" v-model="projectData.infoKind">&nbsp;&nbsp;{{ 0 | projectInfoKindFilter }}&nbsp;&nbsp;
+										<input type="radio" name="infoKind" value="1" v-model="projectData.infoKind">&nbsp;&nbsp;{{ 1 | projectInfoKindFilter }}</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>联系地址：</strong></td>
@@ -126,9 +126,9 @@
 										v-model="projectData.outputPersonName"></td>
 									<td class="t_prop mt15"><strong>项目属权：</strong></td>
 									<td class='pl10'><input type="radio" name="rightKind"
-										value="0" v-model="projectData.rightKind">&nbsp;&nbsp;家庭个人&nbsp;&nbsp;&nbsp;&nbsp;
+										value="0" v-model="projectData.rightKind">&nbsp;&nbsp;{{ 0 | projectInfoKindFilter }}&nbsp;&nbsp;&nbsp;&nbsp;
 										<input type="radio" name="rightKind" value="1"
-										v-model="projectData.rightKind">&nbsp;&nbsp;集体单位</td>
+										v-model="projectData.rightKind">&nbsp;&nbsp;{{ 1 | projectInfoKindFilter }}</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>权证编号：</strong></td>
@@ -176,7 +176,7 @@
 									<td class="t_prop_a">
 										<input type="text" size="30"
 											style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
-											placeholder="采用时间选择项决定起始终止时间" id="oldRentDate"
+											placeholder="采用时间选择项决定起始终止时间" id="oldRentDate" 
 											readonly="readonly">
 									</td>
 								</tr>
@@ -425,11 +425,9 @@
 			</div>
 		</div>
 		<div class="clear mb25" style="text-align: center;">
-			<button type="button" class="btn btn-default active btn-info"
-				style="width: 20%; background: #6e3e0d; margin-right: 25px;"
-				@click="submitProject">提交审批</button>
-			<button type="button" class="btn btn-default active btn-info"
-				style="width: 20%; background: #6e3e0d;" onclick="reload()">取消</button>
+			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d; margin-right: 25px;" v-if="!projectData.projectId" @click="submitProject('add')">提交审批</button>
+			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d; margin-right: 25px;" v-else @click="submitProject('upd')">提交修改</button>
+			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d;" onclick="reload()">取消</button>
 
 		</div>
 		<footer class="footer">
@@ -504,14 +502,20 @@
 			mounted : function() {
 				this.initArea();
 				this.projectData.projectId = getUrlParam('projectId');
-				this.initProject();
+				if(this.projectData.projectId){
+					this.initProject();
+				}
 			},
 			methods : {
-				submitProject : function() {
+				submitProject : function(kind) {
 					if (vm.checkProject()) {
-					  	$.post("/project/project_add", vm.projectData, function (result) {
+						var url = "/project/projectAdd";
+						if(kind == "upd"){
+							url = "/project/projectModify";
+						}
+					  	$.post(url, vm.projectData, function (result) {
 	                        if (result.code == 0) {
-	                            layer.msg("添加成功！",{icon:1, time:2000, shade:0.4},function () {
+	                            layer.msg("操作成功！",{icon:1, time:2000, shade:0.4},function () {
 	                                window.location.href = "../html/project_list";
 	                            });
 	                        } else {
@@ -528,6 +532,9 @@
 						$.post("/project/queryDetail", this.projectData, function (result) {
 	                        if (result.code == 0) {
 	                            vm.projectData = result.projectData;
+	                            $("#oldRentDate").val( vm.projectData.oldRentDate);
+	                            $("#assessDate").val( vm.projectData.assessDate);
+	                            $("#hopeOutputDate").val( vm.projectData.hopeOutputDate);
 	                        } else {
 	                            layer.msg(result.msg);
 	                        }
