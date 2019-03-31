@@ -115,8 +115,8 @@ public class LoginController extends AbstractController {
 	@ResponseBody
 	@RequestMapping(value = "/logoutCommon", method = RequestMethod.GET)
 	public String logoutCommon() {
-		super.logout();
-		return "../index";
+		logout();
+		return "index";
 	}
 
 	@ResponseBody
