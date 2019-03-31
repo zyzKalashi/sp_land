@@ -64,10 +64,7 @@ public class UsersController extends AbstractController {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("userData", userData);
 
-		EntityWrapper<LoginLog> ewLoginLog = new EntityWrapper<LoginLog>();
-		ewLoginLog.setEntity(new LoginLog());
-		ewLoginLog.where("user_id = {0}", userData.getUserId());
-		LoginLog loginLog = this.loginLogService.selectOne(ewLoginLog);
+		LoginLog loginLog = this.loginLogService.selectByUserId(userData.getUserId());
 		if(null != loginLog){
 			loginLog.setLogDateStr(DateUtils.format(loginLog.getLogDate(), DateFormatConsts.DATE_PATTERN));
 		}

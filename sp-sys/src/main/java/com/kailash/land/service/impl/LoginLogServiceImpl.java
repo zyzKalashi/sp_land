@@ -27,4 +27,9 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
 		}
 	}
 
+	@Override
+	public LoginLog selectByUserId(Long userId) {
+		return this.loginLogMapper.selectByUserId(userId);
+	}
+
 }

@@ -204,7 +204,7 @@ function baseInfo() {
 					bootstrapMajorVersion : 3, // bootstrap的版本要求
 					currentPage : pageInfo.pageNum == 0 ? 1 : pageInfo.pageNum, // 设置当前页
 					totalPages : pageInfo.pages == 0 ? 1 : pageInfo.pages,
-					size : "normal", // 允许的值: mini, small,
+					size : "mini", // 允许的值: mini, small,
 					// normal,large。值：mini版的、小号的、正常的、大号的。
 					numberOfPages : data.pageSize, // 设置显示的页码数
 					alignment : "right",

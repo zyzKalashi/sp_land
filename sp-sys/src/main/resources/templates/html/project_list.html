@@ -87,13 +87,15 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="page mt10 mb20">
+				<ul id='pagination'></ul>
+			</div>
+		<!-- 	<div class="page mt10 mb20">
 				<a href="#" class="first_1">首页</a> <a href="#" class="prev">&lt;上一页</a>
 				<a href="#" class="on">1</a> <a href="#">2</a> <a href="#">3</a> <a
 					href="#">4</a> <span>...</span> <a href="#" class="next">下一页&gt;</a>
 				<a href="#" class="last">尾页</a>
-			</div>
+			</div> -->
 		</div>
 		<footer class="footer">
 			<div th:replace="common :: foot"></div>
@@ -105,25 +107,19 @@
 		el : '#app',
 		data : {
 			queryData: {
-				pageSize: 15,
 				pageNo: 1,
+				pageSize: 1,
+				projectStatus: 34,
 			},
 			projectList:[],
 		},
 		mounted : function() {
-			this.initProjectList();
+			hzToolObj.getdomInit("/project/simpleList", this.queryData, this.callback);
 		},
 		methods : {
-			initProjectList: function () {
-				$.post("/project/simpleList", this.queryData, function (result) {
-				 	console.log(result)
-					if (result.code == 0) {
-                    	vm.projectList = result.pageList.records;
-                    } else {
-                        layer.msg(result.msg);
-                    }
-            	});
-			},
+			callback: function (result) {
+				vm.projectList = result.pageInfo.list;
+	        },
 			goDetail: function(projectId){
 				window.location.href="../html/project_detail?projectId=" + projectId;
 			}

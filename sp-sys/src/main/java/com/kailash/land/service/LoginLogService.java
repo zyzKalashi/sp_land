@@ -6,5 +6,7 @@ import com.kailash.land.entity.LoginLog;
 public interface LoginLogService extends IService<LoginLog>{
 
 	int insertOrUpdateByUserId(LoginLog ll);
+	
+	LoginLog selectByUserId(Long userId);
 
 }

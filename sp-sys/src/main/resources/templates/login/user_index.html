@@ -297,14 +297,9 @@
 	                });
 				},
 				initProjectList: function () {
-					$.post("/project/simpleList", this.queryData, function (result) {
-					 	console.log(result)
-						if (result.code == 0) {
-                        	vm.projectList = result.pageList.records;
-                        } else {
-                            layer.msg(result.msg);
-                        }
-                	});
+					hzToolObj.getdomInit("/project/simpleList", this.queryData, function(result){
+                        	vm.projectList = result.pageInfo.list;
+					});
 				},
 				modifyProject: function(projectId){
 					window.location.href = "../login/project_add?projectId=" + projectId;

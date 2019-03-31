@@ -119,9 +119,9 @@ public class ProjectController extends AbstractController {
 	@PostMapping(value = "/simpleList")
 	public Result simpleList(ProjectFiter filter) {
 
-		PageInfo<Map<String, Object>> pageList = this.projectService.simpleList(filter);
+		PageInfo<Map<String, Object>> pageInfo = this.projectService.simpleList(filter);
 
-		return Result.ok().put("pageList", pageList);
+		return Result.ok().put("pageInfo", pageInfo);
 	}
 
 	@ResponseBody

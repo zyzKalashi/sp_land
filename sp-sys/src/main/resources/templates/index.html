@@ -396,19 +396,9 @@
 					window.location.href="../html/project_detail?projectId=" + id;
 				},
 				initProjectList : function() {
-					var queryData = {
-						pageNo : 1,
-						pageSize : 9,
-						projectStatus: 34
-					};
-					$.post("/project/simpleList", queryData, function(result) {
-						console.log(result)
-						if (result.code == 0) {
-							vm.projectList = result.pageList.list;
-						} else {
-							layer.msg(result.msg);
-						}
-					});
+					hzToolObj.getdomInit("/project/simpleList", {pageNo : 1,pageSize : 9,projectStatus: 34}, function(result){
+                    	vm.projectList = result.pageInfo.list;
+					})
 				},
 
 			},
