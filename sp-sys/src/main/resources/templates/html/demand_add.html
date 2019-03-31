@@ -5,8 +5,6 @@
 	<title id="pageTitle">需求咨询信息发布—铁西区农村经济总站土地流转交易监管平台</title>
 </head>
 
-<script type="text/javascript" src="../js/mainndy.js"></script>
-
 <body>
 	<div id="app" v-cloak>
 		<div th:replace="common::top"></div>
@@ -27,11 +25,23 @@
 				<table class="Box_table pb15">
 					<tr>
 						<td align=right><b>*</b>需求类别：</td>
-						<td class="checkBox"><input type="checkbox" name=""><span>土地承包</span><input
-							type="checkbox" name=""><span>林权转让</span><input
-							type="checkbox" name=""><span>养殖水面</span><input
-							type="checkbox" name=""><span>四荒租赁</span><input
-							type="checkbox" name=""><span>其他</span></td>
+						<td class="checkBox">
+							<label for="projectKind1"> 
+								<input type="checkbox" value="1" id="projectKind1"><span>{{ 1|projectKindFilter }}</span>
+							</label>
+							<label for="projectKind2"> 
+								<input type="checkbox" value="2" id="projectKind2"><span>{{ 2|projectKindFilter }}</span>
+							</label>
+							<label for="projectKind3"> 
+								<input type="checkbox" value="3" id="projectKind3"><span>{{ 3|projectKindFilter }}</span>
+							</label>
+							<label for="projectKind4"> 
+								<input type="checkbox" value="4" id="projectKind4"><span>{{ 4|projectKindFilter }}</span>
+							</label>
+							<label for="projectKind5"> 
+								<input type="checkbox" value="5" id="projectKind5"><span>其他</span>
+							</label>
+						</td>
 					</tr>
 					<tr>
 						<td align=right>资金范围：</td>

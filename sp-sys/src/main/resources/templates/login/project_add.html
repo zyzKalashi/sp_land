@@ -104,10 +104,10 @@
 									<td class="pl10">
 										<select v-model="projectData.projectKind">
 											<option value="0">请选择流转方式</option>
-											<option value="1">土地承包</option>
-											<option value="2">林权转让</option>
-											<option value="3">养殖水面</option>
-											<option value="4">四荒承包</option>
+											<option value="1">{{ 1 | projectKindFilter }}</option>
+											<option value="2">{{ 2 | projectKindFilter }}</option>
+											<option value="3">{{ 3 | projectKindFilter }}</option>
+											<option value="4">{{ 4 | projectKindFilter }}</option>
 										</select>
 									</td>
 								</tr>
@@ -136,7 +136,7 @@
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
 										name="qzbh" placeholder="产权证编号" v-model="projectData.warrantNum"></td>
 									<td class="t_prop"><strong>面积|数量（亩|㎡）：</strong></td>
-									<td class="t_prop_a"><input type="text" size="30"
+									<td class="t_prop_a"><input type="number" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
 										name="mjsl" placeholder="项目数量" v-model="projectData.areaNum"></td>
 								</tr>
@@ -169,7 +169,7 @@
 
 								<tr>
 									<td class="t_prop"><strong>涉及农户数：</strong></td>
-									<td class="t_prop_a"><input type="text" size="30"
+									<td class="t_prop_a"><input type="number" size="30"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 280px;"
 										name="sjnhs" placeholder="涉项农户总数" v-model="projectData.famerNum"></td>
 									<td class="t_prop"><strong>原承包/租赁期：</strong></td>
@@ -295,7 +295,7 @@
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px;"
 									name="dkmc" placeholder=" 四至地块名称" v-model="projectData.areaName"></td>
 								<td class="t_prop">面积（亩）：</td>
-								<td class="t_prop_c"><input type="text" size="30"
+								<td class="t_prop_c"><input type="number" size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px;"
 									name="szdkmj" placeholder="地块面积数量" v-model="projectData.area"></td>
 							</tr>
@@ -333,7 +333,7 @@
 							</tr>
 							<tr>
 								<td class="t_prop bold">标的公告价格（元）</td>
-								<td colspan="3" class="t_prop_c"><input type="text"
+								<td colspan="3" class="t_prop_c"><input type="number"
 									size="30"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
 									name="ggjg" placeholder="总成交金额" v-model="projectData.showPreice"></td>
@@ -502,6 +502,7 @@
 				}
 			},
 			mounted : function() {
+				this.initArea();
 				this.projectData.projectId = getUrlParam('projectId');
 				this.initProject();
 			},

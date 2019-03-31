@@ -152,13 +152,13 @@ public class ProjectController extends AbstractController {
 		returnMap.putAll(projectMap);
 
 		Wrapper<ProjectAround> aroundWrapper = new EntityWrapper<ProjectAround>(new ProjectAround());
-		eWrapper.where("project_id = {0}", filter.getProjectId());
+		aroundWrapper.where("project_id = {0}", filter.getProjectId());
 		Map<String, Object> aroundMap = this.projectAroundService.selectMap(aroundWrapper);
 
 		returnMap.putAll(aroundMap);
 
 		Wrapper<ProjectPerson> personWrapper = new EntityWrapper<ProjectPerson>(new ProjectPerson());
-		eWrapper.where("project_id = {0}", filter.getProjectId());
+		personWrapper.where("project_id = {0}", filter.getProjectId());
 		Map<String, Object> personMap = this.projectPersonService.selectMap(personWrapper);
 
 		returnMap.putAll(personMap);
