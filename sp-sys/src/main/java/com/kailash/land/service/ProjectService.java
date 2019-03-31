@@ -1,15 +1,16 @@
 package com.kailash.land.service;
 
-import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.kailash.land.entity.Project;
+import com.kailash.land.filter.ProjectFiter;
 
 public interface ProjectService extends IService<Project> {
 
-	List<Map<String, Object>> queryIndexNewList();
-
-	List<Map<String, Object>> queryIndexKindList(Integer kind);
+	
+	PageInfo<Map<String, Object>> simpleList(ProjectFiter filter);
 
 }

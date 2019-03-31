@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head th:replace="common :: header">
-	<title id="pageTitle">铁西区农村经济总站土地流转交易监管平台</title>
+<title id="pageTitle">铁西区农村经济总站土地流转交易监管平台</title>
 </head>
 
 <body>
@@ -87,401 +87,338 @@
 						<p class="renmai mt10">
 							真正为农民&nbsp;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务的平台</span>
 						</p>
-						
+
 						<button class="button mt20" v-show="!userId">
 							<a style="color: #fff;" href="../html/login">登&nbsp;&nbsp;录</a>
 						</button>
 						<button class="button mt20" v-show="!userId">
 							<a style="color: #fff;" href="../html/register">注&nbsp;&nbsp;册</a>
 						</button>
-						<button class="button " v-show="userId" style="text-align: center;">
-							<a style="color: #fff; " href="../html/register">退&nbsp;&nbsp;出</a>
+						<button class="button " v-show="userId"
+							style="text-align: center;">
+							<a style="color: #fff;" href="../html/register">退&nbsp;&nbsp;出</a>
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- row1 end -->
+		<!-- row1 end -->
 
-	<!-- row2 start -->
-	<div class="main clearl">
-		<div class="row clearfix">
-			<div class="col-md-8 column mb10">
-				<div class="news_fabu">
-					<h2 class="pub1 c1">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最新信息<a href="../html/project_list"class="fr">更多>&nbsp;&nbsp;</a>
-					</h2>
-					<div class="news_detail public2">
-						<table cellpadding="0" cellspacing="0" border="0">
-							<tr class="head">
-								<td class="widhead pl5 bold">即时项目信息</td>
-								<td class="bold">发布人</td>
-								<td class="bold">所属乡镇/村</td>
-								<td class="bold">发布时间</td>
-								<td class="bold">当前状态</td>
-							</tr>
-							
-							<tr v-for="item in projectList">
-								<td class="widhead">
-									<a href="../html/project_detail?projectId=item.projectId">
-										<span class="c2">[{{ item.projectKind | projectKindFilter }}]</span>{{ item.projectName }}
-									</a>
-								</td>
-								<td><span>[先生]</span></td>
-								<td>平西乡任家村</td>
-								<td><span>{{ item.createDateStr }}</span></td>
-								<td><em>{{ item.projectStatus }}</em></td>
-							</tr>
-							<tr>
-								<td class="widhead"><a href="html/xmdetail.html"><span
-										class="c2">[林权承包]</span>平西乡某某村林权转让项目</a></td>
-								<td><span>[李小姐]</span></td>
-								<td>西八大村</td>
-								<td><span>2019-1-10</span></td>
-								<td><em>进行中</em></td>
-							</tr>
-							<tr>
-								<td class="widhead"><a href="html/xmdetail.html"><span
-										class="c2">[养殖水面]</span>海清村水面养殖承包项目</a></td>
-								<td><span>[王先生]</span></td>
-								<td>海青村</td>
-								<td><span>2018-12-28</span></td>
-								<td><em1>已结束</em1></td>
-							</tr>
-							<tr>
-								<td class="widhead"><a
-									href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414"><span
-										class="c2">[四荒承包]</span>巨丰村四荒承包招标项目</a></td>
-								<td><span>[张先生]</span></td>
-								<td>巨丰村</td>
-								<td><span>2018-12-20</span></td>
-								<td><em>进行中</em></td>
-							</tr>
-							<tr>
-								<td class="widhead"><a
-									href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414"><span
-										class="c2">[土地承包]</span>西条子河村土地路转承包项目</a></td>
-								<td><span>[张先生]</span></td>
-								<td>西条子河村</td>
-								<td><span>2018-12-5</span></td>
-								<td><em>进行中</em></td>
-							</tr>
-							<tr>
-								<td class="widhead"><a
-									href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414"><span
-										class="c2">[林权承包]</span>红嘴开发区林权转让项目</a></td>
-								<td><span>[李小姐]</span></td>
-								<td>红嘴村</td>
-								<td><span>2018-11-29</span></td>
-								<td><em>进行中</em></td>
-							</tr>
-							<tr>
-								<td class="widhead"><a
-									href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414"><span
-										class="c2">[水面养殖]</span>铁西区团山子养殖水面转租项目</a></td>
-								<td><span>[王先生]</span></td>
-								<td>团山子</td>
-								<td><span>2018-11-19</span></td>
-								<td><em1>已结束</em1></td>
-							</tr>
-							<tr>
-								<td class="widhead"><a
-									href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414"><span
-										class="c2">[养殖水面]</span>九间房水面养殖转租承包项目</a></td>
-								<td><span>[张先生]</span></td>
-								<td>九间房</td>
-								<td><span>2018-11-08</span></td>
-								<td><em>进行中</em></td>
-							</tr>
-							<tr>
-								<td class="widhead"><a
-									href="/Content_Detail.asp?Column_ID=27997&C_ID=20002414"><span
-										class="c2">[四荒承包]</span>榆树四荒承包招标项目</a></td>
-								<td><span>[王先生]</span></td>
-								<td>榆树</td>
-								<td><span>2018-11-01</span></td>
-								<td><em1>已结束</em1></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="col-md-4 column mb10">
-				<div class="news_gongg fl">
-					<h2 class="pub1 c1">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新闻*政策*法规*公告<a
-							href="html/newslist.html" class="fr">更多>&nbsp;&nbsp;</a>
-					</h2>
-					<div class="table  news_gongg_detail public2 clear"
-						style="background-color: #fff;">
-						<ul class="news_list clear fr" id="uls3">
-							<li><a href="html/newsdetail.html"><img
-									src="../static/images/main/n1.jpg" border=0></a>
-								<p>
-									<span></span> <b>土地流转平台上线</b>
-								</p></li>
-							<li><a href="html/newsdetail.html"><img
-									src="../static/images/main/n2.jpg" border=0></a>
-								<p>
-									<span></span> <b>平台上线公告</b>
-								</p></li>
-							<li><a href="html/newsdetail.html"><img
-									src="../static/images/main/n1.jpg" border=0></a>
-								<p>
-									<span></span> <b>最新政策</b>
-								</p></li>
-						</ul>
-
-						<ol class="news_list2">
-							<li><a href="html/newsdetail.html">新闻标题</a><span class="fr">2019-01-10</span></li>
-							<li><a href="html/newsdetail.html">土地流转平台上线通知</a><span
-								class="fr">2019-01-05</span></li>
-							<li><a href="html/newsdetail.html">土地转让政策</a><span
-								class="fr">2019-01-05</span></li>
-							<li><a href="html/newsdetail.html">显示新闻标题</a><span
-								class="fr">2018-07-14</span></li>
-							<li><a href="html/newsdetail.html">显示新闻标题2</a><span
-								class="fr">2018-07-14</span></li>
-							<li><a href="html/newsdetail.html">显示新闻标题4</a><span
-								class="fr">2018-06-10</span></li>
-							<li><a
-								href="/Content_Detail.asp?Column_ID=27996&C_ID=20002411">显示新闻标题</a>
-								<span class="fr">2018-07-14</span></li>
-							<li><a href="{$Link_8}">{$Title_8}</a><span class="fr">{$Date_8}</span></li>
-							<li><a href="{$Link_9}">{$Title_9}</a><span class="fr">{$Date_9}</span></li>
-							<li><a href="{$Link_10}">{$Title_10}</a><span class="fr">{$Date_10}</span></li>
-							<li><a href="{$Link_11}">{$Title_11}</a><span class="fr">{$Date_11}</span></li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- row2 end -->
-	<!-- row3 begin -->
-	<div class="main clearl tform">
-		<div class="row clearfix">
-			<div class="col-md-12 column">
-				<!-- Function Nav Start(there are some serious Error here) !important -->
-				<div class="lun_steps mb15" id="parents">
-					<div class="steps public2" style="display: none;">
-						<p>
-							<a href="">发布信息</a> <span></span>
-						</p>
-						<p>
-							<a href="" class="xians">即时显示</a> <span></span>
-						</p>
-						<p>
-							<a href="" class="chakan">关注查看</a> <span></span>
-						</p>
-						<p>
-							<a href="" class="ship">线下交易</a> <span></span>
-						</p>
-
-						<p>
-							<a href="" class="gongs">达成共识</a>
-						</p>
-					</div>
-					<div class="steps_wail public2 clear">
-						<ul class="clear">
-							<li class="first_1"><a href=""> <img
-									src="../static/images/main/parnts_21.png">
-							</a></li>
-							<li class="first_2"><a href=""> <img
-									src="../static/images/main/parnts_24.png">
-							</a></li>
-							<li class="first_3"><a href=""> <img
-									src="../static/images/main/parnts_15.png">
-							</a></li>
-							<li class="first_4"><a href=""> <img
-									src="../static/images/main/parnts_18.png">
-							</a></li>
-						</ul>
-
-
-					</div>
-				</div>
-				<!-- Function Nav End -->
-			</div>
-		</div>
-
-	</div>
-	<!-- 3 div row3 end -->
-	<!-- row4 start -->
-	<div class="main clearl">
-		<div class="row clearfix">
-			<div class="col-md-6 column">
-				<div class="news_fabu fl" style="width: 100%;">
-					<h2 class="pub1 c1">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需求信息<a href="html/xqlist.html"
-							class="fr">更多>&nbsp;&nbsp;</a>
-					</h2>
-					<div class="news_detail public2" style="height: 268px;">
-						<table cellpadding="0" cellspacing="0" border="0">
-							<tr class="head" style="background: #eee; text-align: center;">
-								<td class="widhead">&nbsp;&nbsp;<span class="bold c2">需求留言信息</span></td>
-								<td><span class="bold c2">发布人</span></td>
-								<td><span class="bold c2">需求单位</span></td>
-								<td><span class="bold c2">发布时间</span></td>
-							</tr>
-							<tr>
-								<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
-								<td>王先生</td>
-								<td><span class="c5">家庭个人</span></td>
-								<td>2019.01.15</td>
-							</tr>
-							<tr>
-								<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
-								<td>王先生</td>
-								<td>集体单位</td>
-								<td>2019.01.15</td>
-							</tr>
-							<tr>
-								<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
-								<td>王先生</td>
-								<td>家庭个人</td>
-								<td>2019.01.15</td>
-							</tr>
-							<tr>
-								<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
-								<td>王先生</td>
-								<td>集体单位</td>
-								<td>2019.01.15</td>
-							</tr>
-							<tr>
-								<td class="widhead pl10"><a href="">求租农耕用地50亩</a></td>
-								<td>王先生</td>
-								<td>集体单位</td>
-								<td>2019.01.15</td>
-							</tr>
-							<tr>
-								<td class="widhead pl10"><a href="">求租林地100亩</a></td>
-								<td>王先生</td>
-								<td>家庭个人</td>
-								<td>2019.01.15</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 column">
-				<div class="news_fabu fl" style="width: 100%;">
-					<h2 class="pub1 c1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成交量统计报表</h2>
-					<div class="table pub"
-						style="height: 100px; background: #fff; height: 268px;">
-						<img src="../static/images/main/char.jpg"
-							style="width: 100%; height: 100%; text-align: center;">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- row4 end -->
-	<!-- row5 start -->
-	<div class="main clearl tform">
-		<div class="row clearfix mb15">
-			<div class="col-md-12 column">
-				<h2 class="pub1 c1" style="margin-bottom: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合作单位</h2>
-				<div class="public2 hez">
-					<ul class="clear">
-						<li class="public2"><a href=""><img
-								src="../static/images/main/houb_07_03.jpg"></a></li>
-						<li class="public2"><a href=""><img
-								src="../static/images/main/houb_1.jpg"></a></li>
-						<li class="public2"><a href=""><img
-								src="../static/images/main/houb_1.jpg"></a></li>
-						<li class="public2"><a href=""><img
-								src="../static/images/main/houb_1.jpg"></a></li>
-						<li class="public2"><a href=""><img
-								src="../static/images/main/houb_1.jpg"></a></li>
-						<li class="public2"><a href=""><img
-								src="../static/images/main/houb_1.jpg"></a></li>
-					</ul>
-
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<footer class="footer">
-		<div class="container">
+		<!-- row2 start -->
+		<div class="main clearl">
 			<div class="row clearfix">
-				<address class="col-md-4 column tform">
-					<dt style="color: #fff; text-align: center;">联系方式</dt>
-					<dd class="detc">铁西区农村经济总站</dd>
-					<dd class="detc">电话：0434-3272978</dd>
-					<dd class="detc">工作时间：9:00-17:00</dd>
-					<dd class="detc">（周一至周五工作时间）</dd>
-					<dd class="detc">邮箱：txnjj@txnjj.gov.cn</dd>
-				</address>
-				<div class="col-md-4 column tform">
-					<dt class="text-center" style="color: #fff;">帮助中心</dt>
-					<dd class="detc">
-						<a href="../html/help.html">用户注册指南</a>
-					</dd>
-					<dd class="detc">
-						<a href="../html/help.html">如何发布信息</a>
-					</dd>
-					<dd class="detc">
-						<a href="../html/help.html">如何查看信息</a>
-					</dd>
-					<dd class="detc">
-						<a href="../html/help.html">常见问题解答</a>
-					</dd>
-					<dd class="detc">
-						<a href="../html/help.html">资料下载</a>
-					</dd>
+				<div class="col-md-8 column mb10">
+					<div class="news_fabu">
+						<h2 class="pub1 c1">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最新信息<a href="../html/project_list"
+								class="fr">更多>&nbsp;&nbsp;</a>
+						</h2>
+						<div class="news_detail public2">
+							<table cellpadding="0" cellspacing="0" border="0">
+								<tr class="head">
+									<td class="widhead pl5 bold">即时项目信息</td>
+									<td class="bold">发布人</td>
+									<td class="bold">所属乡镇/村</td>
+									<td class="bold">发布时间</td>
+									<td class="bold">当前状态</td>
+								</tr>
+								<tr v-for="item in projectList">
+									<td class="widhead"><a @click="goProDetail(item.projectId)"> 
+										<span class="c2">[{{ item.projectKind | projectKindFilter}}]</span>{{ item.projectName }}
+									</a></td>
+									<td><span>[{{ item.name | simpleNameFilter }}{{ item.sex | sexRespectFilter }}]</span></td>
+									<td>平西乡任家村</td>
+									<td><span>{{ item.createDateStr }}</span></td>
+									<td>
+										<em v-if="item.projectStatus == 3">{{ item.projectStatus | projectStatusFilter }}</em>
+										<em1 v-if="item.projectStatus == 4">{{ item.projectStatus | projectStatusFilter }}</em1>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
 				</div>
-				<div class="col-md-4 column">
-					<dt style="color: #fff; text-align: center">关注我们</dt>
-					<p class="text-center">
-						<img src="../static/images/main/erweima.png" width="100"
-							height="100">
-					</p>
+
+				<div class="col-md-4 column mb10">
+					<div class="news_gongg fl">
+						<h2 class="pub1 c1">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新闻*政策*法规*公告<a
+								href="html/newslist.html" class="fr">更多>&nbsp;&nbsp;</a>
+						</h2>
+						<div class="table  news_gongg_detail public2 clear"
+							style="background-color: #fff;">
+							<ul class="news_list clear fr" id="uls3">
+								<li><a href="html/newsdetail.html"><img
+										src="../static/images/main/n1.jpg" border=0></a>
+									<p>
+										<span></span> <b>土地流转平台上线</b>
+									</p></li>
+								<li><a href="html/newsdetail.html"><img
+										src="../static/images/main/n2.jpg" border=0></a>
+									<p>
+										<span></span> <b>平台上线公告</b>
+									</p></li>
+								<li><a href="html/newsdetail.html"><img
+										src="../static/images/main/n1.jpg" border=0></a>
+									<p>
+										<span></span> <b>最新政策</b>
+									</p></li>
+							</ul>
+
+							<ol class="news_list2">
+								<li><a href="html/newsdetail.html">新闻标题</a><span class="fr">2019-01-10</span></li>
+								<li><a href="html/newsdetail.html">土地流转平台上线通知</a><span
+									class="fr">2019-01-05</span></li>
+								<li><a href="html/newsdetail.html">土地转让政策</a><span
+									class="fr">2019-01-05</span></li>
+								<li><a href="html/newsdetail.html">显示新闻标题</a><span
+									class="fr">2018-07-14</span></li>
+								<li><a href="html/newsdetail.html">显示新闻标题2</a><span
+									class="fr">2018-07-14</span></li>
+								<li><a href="html/newsdetail.html">显示新闻标题4</a><span
+									class="fr">2018-06-10</span></li>
+								<li><a
+									href="/Content_Detail.asp?Column_ID=27996&C_ID=20002411">显示新闻标题</a>
+									<span class="fr">2018-07-14</span></li>
+								<li><a href="{$Link_8}">{$Title_8}</a><span class="fr">{$Date_8}</span></li>
+								<li><a href="{$Link_9}">{$Title_9}</a><span class="fr">{$Date_9}</span></li>
+								<li><a href="{$Link_10}">{$Title_10}</a><span class="fr">{$Date_10}</span></li>
+								<li><a href="{$Link_11}">{$Title_11}</a><span class="fr">{$Date_11}</span></li>
+							</ol>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div th:replace="common::foot"></div>
 		</div>
-	</footer>
+		<!-- row2 end -->
+		<!-- row3 begin -->
+		<div class="main clearl tform">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<!-- Function Nav Start(there are some serious Error here) !important -->
+					<div class="lun_steps mb15" id="parents">
+						<div class="steps public2" style="display: none;">
+							<p>
+								<a href="">发布信息</a> <span></span>
+							</p>
+							<p>
+								<a href="" class="xians">即时显示</a> <span></span>
+							</p>
+							<p>
+								<a href="" class="chakan">关注查看</a> <span></span>
+							</p>
+							<p>
+								<a href="" class="ship">线下交易</a> <span></span>
+							</p>
+
+							<p>
+								<a href="" class="gongs">达成共识</a>
+							</p>
+						</div>
+						<div class="steps_wail public2 clear">
+							<ul class="clear">
+								<li class="first_1"><a href=""> <img
+										src="../static/images/main/parnts_21.png">
+								</a></li>
+								<li class="first_2"><a href=""> <img
+										src="../static/images/main/parnts_24.png">
+								</a></li>
+								<li class="first_3"><a href=""> <img
+										src="../static/images/main/parnts_15.png">
+								</a></li>
+								<li class="first_4"><a href=""> <img
+										src="../static/images/main/parnts_18.png">
+								</a></li>
+							</ul>
+
+
+						</div>
+					</div>
+					<!-- Function Nav End -->
+				</div>
+			</div>
+
+		</div>
+		<!-- 3 div row3 end -->
+		<!-- row4 start -->
+		<div class="main clearl">
+			<div class="row clearfix">
+				<div class="col-md-6 column">
+					<div class="news_fabu fl" style="width: 100%;">
+						<h2 class="pub1 c1">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需求信息<a href="html/xqlist.html"
+								class="fr">更多>&nbsp;&nbsp;</a>
+						</h2>
+						<div class="news_detail public2" style="height: 268px;">
+							<table cellpadding="0" cellspacing="0" border="0">
+								<tr class="head" style="background: #eee; text-align: center;">
+									<td class="widhead">&nbsp;&nbsp;<span class="bold c2">需求留言信息</span></td>
+									<td><span class="bold c2">发布人</span></td>
+									<td><span class="bold c2">需求单位</span></td>
+									<td><span class="bold c2">发布时间</span></td>
+								</tr>
+								<tr>
+									<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
+									<td>王先生</td>
+									<td><span class="c5">家庭个人</span></td>
+									<td>2019.01.15</td>
+								</tr>
+								<tr>
+									<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
+									<td>王先生</td>
+									<td>集体单位</td>
+									<td>2019.01.15</td>
+								</tr>
+								<tr>
+									<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
+									<td>王先生</td>
+									<td>家庭个人</td>
+									<td>2019.01.15</td>
+								</tr>
+								<tr>
+									<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
+									<td>王先生</td>
+									<td>集体单位</td>
+									<td>2019.01.15</td>
+								</tr>
+								<tr>
+									<td class="widhead pl10"><a href="">求租农耕用地50亩</a></td>
+									<td>王先生</td>
+									<td>集体单位</td>
+									<td>2019.01.15</td>
+								</tr>
+								<tr>
+									<td class="widhead pl10"><a href="">求租林地100亩</a></td>
+									<td>王先生</td>
+									<td>家庭个人</td>
+									<td>2019.01.15</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 column">
+					<div class="news_fabu fl" style="width: 100%;">
+						<h2 class="pub1 c1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成交量统计报表</h2>
+						<div class="table pub"
+							style="height: 100px; background: #fff; height: 268px;">
+							<img src="../static/images/main/char.jpg"
+								style="width: 100%; height: 100%; text-align: center;">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- row4 end -->
+		<!-- row5 start -->
+		<div class="main clearl tform">
+			<div class="row clearfix mb15">
+				<div class="col-md-12 column">
+					<h2 class="pub1 c1" style="margin-bottom: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合作单位</h2>
+					<div class="public2 hez">
+						<ul class="clear">
+							<li class="public2"><a href=""><img
+									src="../static/images/main/houb_07_03.jpg"></a></li>
+							<li class="public2"><a href=""><img
+									src="../static/images/main/houb_1.jpg"></a></li>
+							<li class="public2"><a href=""><img
+									src="../static/images/main/houb_1.jpg"></a></li>
+							<li class="public2"><a href=""><img
+									src="../static/images/main/houb_1.jpg"></a></li>
+							<li class="public2"><a href=""><img
+									src="../static/images/main/houb_1.jpg"></a></li>
+							<li class="public2"><a href=""><img
+									src="../static/images/main/houb_1.jpg"></a></li>
+						</ul>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<div class="container">
+				<div class="row clearfix">
+					<address class="col-md-4 column tform">
+						<dt style="color: #fff; text-align: center;">联系方式</dt>
+						<dd class="detc">铁西区农村经济总站</dd>
+						<dd class="detc">电话：0434-3272978</dd>
+						<dd class="detc">工作时间：9:00-17:00</dd>
+						<dd class="detc">（周一至周五工作时间）</dd>
+						<dd class="detc">邮箱：txnjj@txnjj.gov.cn</dd>
+					</address>
+					<div class="col-md-4 column tform">
+						<dt class="text-center" style="color: #fff;">帮助中心</dt>
+						<dd class="detc">
+							<a href="../html/help.html">用户注册指南</a>
+						</dd>
+						<dd class="detc">
+							<a href="../html/help.html">如何发布信息</a>
+						</dd>
+						<dd class="detc">
+							<a href="../html/help.html">如何查看信息</a>
+						</dd>
+						<dd class="detc">
+							<a href="../html/help.html">常见问题解答</a>
+						</dd>
+						<dd class="detc">
+							<a href="../html/help.html">资料下载</a>
+						</dd>
+					</div>
+					<div class="col-md-4 column">
+						<dt style="color: #fff; text-align: center">关注我们</dt>
+						<p class="text-center">
+							<img src="../static/images/main/erweima.png" width="100"
+								height="100">
+						</p>
+					</div>
+				</div>
+				<div th:replace="common::foot"></div>
+			</div>
+		</footer>
+	</div>
 	<div th:replace="common :: js"></div>
-	<script >
-	var vm = new Vue({
-		el : '#app',
-		data : {
-			userId: "",
-			projectList: {},
-		},
-		mounted : function() {
-			this.userId = $("#baseUserId").text();
-			this.initProjectList();
-			
-		},
-		methods : {
-			initProjectList: function () {
-				var queryData={
-					pageNo: 1, 
-					pageSize: 9,
-				};
-				$.post("/project/simpleList", queryData, function (result) {
-				 	console.log(result)
-					if (result.code == 0) {
-                    	vm.projectList = result.pageList.records;
-                    } else {
-                        layer.msg(result.msg);
-                    }
-            	});
+	<script>
+		var vm = new Vue({
+			el : '#app',
+			data : {
+				userId : "",
+				projectList : {},
 			},
-			
-			
-			
-			
-		},
-	});
-	
-	
+			mounted : function() {
+				this.userId = $("#baseUserId").text();
+				this.initProjectList();
+
+			},
+			methods : {
+				goProDetail: function(id){
+					window.location.href="../html/project_detail?projectId=" + id;
+				},
+				initProjectList : function() {
+					var queryData = {
+						pageNo : 1,
+						pageSize : 9,
+						projectStatus: 34
+					};
+					$.post("/project/simpleList", queryData, function(result) {
+						console.log(result)
+						if (result.code == 0) {
+							vm.projectList = result.pageList.list;
+						} else {
+							layer.msg(result.msg);
+						}
+					});
+				},
+
+			},
+			filters: {
+				simpleNameFilter: function(val){
+					return val.substr(0,1);
+				}
+				
+			},
+		});
 	</script>
 </body>
 </html>

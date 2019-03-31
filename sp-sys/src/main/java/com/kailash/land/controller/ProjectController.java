@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.github.pagehelper.PageInfo;
 import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.Project;
 import com.kailash.land.entity.ProjectAround;
 import com.kailash.land.entity.ProjectPerson;
+import com.kailash.land.entity.Users;
 import com.kailash.land.filter.ProjectFiter;
 import com.kailash.land.service.ProjectAroundService;
 import com.kailash.land.service.ProjectPersonService;
@@ -81,7 +83,7 @@ public class ProjectController extends AbstractController {
 			if (filter.getProjectId() == null) {
 				return Result.error();
 			}
-			
+
 			Project di = new Project(filter);
 			di.setUpdateUser(getUserId().intValue());
 			di.setUpdateDate(new Date());
@@ -116,27 +118,8 @@ public class ProjectController extends AbstractController {
 	@ResponseBody
 	@PostMapping(value = "/simpleList")
 	public Result simpleList(ProjectFiter filter) {
-		StringBuilder selectColumn = new StringBuilder();
-		selectColumn.append("pkid AS projectId, ");
-		selectColumn.append("project_name as projectName,  ");
-		selectColumn.append("project_status AS projectStatus, ");
-		selectColumn.append("DATE_FORMAT(create_date,'%Y-%m-%d') AS createDateStr, ");
-		selectColumn.append("project_kind AS projectKind ");
-		Wrapper<Project> eWrapper = new EntityWrapper<Project>(new Project(), selectColumn.toString());
 
-		StringBuilder selectSql = new StringBuilder("project_status != 0");
-		if (Objects.nonNull(filter.getCreateUser())) {
-			selectSql.append(" AND create_user = " + filter.getCreateUser());
-		}
-		if (Objects.nonNull(filter.getProjectKind())) {
-			selectSql.append(" AND project_kind = " + filter.getProjectKind());
-		}
-
-		eWrapper.where(selectSql.toString());
-		eWrapper.orderBy("pkid DESC");
-		Page<Map<String, Object>> page = new Page<Map<String, Object>>(1, 50);
-
-		Page<Map<String, Object>> pageList = this.projectService.selectMapsPage(page, eWrapper);
+		PageInfo<Map<String, Object>> pageList = this.projectService.simpleList(filter);
 
 		return Result.ok().put("pageList", pageList);
 	}
@@ -164,15 +147,14 @@ public class ProjectController extends AbstractController {
 		Wrapper<ProjectPerson> personWrapper = new EntityWrapper<ProjectPerson>(new ProjectPerson());
 		personWrapper.where("project_id = {0}", filter.getProjectId());
 		Map<String, Object> personMap = this.projectPersonService.selectMap(personWrapper);
-		
+
 		returnMap.putAll(personMap);
 
-		
 		Date createDate = (Date) projectMap.get("createDate");
 		String createDateStr = DateUtils.format(createDate, DateFormatConsts.DATE_PATTERN);
-		
+
 		returnMap.put("createDateStr", createDateStr);
-		
+
 		return Result.ok().put("projectData", returnMap);
 	}
 

@@ -1,29 +1,30 @@
 package com.kailash.land.service.impl;
 
-import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.kailash.land.entity.Project;
+import com.kailash.land.filter.ProjectFiter;
 import com.kailash.land.mapper.ProjectMapper;
 import com.kailash.land.service.ProjectService;
 
 @Service("projectService")
 public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> implements ProjectService {
 
-
+	@Autowired
+	private ProjectMapper projectMapper;
 	@Override
-	public List<Map<String, Object>> queryIndexNewList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Map<String, Object>> queryIndexKindList(Integer kind) {
-		// TODO Auto-generated method stub
-		return null;
+	public PageInfo<Map<String, Object>> simpleList(ProjectFiter filter) {
+		
+		Page<Map<String, Object>> pageList =this.projectMapper.querySimpleList(filter);
+		PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(pageList);
+		
+		return pageInfo;
 	}
 
 }

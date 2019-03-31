@@ -31,100 +31,104 @@ import com.kailash.land.util.ShiroUtils;
 @Controller
 public class LoginController extends AbstractController {
 
-    @Autowired
-    private MenuService menuService;
-    
-    @Autowired
-    private LoginLogService loginLogService;
-    
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Users user) {
-        return "index";
-    }
-    
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin_login(Users user) {
-        return "admin/login";
-    }
-    
-    @RequestMapping(value = "/admin/main", method = RequestMethod.GET)
-    public String admin_index() {
-        Users user = getUser();
-        if(String.valueOf(user.getRoleId()).matches("1|2|3")){
-            return "admin/main";
-        } else {
-            return "index";
-        }
-    }
-    
-    /**
-     * 用户登录
-     *
-     * @return
-     * @author zyz
-     */
-    @ResponseBody
-    @PostMapping(value = "/sysLogin")
-    public Result sysLogin(Users user) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        if (StringUtils.isEmpty(user.getUserName()) || StringUtils.isEmpty(user.getPassword())) {
-            return Result.error("用户名或密码不能为空");
-        }
-        try {
-            Subject subject = ShiroUtils.getSubject();
-            UserToken token = new UserToken(user.getUserName(), user.getPassword().toCharArray());
-            subject.login(token);
-            user = getUser();
-            map.put("roleId", user.getRoleId());
+	@Autowired
+	private MenuService menuService;
 
+	@Autowired
+	private LoginLogService loginLogService;
 
-            Map<String, Object> menuMap = new HashMap<>();
-            menuMap.put("userId", getUserId());
-            // 一级列表
-            menuMap.put("type", 1);
-            List<MenuEntity> menuEntities = menuService.selectMenuListByUserId(menuMap);
-            // 二级列表
-            menuMap.put("type", 2);
-            for (MenuEntity menuEntity : menuEntities) {
-                menuMap.put("parentId", menuEntity.getMenuId());
-                List<MenuEntity> second = menuService.selectSecondByParentId(menuMap);
-                menuEntity.setSeconds(second);
-            }
-            
-            ShiroUtils.setSessionAttribute("menus", menuEntities);
-            
-            this.loginLogService.insertOrUpdate(new LoginLog(user.getUserId()));
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index(Users user) {
+		return "index";
+	}
 
-        } catch (AuthenticationException e) {
-            return Result.error("用户名/密码不正确");
-        }
-        return Result.ok(map);
-    }
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String admin_login(Users user) {
+		return "admin/login";
+	}
 
-    @ResponseBody
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public Result logoutSystem() {
-        try {
-            super.logout();
-        } catch (Exception e){
-            e.printStackTrace();
-            return Result.error("退出登陆失败！");
-        }
-        return Result.ok();
-    }
-    
-    
+	@RequestMapping(value = "/admin/main", method = RequestMethod.GET)
+	public String admin_index() {
+		Users user = getUser();
+		if (String.valueOf(user.getRoleId()).matches("1|2|3")) {
+			return "admin/main";
+		} else {
+			return "index";
+		}
+	}
 
-    @ResponseBody
-    @RequestMapping(value = "/loginInfo", method = RequestMethod.GET)
-    public Result loginInfo() {
-        Users user = getUser();
-        return Result.ok().put("user", user);
-    }
-    
-    @ResponseBody
-    @RequestMapping(value = "/menuInfo", method = RequestMethod.GET)
-    public Result menuInfo() {
-        return Result.ok().put("menu", ShiroUtils.getSessionAttribute("menus"));
-    }
+	/**
+	 * 用户登录
+	 *
+	 * @return
+	 * @author zyz
+	 */
+	@ResponseBody
+	@PostMapping(value = "/sysLogin")
+	public Result sysLogin(Users user) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (StringUtils.isEmpty(user.getUserName()) || StringUtils.isEmpty(user.getPassword())) {
+			return Result.error("用户名或密码不能为空");
+		}
+		try {
+			Subject subject = ShiroUtils.getSubject();
+			UserToken token = new UserToken(user.getUserName(), user.getPassword().toCharArray());
+			subject.login(token);
+			user = getUser();
+			map.put("roleId", user.getRoleId());
+
+			Map<String, Object> menuMap = new HashMap<>();
+			menuMap.put("userId", getUserId());
+			// 一级列表
+			menuMap.put("type", 1);
+			List<MenuEntity> menuEntities = menuService.selectMenuListByUserId(menuMap);
+			// 二级列表
+			menuMap.put("type", 2);
+			for (MenuEntity menuEntity : menuEntities) {
+				menuMap.put("parentId", menuEntity.getMenuId());
+				List<MenuEntity> second = menuService.selectSecondByParentId(menuMap);
+				menuEntity.setSeconds(second);
+			}
+
+			ShiroUtils.setSessionAttribute("menus", menuEntities);
+			LoginLog ll = new LoginLog(user.getUserId());
+			this.loginLogService.insertOrUpdate(ll);
+
+		} catch (AuthenticationException e) {
+			return Result.error("用户名/密码不正确");
+		}
+		return Result.ok(map);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public Result logoutSystem() {
+		try {
+			super.logout();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("退出登陆失败！");
+		}
+		return Result.ok();
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/logoutCommon", method = RequestMethod.GET)
+	public String logoutCommon() {
+		super.logout();
+		return "../index";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/loginInfo", method = RequestMethod.GET)
+	public Result loginInfo() {
+		Users user = getUser();
+		return Result.ok().put("user", user);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/menuInfo", method = RequestMethod.GET)
+	public Result menuInfo() {
+		return Result.ok().put("menu", ShiroUtils.getSessionAttribute("menus"));
+	}
 }

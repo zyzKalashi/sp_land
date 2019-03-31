@@ -73,3 +73,23 @@ Vue.filter('sexFilter', function(val) {
 	}
 	return ss;
 });
+
+Vue.filter('sexRespectFilter', function(val) {
+	var ss = "--";
+	if (val == 0) {
+		ss = "先生";
+	} else if (val == 1) {
+		ss = "女士";
+	}
+	return ss;
+});
+
+Vue.filter('projectStatusFilter', function(val) {
+	var ss = "--";
+	if (val == 3) {
+		ss = "进行中";
+	} else if (val == 4) {
+		ss = "已结束";
+	}
+	return ss;
+});

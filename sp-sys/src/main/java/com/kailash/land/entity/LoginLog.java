@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("login_log")
 public class LoginLog extends Model<LoginLog> {
-	@TableId
+	@TableId(value="user_id")
 	private Long userId;
 	private Date logDate;
 
@@ -32,7 +32,7 @@ public class LoginLog extends Model<LoginLog> {
 
 	public LoginLog(Long userId) {
 		this.userId = userId;
-		logDate = new Date();
+		this.logDate = new Date();
 	}
 
 }
