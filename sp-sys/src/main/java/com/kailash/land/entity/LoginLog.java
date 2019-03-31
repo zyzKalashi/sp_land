@@ -18,18 +18,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("login_log")
 public class LoginLog extends Model<LoginLog> {
-	@TableId(value = "pkid", type = IdType.AUTO)
-	private Long pkid;
-
+	@TableId
 	private Long userId;
 	private Date logDate;
-	
+
 	@TableField(exist = false)
 	private String logDateStr;
 
 	@Override
 	protected Serializable pkVal() {
-		return pkid;
+		return userId;
 	}
 
 	public LoginLog(Long userId) {

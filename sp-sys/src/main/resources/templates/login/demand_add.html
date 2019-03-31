@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+
+<head th:include="common :: header">
+	<title id="pageTitle">需求咨询信息发布—铁西区农村经济总站土地流转交易监管平台</title>
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<div th:replace="common::top"></div>
+		<!-- container begin -->
+		<div class="main clear mt5">
+			
+			<div th:include="common :: location">
+				<div id="pageLocaton">需求信息发布/咨询</div>
+			</div>
+			
+			<div class="xqfb pub">
+				<div class="Box_title"
+					style="padding-bottom: 10px; width: 100%; border-bottom: 1px dashed #c6c6c6;">
+					<span class="ml5 c2 f20 font-weight-bold"
+						style="font-family: '幼圆', '微软雅黑';">发布需求信息</span>
+
+				</div>
+				<table class="Box_table pb15">
+					<tr>
+						<td align=right><b>*</b>需求类别：</td>
+						<td class="checkBox">
+							<label for="projectKind1"> 
+								<input type="radio" name="demandKind" value="1" v-model="demandData.demandKind" id="projectKind1"><span>{{ 1|projectKindFilter }}</span>
+							</label>
+							<label for="projectKind2"> 
+								<input type="radio" name="demandKind" value="2" id="projectKind2" v-model="demandData.demandKind"><span>{{ 2|projectKindFilter }}</span>
+							</label>
+							<label for="projectKind3"> 
+								<input type="radio" name="demandKind" value="3" id="projectKind3" v-model="demandData.demandKind"><span>{{ 3|projectKindFilter }}</span>
+							</label>
+							<label for="projectKind4"> 
+								<input type="radio" name="demandKind" value="4" id="projectKind4" v-model="demandData.demandKind"><span>{{ 4|projectKindFilter }}</span>
+							</label>
+							<label for="projectKind5"> 
+								<input type="radio" name="demandKind" value="5" id="projectKind5" v-model="demandData.demandKind"><span>其他</span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td align=right>资金范围：</td>
+						<td>
+							<select v-model="demandData.moneyLevel">
+								<option value="0">请选择</option>
+								<option value="1">1万-10万</option>
+								<option value="2">10万-50万</option>
+								<option value="3">50万-100万</option>
+								<option value="4">100万以上</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td align=right>需求性质：</td>
+						<td class="checkBox">
+							<label for="demandInfoKind0"> 
+								<input type="radio" id="demandInfoKind0" value="0" name="demandInfoKind" v-model="demandData.demandInfoKind"><span>{{ 0 | projectInfoKindFilter }}</span>
+							</label>
+							<label for="demandInfoKind1"> 
+								<input type="radio" id="demandInfoKind1" value="1" name="demandInfoKind" v-model="demandData.demandInfoKind"><span>{{ 1 | projectInfoKindFilter }}</span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td align=right><b>*</b>项目需求名称：</td>
+						<td class="pop_jj">
+							<input type="text" v-model="demandData.title">
+						</td>
+					</tr>
+					<tr>
+						<td align=right><b>*</b>详细需求描述：</td>
+						<td class="pop_descript">
+							<textarea name="" rows="" cols="" v-model="demandData.detail"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td align=right><b>*</b>联 系 人：</td>
+						<td class="pop_contact">
+							<input type="text" placeholder="姓名" v-model="demandData.person">
+							<b>*</b>
+							联系方式：
+							<input type="text" placeholder="手机" v-model="demandData.mobile">
+						</td>
+					</tr>
+					<tr>
+						<td align=right><b>*</b>邮 箱：</td>
+						<td>
+							<input type="email" v-model="demandData.email" style="width: 50%;">
+						</td>
+					</tr>
+					<tr>
+						<td align=right>附 件：</td>
+						<td><input type="file" name="file" value="选择文件"
+							style="border: none;"></td>
+					</tr>
+					<tr>
+						<td align=right></td>
+						<td class="pop_agree"><input type="checkbox" v-model="readFlag">阅读并同意本平台相关条款</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<span class="btn_fb" @click="demandModify"><a >立即发布需求信息</a></span>
+							<a class="pop_cancel" id="closebtn" onclick="reload()">取&nbsp;消</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- container end -->
+		<footer class="footer">
+			<div th:replace="common :: foot"></div>
+		</footer>
+	</div>
+	<div th:replace="common :: js"></div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : '#app',
+			data : {
+				demandData : {
+					moneyLevel: 0,
+				},
+				readFlag: false,
+			},
+			mounted : function() {
+
+			},
+			methods : {
+				demandModify: function(){
+					if(vm.checkNull()){
+						$.post("/demand/demandModfiy", vm.demandData, function (result) {
+	                        if (result.code == 0) {
+								window.location.href="../index"	                        	
+	                        } else {
+	                            layer.msg(result.msg);
+	                        }
+	                    });
+					}
+				},
+				checkNull: function(){
+					if(!vm.demandData.demandKind){
+						layer.msg("请选择需求类别！");
+						return false;
+					} else if(!vm.demandData.title){
+						layer.msg("请填写项目需求名称！");
+						return false;
+					} else if(!vm.demandData.detail){
+						layer.msg("请填写详细需求描述！");
+						return false;
+					} else if(!vm.demandData.person){
+						layer.msg("请填写联系人！");
+						return false;
+					} else if(!vm.demandData.mobile){
+						layer.msg("请填写联系方式！");
+						return false;
+					} else if(!vm.demandData.email){
+						layer.msg("请填写邮箱！");
+						return false;
+					} else if(!vm.demandData.email){
+						layer.msg("请填写邮箱！");
+						return false;
+					} else {
+						return true
+					}
+				}
+			},
+			
+			
+		});
+	</script>
+</body>
+</html>

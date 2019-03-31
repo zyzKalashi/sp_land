@@ -1,100 +1,106 @@
 <!doctype html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 
-<head th:replace="common::head">
+<head th:replace="common :: header">
 	<title id="pageTitle">铁西区农村经济总站土地流转交易监管平台</title>
 </head>
 
 <body>
-	<div th:replace="common::top"></div>
-	<!-- container begin -->
-	<div class="main clearl">
-		<!-- row1 start -->
-		<div class="row clearfix">
-			<div class="col-md-3 column tform">
-				<div class="table pub clearl" style="background-color: #f8f8f8; height: 291px; padding-top: 6px;">
-					<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#left1">办公系统平台入口</button>
-					<ul>
-						<li>
-							<img class="mt10 mb5" src="../static/images/main/qchz.png" style="width: 100%; height: inherit; border-radius: 3px;" alt="">
-						</li>
-						<li>
-							<img class="mt10 mb5" src="../static/images/main/tdlz.png" style="width: 100%; height: auto; border-radius: 3px;" alt="">
-						</li>
-						<li>
-							<img class="mt10 mb5" src="../static/images/main/szgl.png" style="width: 100%; height: auto; border-radius: 3px;" alt="">
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-6 column tform">
-				<div class="table pub"
-					style="width: 100%; height: 290px; border: none;">
-					<div id="demo1" class="carousel slide" data-ride="carousel">
-						<ul class="carousel-indicators">
-							<li data-target="#demo1" data-slide-to="0" class="active"></li>
-							<li data-target="#demo1" data-slide-to="1"></li>
-							<li data-target="#demo1" data-slide-to="2"></li>
-							<li data-target="#demo1" data-slide-to="3"></li>
-							<li data-target="#demo1" data-slide-to="4"></li>
+	<div id="app" v-cloak>
+		<div th:replace="common::top"></div>
+		<!-- container begin -->
+		<div class="main clearl">
+			<!-- row1 start -->
+			<div class="row clearfix">
+				<div class="col-md-3 column tform">
+					<div class="table pub clearl"
+						style="background-color: #f8f8f8; height: 291px; padding-top: 6px;">
+						<button type="button" class="btn btn-primary"
+							data-toggle="collapse" data-target="#left1">办公系统平台入口</button>
+						<ul>
+							<li><img class="mt10 mb5"
+								src="../static/images/main/qchz.png"
+								style="width: 100%; height: inherit; border-radius: 3px;" alt="">
+							</li>
+							<li><img class="mt10 mb5"
+								src="../static/images/main/tdlz.png"
+								style="width: 100%; height: auto; border-radius: 3px;" alt="">
+							</li>
+							<li><img class="mt10 mb5"
+								src="../static/images/main/szgl.png"
+								style="width: 100%; height: auto; border-radius: 3px;" alt="">
+							</li>
 						</ul>
-						<!-- 轮播图片 -->
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img src="../static/images/slide/s1.jpg">
-							</div>
-							<div class="carousel-item">
-								<img src="../static/images/slide/s2.jpg">
-							</div>
-							<div class="carousel-item">
-								<img src="../static/images/slide/s3.jpg">
-							</div>
-							<div class="carousel-item">
-								<img src="../static/images/slide/s4.jpg">
-							</div>
-							<div class="carousel-item">
-								<img src="../static/images/slide/s5.jpg">
+					</div>
+				</div>
+				<div class="col-md-6 column tform">
+					<div class="table pub"
+						style="width: 100%; height: 290px; border: none;">
+						<div id="demo1" class="carousel slide" data-ride="carousel">
+							<ul class="carousel-indicators">
+								<li data-target="#demo1" data-slide-to="0" class="active"></li>
+								<li data-target="#demo1" data-slide-to="1"></li>
+								<li data-target="#demo1" data-slide-to="2"></li>
+								<li data-target="#demo1" data-slide-to="3"></li>
+								<li data-target="#demo1" data-slide-to="4"></li>
+							</ul>
+							<!-- 轮播图片 -->
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<img src="../static/images/slide/s1.jpg">
+								</div>
+								<div class="carousel-item">
+									<img src="../static/images/slide/s2.jpg">
+								</div>
+								<div class="carousel-item">
+									<img src="../static/images/slide/s3.jpg">
+								</div>
+								<div class="carousel-item">
+									<img src="../static/images/slide/s4.jpg">
+								</div>
+								<div class="carousel-item">
+									<img src="../static/images/slide/s5.jpg">
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-3 column clearl">
-				<div class="jiaoliu pub">
-					<h3>
-						<span>土地流转</span> 监管平台
-					</h3>
-					<ul class="clearl">
-						<li>
-							<a href="">
-								<img src="../static/images/main/jiaoliu_03.jpg">
+				<div class="col-md-3 column clearl">
+					<div class="jiaoliu pub">
+						<h3>
+							<span>土地流转</span> 监管平台
+						</h3>
+						<ul class="clearl">
+							<li><a href=""> <img
+									src="../static/images/main/jiaoliu_03.jpg">
 							</a>
-							<p>
-								<a href=""><span>政府平台</span>助力农业资产流转</a>
-							</p>
-						</li>
-						<li style="border: none;">
-							<a href="">
-								<img src="../static/images/main/jiaoliu_06.jpg">
+								<p>
+									<a href=""><span>政府平台</span>助力农业资产流转</a>
+								</p></li>
+							<li style="border: none;"><a href=""> <img
+									src="../static/images/main/jiaoliu_06.jpg">
 							</a>
-							<p>
-								<a href="">促进农业交流<span>提高农村经济</span></a>
-							</p>
-						</li>
-					</ul>
-					<p class="renmai mt10">
-						真正为农民&nbsp;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务的平台</span>
-					</p>
-					<button class="button mt20">
-						<a style="color: #fff;" href="/html/login">登&nbsp;&nbsp;录</a>
-					</button>
-					<button class="button mt20">
-						<a style="color: #fff;" href="/html/register">注&nbsp;&nbsp;册</a>
-					</button>
+								<p>
+									<a href="">促进农业交流<span>提高农村经济</span></a>
+								</p></li>
+						</ul>
+						<p class="renmai mt10">
+							真正为农民&nbsp;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务的平台</span>
+						</p>
+						
+						<button class="button mt20" v-show="!userId">
+							<a style="color: #fff;" href="../html/login">登&nbsp;&nbsp;录</a>
+						</button>
+						<button class="button mt20" v-show="!userId">
+							<a style="color: #fff;" href="../html/register">注&nbsp;&nbsp;册</a>
+						</button>
+						<button class="button " v-show="userId" style="text-align: center;">
+							<a style="color: #fff; " href="../html/register">退&nbsp;&nbsp;出</a>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 	<!-- row1 end -->
 
@@ -104,8 +110,7 @@
 			<div class="col-md-8 column mb10">
 				<div class="news_fabu">
 					<h2 class="pub1 c1">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最新信息<a href="html/ckxm.html"
-							class="fr">更多>&nbsp;&nbsp;</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最新信息<a href="../html/project_list"class="fr">更多>&nbsp;&nbsp;</a>
 					</h2>
 					<div class="news_detail public2">
 						<table cellpadding="0" cellspacing="0" border="0">
@@ -116,12 +121,17 @@
 								<td class="bold">发布时间</td>
 								<td class="bold">当前状态</td>
 							</tr>
-							<tr>
-								<td class="widhead"><a href="html/xmdetail.html"><span class="c2">[土地承包]</span>平西任家村农耕土地转让项目</a></td>
-								<td><span>[张先生]</span></td>
+							
+							<tr v-for="item in projectList">
+								<td class="widhead">
+									<a href="../html/project_detail?projectId=item.projectId">
+										<span class="c2">[{{ item.projectKind | projectKindFilter }}]</span>{{ item.projectName }}
+									</a>
+								</td>
+								<td><span>[先生]</span></td>
 								<td>平西乡任家村</td>
-								<td><span>2019-1-15</span></td>
-								<td><em>进行中</em></td>
+								<td><span>{{ item.createDateStr }}</span></td>
+								<td><em>{{ item.projectStatus }}</em></td>
 							</tr>
 							<tr>
 								<td class="widhead"><a href="html/xmdetail.html"><span
@@ -237,9 +247,9 @@
 								class="fr">2018-07-14</span></li>
 							<li><a href="html/newsdetail.html">显示新闻标题4</a><span
 								class="fr">2018-06-10</span></li>
-							<li><a href="/Content_Detail.asp?Column_ID=27996&C_ID=20002411">显示新闻标题</a>
-								<span class="fr">2018-07-14</span>
-							</li>
+							<li><a
+								href="/Content_Detail.asp?Column_ID=27996&C_ID=20002411">显示新闻标题</a>
+								<span class="fr">2018-07-14</span></li>
 							<li><a href="{$Link_8}">{$Title_8}</a><span class="fr">{$Date_8}</span></li>
 							<li><a href="{$Link_9}">{$Title_9}</a><span class="fr">{$Date_9}</span></li>
 							<li><a href="{$Link_10}">{$Title_10}</a><span class="fr">{$Date_10}</span></li>
@@ -362,7 +372,8 @@
 					<h2 class="pub1 c1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成交量统计报表</h2>
 					<div class="table pub"
 						style="height: 100px; background: #fff; height: 268px;">
-						<img src="../static/images/main/char.jpg" style="width: 100%; height: 100%; text-align: center;">
+						<img src="../static/images/main/char.jpg"
+							style="width: 100%; height: 100%; text-align: center;">
 					</div>
 				</div>
 			</div>
@@ -392,11 +403,8 @@
 
 				</div>
 
-
 			</div>
 		</div>
-	</div>
-	</div>
 	</div>
 	<footer class="footer">
 		<div class="container">
@@ -412,30 +420,68 @@
 				<div class="col-md-4 column tform">
 					<dt class="text-center" style="color: #fff;">帮助中心</dt>
 					<dd class="detc">
-						<a href="html/help.html">用户注册指南</a>
+						<a href="../html/help.html">用户注册指南</a>
 					</dd>
 					<dd class="detc">
-						<a href="html/help.html">如何发布信息</a>
+						<a href="../html/help.html">如何发布信息</a>
 					</dd>
 					<dd class="detc">
-						<a href="html/help.html">如何查看信息</a>
+						<a href="../html/help.html">如何查看信息</a>
 					</dd>
 					<dd class="detc">
-						<a href="html/help.html">常见问题解答</a>
+						<a href="../html/help.html">常见问题解答</a>
 					</dd>
 					<dd class="detc">
-						<a href="html/help.html">资料下载</a>
+						<a href="../html/help.html">资料下载</a>
 					</dd>
 				</div>
 				<div class="col-md-4 column">
 					<dt style="color: #fff; text-align: center">关注我们</dt>
 					<p class="text-center">
-						<img src="../static/images/main/erweima.png" width="100" height="100">
+						<img src="../static/images/main/erweima.png" width="100"
+							height="100">
 					</p>
 				</div>
 			</div>
 			<div th:replace="common::foot"></div>
 		</div>
 	</footer>
+	<div th:replace="common :: js"></div>
+	<script >
+	var vm = new Vue({
+		el : '#app',
+		data : {
+			userId: "",
+			projectList: {},
+		},
+		mounted : function() {
+			this.userId = $("#baseUserId").text();
+			this.initProjectList();
+			
+		},
+		methods : {
+			initProjectList: function () {
+				var queryData={
+					pageNo: 1, 
+					pageSize: 9,
+				};
+				$.post("/project/simpleList", queryData, function (result) {
+				 	console.log(result)
+					if (result.code == 0) {
+                    	vm.projectList = result.pageList.records;
+                    } else {
+                        layer.msg(result.msg);
+                    }
+            	});
+			},
+			
+			
+			
+			
+		},
+	});
+	
+	
+	</script>
 </body>
 </html>
