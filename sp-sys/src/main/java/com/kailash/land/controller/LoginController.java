@@ -92,7 +92,7 @@ public class LoginController extends AbstractController {
 
 			ShiroUtils.setSessionAttribute("menus", menuEntities);
 			LoginLog ll = new LoginLog(user.getUserId());
-			this.loginLogService.insertOrUpdate(ll);
+			this.loginLogService.insertOrUpdateByUserId(ll);
 
 		} catch (AuthenticationException e) {
 			return Result.error("用户名/密码不正确");

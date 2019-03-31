@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("login_log")
 public class LoginLog extends Model<LoginLog> {
-	@TableId(value="user_id", type=IdType.NONE)
 	private Long userId;
 	private Date logDate;
 
