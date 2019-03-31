@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>铁西区农村经济总站土地流转交易监管平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/dashboard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
+    <script th:src="@{/static/js/echarts.min.js}"></script>
+</head>
+<body>
+<div>
+    <div class="row form-inline" style="width: 95%;margin-top: 10px;">
+        <div class="col-sm-2 offset-sm-1">
+            <div class="dashboard-stat blue">
+                <div class="visual">
+                    <i class="icon-file"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="d1">0</div>
+                    <div class="desc">项目总数</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 offset-sm-1">
+            <div class="dashboard-stat green">
+                <div class="visual">
+                    <i class="icon-bell"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="d2">0</div>
+                    <div class="desc">待审核数</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 offset-sm-1">
+            <div class="dashboard-stat purple">
+                <div class="visual">
+                    <i class="icon-book"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="d3">0</div>
+                    <div class="desc">会员总数</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 offset-sm-1">
+            <div class="dashboard-stat yellow">
+                <div class="visual">
+                    <i class="icon-user"></i>
+                </div>
+                <div class="details">
+                    <div class="number" id="d4">0</div>
+                    <div class="desc">本月注册会员数</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row form-inline" style="width: 95%;margin-top: 30px;">
+        <div class="col-sm-11 offset-sm-1" style="background-color: #F2F2F2;">
+            <div id="main" style="height: 400px;width: 100%;"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var myChart = echarts.init(document.getElementById('main'));
+
+    $.post("/admin/getDashBordData","",function (resp) {
+        //alert(JSON.stringify(resp.category));
+        $("#d1").html(resp.d1);
+        $("#d2").html(resp.d2);
+        $("#d3").html(resp.d3);
+        $("#d4").html(resp.d4);
+
+        var option = {
+            title : {
+                text: '近30天项目统计',
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['土地承包','林权转让','养殖水面','四荒承包']
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : resp.category
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel : {
+                        formatter: '{value} 元'
+                    }
+                }
+            ],
+            series : resp.series
+        };
+
+        myChart.setOption(option);
+    })
+
+
+    
+
+
+
+</script>
+</html>

@@ -47,12 +47,15 @@
 						<tr class="clearfix fr" style="display:table; width:95%;">
 							<td>
 								<div id="firstpaneDiv" class="menu_list">
+									<h3 class="menu_head">
+										<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;首页
+									</h3>
 									<div v-for="first in menus">
 										<h3 class="menu_head">
 											<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;{{ first.name }}
 										</h3>
 										<div style="display:none;" class="menu_nva">
-											<a href="#" v-for="second in first.seconds" ><img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}</a>
+											<a href="#" v-for="second in first.seconds" @click="jumpPage(second)"><img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}</a>
 										</div>
 									</div>
 								</div>
@@ -63,7 +66,7 @@
 			</div>
 			<div class="col-lg-9 col-md-9 col-sm-8 column">
 				<div class="clearfix mt10 main6r">
-					<iframe name="myiframe" id="myrame" src="/admin/userList" frameborder="0" align="left" width="100%" :style="contentStyleObj"></iframe>
+					<iframe name="myiframe" id="myrame" src="/admin/dashbord" frameborder="0" align="left" width="100%" :style="contentStyleObj"></iframe>
 				</div>
 			</div>
 	</div>
@@ -74,8 +77,8 @@
 </body>
 <script>
 	$(document).ready(function(){
-		$("#firstpaneDiv .menu_nva:eq(0)").show();
-		$("#firstpaneDiv .menu_head:eq(0)").addClass("current")
+		//$("#firstpaneDiv .menu_nva:eq(0)").show();
+		//$("#firstpaneDiv .menu_head:eq(0)").addClass("current")
 
 
 		$("#firstpaneDiv h3.menu_head").click(function(){
@@ -137,6 +140,10 @@
 				var height = $(".header").outerHeight(true) + $(".footer").outerHeight(true) + 38;
 				this.contentStyleObj.height=(window.innerHeight-height)+'px';
 			},
+			jumpPage: function(menu){
+				alert(JSON.stringify(menu));
+				$("#myrame").attr("src",menu.url);
+			}
 		}
 	});
 </script>

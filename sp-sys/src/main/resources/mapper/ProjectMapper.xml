@@ -74,9 +74,9 @@
 		assess_value,
 		output_way, hope_output_date, create_date, create_user, update_date, update_user
 	</sql>
-	
+
 	<select id="querySimpleList" resultType="Map">
-		SELECT 
+		SELECT
 			p.pkid AS projectId,
 			p.project_name as projectName,
 			p.project_status AS projectStatus,
@@ -84,8 +84,8 @@
 			p.project_kind AS projectKind,
 			pp.name AS name,
 			pp.sex AS sex
-			
-		FROM 
+
+		FROM
 			project p, project_person pp
 		<where>
 			p.pkid = pp.project_id
@@ -99,9 +99,28 @@
 			<if test="pro.projectStatus != null and pro.projectStatus == 34">
 				AND p.project_status in (3, 4)
 			</if>
-		
-		</where> 	
-		ORDER BY p.pkid DESC	
+
+		</where>
+		ORDER BY p.pkid DESC
 	</select>
-	
+
+
+	<select id="projectStatistics" resultType="java.util.HashMap">
+        select cast(sum(1) as char) AS ALL_PROJECT, cast(sum( case when project_status = '2' then 1 else 0 end) as char) AS AUDIT_PROJECT FROM project
+    </select>
+
+	<select id="projectDetailStatistics" resultType="java.util.HashMap">
+		select
+			date_format(A.create_date,'%Y-%m-%d') AS TDATE,
+			cast(A.project_kind as char) AS KIND,
+			cast(SUM(ifnull(B.show_preice,0)) AS char) AS TOTAL
+		FROM
+			project A, project_around B
+		WHERE
+				A.pkid = B.project_id
+			AND
+				DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[ <= ]]>   date(A.create_date)
+		GROUP BY
+			TDATE,KIND
+    </select>
 </mapper>
