@@ -20,43 +20,56 @@
 					<div class="selected_c">
 						<span class="fl c_key">您已选择：</span>
 						<ul class="fl sel_list" style="font-size: 12px;">
-							<li><a href="">项目类型:土地承包</a><b></b></li>
-							<li><a href="">所属乡镇:某某乡镇</a><b></b></li>
+							<li v-if="queryData.projectKind">
+								项目类型:{{ queryData.projectKind | projectKindFilter }}
+							</li>
+							<li v-if="queryData.areaCode">
+								所属乡镇:{{ queryData.areaCode }}{{ queryData.townCode }}
+							</li>
 						</ul>
-						<span class="revocation"><a href="">清空条件</a></span>
+						<span class="revocation"><a @click="clearQuery">清空条件</a></span>
 					</div>
 					<div class="sel_attrs">
 						<table class="attrs_table">
 							<tr>
 								<td class="t_prop clear">项目类型：</td>
-								<td class="atter_mod pl10"><input type="checkbox"
-									name="checkbox1">土地承包 <input type="checkbox"
-									name="checkbox4">林权转让 <input type="checkbox"
-									name="checkbox5">养殖水面 <input type="checkbox"
-									name="checkbox6">四荒承包</td>
+								<td class="atter_mod pl10">
+									<input type="checkbox" value="1" v-model="projectKindList">土地承包 
+									<input type="checkbox" value="2" v-model="projectKindList">林权转让 
+									<input type="checkbox" value="3" v-model="projectKindList">养殖水面 
+									<input type="checkbox" value="4" v-model="projectKindList">四荒承包
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">所属乡镇：</td>
-								<td class="atter_mod pl10"><table class="select_tabs">
+								<td class="atter_mod pl10">
+									<table class="select_tabs">
 										<tr>
-											<td><select name="">
+											<td>
+												<select name="">
 													<option value="">铁西区</option>
 													<option value="">平西乡</option>
-											</select></td>
+												</select>
+											</td>
+											<td>
+												<select name="">
+													<option value="">铁西区</option>
+													<option value="">平西乡</option>
+												</select>
+											</td>
 										</tr>
 									</table>
 							</tr>
 							<tr>
 								<td class="t_prop">项目主体：</td>
-								<td class="pl10"><table class="tech_field">
-
-										<input type="radio" name="3">家庭个人
-										</td>
-										<input type="radio" name="3">集体单位
-										</td>
-
-									</table></td>
+								<td class="pl10">
+									<label for="">
+										<input type="radio" value="0" name="">家庭个人
+									</label>
+									<label for="">
+										<input type="radio" value="1" name="">集体单位
+									</label>
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -80,7 +93,7 @@
 					<div class="tech-pro-con">
 						<div class="project-list" v-for="item in projectList">
 							<a @click="goDetail(item.projectId)">{{ item.projectName }}</a>
-							<span class="">{{ item.projectKind | projectKindFilter  }}</span>
+							<span class="">{{ item.projectKind | projectKindFilter }}</span>
 							<span class="project_date">{{ item.createDateStr }}</span>
 						</div>
 						
@@ -90,12 +103,6 @@
 			<div class="page mt10 mb20">
 				<ul id='pagination'></ul>
 			</div>
-		<!-- 	<div class="page mt10 mb20">
-				<a href="#" class="first_1">首页</a> <a href="#" class="prev">&lt;上一页</a>
-				<a href="#" class="on">1</a> <a href="#">2</a> <a href="#">3</a> <a
-					href="#">4</a> <span>...</span> <a href="#" class="next">下一页&gt;</a>
-				<a href="#" class="last">尾页</a>
-			</div> -->
 		</div>
 		<footer class="footer">
 			<div th:replace="common :: foot"></div>
@@ -108,8 +115,9 @@
 		data : {
 			queryData: {
 				pageNo: 1,
-				pageSize: 1,
-				projectStatus: 34,
+				pageSize: 15,
+				projectStatus: 14,
+				projectKindList: [],
 			},
 			projectList:[],
 		},
@@ -122,6 +130,14 @@
 	        },
 			goDetail: function(projectId){
 				window.location.href="../html/project_detail?projectId=" + projectId;
+			},
+			clearQuery: function(){
+				vm.queryData: {
+					pageNo: 1,
+					pageSize: 15,
+					projectStatus: 14,
+				},
+				hzToolObj.getdomInit("/project/simpleList", vm.queryData, vm.callback);
 			}
 			
 		},

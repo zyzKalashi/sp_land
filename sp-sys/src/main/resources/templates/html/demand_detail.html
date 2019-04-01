@@ -15,43 +15,42 @@
 				<div id="pageLocaton">土地流转项目信息详情</div>
 			</div>
 			
-			<h3 class="c2 text-center" style="letter-spacing: 5px;">想找一片林地做畜牧养殖用</h3>
+			<h3 class="c2 text-center" style="letter-spacing: 5px;">{{ demandData.title }}</h3>
 			<p class="text-center f14" style="font-family: '宋体';">
-				<b>发布时间：</b><span>2019.1.20</span> &nbsp;&nbsp;<b>访问数量:</b><span>28</span>
+				<b>发布时间：</b><span>{{ demandData.createDateStr }}</span> &nbsp;&nbsp;<b>访问数量:</b><span>28</span>
 			</p>
 
 			<div class="detail clear">
 				<div class="det-c" style="margin: 0 auto;">
-					<h5>想找一片林地做畜牧养殖用</h5>
+					<h5>{{ demandData.title }}</h5>
 					<br> <br>
 					<p>
-						需求类别：<span>土地承包</span>
+						需求类别：<span>{{ demandData.demandKind | projectKindFilter }}</span>
 					</p>
 					<br>
 					<p>
-						资金范围：<span>50-100</span>
+						资金范围：<span>{{ demandData.moneyLevel | moneyLevelFilter }}</span>
 					</p>
 					<br>
 					<p>
-						需求性质：<span>家庭承包</span>
+						需求性质：<span>{{ demandData.demandInfoKind | projectKindFilter }}</span>
 					</p>
 					<br>
 					<p>
-						需求描述：<span>找一盘林地做畜牧养殖，面积最好在50亩以上，根据情况考察决定</span>
+						需求描述：<span>{{ demandData.detail }}</span>
 					</p>
 					<br>
 					<p>
-						联系人： <span>张先生</span>
+						联系人： <span>{{ demandData.person | simpleNameFilter }}{{ demandData.sex | sexRespectFilter }}</span>
 					</p>
 					<p>
-						联系方式：<span>1360000000</span>
+						联系方式：<span>{{ demandData.mobile }}</span>
 					</p>
 					<br>
 					<p>
-						邮箱：<span>mrz@txnjj.gov.cn</span>
+						邮箱：<span>{{ demandData.email }}</span>
 					</p>
 					<br>
-
 				</div>
 			</div>
 
@@ -65,31 +64,6 @@
 					<b>下一页：</b><a href="" style="font: '宋体' 12px;">铁西区平西乡新发林权转让项目</a>
 				</p>
 				<br>
-				<!-- <div class="bdsharebuttonbox fr mr10 mt20 mb20">
-					<a href="#" class="bds_more" data-cmd="more"></a><a href="#"
-						class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#"
-						class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#"
-						class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#"
-						class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a
-						href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-				</div> -->
-				<!-- <script>
-					window._bd_share_config = {
-						"common" : {
-							"bdSnsKey" : {},
-							"bdText" : "",
-							"bdMini" : "2",
-							"bdPic" : "",
-							"bdStyle" : "0",
-							"bdSize" : "16"
-						},
-						"share" : {}
-					};
-					with (document)
-						0[(getElementsByTagName('head')[0] || body)
-								.appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='
-								+ ~(-new Date() / 36e5)];
-				</script> -->
 			</div>
 		</div>
 		<!-- container end -->
@@ -102,14 +76,34 @@
 		var vm = new Vue({
 			el : '#app',
 			data : {
-				helpInfoList : [],
-				dataInfoList : [],
+				demandData: {},
 			},
 			mounted : function() {
-
+				this.demandData.demandId = getUrlParam('demandId');
+				if(this.demandData.demandId){
+					this.initDemand();
+				} else {
+					layer.msg("加载错误……")
+					window.lcoation.href = "../html/demand_list"
+				}
 			},
 			methods : {
-
+				initDemand: function(){
+					if(this.demandData.demandId){
+						hzToolObj.postRpc("/demand/demandDetail", this.demandData).done(function (result) {
+		                    vm.demandData = result.objData;
+		                });
+					}
+				},
+			},
+			filters : {
+				simpleNameFilter : function(val) {
+					var simpleName = "";
+					if (typeof val != "undefined") {
+						simpleName = val.substr(0, 1);
+					}
+					return simpleName;
+				},
 			},
 		});
 	</script>

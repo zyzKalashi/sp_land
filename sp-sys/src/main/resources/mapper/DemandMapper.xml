@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kailash.land.mapper.DemandMapper">
+	<resultMap id="BaseResultMap" type="com.kailash.land.entity.Demand">
+		<id column="pkid" jdbcType="INTEGER" property="pkid" />
+		<result column="create_date" jdbcType="DATE" property="createDate" />
+		<result column="create_user" jdbcType="INTEGER" property="createUser" />
+		<result column="update_date" jdbcType="DATE" property="updateDate" />
+		<result column="update_user" jdbcType="INTEGER" property="updateUser" />
+		<result column="demand_kind" jdbcType="INTEGER" property="demandKind" />
+		<result column="money_level" jdbcType="INTEGER" property="moneyLevel" />
+		<result column="demand_info_kind" jdbcType="INTEGER" property="demandInfoKind" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="detail" jdbcType="VARCHAR" property="detail" />
+		<result column="person" jdbcType="VARCHAR" property="person" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="fileUrl" jdbcType="VARCHAR" property="fileUrl" />
+		<result column="demand_status" jdbcType="INTEGER" property="demandStatus" />
+		<result column="sex" jdbcType="INTEGER" property="sex" />
+	</resultMap>	
+
+	<select id="querySimpleList" resultType="Map">
+		SELECT
+			pkid AS demandId,
+			title,
+			person,
+			sex,
+			demand_info_kind AS demandInfoKind,
+			DATE_FORMAT(create_date,'%Y-%m-%d') AS createDateStr,
+			demand_status AS demandStatus
+		FROM 
+			demand 
+		<where>
+			<if test="dem.queryPage != null and dem.queryPage == 'index'">
+				AND demand_status = 1
+			</if>
+			<if test="dem.createUser != null and dem.createUser != ''">
+				AND create_user = #{dem.createUser}
+			</if>
+			<if test="dem.queryPage != null and dem.queryPage == 'demand_list'">
+				AND demand_status IN (1, 4)
+			</if>
+		</where>
+		ORDER BY 
+			pkid DESC
+	</select>
+	
+	
+	
+</mapper>

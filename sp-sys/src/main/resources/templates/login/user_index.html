@@ -136,12 +136,15 @@
 								<div class="row clearfix">
 									<div id="first" style="width: 100%;">
 										<ul class="clearfix nav nav-tabs" style="width: 100%;">
-											<li class="nav-item"><a class="active nav-link"
-												href="#xmli" role="tab" data-toggle="tab">我发布的项目信息列表</a></li>
-											<li class="nav-item"><a class="nav-link" href="#xqli"
-												role="tab" data-toggle="tab">我发布的需求信息列表</a></li>
-											<li class="fr" style="margin-left: 28%;"><a
-												href="../login/project_add.html">发布新信息</a></li>
+											<li class="nav-item">
+												<a class="active nav-link" href="#xmli" role="tab" data-toggle="tab" @click="">我发布的项目信息列表</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#xqli" role="tab" data-toggle="tab" @click="initDemandList()">我发布的需求信息列表</a>
+											</li>
+											<li class="fr" style="margin-left: 28%;">
+												<a href="../login/project_add.html">发布新信息</a>
+											</li>
 										</ul>
 										<div class="tab-content">
 											<div class="tab-pane active" id="xmli">
@@ -156,9 +159,9 @@
 																<td class="bold">删除</td>
 															</tr>
 															<tr v-for="item in projectList">
-																<td class="widhead"><a href="../html/xmdetail.html">{{ item.projectName }}</a></td>
+																<td class="widhead"><a @click="goProDetail(item.projectId)">{{ item.projectName }}</a></td>
 																<td><span>{{ item.createDateStr }}</span></td>
-																<td>{{ item.projectStatus | commonStatusFilter}}</td>
+																<td>{{ item.projectStatus | projectStatusFilter}}</td>
 																<td>
 																	<span v-if="item.projectStatus == 2" @click="modifyProject(item.projectId)">编辑</span>
 																</td>
@@ -182,54 +185,16 @@
 																<td class="bold">编辑</td>
 																<td class="bold">删除</td>
 															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xqdetail.html">如何发布信息？</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>已发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xqdetail.html">怎样承包土地？</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>未审批</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>拒绝发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>已发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>未审批</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>拒绝发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
-															</tr>
-															<tr>
-																<td class="widhead"><a href="../html/xqdetail.html">平西任家村农耕土地转让项目</a></td>
-																<td><span>2019-1-15</span></td>
-																<td>已发布</td>
-																<td><span>编辑</span></td>
-																<td>删除</td>
+															<tr v-for="item in demandList">
+																<td class="widhead"><a @click="goDemDetail(item.demandId)">{{ item.title }}</a></td>
+																<td><span>{{ item.createDateStr }}</span></td>
+																<td>{{ item.demandStatus | projectStatusFilter }}</td>
+																<td>
+																	<span v-if="item.demandStatus == 2" @click="modifyDemand(item.demandId)">编辑</span>
+																</td>
+																<td>
+																	<span v-if="item.demandStatus == 2" @click="delDemand(item.demandId)">删除</span>
+																</td>
 															</tr>
 														</table>
 													</div>
@@ -238,6 +203,9 @@
 										</div>
 									</div>
 								</div>
+							</div>
+							<div class="page mt10 mb20">
+								<ul id='pagination'></ul>
 							</div>
 						</div>
 						<!-- 以上是首页的内容,以下是’修改资料‘的内容 -->
@@ -268,7 +236,12 @@
 		var vm = new Vue({
 			el : '#app',
 			data : {
-				queryData: {
+				queryData_pro: {
+					createUser: "",
+					pageSize: 15,
+					pageNo: 1,
+				},
+				queryData_dem: {
 					createUser: "",
 					pageSize: 15,
 					pageNo: 1,
@@ -276,9 +249,10 @@
 				userData: {},
 				loginLog: {},
 				projectList:[],
+				demandList:[],
 			},
 			mounted : function() {
-				this.userData.userId = this.queryData.createUser = $("#baseUserId").text();
+				this.userData.userId = this.queryData_pro.createUser = this.queryData_pro.queryData_dem = $("#baseUserId").text();
 				if(!this.userData.userId){
 					location.href = "../html/login";
 				} 
@@ -297,12 +271,20 @@
 	                });
 				},
 				initProjectList: function () {
-					hzToolObj.getdomInit("/project/simpleList", this.queryData, function(result){
+					hzToolObj.getdomInit("/project/simpleList", this.queryData_pro, function(result){
                         	vm.projectList = result.pageInfo.list;
+					});
+				},
+				initDemandList: function () {
+					hzToolObj.getdomInit("/demand/simpleList", this.queryData_dem, function(result){
+                        	vm.demandList = result.pageInfo.list;
 					});
 				},
 				modifyProject: function(projectId){
 					window.location.href = "../login/project_add?projectId=" + projectId;
+				},
+				modifyDemand: function(demandId){
+					window.location.href = "../login/demand_add?demandId=" + demandId;
 				},
 				delProject: function(projectId){
 					 layer.confirm("确认删除吗？", {
@@ -319,7 +301,7 @@
 		                });
 				},
 				updateProject: function(obj){
-					$.post("/project/project_modify", obj, function (result) {
+					$.post("/project/projectModify", obj, function (result) {
 						if (result.code == 0) {
                         	vm.initProjectList();
                         	layer.alert("操作成功");
@@ -327,7 +309,37 @@
                             layer.msg(result.msg);
                         }
                 	});
-				}
+				},
+				delDemand: function(demandId){
+					 layer.confirm("确认删除吗？", {
+		                    icon: 3,
+		                    title: '提示',
+		                    btn: ["删除", "取消"]
+		                }, function (index) {
+		                	layer.closeAll('dialog');
+		                    var newObj = {
+		                    	demandId: demandId,
+		                        demandStatus: 0,
+		                    }
+		                    vm.updateDemand(newObj);
+		                });
+				},
+				updateDemand: function(obj){
+					$.post("/demand/demandModfiy", obj, function (result) {
+						if (result.code == 0) {
+                        	vm.initDemandList();
+                        	layer.alert("操作成功");
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                	});
+				},
+				goProDetail: function(id){
+					window.location.href="../html/project_detail?projectId=" + id;
+				},
+				goDemDetail: function(id){
+					window.location.href="../html/demand_detail?demandId=" + id;
+				},
 			},
 		});
 	</script>

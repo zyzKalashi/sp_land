@@ -96,8 +96,8 @@
 			<if test="pro.projectKind != null and pro.projectKind != ''">
 				AND p.project_kind = #{pro.projectKind}
 			</if>
-			<if test="pro.projectStatus != null and pro.projectStatus == 34">
-				AND p.project_status in (3, 4)
+			<if test="pro.projectStatus != null and pro.projectStatus == 14">
+				AND p.project_status in (1, 4)
 			</if>
 
 		</where>

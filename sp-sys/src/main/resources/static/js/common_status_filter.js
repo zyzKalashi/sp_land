@@ -1,10 +1,8 @@
 //task
 // 状态过滤-zyz
 Vue.filter('projectKindFilter', function(val) {
-	var ss = "--";
-	if (val == 0) {
-		ss = "待审核";
-	} else if (val == 1) {
+	var ss = "其他";
+	if (val == 1) {
 		ss = "土地承包";
 	} else if (val == 2) {
 		ss = "林权转让";
@@ -17,16 +15,6 @@ Vue.filter('projectKindFilter', function(val) {
 });
 
 Vue.filter('projectInfoKindFilter', function(val) {
-	var ss = "--";
-	if (val == 0) {
-		ss = "家庭个人";
-	} else if (val == 1) {
-		ss = "集体单位";
-	}
-	return ss;
-});
-
-Vue.filter('projectRightKind', function(val) {
 	var ss = "--";
 	if (val == 0) {
 		ss = "家庭个人";
@@ -86,10 +74,32 @@ Vue.filter('sexRespectFilter', function(val) {
 
 Vue.filter('projectStatusFilter', function(val) {
 	var ss = "--";
-	if (val == 3) {
+	if (val == 0) {
+		ss = "删除";
+	} else if (val == 1) {
 		ss = "进行中";
+	} else if (val == 2) {
+		ss = "待审核";
+	} else if (val == 3) {
+		ss = "拒绝";
 	} else if (val == 4) {
 		ss = "已结束";
+	} else if (val == 5) {
+		ss = "禁用";
 	}
+	return ss;
+});
+
+Vue.filter('moneyLevelFilter', function(val) {
+	var ss = "--";
+	if (val == 1) {
+		ss = "1万-10万";
+	} else if (val == 2) {
+		ss = "10万-50万";
+	} else if (val == 3) {
+		ss = "50万-100万";
+	} else if (val == 4) {
+		ss = "100万以上";
+	} 
 	return ss;
 });

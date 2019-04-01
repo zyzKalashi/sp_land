@@ -83,14 +83,22 @@
 						<td class="pop_contact">
 							<input type="text" placeholder="姓名" v-model="demandData.person">
 							<b>*</b>
-							联系方式：
-							<input type="text" placeholder="手机" v-model="demandData.mobile">
+							性别：
+							<label for="male">
+								<input type="radio" value="0" v-model="demandData.sex" name="male">先生
+							</label>
+							<label for="female">
+								<input type="radio" value="1" v-model="demandData.sex" name="female">女士
+							</label>
 						</td>
 					</tr>
 					<tr>
-						<td align=right><b>*</b>邮 箱：</td>
-						<td>
-							<input type="email" v-model="demandData.email" style="width: 50%;">
+						<td align=right><b>*</b>联系方式：</td>
+						<td class="pop_contact">
+							<input type="text" placeholder="手机" v-model="demandData.mobile" >
+							<b>*</b>
+							邮 箱：
+							<input type="email" placeholder="邮 箱" v-model="demandData.email">
 						</td>
 					</tr>
 					<tr>
@@ -123,14 +131,26 @@
 			el : '#app',
 			data : {
 				demandData : {
+					demandKind: 1,
 					moneyLevel: 0,
+					sex: 0,
 				},
 				readFlag: false,
 			},
 			mounted : function() {
-
+				this.demandData.demandId = getUrlParam('demandId');
+				if(this.demandData.demandId){
+					this.initDemand();
+				}
 			},
 			methods : {
+				initDemand: function(){
+					if(this.demandData.demandId){
+						hzToolObj.postRpc("/demand/demandDetail", this.demandData).done(function (result) {
+		                    vm.demandData = result.objData;
+		                });
+					}
+				}
 				demandModify: function(){
 					if(vm.checkNull()){
 						$.post("/demand/demandModfiy", vm.demandData, function (result) {

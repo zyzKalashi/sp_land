@@ -130,7 +130,7 @@
 									<td>平西乡任家村</td>
 									<td><span>{{ item.createDateStr }}</span></td>
 									<td>
-										<em v-if="item.projectStatus == 3">{{ item.projectStatus | projectStatusFilter }}</em>
+										<em v-if="item.projectStatus == 1">{{ item.projectStatus | projectStatusFilter }}</em>
 										<em1 v-if="item.projectStatus == 4">{{ item.projectStatus | projectStatusFilter }}</em1>
 									</td>
 								</tr>
@@ -247,8 +247,8 @@
 				<div class="col-md-6 column">
 					<div class="news_fabu fl" style="width: 100%;">
 						<h2 class="pub1 c1">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需求信息<a href="html/xqlist.html"
-								class="fr">更多>&nbsp;&nbsp;</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需求信息
+							<a href="../html/demand_list.html" class="fr">更多>&nbsp;&nbsp;</a>
 						</h2>
 						<div class="news_detail public2" style="height: 268px;">
 							<table cellpadding="0" cellspacing="0" border="0">
@@ -258,41 +258,11 @@
 									<td><span class="bold c2">需求单位</span></td>
 									<td><span class="bold c2">发布时间</span></td>
 								</tr>
-								<tr>
-									<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
-									<td>王先生</td>
-									<td><span class="c5">家庭个人</span></td>
-									<td>2019.01.15</td>
-								</tr>
-								<tr>
-									<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
-									<td>王先生</td>
-									<td>集体单位</td>
-									<td>2019.01.15</td>
-								</tr>
-								<tr>
-									<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
-									<td>王先生</td>
-									<td>家庭个人</td>
-									<td>2019.01.15</td>
-								</tr>
-								<tr>
-									<td class="widhead pl10"><a href="html/xqdetail.html">求租农耕用地50亩</a></td>
-									<td>王先生</td>
-									<td>集体单位</td>
-									<td>2019.01.15</td>
-								</tr>
-								<tr>
-									<td class="widhead pl10"><a href="">求租农耕用地50亩</a></td>
-									<td>王先生</td>
-									<td>集体单位</td>
-									<td>2019.01.15</td>
-								</tr>
-								<tr>
-									<td class="widhead pl10"><a href="">求租林地100亩</a></td>
-									<td>王先生</td>
-									<td>家庭个人</td>
-									<td>2019.01.15</td>
+								<tr v-for="item in demandList">
+									<td class="widhead pl10"><a @click="goDemDetail(item.demandId)">{{ item.title }}</a></td>
+									<td>[{{ item.person | simpleNameFilter }}{{ item.sex | sexRespectFilter }}]</td>
+									<td><span class="c5">{{ item.demandInfoKind | projectInfoKindFilter }}</span></td>
+									<td>{{ item.createDateStr }}</td>
 								</tr>
 							</table>
 						</div>
@@ -385,19 +355,28 @@
 			data : {
 				userId : "",
 				projectList : {},
+				demandList : {},
 			},
 			mounted : function() {
 				this.userId = $("#baseUserId").text();
 				this.initProjectList();
-
+				this.initDemandList();
 			},
 			methods : {
 				goProDetail: function(id){
 					window.location.href="../html/project_detail?projectId=" + id;
 				},
+				goDemDetail: function(id){
+					window.location.href="../html/demand_detail?demandId=" + id;
+				},
 				initProjectList : function() {
-					hzToolObj.getdomInit("/project/simpleList", {pageNo : 1,pageSize : 9,projectStatus: 34}, function(result){
+					hzToolObj.getdomInit("/project/simpleList", {pageNo : 1,pageSize : 9,projectStatus: 14}, function(result){
                     	vm.projectList = result.pageInfo.list;
+					})
+				},
+				initDemandList : function() {
+					hzToolObj.getdomInit("/demand/simpleList", {pageNo : 1,pageSize : 6, queryPage:"index"}, function(result){
+                    	vm.demandList = result.pageInfo.list;
 					})
 				},
 

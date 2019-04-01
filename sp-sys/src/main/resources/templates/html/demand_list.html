@@ -9,7 +9,6 @@
 	<div id="app" v-cloak>
 		<div th:replace="common::top"></div>
 
-
 		<!-- container begin -->
 		<div class="main clearfix mt10">
 			
@@ -34,47 +33,17 @@
 						<div class="s-t-date">发布时间</div>
 					</div>
 					<div class="tech-pro-con">
-						<div class="project-list">
-							<a href="">求租承包农耕土地20亩</a><span class="">土地承包</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">承包林权100亩使用权</a><span class="">林权转让</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">承包养殖水面</a><span class="">养殖水面</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">哪个村有四荒土地可以租赁</a><span class="">四荒租赁</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">求租承包农耕土地20亩</a><span class="">土地承包</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">承包林权100亩使用权</a><span class="">林权转让</span><span
-								class="project_date">2018-12-25</span>
-						</div>
-						<div class="project-list">
-							<a href="">承包养殖水面</a><span class="">养殖水面</span><span
-								class="project_date">2019-01-05</span>
-						</div>
-						<div class="project-list">
-							<a href="">哪个村有四荒土地可以租赁</a><span class="">四荒租赁</span><span
-								class="project_date">2018-12-25</span>
+						<div class="project-list" v-for="item in demandList">
+							<a @click="goDetail(item.demandId)">{{ item.title }}</a>
+							<span class="">{{ item.demandInfoKind | projectKindFilter }}</span>
+							<span class="project_date">{{ item.createDateStr }}</span>
 						</div>
 					</div>
 				</div>
 			</div>
-
+			
 			<div class="page mt10 mb20">
-				<a href="#" class="first_1">首页</a> <a href="#" class="prev">&lt;上一页</a>
-				<a href="#" class="on">1</a> <a href="#">2</a> <a href="#">3</a> <a
-					href="#">4</a> <span>...</span> <a href="#" class="next">下一页&gt;</a>
-				<a href="#" class="last">尾页</a>
+				<ul id='pagination'></ul>
 			</div>
 		</div>
 
@@ -88,14 +57,23 @@
 		var vm = new Vue({
 			el : '#app',
 			data : {
-				helpInfoList : [],
-				dataInfoList : [],
+				queryData: {
+					pageNo: 1,
+					pageSize: 15,
+					queryPage: "demand_list",
+				},
+				demandList : [],
 			},
 			mounted : function() {
-
+				hzToolObj.getdomInit("/demand/simpleList", this.queryData, this.callback);
 			},
 			methods : {
-
+				callback: function(result){
+					vm.demandList = result.pageInfo.list;
+				},
+				goDetail: function (id) {
+					window.location.href="../html/demand_detail?demandId=" + id;
+				}
 			},
 		});
 	</script>
