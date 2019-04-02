@@ -1,3 +1,5 @@
+var storage = window.localStorage;
+
 /* 按钮提示 zyz */
 function showBtnTip(msg, id) {
 	layer.tips(msg, "#" + id, {

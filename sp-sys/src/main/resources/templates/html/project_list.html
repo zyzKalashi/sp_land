@@ -81,7 +81,7 @@
 						<div class="s-t-date">发布时间</div>
 					</div>
 					<div class="tech-pro-con">
-						<div class="project-list" v-for="item in projectList">
+						<div class="project-list" v-for="(item, index) in projectList">
 							<a @click="goDetail(item.projectId)">{{ item.projectName }}</a>
 							<span class="">{{ item.projectKind | projectKindFilter }}</span>
 							<span class="project_date">{{ item.createDateStr }}</span>
@@ -125,6 +125,7 @@
 				vm.projectList = result.pageInfo.list;
 	        },
 			goDetail: function(projectId){
+				storage.setItem("projectQueryData",JSON.stringify(vm.queryData));
 				window.location.href="../html/project_detail?projectId=" + projectId;
 			},
 			clearQuery: function(){

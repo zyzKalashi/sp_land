@@ -55,13 +55,15 @@
 			</div>
 
 			<div class="clearl" style="width: 90%; margin: 0 auto;">
-				<p class="fl clear pl15 mb20"
-					style="font-family: '微软雅黑'; font-size: 12px;">
-					<b>上一页:</b><a href="">无 
+				<p class="fl clear pl15 mb20" style="font-family: '微软雅黑'; font-size: 12px;">
+					<b>上一页:</b>
+					<a v-if="preDemand" @click="goDetail(preDemand.pkid)" style="font: '宋体' 12px;" >{{ preDemand.title }}</a>
+					<a v-else>无 </a>
 				</p>
-				<p class="pr15 fr mb20"
-					style="font-family: '微软雅黑'; font-size: 12px;">
-					<b>下一页：</b><a href="" style="font: '宋体' 12px;">铁西区平西乡新发林权转让项目</a>
+				<p class="pr15 fr mb20" style="font-family: '微软雅黑'; font-size: 12px;">
+					<b>下一页：</b>
+					<a v-if="nextDemand" @click="goDetail(nextDemand.pkid)" style="font: '宋体' 12px;" >{{ nextDemand.title }}</a>
+					<a v-else>无 </a>
 				</p>
 				<br>
 			</div>
@@ -77,23 +79,43 @@
 			el : '#app',
 			data : {
 				demandData: {},
+				queryData: {},
+				preDemand: {},
+				nextDemand: {},
 			},
 			mounted : function() {
 				this.demandData.demandId = getUrlParam('demandId');
-				if(this.demandData.demandId){
-					this.initDemand();
-				} else {
-					layer.msg("加载错误……")
-					window.lcoation.href = "../html/demand_list"
-				}
+				this.queryData = JSON.parse(storage.getItem("demandQueryData"));
+				this.queryData = this.demandData.demandId;
+				this.initPage();
 			},
 			methods : {
-				initDemand: function(){
+				initPage: function(){
 					if(this.demandData.demandId){
-						hzToolObj.postRpc("/demand/demandDetail", this.demandData).done(function (result) {
-		                    vm.demandData = result.objData;
-		                });
+						this.initDemand();
+						this.initPreNext();
+					} else {
+						layer.msg("加载错误……")
+						window.lcoation.href = "../html/demand_list"
 					}
+				},
+				initDemand: function(){
+					hzToolObj.postRpc("/demand/demandDetail", this.demandData).done(function (result) {
+	                    vm.demandData = result.objData;
+	                });
+				},
+				initPreNext: function(){
+					$.post("/demand/queryPreNext", this.projectData, function (result) {
+                        if (result.code == 0) {
+                           vm.preDemand = result.preDemand;
+                           vm.nextDemand = result.nextDemand;
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                    });
+				},
+				goDetail: function (id) {
+					window.location.href="../html/demand_detail?demandId=" + id;
 				},
 			},
 			filters : {

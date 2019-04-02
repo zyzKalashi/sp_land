@@ -1,6 +1,9 @@
 package com.kailash.land.controller;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -67,5 +70,38 @@ public class DemandController extends AbstractController {
 		}
 		demand = this.demandService.selectById(demand.getDemandId());
 		return Result.ok().put("objData", demand);
+	}
+
+	@ResponseBody
+	@PostMapping(value = "/queryPreNext")
+	public Result queryPreNext(Demand demand) {
+		demand.setPageNo(1);
+		demand.setPageSize(999999);
+
+		PageInfo<Map<String, Object>> pageInfo = this.demandService.simpleList(demand);
+		int index = 0;
+		Demand preDemand = null, nextDemand = null;
+
+		List<Map<String, Object>> list = pageInfo.getList();
+		if (list != null && list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				if (demand.getDemandId().equals(Long.parseLong(list.get(i).get("demandId").toString()))) {
+					index = i;
+					break;
+				}
+			}
+		}
+		if (index > 0) {
+			preDemand = this.demandService.selectById((Serializable) list.get(index - 1).get("demandId"));
+		}
+		if (index < list.size() - 1) {
+			nextDemand = this.demandService.selectById((Serializable) list.get(index + 1).get("demandId"));
+		}
+
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("preDemand", preDemand);
+		returnMap.put("nextDemand", nextDemand);
+
+		return Result.ok(returnMap);
 	}
 }

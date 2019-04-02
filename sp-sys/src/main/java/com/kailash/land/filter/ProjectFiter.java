@@ -69,7 +69,7 @@ public class ProjectFiter extends BasePageFilter {
 	private String shouldHave;
 	private String overdue;
 	private String supplement;
-	
+
 	private Integer createUser;
 
 }

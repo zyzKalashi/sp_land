@@ -1,9 +1,10 @@
 package com.kailash.land.controller;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,14 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.github.pagehelper.PageInfo;
 import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.Project;
 import com.kailash.land.entity.ProjectAround;
 import com.kailash.land.entity.ProjectPerson;
-import com.kailash.land.entity.Users;
 import com.kailash.land.filter.ProjectFiter;
 import com.kailash.land.service.ProjectAroundService;
 import com.kailash.land.service.ProjectPersonService;
@@ -131,7 +130,6 @@ public class ProjectController extends AbstractController {
 			return Result.error();
 		}
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-
 		Wrapper<Project> eWrapper = new EntityWrapper<Project>(new Project());
 		eWrapper.where("project_status != 0 AND pkid = {0}", filter.getProjectId());
 		Map<String, Object> projectMap = this.projectService.selectMap(eWrapper);
@@ -141,14 +139,16 @@ public class ProjectController extends AbstractController {
 		Wrapper<ProjectAround> aroundWrapper = new EntityWrapper<ProjectAround>(new ProjectAround());
 		aroundWrapper.where("project_id = {0}", filter.getProjectId());
 		Map<String, Object> aroundMap = this.projectAroundService.selectMap(aroundWrapper);
-
-		returnMap.putAll(aroundMap);
+		if (aroundMap != null && aroundMap.size() > 0) {
+			returnMap.putAll(aroundMap);
+		}
 
 		Wrapper<ProjectPerson> personWrapper = new EntityWrapper<ProjectPerson>(new ProjectPerson());
 		personWrapper.where("project_id = {0}", filter.getProjectId());
 		Map<String, Object> personMap = this.projectPersonService.selectMap(personWrapper);
-
-		returnMap.putAll(personMap);
+		if (personMap != null && personMap.size() > 0) {
+			returnMap.putAll(personMap);
+		}
 
 		Date createDate = (Date) projectMap.get("createDate");
 		String createDateStr = DateUtils.format(createDate, DateFormatConsts.DATE_PATTERN);
@@ -156,6 +156,39 @@ public class ProjectController extends AbstractController {
 		returnMap.put("createDateStr", createDateStr);
 
 		return Result.ok().put("projectData", returnMap);
+	}
+
+	@ResponseBody
+	@PostMapping(value = "/queryPreNext")
+	public Result queryPreNext(ProjectFiter filter) {
+		filter.setPageNo(1);
+		filter.setPageSize(999999);
+
+		PageInfo<Map<String, Object>> pageInfo = this.projectService.simpleList(filter);
+		int index = 0;
+		Project prePro = null, nextPro = null;
+
+		List<Map<String, Object>> list = pageInfo.getList();
+		if (list != null && list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				if (filter.getProjectId().equals(Long.parseLong(list.get(i).get("projectId").toString()))) {
+					index = i;
+					break;
+				}
+			}
+		}
+		if (index > 0) {
+			prePro = this.projectService.selectById((Serializable) list.get(index - 1).get("projectId"));
+		}
+		if (index < list.size() - 1) {
+			nextPro = this.projectService.selectById((Serializable) list.get(index + 1).get("projectId"));
+		}
+
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("preProject", prePro);
+		returnMap.put("nextProject", nextPro);
+
+		return Result.ok(returnMap);
 	}
 
 }

@@ -345,13 +345,15 @@
 			</div>
 
 			<div class="clearl" style="width: 90%; margin: 0 auto;">
-				<p class="fl clear pl15 mb20"
-					style="font-family: '微软雅黑'; font-size: 12px;">
-					<b>上一页:</b><a href="">无 
+				<p class="fl clear pl15 mb20" style="font-family: '微软雅黑'; font-size: 12px;">
+					<b>上一页:</b>
+					<a v-if="preProject" @click="goDetail(preProject.pkid)" style="font: '宋体' 12px;" >{{ preProject.projectName }}</a>
+					<a v-else>无 </a>
 				</p>
-				<p class="pr15 fr mb20"
-					style="font-family: '微软雅黑'; font-size: 12px;">
-					<b>下一页：</b><a href="" style="font: '宋体' 12px;">铁西区平西乡新发林权转让项目</a>
+				<p class="pr15 fr mb20" style="font-family: '微软雅黑'; font-size: 12px;">
+					<b>下一页：</b>
+					<a v-if="nextProject" @click="goDetail(nextProject.pkid)" style="font: '宋体' 12px;" >{{ nextProject.projectName }}</a>
+					<a v-else>无 </a>
 				</p>
 				<br>
 			</div>
@@ -366,13 +368,22 @@
 		var vm = new Vue({
 			el : '#app',
 			data : {
+				queryData:{},
 				projectData: {},
+				preProject: {},
+				nextProject: {},
 			},
 			mounted : function() {
 				this.projectData.projectId = getUrlParam('projectId');
-				this.initProject();
+				this.queryData = JSON.parse(storage.getItem("projectQueryData"));
+				this.queryData = this.projectData.projectId;
+				this.initPage()
 			},
 			methods : {
+				initPage: function(){
+					this.initProject();
+					this.initPreNext();
+				},
 				initProject: function(){
 					$.post("/project/queryDetail", this.projectData, function (result) {
                         if (result.code == 0) {
@@ -381,7 +392,21 @@
                             layer.msg(result.msg);
                         }
                     });
-				}
+				},
+				initPreNext: function(){
+					$.post("/project/queryPreNext", this.queryData, function (result) {
+                        if (result.code == 0) {
+                        	console.log(result);
+                           vm.preProject = result.preProject;
+                           vm.nextProject = result.nextProject;
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                    });
+				},
+				goDetail: function(projectId){
+					window.location.href="../html/project_detail?projectId=" + projectId;
+				},
 			},
 		});
 	</script>
