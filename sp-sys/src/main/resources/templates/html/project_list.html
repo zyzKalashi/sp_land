@@ -21,25 +21,17 @@
 						<span class="fl c_key">您已选择：</span>
 						<ul class="fl sel_list" style="font-size: 12px;">
 							<li v-if="queryData.projectKind">
-								项目类型:{{ queryData.projectKind | projectKindFilter }}
+								项目类型:
+								<span>{{queryData.projectKind | projectKindFilter }} </span>
 							</li>
 							<li v-if="queryData.areaCode">
 								所属乡镇:{{ queryData.areaCode }}{{ queryData.townCode }}
 							</li>
 						</ul>
-						<span class="revocation"><a @click="clearQuery">清空条件</a></span>
+						<div class="revocation"><a @click="clearQuery">清空条件</a></div>
 					</div>
 					<div class="sel_attrs">
 						<table class="attrs_table">
-							<tr>
-								<td class="t_prop clear">项目类型：</td>
-								<td class="atter_mod pl10">
-									<input type="checkbox" value="1" v-model="projectKindList">土地承包 
-									<input type="checkbox" value="2" v-model="projectKindList">林权转让 
-									<input type="checkbox" value="3" v-model="projectKindList">养殖水面 
-									<input type="checkbox" value="4" v-model="projectKindList">四荒承包
-								</td>
-							</tr>
 							<tr>
 								<td class="t_prop">所属乡镇：</td>
 								<td class="atter_mod pl10">
@@ -63,11 +55,11 @@
 							<tr>
 								<td class="t_prop">项目主体：</td>
 								<td class="pl10">
-									<label for="">
-										<input type="radio" value="0" name="">家庭个人
+									<label for="infoKind0" @click="queryList">
+										<input id="infoKind0" type="radio" value="0" name="queryData.infoKind" v-model="queryData.infoKind">家庭个人
 									</label>
-									<label for="">
-										<input type="radio" value="1" name="">集体单位
+									<label for="infoKind1" @click="queryList">
+										<input id="infoKind1" type="radio" value="1" name="queryData.infoKind" v-model="queryData.infoKind">集体单位
 									</label>
 								</td>
 							</tr>
@@ -78,11 +70,9 @@
 				<div class="pinka_con">
 					<div class="select-tabs">
 						<ul>
-							<li class="sel-tab-cur"><a href="">全部信息</a></li>
-							<li><a href="">土地承包</a></li>
-							<li><a href="">林权转让</a></li>
-							<li><a href="">养殖水面</a></li>
-							<li><a href="">四荒租赁</a></li>
+							<li v-for="item in projectKindList" :class="{'sel-tab-cur':item.show===true}"  @click="selectKind(item)">
+								<a>{{ item.value | projectKindFilter }}</a> 
+							</li>
 						</ul>
 					</div>
 					<div class="clearfix info-sel-title">
@@ -117,9 +107,15 @@
 				pageNo: 1,
 				pageSize: 15,
 				projectStatus: 14,
-				projectKindList: [],
 			},
 			projectList:[],
+			projectKindList: [
+				{value: 0,  show: true},
+				{value: 1,  show: false},
+				{value: 2,  show: false},
+				{value: 3,  show: false},
+				{value: 4,  show: false},
+			],
 		},
 		mounted : function() {
 			hzToolObj.getdomInit("/project/simpleList", this.queryData, this.callback);
@@ -132,15 +128,30 @@
 				window.location.href="../html/project_detail?projectId=" + projectId;
 			},
 			clearQuery: function(){
-				vm.queryData: {
+				vm.queryData={
 					pageNo: 1,
 					pageSize: 15,
 					projectStatus: 14,
-				},
+				};
+				vm.queryList();
+			},
+			queryList: function(){
 				hzToolObj.getdomInit("/project/simpleList", vm.queryData, vm.callback);
-			}
-			
+			},
+			selectKind: function(item) {
+				item.show = !item.show;
+				vm.projectKindList.forEach(v=>{  
+				    if(v.value != item.value ){
+				    	v.show = false;
+				    } else {
+				    	v.show = true;
+				    }  
+				}); 
+				vm.queryData.projectKind = item.value;
+				vm.queryList();
+			},
 		},
+		watch: {},
 	});
 	</script>
 </body>

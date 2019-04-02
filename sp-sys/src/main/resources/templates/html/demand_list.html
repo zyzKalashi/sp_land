@@ -20,11 +20,9 @@
 				<div class="pinka_con">
 					<div class="select-tabs">
 						<ul>
-							<li class="sel-tab-cur"><a href="">全部需求</a></li>
-							<li><a href="">土地承包</a></li>
-							<li><a href="">林权转让</a></li>
-							<li><a href="">养殖水面</a></li>
-							<li><a href="">四荒租赁</a></li>
+							<li v-for="item in projectKindList" :class="{'sel-tab-cur':item.show===true}"  @click="selectKind(item)">
+								<a>{{ item.value | projectKindFilter }}</a> 
+							</li>
 						</ul>
 					</div>
 					<div class="clearfix info-sel-title">
@@ -35,7 +33,7 @@
 					<div class="tech-pro-con">
 						<div class="project-list" v-for="item in demandList">
 							<a @click="goDetail(item.demandId)">{{ item.title }}</a>
-							<span class="">{{ item.demandInfoKind | projectKindFilter }}</span>
+							<span class="">{{ item.demandKind | demandKindFilter }}</span>
 							<span class="project_date">{{ item.createDateStr }}</span>
 						</div>
 					</div>
@@ -63,6 +61,13 @@
 					queryPage: "demand_list",
 				},
 				demandList : [],
+				projectKindList: [
+					{value: 0,  show: true},
+					{value: 1,  show: false},
+					{value: 2,  show: false},
+					{value: 3,  show: false},
+					{value: 4,  show: false},
+				],
 			},
 			mounted : function() {
 				hzToolObj.getdomInit("/demand/simpleList", this.queryData, this.callback);
@@ -73,7 +78,22 @@
 				},
 				goDetail: function (id) {
 					window.location.href="../html/demand_detail?demandId=" + id;
-				}
+				},
+				queryList: function(){
+					hzToolObj.getdomInit("/demand/simpleList", vm.queryData, vm.callback);
+				},
+				selectKind: function(item) {
+					item.show = !item.show;
+					vm.projectKindList.forEach(v=>{  
+					    if(v.value != item.value ){
+					    	v.show = false;
+					    } else {
+					    	v.show = true;
+					    }  
+					}); 
+					vm.queryData.demandKind = item.value;
+					vm.queryList();
+				},
 			},
 		});
 	</script>

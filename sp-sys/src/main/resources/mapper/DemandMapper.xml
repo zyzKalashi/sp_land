@@ -26,6 +26,7 @@
 			title,
 			person,
 			sex,
+			demand_kind AS demandKind,
 			demand_info_kind AS demandInfoKind,
 			DATE_FORMAT(create_date,'%Y-%m-%d') AS createDateStr,
 			demand_status AS demandStatus
@@ -40,6 +41,9 @@
 			</if>
 			<if test="dem.queryPage != null and dem.queryPage == 'demand_list'">
 				AND demand_status IN (1, 4)
+			</if>
+			<if test="dem.demandKind != null and dem.demandKind != ''">
+				AND demand_kind = #{dem.demandKind}
 			</if>
 		</where>
 		ORDER BY 

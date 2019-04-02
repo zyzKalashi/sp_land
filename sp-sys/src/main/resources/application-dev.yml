@@ -45,10 +45,10 @@ spring:
 #   importModel: /data/sp-sys/import/importModel.xls
 exportPath: /data/sp-sys/export/
 logging:
-  level:
+  level: 
     org:
       springframework: WARN
-    com.kailash.land.dao: DEBUG
+    com.kailash.land.mapper: DEBUG
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml

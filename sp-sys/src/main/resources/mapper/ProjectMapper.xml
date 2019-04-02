@@ -86,18 +86,22 @@
 			pp.sex AS sex
 
 		FROM
-			project p, project_person pp
+			project p, 
+			project_person pp
 		<where>
 			p.pkid = pp.project_id
 			AND p.project_status != 0
 			<if test="pro.createUser != null and pro.createUser != ''">
 				AND p.create_user = #{pro.createUser}
 			</if>
-			<if test="pro.projectKind != null and pro.projectKind != ''">
+			<if test="pro.projectKind != null and pro.projectKind != '' and pro.projectKind != 0">
 				AND p.project_kind = #{pro.projectKind}
 			</if>
 			<if test="pro.projectStatus != null and pro.projectStatus == 14">
 				AND p.project_status in (1, 4)
+			</if>
+			<if test="pro.infoKind != null">
+				AND pp.info_kind = #{pro.infoKind}
 			</if>
 
 		</where>

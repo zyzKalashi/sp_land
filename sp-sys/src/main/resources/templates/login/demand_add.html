@@ -27,19 +27,19 @@
 						<td align=right><b>*</b>需求类别：</td>
 						<td class="checkBox">
 							<label for="projectKind1"> 
-								<input type="radio" name="demandKind" value="1" v-model="demandData.demandKind" id="projectKind1"><span>{{ 1|projectKindFilter }}</span>
+								<input type="radio" name="demandKind" value="1" v-model="demandData.demandKind" id="projectKind1"><span>{{ 1|demandKindFilter }}</span>
 							</label>
 							<label for="projectKind2"> 
-								<input type="radio" name="demandKind" value="2" id="projectKind2" v-model="demandData.demandKind"><span>{{ 2|projectKindFilter }}</span>
+								<input type="radio" name="demandKind" value="2" id="projectKind2" v-model="demandData.demandKind"><span>{{ 2|demandKindFilter }}</span>
 							</label>
 							<label for="projectKind3"> 
-								<input type="radio" name="demandKind" value="3" id="projectKind3" v-model="demandData.demandKind"><span>{{ 3|projectKindFilter }}</span>
+								<input type="radio" name="demandKind" value="3" id="projectKind3" v-model="demandData.demandKind"><span>{{ 3|demandKindFilter }}</span>
 							</label>
 							<label for="projectKind4"> 
-								<input type="radio" name="demandKind" value="4" id="projectKind4" v-model="demandData.demandKind"><span>{{ 4|projectKindFilter }}</span>
+								<input type="radio" name="demandKind" value="4" id="projectKind4" v-model="demandData.demandKind"><span>{{ 4|demandKindFilter }}</span>
 							</label>
 							<label for="projectKind5"> 
-								<input type="radio" name="demandKind" value="5" id="projectKind5" v-model="demandData.demandKind"><span>其他</span>
+								<input type="radio" name="demandKind" value="5" id="projectKind5" v-model="demandData.demandKind"><span>{{ 5|demandKindFilter}}</span>
 							</label>
 						</td>
 					</tr>
@@ -103,8 +103,9 @@
 					</tr>
 					<tr>
 						<td align=right>附 件：</td>
-						<td><input type="file" name="file" value="选择文件"
-							style="border: none;"></td>
+						<td>
+							<input type="file" name="file" value="选择文件" style="border: none;">
+						</td>
 					</tr>
 					<tr>
 						<td align=right></td>
@@ -150,7 +151,7 @@
 		                    vm.demandData = result.objData;
 		                });
 					}
-				}
+				},
 				demandModify: function(){
 					if(vm.checkNull()){
 						$.post("/demand/demandModfiy", vm.demandData, function (result) {
