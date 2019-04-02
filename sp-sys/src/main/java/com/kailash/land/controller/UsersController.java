@@ -74,11 +74,9 @@ public class UsersController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "userSearch", method = RequestMethod.POST)
-	public Result userSearch(Users user, Integer pageNum, Integer pageSize) {
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-		PageInfo<Users> result = this.usersService.selectUsersPage(user, pageNum, pageSize);
-		returnMap.put("result", result);
-		return Result.ok(returnMap);
+	public Result userSearch(Users user) {
+		PageInfo<Users> pageInfo = this.usersService.selectUsersPage(user);
+		return Result.ok().put("pageInfo",pageInfo);
 	}
 	
 	@RequestMapping(value = "allRoles", method = RequestMethod.POST)

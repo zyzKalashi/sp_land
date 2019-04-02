@@ -14,6 +14,6 @@ public interface UsersService extends IService<Users> {
 
 	int registerUser(Users user);
 	
-	PageInfo<Users> selectUsersPage(Users user, Integer pageNum, Integer pageSize);
+	PageInfo<Users> selectUsersPage(Users user);
 
 }

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugin/jeDate/jeDate.css}">
     <script th:src="@{/static/js/jquery.min.js}"></script>
     <script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
     <script th:src="@{/static/js/vue.min.js}"></script>
@@ -13,6 +14,7 @@
     <script th:src="@{../static/plugin/pagination/jquery.pagination.js}"></script>
     <script th:src="@{../static/plugin/pagination/bootstrap-paginator.js}"></script>
     <script th:src="@{/static/js/common.js}"></script>
+    <script th:src="@{/static/plugin/jeDate/jeDate.js}"></script>
 </head>
 <style>
     .btn{
@@ -30,33 +32,33 @@
 <div id="vueApp">
     <form role="form">
         <div class="form-group form-inline">
-            <label class="col-sm-2" for="userName">用户名</label>
+            <label class="col-sm-2" for="title">标题</label>
             <div class="col-sm-2">
-                <input class="form-control" id="userName" v-model="form.userName" type="text" placeholder="请输入用户名" style="width: 90%;"/>
+                <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入标题" style="width: 90%;"/>
             </div>
-            <label class="col-sm-2" for="email">邮箱</label>
+            <label class="col-sm-2" for="noticeKind">法规类别</label>
             <div class="col-sm-2">
-                <input class="form-control" id="email" v-model="form.email"  type="text" placeholder="请输入邮箱" style="width: 90%;"/>
+                <select class="form-control" id="noticeKind" v-model="form.noticeKind" placeholder="请选择法规类别" style="width: 90%;" >
+                    <option></option>
+                    <option v-for="(name,key) in kinds" :value="key">{{name}}</option>
+                </select>
             </div>
-            <label class="col-sm-2" for="userStatus">用户状态</label>
+            <label class="col-sm-2" for="noticeStatus">法规状态</label>
             <div class="col-sm-2">
-                <select class="form-control" id="userStatus" v-model="form.userStatus" placeholder="请选择用户状态" style="width: 90%;" >
+                <select class="form-control" id="noticeStatus" v-model="form.noticeStatus" placeholder="请选择法规状态" style="width: 90%;" >
                     <option></option>
                     <option v-for="(name,key) in status" :value="key">{{name}}</option>
                 </select>
             </div>
         </div>
         <div class="form-group form-inline">
-            <label class="col-sm-2" for="mobile">手机号</label>
+            <label class="col-sm-2" for="startDate">开始时间</label>
             <div class="col-sm-2">
-                <input class="form-control" id="mobile" v-model="form.mobile" type="text" placeholder="请输入手机号" style="width: 90%;"/>
+                <input id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
             </div>
-            <label class="col-sm-2" for="roleId">角色名称</label>
+            <label class="col-sm-2" for="endDate">终止时间</label>
             <div class="col-sm-2">
-                <select class="form-control" id="roleId" v-model="form.roleId" placeholder="请选择角色" style="width: 90%;" >
-                    <option></option>
-                    <option v-for="(roleName,roleId) in roleInfos" :value="roleId">{{roleName}}</option>
-                </select>
+                <input id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
             </div>
             <div class="col-sm-4" style="text-align: right;">
                 <div style="width: 95%;">
@@ -71,52 +73,65 @@
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-default">
                 <tr class="text-center">
-                    <th>会员ID</th>
-                    <th>会员名称</th>
-                    <th>邮箱</th>
-                    <th>手机号</th>
-                    <th>所属角色</th>
-                    <th>会员状态</th>
+                    <th>法规标题</th>
+                    <th>法规类别</th>
+                    <th>法规状态</th>
+                    <th>创建时间</th>
                     <th style="width: 20%;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(user,index) in list" class="text-center">
-                    <td>{{user.userId}}</td>
-                    <td>{{user.userName}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.mobile}}</td>
-                    <td>{{roleInfos[user.roleId]}}</td>
-                    <td>{{status[user.userStatus]}}</td>
+                <tr v-for="(notice,index) in list" class="text-center">
+                    <td>{{notice.title}}</td>
+                    <td>{{notice.noticeKind}}</td>
+                    <td>{{notice.noticeStatus}}</td>
+                    <td>{{notice.createDateStr}}</td>
                     <td class="inline">
-                        <button type="button" class="btn btn-sm btn-warning" @click="doAudit(user)">审核</button>
                         <button type="button" class="btn btn-sm btn-warning" @click="doModify(user)">修改</button>
+                        <button type="button" class="btn btn-sm btn-warning" @click="doModify(user)">删除</button>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="row mx-auto">
+    <div class="row mx-auto text-center">
         <ul id='pagination'></ul>
     </div>
 </div>
 </body>
 <script>
+    $(function () {
+        jeDate("#startDate",{
+            theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
+            isinitVal:false,
+            onClose:true,
+            isTime:true,
+            format: 'YYYY-MM-DD'
+        });
+
+        jeDate("#endDate",{
+            theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
+            isinitVal:false,
+            onClose:true,
+            isTime:true,
+            format: 'YYYY-MM-DD'
+        });
+    })
+
     let vm = new Vue({
         el: "#vueApp",
         data: {
             form: {
-                userName: '',
-                email: '',
-                mobile: '',
-                roleId: '',
+                title:'',
+                noticeKind:'',
+                noticeStatus:'',
                 pageNo: 1,
                 pageSize: 2,
             },
             list: [],
-            roleInfos:{},
             status:{},
+            kinds:{},
         },
         mounted : function() {
             this.doQuery();
@@ -144,47 +159,16 @@
                         obj[x] = this.form[x];
                     }
                 }
-                hzToolObj.getdomInit("/user/userSearch", obj, this.callback, currPage);
+                if($("#startDate").val()){
+                    obj.startDate = $("#startDate").val();
+                }
+                if($("#endDate").val()){
+                    obj.endDate = $("#endDate").val();
+                }
+                hzToolObj.getdomInit("/notice/noticeSearch", obj, this.callback, currPage);
             },
             callback: function(result){
                 this.list = result.pageInfo.list;
-            },
-            doAudit: function(user){
-                let userId =  user.userId;
-                let buttons = [];
-                if(user.userStatus == '3' || user.userStatus == '4'){
-                    buttons.push("通过");
-                    buttons.push("拒绝");
-                }
-                buttons.push("关闭");
-
-                layer.open({
-                    type: 2,
-                    title: '审核-' + user.userName,
-                    area: ['90%', '90%'],
-                    fixed: true, //不固定
-                    skin: 'layer-skin',
-                    maxmin: true,
-                    content: '/admin/userAudit?userId=' + userId,
-                    btn:buttons,
-                    yes: function(index, layero){
-                        if(3 == buttons.length){
-                            let iframeWin = window[layero.find('iframe')[0]['name']];
-                            iframeWin.vm.audit(userId,"0");
-                        } else{
-                            layer.close(layer.index);
-                        }
-                        return false;
-                    },
-                    btn2: function(index, layero){
-                        let iframeWin = window[layero.find('iframe')[0]['name']];
-                        iframeWin.vm.audit(userId,"4");
-                        return false;
-                    },
-                    btn3: function(){
-                        return true;
-                    },
-                });
             },
             doModify: function(user){
                 let userId = "";

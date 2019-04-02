@@ -4,38 +4,56 @@
 	<resultMap id="BaseResultMap"
 		type="com.kailash.land.entity.NoticeInfo">
 		<id column="pkid" jdbcType="INTEGER" property="pkid" />
-		<result column="notice_status" jdbcType="INTEGER"
-			property="noticeStatus" />
-		<result column="create_date" jdbcType="DATE"
-			property="createDate" />
-		<result column="create_user" jdbcType="INTEGER"
-			property="createUser" />
-		<result column="update_date" jdbcType="DATE"
-			property="updateDate" />
-		<result column="update_user" jdbcType="INTEGER"
-			property="updateUser" />
+		<result column="notice_status" jdbcType="INTEGER" property="noticeStatus" />
+		<result column="create_date" jdbcType="DATE" property="createDate" />
+		<result column="create_user" jdbcType="INTEGER" property="createUser" />
+		<result column="update_date" jdbcType="DATE" property="updateDate" />
+		<result column="update_user" jdbcType="INTEGER" property="updateUser" />
 		<result column="title" jdbcType="VARCHAR" property="title" />
-		<result column="company_name" jdbcType="VARCHAR"
-			property="companyName" />
-		<result column="notice_kind" jdbcType="INTEGER"
-			property="noticeKind" />
-		<result column="notice_text" jdbcType="LONGVARCHAR"
-			property="noticeText" />
+		<result column="company_name" jdbcType="VARCHAR" property="companyName" />
+		<result column="notice_kind" jdbcType="INTEGER" property="noticeKind" />
+		<result column="notice_text" jdbcType="LONGVARCHAR" property="noticeText" />
+		<result column="notice_pic" jdbcType="VARCHAR" property="noticePic" />
 	</resultMap>
-	
+
 	<sql id="Base_Column_List">
 		pkid, notice_status, create_date, create_user, update_date, update_user,
 		title, company_name,
-		notice_kind, notice_text
+		notice_kind, notice_text, notice_pic
 	</sql>
-	
-	
+
+
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from notice_info
 		where pkid = #{pkid,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectNoticeInfo" parameterType="com.kailash.land.entity.NoticeInfo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from notice_info
+		<where>
+			<if test="noticeStatus != null">
+				AND notice_status = #{notice_status}
+			</if>
+			<if test="title != null">
+				AND title like CONCAT('%',#{title},'%')
+			</if>
+			<if test="noticeKind != null">
+				AND notice_kind = #{noticeKind}
+			</if>
+			<if test="startDate != null">
+				AND create_date <![CDATA[ >= ]]> #{startDate}
+			</if>
+			<if test="endDate != null">
+				AND create_date <![CDATA[ <= ]]> #{endDate}
+			</if>
+		</where>
+		ORDER BY
+			pkid DESC
 	</select>
 
 	<delete id="deleteByPrimaryKey"
@@ -77,6 +95,9 @@
 			<if test="noticeText != null">
 				notice_text,
 			</if>
+			<if test="noticePic != null">
+				notice_pic,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="pkid != null">
@@ -109,9 +130,12 @@
 			<if test="noticeText != null">
 				#{noticeText,jdbcType=LONGVARCHAR},
 			</if>
+			<if test="noticePic != null">
+				#{noticePic,jdbcType=VARCHAR},
+			</if>
 		</trim>
 	</insert>
-	
+
 	<update id="updateByPrimaryKeySelective" parameterType="com.kailash.land.entity.NoticeInfo">
 		update notice_info
 		<set>
@@ -141,6 +165,9 @@
 			</if>
 			<if test="noticeText != null">
 				notice_text = #{noticeText,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="noticePic != null">
+				notice_pic = #{noticePic,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where pkid = #{pkid,jdbcType=INTEGER}

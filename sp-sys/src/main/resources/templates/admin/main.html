@@ -47,7 +47,7 @@
 						<tr class="clearfix fr" style="display:table; width:95%;">
 							<td>
 								<div id="firstpaneDiv" class="menu_list">
-									<h3 class="menu_head">
+									<h3 class="menu_head" @click="jumpPage(defaultMenu)">
 										<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;首页
 									</h3>
 									<div v-for="first in menus">
@@ -105,10 +105,13 @@
 			contentStyleObj:{
 				height:'',
 				overflow: 'auto'
+			},
+			defaultMenu:{
+				url: '/admin/dashbord'
 			}
 		},
 		created: function() {
-			var _this = this;
+			let _this = this;
 			$.get("/loginInfo","",function(result){
 				if(0 == result.code){
 					_this.user = result.user;
@@ -141,7 +144,6 @@
 				this.contentStyleObj.height=(window.innerHeight-height)+'px';
 			},
 			jumpPage: function(menu){
-				alert(JSON.stringify(menu));
 				$("#myrame").attr("src",menu.url);
 			}
 		}

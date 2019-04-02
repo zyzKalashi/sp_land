@@ -13,4 +13,5 @@ public interface NoticeInfoMapper extends BaseMapper<NoticeInfo> {
 
 	List<Map<String, Object>> queryIndexList();
 
+	List<NoticeInfo> selectNoticeInfo(NoticeInfo notice);
 }

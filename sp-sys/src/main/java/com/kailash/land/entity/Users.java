@@ -53,6 +53,10 @@ public class Users extends Model<Users> implements Serializable {
 
 	@TableField(exist = false)
 	private String createDateStr;
+	@TableField(exist = false)
+	private Integer pageNo;
+	@TableField(exist = false)
+	private Integer pageSize;
 
 	@Override
 	protected Serializable pkVal() {

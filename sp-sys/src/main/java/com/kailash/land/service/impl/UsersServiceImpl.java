@@ -62,13 +62,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		return user.getUserId().intValue();
 	}
 	
-	public PageInfo<Users> selectUsersPage(Users user, Integer pageNum, Integer pageSize){
-		PageHelper.startPage(pageNum, pageSize);
-		
+	public PageInfo<Users> selectUsersPage(Users user){
+		PageHelper.startPage(user.getPageNo(), user.getPageSize());
 		EntityWrapper<Users> ewUsers = new EntityWrapper<Users>();
 		ewUsers.setEntity(user);
 		List<Users> users = usersMapper.selectList(ewUsers);
-		
 		return new PageInfo<>(users);
 	}
 }
