@@ -335,9 +335,11 @@
                 	});
 				},
 				goProDetail: function(id){
+					storage.setItem("projectQueryData",JSON.stringify(vm.queryData_pro));
 					window.location.href="../html/project_detail?projectId=" + id;
 				},
 				goDemDetail: function(id){
+					storage.setItem("demandQueryData",JSON.stringify(vm.queryData_dem));
 					window.location.href="../html/demand_detail?demandId=" + id;
 				},
 			},

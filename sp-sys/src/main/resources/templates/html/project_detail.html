@@ -18,7 +18,8 @@
 			
 			<h3 class="c2 text-center">{{ projectData.projectName }}</h3>
 			<p class="text-center f14" style="font-family: '宋体';">
-				<b>发布时间：</b><span>{{ projectData.createDateStr }}</span> &nbsp;&nbsp;<b>访问数量:</b><span>28</span>
+				<b>发布时间：</b><span>{{ projectData.createDateStr }}</span> &nbsp;&nbsp;
+				<b>访问数量:</b><span>{{ visitNum }}</span>
 			</p>
 			<div class="tdfb clear public2">
 				<div class="main_r" style="width: auto;">
@@ -372,17 +373,21 @@
 				projectData: {},
 				preProject: {},
 				nextProject: {},
+				visitNum: 0,
 			},
 			mounted : function() {
 				this.projectData.projectId = getUrlParam('projectId');
 				this.queryData = JSON.parse(storage.getItem("projectQueryData"));
-				this.queryData = this.projectData.projectId;
+				this.queryData.projectId = this.projectData.projectId;
 				this.initPage()
 			},
 			methods : {
 				initPage: function(){
 					this.initProject();
 					this.initPreNext();
+					hzToolObj.postRpc("/sysLog/addVisitLog", {bizind:1,bizId: this.queryData.projectId}).done(function(result) {
+						vm.visitNum = result.visitNum;
+					});
 				},
 				initProject: function(){
 					$.post("/project/queryDetail", this.projectData, function (result) {
@@ -396,7 +401,6 @@
 				initPreNext: function(){
 					$.post("/project/queryPreNext", this.queryData, function (result) {
                         if (result.code == 0) {
-                        	console.log(result);
                            vm.preProject = result.preProject;
                            vm.nextProject = result.nextProject;
                         } else {

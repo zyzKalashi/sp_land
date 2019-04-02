@@ -17,7 +17,8 @@
 			
 			<h3 class="c2 text-center" style="letter-spacing: 5px;">{{ demandData.title }}</h3>
 			<p class="text-center f14" style="font-family: '宋体';">
-				<b>发布时间：</b><span>{{ demandData.createDateStr }}</span> &nbsp;&nbsp;<b>访问数量:</b><span>28</span>
+				<b>发布时间：</b><span>{{ demandData.createDateStr }}</span> &nbsp;&nbsp;
+				<b>访问数量:</b><span>{{ visitNum }}</span>
 			</p>
 
 			<div class="detail clear">
@@ -82,11 +83,11 @@
 				queryData: {},
 				preDemand: {},
 				nextDemand: {},
+				visitNum: 0,
 			},
 			mounted : function() {
-				this.demandData.demandId = getUrlParam('demandId');
 				this.queryData = JSON.parse(storage.getItem("demandQueryData"));
-				this.queryData = this.demandData.demandId;
+				this.queryData.demandId = this.demandData.demandId = getUrlParam('demandId');
 				this.initPage();
 			},
 			methods : {
@@ -94,6 +95,9 @@
 					if(this.demandData.demandId){
 						this.initDemand();
 						this.initPreNext();
+						hzToolObj.postRpc("/sysLog/addVisitLog", {bizKind:2,bizId: this.queryData.demandId}).done(function(result) {
+							vm.visitNum = result.visitNum;
+						});
 					} else {
 						layer.msg("加载错误……")
 						window.lcoation.href = "../html/demand_list"
@@ -105,7 +109,7 @@
 	                });
 				},
 				initPreNext: function(){
-					$.post("/demand/queryPreNext", this.projectData, function (result) {
+					$.post("/demand/queryPreNext", this.queryData, function (result) {
                         if (result.code == 0) {
                            vm.preDemand = result.preDemand;
                            vm.nextDemand = result.nextDemand;

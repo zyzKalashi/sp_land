@@ -285,18 +285,3 @@ Vue.prototype.hasPermission = function(perms) {
 		return false;
 	}
 }
-
-/**
- * 初始化地域字典信息
- */
-Vue.prototype.initArea = function(){
-//	$.post("/project/project_add", vm.projectData, function (result) {
-//        if (result.code == 0) {
-//            layer.msg("添加成功！",{icon:1, time:2000, shade:0.4},function () {
-//                window.location.href = "../html/project_list";
-//            });
-//        } else {
-//            layer.msg(result.msg);
-//        }
-//    });
-}

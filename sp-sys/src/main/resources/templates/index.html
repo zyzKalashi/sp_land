@@ -364,9 +364,11 @@
 			},
 			methods : {
 				goProDetail: function(id){
+					storage.setItem("projectQueryData",JSON.stringify({pageNo : 1,pageSize : 9,projectStatus: 14}));
 					window.location.href="../html/project_detail?projectId=" + id;
 				},
 				goDemDetail: function(id){
+					storage.setItem("demandQueryData",JSON.stringify({pageNo : 1,pageSize : 6, queryPage:"index"}));
 					window.location.href="../html/demand_detail?demandId=" + id;
 				},
 				initProjectList : function() {
