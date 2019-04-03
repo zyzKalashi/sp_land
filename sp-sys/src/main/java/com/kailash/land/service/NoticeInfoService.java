@@ -3,16 +3,25 @@ package com.kailash.land.service;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.kailash.land.entity.NoticeInfo;
-import com.kailash.land.entity.Users;
 
-public interface NoticeInfoService {
-	
+public interface NoticeInfoService extends IService<NoticeInfo> {
+
 	List<Map<String, Object>> queryIndexList();
 
 	int instertNoticeInfo(NoticeInfo noticeInfo);
-	
+
 	PageInfo<NoticeInfo> selectNoticePage(NoticeInfo notice);
+
+	/**
+	 * 列表数据-分页-前台页面
+	 * 
+	 * @author zyz
+	 * @param notice
+	 * @return
+	 */
+	PageInfo<Map<String, Object>> simpleList(NoticeInfo notice);
 
 }

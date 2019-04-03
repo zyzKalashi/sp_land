@@ -4,7 +4,8 @@
 <head th:replace="common :: header">
 <title id="pageTitle">铁西区农村经济总站土地流转交易监管平台</title>
 </head>
-
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/dashboard.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
 <body>
 	<div id="app" v-cloak>
 		<div th:replace="common::top"></div>
@@ -271,10 +272,8 @@
 				<div class="col-md-6 column">
 					<div class="news_fabu fl" style="width: 100%;">
 						<h2 class="pub1 c1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成交量统计报表</h2>
-						<div class="table pub"
-							style="height: 100px; background: #fff; height: 268px;">
-							<img src="../static/images/main/char.jpg"
-								style="width: 100%; height: 100%; text-align: center;">
+						<div class="table pub" style="height: 100px; background: #fff; height: 268px;">
+							<div id="main" style="height: 90%;width: 90%;margin-left: 5%;margin-top: 5%;}"></div>
 						</div>
 					</div>
 				</div>
@@ -349,6 +348,7 @@
 		</footer>
 	</div>
 	<div th:replace="common :: js"></div>
+	<script th:src="@{/static/js/echarts.min.js}"></script>
 	<script>
 		var vm = new Vue({
 			el : '#app',
@@ -356,6 +356,10 @@
 				userId : "",
 				projectList : {},
 				demandList : {},
+				contentStyleObj:{
+					height:'',
+					overflow: 'auto'
+				}
 			},
 			mounted : function() {
 				this.userId = $("#baseUserId").text();
@@ -390,6 +394,41 @@
 				
 			},
 		});
+	</script>
+	<script type="text/javascript">
+	 var myChart = echarts.init(document.getElementById('main'));
+
+	    $.post("/admin/getDashBordData","",function (resp) {
+	        console.log(JSON.stringify(resp.category));
+
+	        var option = {
+	            tooltip : {
+	                trigger: 'axis'
+	            },
+	            legend: {
+	                data:['土地承包','林权转让','养殖水面','四荒承包']
+	            },
+	            calculable : true,
+	            xAxis : [
+	                {
+	                    type : 'category',
+	                    boundaryGap : false,
+	                    data : resp.category
+	                }
+	            ],
+	            yAxis : [
+	                {
+	                    type : 'value',
+	                    axisLabel : {
+	                        formatter: '{value} 元'
+	                    }
+	                }
+	            ],
+	            series : resp.series
+	        };
+
+	        myChart.setOption(option);
+	    });
 	</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <mapper namespace="com.kailash.land.mapper.NoticeInfoMapper">
 	<resultMap id="BaseResultMap"
 		type="com.kailash.land.entity.NoticeInfo">
-		<id column="pkid" jdbcType="INTEGER" property="pkid" />
+		<id column="pkid" jdbcType="INTEGER" property="noticeId" />
 		<result column="notice_status" jdbcType="INTEGER" property="noticeStatus" />
 		<result column="create_date" jdbcType="DATE" property="createDate" />
 		<result column="create_user" jdbcType="INTEGER" property="createUser" />
@@ -21,6 +21,28 @@
 		title, company_name,
 		notice_kind, notice_text, notice_pic
 	</sql>
+	
+	
+	<!-- zyz -->
+	<select id="querySimpleList" resultType="Map">
+		SELECT 
+			pkid AS noticeId,
+			title,
+			notice_kind AS noticeKind,
+			notice_status AS noticeStatus,
+			DATE_FORMAT(create_date,'%Y-%m-%d') AS createDateStr,
+		FROM 
+			notice_info
+		<where>
+			notice_status != 0
+			<if test="obj.noticeKind != null AND obj.noticeKind !=''">
+				AND notice_kind = #{obj.noticeKind}
+			</if>		
+			<if test="obj.createUser != null AND obj.createUser !=''">
+				AND create_user = #{obj.createUser}
+			</if>		
+		</where>
+	</select>
 
 
 	<select id="selectByPrimaryKey"
@@ -172,5 +194,7 @@
 		</set>
 		where pkid = #{pkid,jdbcType=INTEGER}
 	</update>
+	
+	
 	
 </mapper>

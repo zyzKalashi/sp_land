@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head th:include="common :: header">
+	<title id="pageTitle">新闻及政策法规列表-铁西区农村经济总站土地流转交易监管平台</title>
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<div th:replace="common::top"></div>
+		<!-- container begin -->
+		<div class="main clearfix mt10">
+			
+			<div th:include="common :: location">
+				<div id="pageLocaton">新闻/政策/法规/公告列表</div>
+			</div>
+
+			<div class="main_w">
+
+				<div class="pinka_con">
+					<div class="select-tabs">
+						<ul>
+							<li v-for="item in noticeKindList" :class="{'sel-tab-cur':item.show===true}"  @click="selectKind(item)">
+								<a>{{ item.value | noticeKindFilter }}</a> 
+							</li>
+						</ul>
+					</div>
+					<div class="clearfix info-sel-title">
+						<div class="fl s-t-name">
+							<b>消息标题</b>
+						</div>
+						<div class="fl s-t-hy">
+							<b>信息类别</b>
+						</div>
+						<div class="s-t-date">
+							<b>发布时间</b>
+						</div>
+					</div>
+					<div class="tech-pro-con">
+						<div class="project-list" v-for="item in noticeList">
+							<a @click="goDetail(item.noticeId)">{{ item.title }}</a>
+							<span class="">{{ item.noticeKind | noticeKindFilter }}</span>
+							<span class="project_date">{{ item.createDateStr }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="page mt10 mb20">
+				<ul id='pagination'></ul>
+			</div>
+		</div>
+
+		<!-- container end -->
+		<dl></dl>
+		<footer class="footer">
+			<div th:replace="common::foot"></div>
+		</footer>
+	</div>
+	<div th:include="common :: js"></div>
+	<script type="text/javascript">
+	var vm = new Vue({
+		el : '#app',
+		data : {
+			queryData: {
+				pageNo: 1,
+				pageSize: 15,
+				noticeStatus: 1,
+			},
+			noticeList:[],
+			noticeKindList:[
+				{value: 0,  show: true},
+				{value: 1,  show: false},
+				{value: 2,  show: false},
+				{value: 3,  show: false},
+				{value: 4,  show: false},
+			],
+		},
+		mounted : function() {
+			hzToolObj.getdomInit("/notice/simpleList", this.queryData, this.callback);
+		},
+		methods : {
+			callback: function (result) {
+				vm.noticeList = result.pageInfo.list;
+	        },
+			goDetail: function(noticeId){
+				storage.setItem("noticeQueryData",JSON.stringify(vm.queryData));
+				window.location.href="../html/notice_detail?noticetId=" + noticetId;
+			},
+			queryList: function(){
+				hzToolObj.getdomInit("/notice/simpleList", vm.queryData, vm.callback);
+			},
+			selectKind: function(item) {
+				item.show = !item.show;
+				vm.noticeKindList.forEach(v=>{  
+				    if(v.value != item.value ){
+				    	v.show = false;
+				    } else {
+				    	v.show = true;
+				    }  
+				}); 
+				Kind = item.value;
+				vm.queryList();
+			},
+		},
+	});
+	</script>
+</body>
+</html>

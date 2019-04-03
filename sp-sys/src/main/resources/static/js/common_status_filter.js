@@ -29,6 +29,20 @@ Vue.filter('demandKindFilter', function(val) {
 	}
 	return ss;
 });
+// 状态过滤-zyz
+Vue.filter('noticeKindFilter', function(val) {
+	var ss = "全部";
+	if (val == 1) {
+		ss = "新闻";
+	} else if (val == 2) {
+		ss = "政策";
+	} else if (val == 3) {
+		ss = "法规";
+	} else if (val == 4) {
+		ss = "公告";
+	}
+	return ss;
+});
 
 Vue.filter('projectInfoKindFilter', function(val) {
 	var ss = "--";

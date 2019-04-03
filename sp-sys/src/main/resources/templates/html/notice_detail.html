@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head th:include="common :: header">
+<title id="pageTitle">新闻及政策法规详情-铁西区农村经济总站土地流转交易监管平台</title>
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<div th:replace="common::top"></div>
+		<!-- container begin -->
+		<div class="sam clear" style="background: #fff;">
+
+			<div th:include="common :: location">
+				<div id="pageLocaton">土地流转项目信息详情</div>
+			</div>
+
+			<h3 class="c2 text-center" style="letter-spacing: 5px;">
+			</h3>
+				[<span class="bold" style="color: red; font-family: '新宋体';">{{ noticeData.noticeKind | noticeKindFilter }}</span>]{{ noticeData.title }}
+			<p class="text-center f14" style="font-family: '宋体';">
+				<b>发布时间：</b><span>{{ noticeData.createDateStr }}</span> &nbsp;&nbsp;
+				<b>访问数量:</b><span>{{ visitNum }}</span>
+			</p>
+			<div class="detail clear">
+				<div class="main1 clearfix">
+					<h4 class="mt15">{{ noticeData.title }}</h4>
+					<p>{{ noticeData.noticeText }}</p>
+				</div>
+			</div>
+
+			<div class="clearl" style="width: 90%; margin: 0 auto;">
+				<p class="fl clear pl15 mb20" style="font-family: '微软雅黑'; font-size: 12px;">
+					<b>上一页:</b>
+					<a v-if="preProject" @click="goDetail(preNotice.noticetId)" style="font: '宋体' 12px;" >{{ preNotice.title }}</a>
+					<a v-else>无 </a>
+				</p>
+				<p class="pr15 fr mb20" style="font-family: '微软雅黑'; font-size: 12px;">
+					<b>下一页：</b>
+					<a v-if="nextProject" @click="goDetail(nextNotice.noticetId)" style="font: '宋体' 12px;" >{{ nextNotice.title }}</a>
+					<a v-else>无 </a>
+				</p>
+				<br>
+			</div>
+		</div>
+		<footer class="footer">
+			<div th:replace="common :: foot"></div>
+		</footer>
+		<div th:replace="common :: js"></div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el : '#app',
+				data : {
+					queryData : {},
+					noticeData : {},
+					preNotice : {},
+					nextNotice : {},
+					visitNum : 0,
+				},
+				mounted : function() {
+					this.noticeData.noticetId = getUrlParam('noticetId');
+					this.queryData = JSON.parse(storage.getItem("noticeQueryData"));
+					this.queryData.noticetId = this.noticeData.noticetId;
+					this.initPage();
+				},
+				methods : {
+					initPage: function(){
+						this.initNotice();
+						this.initPreNext();
+						hzToolObj.postRpc("/sysLog/addVisitLog", {bizind:3,bizId: this.queryData.noticetId}).done(function(result) {
+							vm.visitNum = result.visitNum;
+						});
+					},
+					initNotice: function(){
+						$.post("/notice/queryDetail", this.noticeData, function (result) {
+	                        if (result.code == 0) {
+	                           vm.noticeData = result.noticeData;
+	                        } else {
+	                            layer.msg(result.msg);
+	                        }
+	                    });
+					},
+					initPreNext: function(){
+						$.post("/notice/queryPreNext", this.queryData, function (result) {
+	                        if (result.code == 0) {
+	                           vm.preNotice = result.preNotice;
+	                           vm.nextNotice = result.nextNotice;
+	                        } else {
+	                            layer.msg(result.msg);
+	                        }
+	                    });
+					},
+					goDetail: function(id){
+						window.location.href="../html/notice_detail?noticeId=" + id;
+					},
+				},
+			});
+		</script>
+	</div>
+
+</body>
+</html>

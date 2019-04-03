@@ -17,14 +17,15 @@ import com.kailash.land.service.DemandService;
 public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> implements DemandService {
 	@Autowired
 	private DemandMapper demandMapper;
+
 	@Override
 	public PageInfo<Map<String, Object>> simpleList(Demand filter) {
 		PageHelper.startPage(filter.getPageNo(), filter.getPageSize());
-		Page<Map<String, Object>> pageList =this.demandMapper.querySimpleList(filter);
+		Page<Map<String, Object>> pageList = this.demandMapper.querySimpleList(filter);
 		PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(pageList);
-		
+
 		return pageInfo;
-		
+
 	}
 
 }

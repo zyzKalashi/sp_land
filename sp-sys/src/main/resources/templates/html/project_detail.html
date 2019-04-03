@@ -379,7 +379,7 @@
 				this.projectData.projectId = getUrlParam('projectId');
 				this.queryData = JSON.parse(storage.getItem("projectQueryData"));
 				this.queryData.projectId = this.projectData.projectId;
-				this.initPage()
+				this.initPage();
 			},
 			methods : {
 				initPage: function(){

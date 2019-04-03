@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.kailash.land.util.Result;
+
+//@Value("${urldate.importModel}")
+//private String idCardParth;
+//private String demandFileParth;
+//private String contractParth;
+//private String importModel;
 
 @Controller
 @RequestMapping("file")
@@ -33,7 +40,26 @@ public class FileController {
 
 	@PostMapping("/upload")
 	@ResponseBody
-	public String upload(@RequestParam("file") MultipartFile file) {
+	public String upload(@RequestParam("fileKind")Integer fileKind, @RequestParam("file") CommonsMultipartFile file) {
+		long startTime = System.currentTimeMillis();
+		System.out.println("fileName：" + file.getOriginalFilename());
+		
+		String path = "E:/" + new Date().getTime() + file.getOriginalFilename();
+
+		File newFile = new File(path);
+		// 通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+		try {
+			file.transferTo(newFile);
+		} catch (IllegalStateException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		long endTime = System.currentTimeMillis();
+		System.out.println("采用file.Transto的运行时间：" + String.valueOf(endTime - startTime) + "ms");
+
 		if (file.isEmpty()) {
 			return "上传失败，请选择文件";
 		}
