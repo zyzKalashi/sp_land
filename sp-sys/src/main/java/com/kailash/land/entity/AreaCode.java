@@ -1,6 +1,7 @@
 package com.kailash.land.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
@@ -19,9 +20,8 @@ import lombok.NoArgsConstructor;
 @SuppressWarnings("serial")
 public class AreaCode extends Model<AreaCode> {
 
-	@TableId(value = "areaCode", type = IdType.AUTO)
-	@TableField("area_code")
-	private Long areaCode;
+	@TableId(value = "code", type = IdType.AUTO)
+	private Long code;
 
 	@TableField("area_name")
 	private String areaName;
@@ -31,10 +31,13 @@ public class AreaCode extends Model<AreaCode> {
 
 	@TableField("parent_code")
 	private Long parentCode;
+	
+	@TableField(exist = false)
+	private List<AreaCode> childAreas;
 
 	@Override
 	protected Serializable pkVal() {
-		return areaCode;
+		return code;
 	}
 
 }

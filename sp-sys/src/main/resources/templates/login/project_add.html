@@ -48,34 +48,15 @@
 								<tr>
 									<td class="t_prop"><strong>联系地址：</strong></td>
 									<td colspan="3" class="pl5">
-										<select v-model="projectData.townCode">
-											<option value="0">选择乡镇</option>
-											<option value="1">铁西区</option>
-											<option value="2">平西乡</option>
-										</select>
 										<select v-model="projectData.areaCode">
+											<option value="0">选择乡镇</option>
+											<option v-for="item in aeaList" :value="item.code">{{ item.areaName }}</option>
+										</select>
+										<select v-model="projectData.townCode" v-show="childAreas.length > 0">
 											<option value="0">请选择村委</option>
-											<option value="1">任家</option>
-											<option value="2">西八大</option>
-											<option value="3">海青</option>
-											<option value="4">三合</option>
-											<option value="5">西条子河</option>
-											<option value="6">巨丰</option>
-											<option value="7">条子河</option>
-											<option value="8">红嘴</option>
-											<option value="9">团山子</option>
-											<option value="10">九间房</option>
-											<option value="11">致富</option>
-											<option value="12">孤榆树</option>
-											<option value="13">勤业</option>
-											<option value="14">泉沟</option>
-											<option value="15">海丰</option>
-											<option value="16">太平沟</option>
-											<option value="17">三道林</option>
-											<option value="18">獾子洞</option>
-											<option value="19">东八大</option>
-											<option value="20">新发</option>
-									</select> <input type="text"
+											<option v-for="item in childAreas" :value="item.code">{{ item.areaName }}</option>
+									</select> 
+										<input type="text"
 										style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 68%; padding: 0px 2px;"
 										name="name" placeholder="输入产权人（或发布者）现住址"
 										v-model="projectData.address"></td>
@@ -440,63 +421,22 @@
 		var vm = new Vue({
 			el : '#app',
 			data : {
+				aeaList: [],
+				childAreas: [],
 				projectData : {
 					// projectPerson
-					name: "",
 					sex: 0,
 					townCode: 0,
 					areaCode: 0,
 					infoKind: 0,
-					mobile: "",
-					idCardFrontUrl: "",
-					idCardBackUrl: "",
-					address: "",
 					
 					// project
-					projectName:"",
 					projectKind: 0,
-					projectAddress:"",
-					outputPersonName:"",
 					rightKind: 0,
-					warrantNum:"",
-					areaNum:"",
-					personName:"",
 					otherRightFlag: 0,
-					otherRightName:"",
-					otherRightContext:"",
-					famerNum:"",
-					oldRentDate:"",
-					landLevel:"",
-					upThings:"",
-					traffic:"",
 					againFlag: 0,
-					rentUse:"",
 					agreeFlag: 0,
-					oldOutput:"",
-					hopeOutput:"",
 					giveupRightFlag: 1,
-					assessOrg:"",
-					assessDate:"",
-					assessValue:"",
-					outputWay:"",
-					hopeOutputDate:"",
-					//projectStatus:"",
-					//projectNo:"",
-					
-					// projectAround
-					areaName: "",
-					area: "",
-					east: "",
-					south: "",
-					west: "",
-					north: "",
-					showPreice: "",
-					payWay: "",
-					payLimit: "",
-					otherPay: "",
-					shouldHave: "",
-					overdue: "",
-					supplement: "",
 				}
 			},
 			mounted : function() {
@@ -507,6 +447,15 @@
 				}
 			},
 			methods : {
+				initArea: function(){
+					$.post("/area/initArea", {}, function (result) {
+                        if (result.code == 0) {
+                        	vm.aeaList = result.area;
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                    });
+				},
 				submitProject : function(kind) {
 					if (vm.checkProject()) {
 						var url = "/project/projectAdd";
@@ -542,6 +491,15 @@
 					}
 				},
 			},
+			watch: {
+				'projectData.areaCode': function(code){
+					if(code != 0) {
+						vm.childAreas = vm.aeaList.filter((item)=>{
+		                    return item.code == code
+		                })[0].childAreas;
+					}	
+				},
+			}
 		});
 		
 		

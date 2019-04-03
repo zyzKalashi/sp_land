@@ -38,16 +38,14 @@
 									<table class="select_tabs">
 										<tr>
 											<td>
-												<select name="">
-													<option value="">铁西区</option>
-													<option value="">平西乡</option>
+												<select v-model="queryData.areaCode">
+													<option value="0">选择乡镇</option>
+													<option v-for="item in aeaList" :value="item.code">{{ item.areaName }}</option>
 												</select>
-											</td>
-											<td>
-												<select name="">
-													<option value="">铁西区</option>
-													<option value="">平西乡</option>
-												</select>
+												<select v-model="queryData.townCode" v-show="childAreas.length > 0">
+													<option value="0" selected="selected">请选择村委</option>
+													<option v-for="item in childAreas" :value="item.code">{{ item.areaName }}</option>
+												</select> 
 											</td>
 										</tr>
 									</table>
@@ -103,9 +101,12 @@
 	var vm = new Vue({
 		el : '#app',
 		data : {
+			aeaList: [],
+			childAreas: [],
 			queryData: {
 				pageNo: 1,
 				pageSize: 15,
+				areaCode: 0,
 				projectStatus: 14,
 			},
 			projectList:[],
@@ -118,12 +119,22 @@
 			],
 		},
 		mounted : function() {
+			this.initArea();
 			hzToolObj.getdomInit("/project/simpleList", this.queryData, this.callback);
 		},
 		methods : {
 			callback: function (result) {
 				vm.projectList = result.pageInfo.list;
 	        },
+	        initArea: function(){
+				$.post("/area/initArea", {}, function (result) {
+                    if (result.code == 0) {
+                    	vm.aeaList = result.area;
+                    } else {
+                        layer.msg(result.msg);
+                    }
+                });
+			},
 			goDetail: function(projectId){
 				storage.setItem("projectQueryData",JSON.stringify(vm.queryData));
 				window.location.href="../html/project_detail?projectId=" + projectId;
@@ -151,8 +162,26 @@
 				vm.queryData.projectKind = item.value;
 				vm.queryList();
 			},
+			
 		},
-		watch: {},
+		watch: {
+			'queryData.areaCode': function(code){
+				if(code != 0) {
+					vm.childAreas = vm.aeaList.filter((item)=>{
+	                    return item.code == code
+	                })[0].childAreas;
+				};
+				if(vm.childAreas){
+					vm.queryData.townCode = 0;
+				}
+				hzToolObj.getdomInit("/project/simpleList", vm.queryData, vm.callback);
+			},
+			'queryData.townCode': function(code){
+				if(code != 0){
+					hzToolObj.getdomInit("/project/simpleList", vm.queryData, vm.callback);
+				}
+			},
+		}
 	});
 	</script>
 </body>

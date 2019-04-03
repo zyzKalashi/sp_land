@@ -22,6 +22,7 @@ import com.kailash.land.entity.Project;
 import com.kailash.land.entity.ProjectAround;
 import com.kailash.land.entity.ProjectPerson;
 import com.kailash.land.filter.ProjectFiter;
+import com.kailash.land.service.AreaCodeService;
 import com.kailash.land.service.ProjectAroundService;
 import com.kailash.land.service.ProjectPersonService;
 import com.kailash.land.service.ProjectService;
@@ -42,6 +43,9 @@ public class ProjectController extends AbstractController {
 
 	@Autowired
 	private ProjectPersonService projectPersonService;
+
+	@Autowired
+	private AreaCodeService areaCodeService;
 
 	@Transactional
 	@ResponseBody
@@ -154,6 +158,21 @@ public class ProjectController extends AbstractController {
 		String createDateStr = DateUtils.format(createDate, DateFormatConsts.DATE_PATTERN);
 
 		returnMap.put("createDateStr", createDateStr);
+
+		this.areaCodeService.initArea().forEach(v -> {
+			if (returnMap.containsKey("areaCode") && returnMap.get("areaCode") != null) {
+				if (v.getCode().equals(Long.parseLong(returnMap.get("areaCode").toString()))) {
+					returnMap.put("areaName", v.getAreaName());
+					if (returnMap.containsKey("townCode") && returnMap.get("townCode") != null) {
+						v.getChildAreas().forEach(c -> {
+							if (c.getCode().equals(Long.parseLong(returnMap.get("townCode").toString()))) {
+								returnMap.put("townName", c.getAreaName());
+							}
+						});
+					}
+				}
+			}
+		});
 
 		return Result.ok().put("projectData", returnMap);
 	}

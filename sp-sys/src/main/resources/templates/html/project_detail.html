@@ -6,7 +6,7 @@
 </head>
 <body>
  <!-- v-cloak -->
-	<div id="app">
+	<div id="app" v-cloak>
 		<div th:replace="common::top"></div>
 	 
 		<!-- container begin -->
@@ -49,7 +49,11 @@
 								<tr>
 									<td class="t_prop"><strong>联 系地址：</strong></td>
 									<td colspan="3" class="pl5">
-										<p>{{ projectData.address }}</p>
+										<p>
+											<span v-if="projectData.areaName">{{ projectData.areaName }} - </span>
+											<span v-if="projectData.townName">{{ projectData.townName }} - </span>
+											{{ projectData.address }}
+										</p>
 									</td>
 								</tr>
 							</table>

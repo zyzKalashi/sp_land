@@ -19,17 +19,14 @@
 						<button type="button" class="btn btn-primary"
 							data-toggle="collapse" data-target="#left1">办公系统平台入口</button>
 						<ul>
-							<li><img class="mt10 mb5"
-								src="../static/images/main/qchz.png"
-								style="width: 100%; height: inherit; border-radius: 3px;" alt="">
+							<li style="width: 100%; text-align: center;">
+								<img class="mt10 mb5" src="../static/images/main/qchz.png" style=" border-radius: 3px;" alt="">
 							</li>
-							<li><img class="mt10 mb5"
-								src="../static/images/main/tdlz.png"
-								style="width: 100%; height: auto; border-radius: 3px;" alt="">
+							<li style="width: 100%; text-align: center;">
+								<img class="mt10 mb5" src="../static/images/main/tdlz.png" style="border-radius: 3px;" alt="">
 							</li>
-							<li><img class="mt10 mb5"
-								src="../static/images/main/szgl.png"
-								style="width: 100%; height: auto; border-radius: 3px;" alt="">
+							<li style="width: 100%; text-align: center;">
+								<img class="mt10 mb5" src="../static/images/main/szgl.png" style="border-radius: 3px;" alt="">
 							</li>
 						</ul>
 					</div>
@@ -144,17 +141,20 @@
 				<div class="col-md-4 column mb10">
 					<div class="news_gongg fl">
 						<h2 class="pub1 c1">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新闻*政策*法规*公告<a
-								href="html/newslist.html" class="fr">更多>&nbsp;&nbsp;</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新闻*政策*法规*公告
+							<a href="../html/notice_list" class="fr">更多>&nbsp;&nbsp;</a>
 						</h2>
-						<div class="table  news_gongg_detail public2 clear"
-							style="background-color: #fff;">
+						<div class="table  news_gongg_detail public2 clear" style="background-color: #fff;">
 							<ul class="news_list clear fr" id="uls3">
-								<li><a href="html/newsdetail.html"><img
-										src="../static/images/main/n1.jpg" border=0></a>
+								<li style="width: 33%;">
+									<a href="html/newsdetail.html">
+										<img src="../static/images/main/n1.jpg" border=0>
+									</a>
 									<p>
 										<span></span> <b>土地流转平台上线</b>
-									</p></li>
+									</p>
+								</li>
+								
 								<li><a href="html/newsdetail.html"><img
 										src="../static/images/main/n2.jpg" border=0></a>
 									<p>
@@ -168,24 +168,9 @@
 							</ul>
 
 							<ol class="news_list2">
-								<li><a href="html/newsdetail.html">新闻标题</a><span class="fr">2019-01-10</span></li>
-								<li><a href="html/newsdetail.html">土地流转平台上线通知</a><span
-									class="fr">2019-01-05</span></li>
-								<li><a href="html/newsdetail.html">土地转让政策</a><span
-									class="fr">2019-01-05</span></li>
-								<li><a href="html/newsdetail.html">显示新闻标题</a><span
-									class="fr">2018-07-14</span></li>
-								<li><a href="html/newsdetail.html">显示新闻标题2</a><span
-									class="fr">2018-07-14</span></li>
-								<li><a href="html/newsdetail.html">显示新闻标题4</a><span
-									class="fr">2018-06-10</span></li>
-								<li><a
-									href="/Content_Detail.asp?Column_ID=27996&C_ID=20002411">显示新闻标题</a>
-									<span class="fr">2018-07-14</span></li>
-								<li><a href="{$Link_8}">{$Title_8}</a><span class="fr">{$Date_8}</span></li>
-								<li><a href="{$Link_9}">{$Title_9}</a><span class="fr">{$Date_9}</span></li>
-								<li><a href="{$Link_10}">{$Title_10}</a><span class="fr">{$Date_10}</span></li>
-								<li><a href="{$Link_11}">{$Title_11}</a><span class="fr">{$Date_11}</span></li>
+								<li v-for="item in noticeList">
+									<a @click="goNotDetail(item.noticeId)">{{ item.title }}</a>
+									<span class="fr">{{ item.createDateStr }}</span>
 							</ol>
 						</div>
 					</div>
@@ -354,8 +339,9 @@
 			el : '#app',
 			data : {
 				userId : "",
-				projectList : {},
-				demandList : {},
+				projectList : [],
+				demandList : [],
+				noticeList: [],
 				contentStyleObj:{
 					height:'',
 					overflow: 'auto'
@@ -365,6 +351,7 @@
 				this.userId = $("#baseUserId").text();
 				this.initProjectList();
 				this.initDemandList();
+				this.initNoticeList();
 			},
 			methods : {
 				goProDetail: function(id){
@@ -375,14 +362,23 @@
 					storage.setItem("demandQueryData",JSON.stringify({pageNo : 1,pageSize : 6, queryPage:"index"}));
 					window.location.href="../html/demand_detail?demandId=" + id;
 				},
+				goNotDetail: function(noticeId){
+					storage.setItem("noticeQueryData",JSON.stringify({pageNo : 1,pageSize : 9, queryPage:"index"}));
+					window.location.href="../html/notice_detail?noticeId=" + noticeId;
+				},
 				initProjectList : function() {
 					hzToolObj.getdomInit("/project/simpleList", {pageNo : 1,pageSize : 9,projectStatus: 14}, function(result){
                     	vm.projectList = result.pageInfo.list;
 					})
 				},
 				initDemandList : function() {
-					hzToolObj.getdomInit("/demand/simpleList", {pageNo : 1,pageSize : 6, queryPage:"index"}, function(result){
+					hzToolObj.getdomInit("/demand/simpleList", {pageNo : 1,pageSize : 11, queryPage:"index"}, function(result){
                     	vm.demandList = result.pageInfo.list;
+					})
+				},
+				initNoticeList : function() {
+					hzToolObj.getdomInit("/notice/simpleList", {pageNo : 1,pageSize : 11, queryPage:"index"}, function(result){
+                    	vm.noticeList = result.pageInfo.list;
 					})
 				},
 

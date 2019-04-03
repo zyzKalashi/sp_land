@@ -103,6 +103,12 @@
 			<if test="pro.infoKind != null">
 				AND pp.info_kind = #{pro.infoKind}
 			</if>
+			<if test="pro.townCode != null and pro.townCode != ''">
+				AND pp.town_code = #{pro.townCode}
+			</if>
+			<if test="pro.areaCode != null and pro.areaCode !=''">
+				AND pp.area_code = #{pro.areaCode}
+			</if>
 
 		</where>
 		ORDER BY p.pkid DESC

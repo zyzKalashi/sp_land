@@ -74,7 +74,7 @@
 					initNotice: function(){
 						$.post("/notice/queryDetail", this.noticeData, function (result) {
 	                        if (result.code == 0) {
-	                           vm.noticeData = result.noticeData;
+	                           vm.noticeData = result.objData;
 	                        } else {
 	                            layer.msg(result.msg);
 	                        }
