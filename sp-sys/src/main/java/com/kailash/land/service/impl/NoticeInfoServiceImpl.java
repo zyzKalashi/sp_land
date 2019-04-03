@@ -14,22 +14,13 @@ import com.kailash.land.entity.NoticeInfo;
 import com.kailash.land.mapper.NoticeInfoMapper;
 import com.kailash.land.service.NoticeInfoService;
 
-@Service
-public abstract class NoticeInfoServiceImpl extends ServiceImpl<NoticeInfoMapper, NoticeInfo>
-		implements NoticeInfoService {
+@Service("noticeInfoService")
+public class NoticeInfoServiceImpl extends ServiceImpl<NoticeInfoMapper, NoticeInfo> implements NoticeInfoService {
+
 	@Autowired
 	private NoticeInfoMapper noticeInfoMapper;
 
 	@Override
-	public List<Map<String, Object>> queryIndexList() {
-		return this.noticeInfoMapper.queryIndexList();
-	}
-
-	@Override
-	public int instertNoticeInfo(NoticeInfo noticeInfo) {
-		return this.noticeInfoMapper.insert(noticeInfo);
-	}
-
 	public PageInfo<NoticeInfo> selectNoticePage(NoticeInfo notice) {
 		PageHelper.startPage(notice.getPageNo(), notice.getPageSize());
 		List<NoticeInfo> users = this.noticeInfoMapper.selectNoticeInfo(notice);

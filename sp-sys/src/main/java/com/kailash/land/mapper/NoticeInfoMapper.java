@@ -13,7 +13,6 @@ import com.kailash.land.entity.NoticeInfo;
 @Mapper
 public interface NoticeInfoMapper extends BaseMapper<NoticeInfo> {
 
-	List<Map<String, Object>> queryIndexList();
 
 	List<NoticeInfo> selectNoticeInfo(NoticeInfo notice);
 

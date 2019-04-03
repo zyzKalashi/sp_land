@@ -385,7 +385,7 @@
 				initPage: function(){
 					this.initProject();
 					this.initPreNext();
-					hzToolObj.postRpc("/sysLog/addVisitLog", {bizind:1,bizId: this.queryData.projectId}).done(function(result) {
+					hzToolObj.postRpc("/sysLog/addVisitLog", {bizKind:1,bizId: this.queryData.projectId}).done(function(result) {
 						vm.visitNum = result.visitNum;
 					});
 				},

@@ -71,7 +71,7 @@ public class NoticeController extends AbstractController {
 	 * @return
 	 */
 	@ResponseBody
-	@PostMapping(value = "/noticeDetail")
+	@PostMapping(value = "/queryDetail")
 	public Result noticeDetail(NoticeInfo notice) {
 		if (Objects.isNull(notice.getNoticeId())) {
 			return Result.error("参数错误");

@@ -32,12 +32,12 @@
 			<div class="clearl" style="width: 90%; margin: 0 auto;">
 				<p class="fl clear pl15 mb20" style="font-family: '微软雅黑'; font-size: 12px;">
 					<b>上一页:</b>
-					<a v-if="preProject" @click="goDetail(preNotice.noticetId)" style="font: '宋体' 12px;" >{{ preNotice.title }}</a>
+					<a v-if="preNotice" @click="goDetail(preNotice.noticeId)" style="font: '宋体' 12px;" >{{ preNotice.title }}</a>
 					<a v-else>无 </a>
 				</p>
 				<p class="pr15 fr mb20" style="font-family: '微软雅黑'; font-size: 12px;">
 					<b>下一页：</b>
-					<a v-if="nextProject" @click="goDetail(nextNotice.noticetId)" style="font: '宋体' 12px;" >{{ nextNotice.title }}</a>
+					<a v-if="nextNotice" @click="goDetail(nextNotice.noticeId)" style="font: '宋体' 12px;" >{{ nextNotice.title }}</a>
 					<a v-else>无 </a>
 				</p>
 				<br>
@@ -58,16 +58,16 @@
 					visitNum : 0,
 				},
 				mounted : function() {
-					this.noticeData.noticetId = getUrlParam('noticetId');
+					this.noticeData.noticeId = getUrlParam('noticeId');
 					this.queryData = JSON.parse(storage.getItem("noticeQueryData"));
-					this.queryData.noticetId = this.noticeData.noticetId;
+					this.queryData.noticeId = this.noticeData.noticeId;
 					this.initPage();
 				},
 				methods : {
 					initPage: function(){
 						this.initNotice();
 						this.initPreNext();
-						hzToolObj.postRpc("/sysLog/addVisitLog", {bizind:3,bizId: this.queryData.noticetId}).done(function(result) {
+						hzToolObj.postRpc("/sysLog/addVisitLog", {bizKind:3,bizId: this.queryData.noticeId}).done(function(result) {
 							vm.visitNum = result.visitNum;
 						});
 					},

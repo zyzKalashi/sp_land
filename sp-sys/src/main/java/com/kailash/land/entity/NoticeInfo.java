@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,7 +34,7 @@ public class NoticeInfo extends Model<NoticeInfo> implements Serializable {
 	private String noticePic;
 
 	@TableId(value = "pkid", type = IdType.AUTO)
-	private Integer noticeId;
+	private Long noticeId;
 
 	private Date createDate;
 
