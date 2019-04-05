@@ -50,7 +50,7 @@
 		from notice_info
 		<where>
 			<if test="noticeStatus != null">
-				AND notice_status = #{notice_status}
+				AND notice_status = #{noticeStatus}
 			</if>
 			<if test="title != null">
 				AND title like CONCAT('%',#{title},'%')

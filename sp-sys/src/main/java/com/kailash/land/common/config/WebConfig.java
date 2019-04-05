@@ -1,5 +1,6 @@
 package com.kailash.land.common.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.*;
@@ -10,6 +11,9 @@ import org.springframework.web.servlet.config.annotation.*;
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    @Value("${upload.base-dir}")
+    private String uploadDir;
+    
     /**
      * 添加静态资源
      *
@@ -18,11 +22,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //过滤swagger
-        registry.addResourceHandler("/templates/**")
-                .addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/templates/");
-        registry.addResourceHandler("/templates/common/**")
-                .addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/templates/common/");
+        registry.addResourceHandler("/templates/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/templates/");
+        registry.addResourceHandler("/templates/common/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/templates/common/");
         registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
-
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + uploadDir);
     }
 }

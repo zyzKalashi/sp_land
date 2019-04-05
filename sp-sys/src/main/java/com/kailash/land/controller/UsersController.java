@@ -1,27 +1,23 @@
 package com.kailash.land.controller;
 
-import java.util.*;
-
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.github.pagehelper.PageInfo;
-import com.kailash.land.entity.RoleEntity;
-import com.kailash.land.service.RoleService;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.github.pagehelper.PageInfo;
 import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.LoginLog;
+import com.kailash.land.entity.RoleEntity;
 import com.kailash.land.entity.Users;
 import com.kailash.land.service.LoginLogService;
+import com.kailash.land.service.RoleService;
 import com.kailash.land.service.UsersService;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
 import com.kailash.land.util.Result;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -88,17 +84,17 @@ public class UsersController extends AbstractController {
 		returnMap.put("result", allRoles);
 		return Result.ok(returnMap);
 	}
-
-	@RequestMapping(value = "getUserStatus", method = RequestMethod.GET)
-	public Result getUserStatus() {
-		Map<String, String> status = new HashMap<>();
-		Map<String, Object> returnMap = new Hashtable<>();
-		status.put("0", "正常");
-		status.put("1", "禁用");
-		status.put("2", "删除");
-		status.put("3", "待审核");
-		status.put("4", "拒绝");
-		returnMap.put("status", status);
+	
+	public Result getUserStatus(){
+		Map<String,String> status = new HashMap<>();
+		Map<String, Object> returnMap = new HashMap<>();
+		status.put("0", "删除");
+		status.put("1", "正常");
+		status.put("2", "待审核");
+		status.put("3", "拒绝");
+		status.put("4", "结束");
+		status.put("5", "禁用");
+		returnMap.put("status",status);
 		return Result.ok(returnMap);
 	}
 

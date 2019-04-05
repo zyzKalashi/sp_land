@@ -1,23 +1,16 @@
 package com.kailash.land.controller;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.PageInfo;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.NoticeInfo;
 import com.kailash.land.service.NoticeInfoService;
 import com.kailash.land.util.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.Serializable;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "notice")
@@ -46,7 +39,49 @@ public class NoticeController extends AbstractController {
 		PageInfo<NoticeInfo> pageInfo = this.noticeInfoService.selectNoticePage(notice);
 		return Result.ok().put("pageInfo", pageInfo);
 	}
-
+	
+	@RequestMapping(value = "getNoticesKinds", method = RequestMethod.GET)
+	public Result getNoticesKinds(){
+		Map<String, Object> returnMap = new HashMap<>();
+		
+		Map<String,String> kinds = new HashMap<>();
+		kinds.put("1", "新闻");
+		kinds.put("2", "政策");
+		kinds.put("3", "法规");
+		kinds.put("4", "公告");
+		returnMap.put("kinds",kinds);
+		return Result.ok(returnMap);
+	}
+	@PostMapping(value = "/notice_add")
+	@ResponseBody
+	public Result add(NoticeInfo notice) {
+		notice.setCreateUser(getUserId().intValue());
+		notice.setCreateDate(new Date());
+		notice.setUpdateUser(getUserId().intValue());
+		notice.setUpdateDate(new Date());
+		boolean zt = this.noticeInfoService.insert(notice);
+		if (zt) {
+			return Result.ok();
+		}
+		return Result.error();
+	}
+	
+	@PostMapping(value = "/notice_modify")
+	@ResponseBody
+	public Result modify(NoticeInfo notice) {
+		notice.setUpdateUser(getUserId().intValue());
+		notice.setUpdateDate(new Date());
+		
+		EntityWrapper<NoticeInfo> ewNotice = new EntityWrapper<>();
+		ewNotice.setEntity(new NoticeInfo());
+		ewNotice.where(" pkid = {0} ", notice.getNoticeId());
+		boolean zt = this.noticeInfoService.update(notice,ewNotice);
+		if (zt) {
+			return Result.ok();
+		}
+		return Result.error();
+	}
+	
 	/**
 	 * 简单列表
 	 * 

@@ -1,8 +1,7 @@
 package com.kailash.land.common.config;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import com.kailash.land.common.shiro.UserRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -12,9 +11,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.kailash.land.common.shiro.UserRealm;
-
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * shiro的配置类
@@ -31,6 +29,7 @@ public class ShiroConfig {
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/html/**", "anon");
+		filterChainDefinitionMap.put("/upload/**", "anon");
 		filterChainDefinitionMap.put("/index", "anon");
 		filterChainDefinitionMap.put("/", "anon");
 		filterChainDefinitionMap.put("/sysLogin", "anon");

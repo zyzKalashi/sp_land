@@ -1,31 +1,21 @@
 package com.kailash.land.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.util.Date;
+import com.kailash.land.util.Result;
+import org.apache.poi.util.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.poi.util.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import com.kailash.land.util.Result;
+import java.io.*;
+import java.net.URLEncoder;
 
 //@Value("${urldate.importModel}")
 //private String idCardParth;
@@ -37,44 +27,39 @@ import com.kailash.land.util.Result;
 @RequestMapping("file")
 public class FileController {
 	private static Logger logger = LoggerFactory.getLogger(FileController.class);
+	private final static String UPLOAD_DIRS_PREFIX = "upload.dirs.";
+	
+	@Value("${upload.base-dir}")
+	private String uploadDir;
 
+	@Autowired
+	private Environment env;
+	
 	@PostMapping("/upload")
 	@ResponseBody
-	public String upload(@RequestParam("fileKind")Integer fileKind, @RequestParam("file") CommonsMultipartFile file) {
-		long startTime = System.currentTimeMillis();
-		System.out.println("fileName：" + file.getOriginalFilename());
+	public Result upload(Integer fileKind, MultipartFile file) {
+		Result result = new Result();
 		
-		String path = "E:/" + new Date().getTime() + file.getOriginalFilename();
-
-		File newFile = new File(path);
-		// 通过CommonsMultipartFile的方法直接写文件（注意这个时候）
-		try {
-			file.transferTo(newFile);
-		} catch (IllegalStateException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		String proKey = UPLOAD_DIRS_PREFIX + fileKind;
+		String dir = env.getProperty(proKey);
+		if(null != dir){
+			long now = System.currentTimeMillis();
+			String fileName = dir + now + file.getOriginalFilename();
+			File dest = new File(uploadDir + fileName);
+			if(!dest.getParentFile().exists()){
+				dest.getParentFile().mkdirs();
+			}
+			try {
+				file.transferTo(dest);
+				result.put("url","/upload/" + fileName);
+				return result;
+			} catch (IOException e) {
+				logger.error(e.toString(), e);
+				return Result.error(e.toString());
+			}
+		} else {
+			return Result.error("上传失败！文件类别错误！");
 		}
-		long endTime = System.currentTimeMillis();
-		System.out.println("采用file.Transto的运行时间：" + String.valueOf(endTime - startTime) + "ms");
-
-		if (file.isEmpty()) {
-			return "上传失败，请选择文件";
-		}
-
-		String fileName = file.getOriginalFilename();
-		String filePath = "/data/img/";
-		File dest = new File(filePath + fileName);
-		try {
-			file.transferTo(dest);
-			logger.info("上传成功");
-			return "上传成功";
-		} catch (IOException e) {
-			logger.error(e.toString(), e);
-		}
-		return "上传失败！";
 	}
 
 	/*

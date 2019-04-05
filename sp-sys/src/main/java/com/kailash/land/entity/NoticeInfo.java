@@ -1,8 +1,5 @@
 package com.kailash.land.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -10,10 +7,12 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -21,6 +20,9 @@ import lombok.NoArgsConstructor;
 @TableName("notice_info")
 @SuppressWarnings("serial")
 public class NoticeInfo extends Model<NoticeInfo> implements Serializable {
+	@TableId(value = "pkid", type = IdType.AUTO)
+	private Long noticeId;
+	
 	private Integer noticeStatus;
 
 	private String title;
@@ -32,15 +34,13 @@ public class NoticeInfo extends Model<NoticeInfo> implements Serializable {
 	private String noticeText;
 
 	private String noticePic;
-
-	@TableId(value = "pkid", type = IdType.AUTO)
-	private Long noticeId;
+	
 
 	private Date createDate;
 
 	private Integer createUser;
 
-	private String updateDate;
+	private Date updateDate;
 
 	private Integer updateUser;
 

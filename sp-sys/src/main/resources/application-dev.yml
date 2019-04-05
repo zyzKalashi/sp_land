@@ -40,6 +40,7 @@ spring:
     restart:
       enabled: true
       exclude: templates,static
+
 # spdate:
 #   importErrorPath: /data/sp-sys/import/error
 #   importModel: /data/sp-sys/import/importModel.xls
@@ -67,3 +68,9 @@ mybatis-plus:
     cache-enabled: false
     #配置JdbcTypeForNull
     jdbc-type-for-null: 'null'
+
+upload:
+  base-dir: /Users/yaozi/upload/
+  dirs:
+    1: notice_pic/
+    2: doc_upload/

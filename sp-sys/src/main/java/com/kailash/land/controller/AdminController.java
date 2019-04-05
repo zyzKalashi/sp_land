@@ -1,16 +1,14 @@
 package com.kailash.land.controller;
 
 
-import com.kailash.land.mapper.ProjectMapper;
-import com.kailash.land.mapper.UsersMapper;
 import com.kailash.land.service.DashboardService;
 import com.kailash.land.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 @RestController
 @RequestMapping(value = "/admin")
@@ -100,7 +98,7 @@ public class AdminController {
 	@RequestMapping(value = "/noticeModify", method = RequestMethod.GET)
 	public ModelAndView toNoticeModify(String noticeId) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("userId", noticeId);
+		mav.addObject("noticeId", noticeId);
 		mav.setViewName("admin/notice/noticeModify");
 		return mav;
 	}
