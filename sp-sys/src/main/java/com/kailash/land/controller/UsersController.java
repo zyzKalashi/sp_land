@@ -85,6 +85,7 @@ public class UsersController extends AbstractController {
 		return Result.ok(returnMap);
 	}
 	
+	@RequestMapping(value = "getUserStatus", method = RequestMethod.GET)
 	public Result getUserStatus(){
 		Map<String,String> status = new HashMap<>();
 		Map<String, Object> returnMap = new HashMap<>();
