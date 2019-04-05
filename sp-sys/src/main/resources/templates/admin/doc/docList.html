@@ -1,0 +1,204 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>铁西区农村经济总站土地流转交易监管平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugin/jeDate/jeDate.css}">
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
+    <script th:src="@{/static/js/vue.min.js}"></script>
+    <script th:src="@{/static/plugin/layer/layer.js}"></script>
+    <script th:src="@{../static/plugin/pagination/jquery.pagination.js}"></script>
+    <script th:src="@{../static/plugin/pagination/bootstrap-paginator.js}"></script>
+    <script th:src="@{/static/js/common.js}"></script>
+    <script th:src="@{/static/js/common_status_filter.js}"></script>
+    <script th:src="@{/static/plugin/jeDate/jeDate.js}"></script>
+</head>
+<style>
+    .btn{
+        width: auto;
+    }
+    .current{
+        background-color: #F2F2F2;
+    }
+    .layer-skin .layui-layer-btn a{
+        background-color: #965818;
+        border: 1px solid #965818;
+    }
+</style>
+<body>
+<div id="vueApp">
+    <form role="form">
+        <div class="form-group form-inline">
+            <label class="col-sm-2" for="title">文档标题</label>
+            <div class="col-sm-2">
+                <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入文档标题" style="width: 90%;"/>
+            </div>
+            <label class="col-sm-2" for="docType">文档类别</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="docType" v-model="form.docType" placeholder="请选择文档类别" style="width: 90%;" >
+                    <option></option>
+                    <option v-for="(name,key) in kinds" :value="key">{{name}}</option>
+                </select>
+            </div>
+            <label class="col-sm-2" for="docStatus">文档状态</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="docStatus" v-model="form.docStatus" placeholder="请选择文档状态" style="width: 90%;" >
+                    <option></option>
+                    <option v-for="(name,key) in status" :value="key">{{name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="col-sm-2" for="startDate">开始时间</label>
+            <div class="col-sm-2">
+                <input id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
+            </div>
+            <label class="col-sm-2" for="endDate">终止时间</label>
+            <div class="col-sm-2">
+                <input id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
+            </div>
+            <div class="col-sm-4" style="text-align: right;">
+                <div style="width: 95%;">
+                    <button type="button" @click="doQuery('1')" class="btn btn-sm btn-primary">查询</button>
+                    <button type="button" @click="doModify()" class="btn btn-sm btn-warning">新增</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mx-auto" style="margin-top: 10px;">
+        <div class="col-12">
+            <table class="table table-hover table-bordered table-sm">
+                <thead class="thead-default">
+                <tr class="text-center">
+                    <th>文档标题</th>
+                    <th>文档类别</th>
+                    <th>文档状态</th>
+                    <th>创建时间</th>
+                    <th style="width: 20%;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(doc,index) in list" class="text-center">
+                    <td>{{ doc.title }}</td>
+                    <td>{{ doc.docType | docKindFilter }}</td>
+                    <td>{{ doc.docStatus | commonStatusFilter }}</td>
+                    <td>{{ doc.createDateStr }}</td>
+                    <td class="inline">
+                        <button type="button" class="btn btn-sm btn-warning" @click="doModify(doc)">修改</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mx-auto text-center">
+        <ul id='pagination'></ul>
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        jeDate("#startDate",{
+            theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
+            isinitVal:false,
+            onClose:true,
+            isTime:true,
+            format: 'YYYY-MM-DD'
+        });
+
+        jeDate("#endDate",{
+            theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
+            isinitVal:false,
+            onClose:true,
+            isTime:true,
+            format: 'YYYY-MM-DD'
+        });
+    })
+
+    let vm = new Vue({
+        el: "#vueApp",
+        data: {
+            form: {
+                title:'',
+                docType:'',
+                docStatus:'',
+                pageNo: 1,
+                pageSize: 2,
+            },
+            list: [],
+            status:{},
+            kinds:{},
+        },
+        mounted : function() {
+            this.doQuery();
+        },
+        created: function(){
+            let _this = this;
+            $.get("/doc/getdocKinds",null,function(resp){
+                if(0 == resp.code){
+                    _this.kinds = resp.kinds;
+                }
+            });
+            $.get("/user/getUserStatus","", function (resp) {
+                if(0 == resp.code){
+                    _this.status = {};
+                    for(let x in resp.status){
+                        if(x.match("0|1|5")){
+                            _this.status[x] = resp.status[x];
+                        }
+                    }
+                }
+            });
+        },
+        methods:{
+            doQuery: function(currPage){
+                let obj = {};
+                for(let x in this.form){
+                    if(this.form[x]){
+                        obj[x] = this.form[x];
+                    }
+                }
+                if($("#startDate").val()){
+                    obj.startDate = $("#startDate").val();
+                }
+                if($("#endDate").val()){
+                    obj.endDate = $("#endDate").val();
+                }
+                hzToolObj.getdomInit("/doc/docSearch", obj, this.callback, currPage);
+            },
+            callback: function(result){
+                this.list = result.pageInfo.list;
+            },
+            doModify: function(doc){
+                let docId = "";
+                let title = "新增文档";
+                if(doc && doc.docId){
+                    docId =  doc.docId;
+                    title = "修改文档-" + doc.title;
+                }
+
+                layer.open({
+                    type: 2,
+                    title: title,
+                    area: ['90%', '90%'],
+                    fixed: true, //不固定
+                    skin: 'layer-skin',
+                    maxmin: true,
+                    content: '/admin/docModify?docId=' + docId,
+                    btn:['保存','关闭'],
+                    yes: function(index, layero){
+                        let iframeWin = window[layero.find('iframe')[0]['name']];
+                        iframeWin.vm.save();
+                    },
+                    btn2: function(index, layero){
+                    },
+                });
+            }
+        }
+    })
+</script>
+</html>

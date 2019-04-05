@@ -102,4 +102,28 @@ public class AdminController {
 		mav.setViewName("admin/notice/noticeModify");
 		return mav;
 	}
+	
+	/**
+	 * 文档管理列表页面跳转
+	 * @return
+	 */
+	@RequestMapping(value = "/docList", method = RequestMethod.GET)
+	public ModelAndView toDocList() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/doc/docList");
+		return mav;
+	}
+	
+	/**
+	 * 文档管理修改页面跳转
+	 * @param docId
+	 * @return
+	 */
+	@RequestMapping(value = "/docModify", method = RequestMethod.GET)
+	public ModelAndView toDocModify(String docId) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("docId", docId);
+		mav.setViewName("admin/doc/docModify");
+		return mav;
+	}
 }

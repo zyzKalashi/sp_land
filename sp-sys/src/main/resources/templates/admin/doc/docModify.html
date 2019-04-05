@@ -1,0 +1,263 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title id="pageTitle">注册会员—铁西区农村经济总站土地流转交易监管平台</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugin/webuploader/webuploader.css}">
+</head>
+<style>
+.control-group{
+    margin-top: 10px;
+}
+</style>
+<body>
+<div id="app" v-cloak>
+    <div>
+        <form class="form-horizontal" role="form">
+            <div class="form-group form-inline">
+                <label class="col-sm-2" for="docKind">文档类别</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="docKind" v-model="form.docKind" style="width: 100%;" >
+                        <option></option>
+                        <option v-for="(name,key) in kinds" :value="key">{{name}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2" for="docStatus">文档状态</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="docStatus" v-model="form.docStatus" style="width: 100%;" >
+                        <option></option>
+                        <option v-for="(name,key) in status" :value="key">{{name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                <label class="col-sm-2" for="title">文档标题</label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入文档标题" style="width: 100%;"/>
+                </div>
+                <div class="col-sm-2" style="text-align: center;">
+                    <span id="picker">下载文件</span>
+                </div>
+                <div class="col-sm-4">
+                    <div id="fileName" style="width: 100%;"></div>
+                </div>
+            </div>
+            <div class="control-group form-inline">
+                <div class="controls col-md-12">
+                    <div id="toolbar-container"></div>
+                    <div id="editor" style="background-color: white;min-height: 200px;">
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/static/js/vue.min.js}"></script>
+<script th:src="@{/static/plugin/ckeditor/ckeditor.js}"></script>
+<script th:src="@{/static/plugin/ckeditor/zh-cn.js}"></script>
+<script th:src="@{/static/plugin/layer/layer.js}"></script>
+<script th:src="@{/static/plugin/webuploader/webuploader.min.js}"></script>
+
+<script type="text/javascript">
+    var docId = '[[${docId}]]';
+
+    class UploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
+        }
+        upload() {
+            return new Promise((resolve, reject) => {
+                this.loader.file.then(function(result){
+                    const data = new FormData();
+                    data.append('file', result);
+                    data.append('fileKind', 2);//允许图片上传的大小/兆
+                    $.ajax({
+                        url:  "/file/upload",//上传图片的url
+                        type: 'POST',
+                        data: data,
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: function (resp) {
+                            if (0 == resp.code) {
+                                resolve({
+                                    default: resp.url,
+                                });
+                            } else {
+                                reject(data.msg);
+                            }
+                        },
+                        error: function(error){
+                            alert(JSON.stringify(error))
+                        }
+                    });
+                });
+            });
+        }
+        abort() {
+        }
+    }
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            form: {
+                title:'',
+                docType: '',
+                docStatus: '',
+                docText: '',
+                docUrl: '',
+            },
+            status:{},
+            kinds:{},
+            editor:{},
+        },
+        created: function(){
+            let _this = this;
+            $.get("/doc/getdocKinds",null,function(resp){
+                if(0 == resp.code){
+                    _this.kinds = resp.kinds;
+                }
+            });
+            $.get("/user/getUserStatus","", function (resp) {
+                if(0 == resp.code){
+                    _this.status = {};
+                    for(let x in resp.status){
+                        if(x.match("0|1|5")){
+                            _this.status[x] = resp.status[x];
+                        }
+                    }
+                }
+            });
+        },
+        mounted: function(){
+            let _this = this;
+
+            DecoupledEditor
+                .create( document.querySelector( '#editor' ), {
+                    language:"zh-cn"
+                })
+                .then( editor => {
+                    const toolbarContainer = document.querySelector( '#toolbar-container' );
+                    toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+
+                    // 这个地方加载了适配器
+                    editor.plugins.get('FileRepository').createUploadAdapter = (loader)=>{
+                        return new UploadAdapter(loader);
+                    };
+                    this.editor = editor;
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
+            WebUploader.create({
+                auto: true,
+                swf: '/static/plugin/webuploader/Uploader.swf',
+                server: '/file/upload',
+                pick: '#picker',
+                resize: false,
+                formData: {
+                    fileKind: 2,
+                }
+            }).on("uploadSuccess",function(file, resp){
+                if(0 == resp.code){
+                    $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.showPic(\"" + resp.url +"\")'>预览</a>");
+                    _this.form.docPic = resp.url;
+                    this.reset();
+                } else {
+                    alert(resp.msg);
+                }
+            });
+
+            if(docId){
+                $.post("/doc/queryDetail?docId=" + docId, "", function(resp){
+                    if(0 == resp.code){
+                        for(var x in _this.form){
+                            _this.form[x] = resp.objData[x];
+                        }
+                        if(_this.form.docPic){
+                            $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.showPic(\"" + _this.form.docPic +"\")'>预览</a>");
+                        }
+                        _this.editor.setData(resp.objData.docText);
+                    } else {
+                        layer.msg("获取文档信息失败！");
+                    }
+                });
+            }
+        },
+        methods : {
+            showPic: function(url){
+                layer.photos({
+                    photos: {
+                        "data": [
+                            {"src": url}
+                        ]
+                    }
+                });
+            },
+            checkNull: function () {
+                if (!this.form.docKind) {
+                    layer.msg("请选择文档类别！");
+                    $("#docKind").focus();
+                    return false;
+                }
+                if (!this.form.docStatus) {
+                    layer.msg("请选择文档状态！");
+                    $("#docStatus").focus();
+                    return false;
+                }
+                if (!this.form.title) {
+                    layer.msg("请输入文档标题！");
+                    $("#title").focus();
+                    return false;
+                }
+                if (!this.form.docPic) {
+                    layer.msg("请上传首页展示图片！");
+                    return false;
+                }
+                if (!this.form.docText) {
+                    layer.msg("请输入文档内容！");
+                    return false;
+                }
+                return true;
+            },
+            save:function(){
+                if(this.editor.getData()){
+                    this.form.docText = this.editor.getData();
+                }
+
+                if(this.checkNull()){
+                    let url = "";
+                    let tdoc = new Object();
+                    for(let x in this.form){
+                        tdoc[x] = this.form[x];
+                    }
+                    // 修改
+                    if(!docId){
+                        url = "/doc/doc_add";
+                    } else {
+                        url = "/doc/doc_modify";
+                        tdoc.docId = docId;
+                    }
+
+                    $.post(url, tdoc, function (result) {
+                        if (result.code == 0) {
+                            layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index);
+                                parent.vm.doQuery();
+                            });
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                    });
+                }
+                return false;
+            }
+        }
+    });
+</script>
+</html>

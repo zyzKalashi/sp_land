@@ -15,11 +15,15 @@ let demandKindDic = [
 ];
 let noticeKindDic = [
 	{value: 0, label: "全部"},
-	{value: 1, label: "土地承包"},
-	{value: 2, label: "林权转让"},
-	{value: 3, label: "养殖水面"},
-	{value: 4, label: "四荒承包"},
-	{value: 5, label: "其他"},
+	{value: 1, label: "新闻"},
+	{value: 2, label: "政策"},
+	{value: 3, label: "法规"},
+	{value: 4, label: "公告"},
+];
+let docKindDic = [
+	{value: 0, label: "全部"},
+	{value: 1, label: "帮助中心"},
+	{value: 2, label: "资料下载"},
 ];
 let projectInfoKindDic = [
 	{value: 0, label: "家庭个人"},
@@ -78,6 +82,12 @@ Vue.filter('noticeKindFilter', function(val) {
 	return noticeKindDic.filter((item)=>{
         return item.value == val
     })[0].label;
+});
+
+Vue.filter('docKindFilter', function(val) {
+	return docKindDic.filter((item)=>{
+		return item.value == val
+	})[0].label;
 });
 
 Vue.filter('projectInfoKindFilter', function(val) {
