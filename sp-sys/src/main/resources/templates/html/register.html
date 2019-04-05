@@ -97,6 +97,12 @@
                     layer.msg("请输入手机！");
                     $("#mobile").focus();
                     return false;
+                } else {
+                	if(!(/^1[34578]\d{9}$/.test(this.user.mobile))){ 
+						layer.msg("手机号码有误，请重填");  
+						 $("#mobile").focus();
+						return false; 
+					}
                 }
                 if (!this.user.password) {
                     layer.msg("请输入密码！");

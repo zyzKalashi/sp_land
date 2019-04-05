@@ -27,7 +27,7 @@ public class Users extends Model<Users> implements Serializable {
 
 	private Date createDate;
 	private Integer createUser;
-	private String updateDate;
+	private Date updateDate;
 	private Integer updateUser;
 	private String userName;
 	private String password;
@@ -66,4 +66,5 @@ public class Users extends Model<Users> implements Serializable {
 	public String getCreateDateStr() {
 		return DateUtils.format(this.createDate, DateFormatConsts.DATE_TIME_PATTERN);
 	}
+	
 }

@@ -1,0 +1,212 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title id="pageTitle">注册会员—铁西区农村经济总站土地流转交易监管平台</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
+</head>
+<style>
+.control-group{
+    margin-top: 10px;
+}
+</style>
+<body>
+<div id="app" v-cloak>
+    <div>
+        <form class="form-horizontal" style="margin-top: 50px;" role="form">
+            <div class="control-group form-inline">
+                <label class="control-label col-md-2 offset-md-2" for="userName">用户名</label>
+                <div class="controls col-md-6">
+                    <input type="text" placeholder="请输入用户名" class="form-control" style="width: 90%;" id="userName" v-model="user.userName">
+                </div>
+            </div>
+            <div class="control-group form-inline">
+                <label class="control-label col-md-2 offset-md-2" for="email">邮箱</label>
+                <div class="controls col-md-6">
+                    <input type="text" placeholder="请输入用户邮箱" class="form-control" style="width: 90%;" id="email" v-model="user.email">
+                </div>
+            </div>
+            <div class="control-group form-inline">
+                <label class="control-label col-md-2 offset-md-2" for="mobile">手机号</label>
+                <div class="controls col-md-6">
+                    <input type="text" placeholder="请输入手机号" class="form-control" style="width: 90%;" id="mobile" v-model="user.mobile">
+                </div>
+            </div>
+            <div class="control-group form-inline">
+                <label class="control-label col-md-2 offset-md-2" for="password">密码</label>
+                <div class="controls col-md-6">
+                    <input type="text" placeholder="请输入密码" class="form-control" style="width: 90%;" id="password" v-model="user.password">
+                </div>
+            </div>
+            <div class="control-group form-inline">
+                <label class="control-label col-md-2 offset-md-2" for="password_v">确认密码</label>
+                <div class="controls col-md-6">
+                    <input type="text" placeholder="请再次输入密码" class="form-control" style="width: 90%;" id="password_v" v-model="user.password_v">
+                </div>
+            </div>
+            <div class="control-group form-inline">
+                <label class="control-label col-md-2 offset-md-2" for="userStatus">用户状态</label>
+                <div class="controls col-md-6">
+                    <select class="form-control" id="userStatus" v-model="user.userStatus" placeholder="请选择用户状态" style="width: 90%;" >
+                        <option v-for="(name,key) in status" :value="key">{{name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group form-inline">
+                <label class="control-label col-md-2 offset-md-2" for="roleId">用户角色</label>
+                <div class="controls col-md-6">
+                    <select class="form-control" id="roleId" v-model="user.roleId" placeholder="请选择用户角色" style="width: 90%;" >
+                        <option v-for="(roleName,roleId) in roleInfos" :value="roleId">{{roleName}}</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/static/js/vue.min.js}"></script>
+<script th:src="@{/static/js/md5_32.js}"></script>
+<script th:src="@{/static/plugin/layer/layer.js}"></script>
+<script type="text/javascript">
+    var userId = '[[${userId}]]';
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            user: {
+                userName: '',
+                email: '',
+                mobile: '',
+                password: '',
+                password_v: '',
+                userStatus: '3',
+                roleId: '4',
+            },
+            status:{},
+            roleInfos:{},
+        },
+        created: function(){
+            var _this = this;
+
+            $.get("/user/getUserStatus","", function (resp) {
+                if(0 == resp.code){
+                    _this.status = resp.status;
+                }
+            });
+
+            var _this = this;
+            $.post("/user/allRoles",null,function(resp){
+                if(0 == resp.code){
+                    var obj = new Object();
+                    for(var i=0;i < resp.result.length;i++){
+                        obj[resp.result[i].roleId] = resp.result[i].roleName;
+                    }
+                    _this.roleInfos = obj;
+                }
+            });
+
+            if(userId){
+                $.post("/user/userDetail?userId=" + userId, "", function(resp){
+                    if(0 == resp.code){
+                        for(var x in _this.user){
+                            _this.user[x] = resp.userData[x];
+                        }
+                        if("3" == _this.user.userStatus || "4" == _this.user.userStatus){
+                            $("#userStatus").attr("disabled","true");
+                        }
+                    } else {
+                        _this.clear();
+                        layer.msg("获取用户信息失败！");
+                    }
+                });
+            }
+        },
+        methods : {
+            checkNull: function () {
+                if (!this.user.userName) {
+                    layer.msg("请输入用户名！");
+                    $("#userName").focus();
+                    return false;
+                }
+                if (!this.user.email) {
+                    layer.msg("请输入邮箱！");
+                    $("#email").focus();
+                    return false;
+                }
+                if (!this.user.mobile) {
+                    layer.msg("请输入手机！");
+                    $("#mobile").focus();
+                    return false;
+                }
+
+                if(!userId){
+                    if (!this.user.password) {
+                        layer.msg("请输入密码！");
+                        $("#password").focus();
+                        return false;
+                    }
+                    if (!this.user.password_v) {
+                        layer.msg("请再次输入密码！");
+                        $("#password_v").focus();
+                        return false;
+                    }
+                }
+                if((this.user.password || this.user.password_v) && this.user.password != this.user.password_v){
+                    layer.msg("两次输入密码不一致！");
+                    $("#password").focus();
+                    return false;
+                }
+                return true;
+            },
+            save : function () {
+                if (vm.checkNull()) {
+                    var tUser = new Object();
+                    var url = "";
+
+                    // 修改
+                    if(!userId){
+                        url = "/user/users_register";
+                        tUser.userName = this.user.userName;
+                        tUser.password = hex_md5(this.user.password);
+                        tUser.email    = this.user.email;
+                        tUser.mobile   = this.user.mobile;
+                        tUser.userStatus = this.user.userStatus;
+                        tUser.roleId = this.user.roleId;
+                    } else {
+                        url = "/user/users_modify";
+                        tUser.userId   = userId;
+                        tUser.userName = this.user.userName;
+                        if(this.user.password){
+                            tUser.password = hex_md5(this.user.password);
+                        }
+                        tUser.email    = this.user.email;
+                        tUser.mobile   = this.user.mobile;
+                        tUser.userStatus = this.user.userStatus;
+                        tUser.roleId = this.user.roleId;
+                    }
+
+                    $.post(url, tUser, function (result) {
+                        if (result.code == 0) {
+                            layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index);
+                                parent.vm.doQuery();
+                            });
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                    });
+                }
+                return false;
+            },
+            clear: function(){
+                for(var x in this.user){
+                    this.user[x] = '';
+                }
+            }
+        },
+    });
+</script>
+</html>

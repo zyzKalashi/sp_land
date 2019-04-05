@@ -1,135 +1,123 @@
-//task
+let projectKindDic = [
+	{value: 0, label: "全部"},
+	{value: 1, label: "土地承包"},
+	{value: 2, label: "林权转让"},
+	{value: 3, label: "养殖水面"},
+	{value: 4, label: "四荒承包"},
+];
+let demandKindDic = [
+	{value: 0, label: "全部"},
+	{value: 1, label: "土地承包"},
+	{value: 2, label: "林权转让"},
+	{value: 3, label: "养殖水面"},
+	{value: 4, label: "四荒承包"},
+	{value: 5, label: "其他"},
+];
+let noticeKindDic = [
+	{value: 0, label: "全部"},
+	{value: 1, label: "土地承包"},
+	{value: 2, label: "林权转让"},
+	{value: 3, label: "养殖水面"},
+	{value: 4, label: "四荒承包"},
+	{value: 5, label: "其他"},
+];
+let projectInfoKindDic = [
+	{value: 0, label: "家庭个人"},
+	{value: 1, label: "集体单位"},
+];
+let commonStatusterDic = [
+	{value: 0, label: "删除"},
+	{value: 1, label: "正常"},
+	{value: 2, label: "待审核"},
+	{value: 3, label: "拒绝"},
+	{value: 4, label: "结束"},
+	{value: 5, label: "禁用"},
+];
+let commonYesNoDic = [
+	{value: 0, label: "否"},
+	{value: 1, label: "是"},
+];
+let sexDic = [
+	{value: 0, label: "男"},
+	{value: 1, label: "女"},
+];
+let sexRespectDic = [
+	{value: 0, label: "先生"},
+	{value: 1, label: "女士"},
+];
+let projectStatusDic = [
+	{value: 0, label: "已删除"},
+	{value: 1, label: "进行中"},
+	{value: 2, label: "待审核"},
+	{value: 3, label: "已拒绝"},
+	{value: 4, label: "已结束"},
+	{value: 5, label: "禁用"},
+];
+let moneyLevelDic = [
+	{value: 0, label: "1万-10万"},
+	{value: 1, label: "10万-50万"},
+	{value: 2, label: "50万-100万"},
+	{value: 3, label: "100万以上"},
+];
+
+// task
 // 状态过滤-zyz
 Vue.filter('projectKindFilter', function(val) {
-	var ss = "全部";
-	if (val == 1) {
-		ss = "土地承包";
-	} else if (val == 2) {
-		ss = "林权转让";
-	} else if (val == 3) {
-		ss = "养殖水面";
-	} else if (val == 4) {
-		ss = "四荒承包";
-	}
-	return ss;
+	return projectKindDic.filter((item)=>{
+        return item.value == val
+    })[0].label;
 });
 // 状态过滤-zyz
 Vue.filter('demandKindFilter', function(val) {
-	var ss = "全部";
-	if (val == 1) {
-		ss = "土地承包";
-	} else if (val == 2) {
-		ss = "林权转让";
-	} else if (val == 3) {
-		ss = "养殖水面";
-	} else if (val == 4) {
-		ss = "四荒承包";
-	} else if (val == 5) {
-		ss = "其他";
-	}
-	return ss;
+	return demandKindDic.filter((item)=>{
+        return item.value == val
+    })[0].label;
 });
 // 状态过滤-zyz
 Vue.filter('noticeKindFilter', function(val) {
-	var ss = "全部";
-	if (val == 1) {
-		ss = "新闻";
-	} else if (val == 2) {
-		ss = "政策";
-	} else if (val == 3) {
-		ss = "法规";
-	} else if (val == 4) {
-		ss = "公告";
-	}
-	return ss;
+	return noticeKindDic.filter((item)=>{
+        return item.value == val
+    })[0].label;
 });
 
 Vue.filter('projectInfoKindFilter', function(val) {
-	var ss = "--";
-	if (val == 0) {
-		ss = "家庭个人";
-	} else if (val == 1) {
-		ss = "集体单位";
-	}
-	return ss;
+	return projectInfoKindDic.filter((item)=>{
+        return item.value == val
+    })[0].label;
 });
 
 Vue.filter('commonStatusFilter', function(val) {
-	var ss = "--";
-	if (val == 0) {
-		ss = "删除";
-	} else if (val == 1) {
-		ss = "正常";
-	} else if (val == 2) {
-		ss = "待审核";
-	} else if (val == 3) {
-		ss = "拒绝";
-	} else if (val == 4) {
-		ss = "结束";
-	} else if (val == 5) {
-		ss = "禁用";
-	}
-	return ss;
+	return commonStatusterDic.filter((item)=>{
+		return item.value == val
+	})[0].label;
 });
 
 Vue.filter('commonYesNoFilter', function(val) {
-	var ss = "--";
-	if (val == 0) {
-		ss = "否";
-	} else if (val == 1) {
-		ss = "是";
-	}
-	return ss;
+	return commonYesNoDic.filter((item)=>{
+		return item.value == val
+	})[0].label;
 });
 
 Vue.filter('sexFilter', function(val) {
-	var ss = "--";
-	if (val == 0) {
-		ss = "男";
-	} else if (val == 1) {
-		ss = "女";
-	}
-	return ss;
+	return sexDic.filter((item)=>{
+		return item.value == val
+	})[0].label;
 });
 
 Vue.filter('sexRespectFilter', function(val) {
-	var ss = "--";
-	if (val == 0) {
-		ss = "先生";
-	} else if (val == 1) {
-		ss = "女士";
-	}
-	return ss;
+	return sexRespectDic.filter((item)=>{
+		return item.value == val
+	})[0].label;
 });
 
 Vue.filter('projectStatusFilter', function(val) {
-	var ss = "--";
-	if (val == 0) {
-		ss = "删除";
-	} else if (val == 1) {
-		ss = "进行中";
-	} else if (val == 2) {
-		ss = "待审核";
-	} else if (val == 3) {
-		ss = "拒绝";
-	} else if (val == 4) {
-		ss = "已结束";
-	} else if (val == 5) {
-		ss = "禁用";
-	}
-	return ss;
+	return projectStatusDic.filter((item)=>{
+		return item.value == val
+	})[0].label;
 });
 
 Vue.filter('moneyLevelFilter', function(val) {
-	var ss = "--";
-	if (val == 1) {
-		ss = "1万-10万";
-	} else if (val == 2) {
-		ss = "10万-50万";
-	} else if (val == 3) {
-		ss = "50万-100万";
-	} else if (val == 4) {
-		ss = "100万以上";
-	} 
-	return ss;
+	return moneyLevelDic.filter((item)=>{
+		return item.value == val
+	})[0].label;
 });

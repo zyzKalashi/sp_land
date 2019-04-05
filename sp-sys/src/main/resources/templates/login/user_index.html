@@ -4,6 +4,15 @@
 <head th:include="common :: header">
 	<title id="pageTitle">会员中心—铁西区农村经济总站土地流转交易监管平台</title>
 </head>
+	<style type="text/css">
+	.openWin{
+		    background-color: rgb(246, 239, 227);
+	
+	}
+	
+	
+	
+	</style>
 
 <body>
 	<div id="app" v-cloak>
@@ -54,7 +63,7 @@
 								</td>
 								<td style="">
 									<p class="fl pl20" style="margin: 0 auto;">
-										<a href="#mima" data-toggle="tab">修改密码</a>
+										<a @click="openWin('mima')" data-toggle="tab">修改密码</a>
 									</p>
 								</td>
 							</tr>
@@ -64,7 +73,7 @@
 								</td>
 								<td style="">
 									<p class="fl pl20" style="margin: 0 auto;">
-										<a href="#tel" data-toggle="tab">更换手机</a>
+										<a @click="openWin('tel')" data-toggle="tab">更换手机</a>
 									</p>
 
 								</td>
@@ -75,7 +84,7 @@
 								</td>
 								<td style="">
 									<p class="fl pl20" style="margin: 0 auto;">
-										<a href="#email" data-toggle="tab">更改邮箱</a>
+									<a @click="openWin('email')" data-toggle="tab">更改邮箱</a>
 									</p>
 								</td>
 							</tr>
@@ -215,13 +224,44 @@
 							<div class="main8 clearfix"></div>
 						</div>
 						<!-- 以下是修改密码的内容 -->
-						<div class="tab-pane" id="mima">xiugaimima</div>
+						<div class="tab-pane" id="mima" >
+							<div>
+								<span>原密码</span>
+								<input type="password" v-model="userData.password" placeholder="原密码">
+							</div>
+							<div>
+								<span>新密码</span>
+								<input type="password" v-model="userData.newPassword" placeholder="新密码">
+							</div>
+							<div>
+								<button @click="updUserPassword">确定</button>
+								<button onclick="closeWin()">取消</button>
+							</div>
+						</div>
 						<!-- 以下是更换手机的内容 -->
-						<div class="tab-pane" id="tel">genggaishouji</div>
+						<div class="tab-pane" id="tel">
+							<div>
+								<span>新手机号</span>
+								<input type="text" v-model="userData.newMobile" placeholder="新手机号">
+							</div>
+							<div>
+								<button @click="modifyUser('changeMobile')">确定</button>
+								<button onclick="closeWin()">取消</button>
+							</div>
+						</div>
 						<!-- 以下更改邮箱的内容 -->
-						<div class="tab-pane" id="email">email</div>
+						<div class="tab-pane" id="email">
+							<div>
+								<span>新email</span>
+								<input type="email" v-model="userData.newEmail" placeholder="新email">
+								<button @click="modifyUser('changeEmail')">确定</button>
+								<button onclick="closeWin()">取消</button>
+							</div>
+						</div>
 						<!-- 以下是账号注销的内容 -->
-						<div class="tab-pane" id="loginout">zhanghuzhuxiao</div>
+						<div class="tab-pane" id="loginout">
+							
+						</div>
 					</div>
 				</div>
 			</div>
@@ -341,6 +381,50 @@
 				goDemDetail: function(id){
 					storage.setItem("demandQueryData",JSON.stringify(vm.queryData_dem));
 					window.location.href="../html/demand_detail?demandId=" + id;
+				},
+				openWin: function(id, flag){
+					layer.open({
+						  type: 1,
+						  title: false,
+						  area: ['630px', '360px'],
+						  shade: 0.8,
+						  closeBtn: 0,
+						  shadeClose: true,
+						  content: $('#'+id+'')
+						});
+				},
+				updUserPassword: function(flag){
+					if(vm.userData.newPassword.length < 6){
+						layer.alert("密码长度应大于6位！");
+					}
+					vm.userData.password = hex_md5(vm.userData.password);
+					$.post("/user/checkUser", vm.userData, function (result) {
+						if (result.code == 0) {
+							vm.modifyUser("changePassword");
+                        } 
+                	});
+				},
+				modifyUser: function(flag){
+					if(flag == "changeMobile"){
+						if(!(/^1[34578]\d{9}$/.test(vm.userData.newMobile))){ 
+							layer.alert("手机号码有误，请重填");  
+							return; 
+						} else {
+							vm.userData.mobile = vm.userData.newMobile;
+						}
+					} else if (flag == "changEmail") {
+						vm.userData.email = vm.userData.newEmail;
+					} else if (flag == "changePassword") {
+						vm.userData.password = hex_md5(vm.userData.newWassword);
+					}
+					$.post("/user/users_modify", vm.userData, function (result) {
+						if (result.code == 0) {
+							layer.msg("更新成功！");
+							vm.initUser();
+                        } else {
+                        	layer.msg(result.msg);
+                        }
+                	});
 				},
 			},
 		});
