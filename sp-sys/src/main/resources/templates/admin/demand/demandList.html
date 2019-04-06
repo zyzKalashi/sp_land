@@ -14,6 +14,7 @@
     <script th:src="@{../static/plugin/pagination/jquery.pagination.js}"></script>
     <script th:src="@{../static/plugin/pagination/bootstrap-paginator.js}"></script>
     <script th:src="@{/static/js/common.js}"></script>
+    <script th:src="@{/static/js/common_status_filter.js}"></script>
     <script th:src="@{/static/plugin/jeDate/jeDate.js}"></script>
 </head>
 <style>
@@ -32,22 +33,22 @@
 <div id="vueApp">
     <form role="form">
         <div class="form-group form-inline">
-            <label class="col-sm-2" for="title">标题</label>
+            <label class="col-sm-2" for="title">需求名称</label>
             <div class="col-sm-2">
-                <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入标题" style="width: 90%;"/>
+                <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入需求名称" style="width: 90%;"/>
             </div>
-            <label class="col-sm-2" for="noticeKind">法规类别</label>
+            <label class="col-sm-2" for="demandKind">需求类别</label>
             <div class="col-sm-2">
-                <select class="form-control" id="noticeKind" v-model="form.noticeKind" placeholder="请选择法规类别" style="width: 90%;" >
+                <select class="form-control" id="demandKind" v-model="form.demandKind" placeholder="请选择需求类别" style="width: 90%;" >
                     <option></option>
-                    <option v-for="(name,key) in kinds" :value="key">{{name}}</option>
+                    <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
                 </select>
             </div>
-            <label class="col-sm-2" for="noticeStatus">法规状态</label>
+            <label class="col-sm-2" for="demandStatus">需求状态</label>
             <div class="col-sm-2">
-                <select class="form-control" id="noticeStatus" v-model="form.noticeStatus" placeholder="请选择法规状态" style="width: 90%;" >
+                <select class="form-control" id="demandStatus" v-model="form.demandStatus" placeholder="请选择需求状态" style="width: 90%;" >
                     <option></option>
-                    <option v-for="(name,key) in status" :value="key">{{name}}</option>
+                    <option v-for="item in status" :value="'' + item.value">{{item.label}}</option>
                 </select>
             </div>
         </div>
@@ -63,7 +64,6 @@
             <div class="col-sm-4" style="text-align: right;">
                 <div style="width: 95%;">
                     <button type="button" @click="doQuery('1')" class="btn btn-sm btn-primary">查询</button>
-                    <button type="button" @click="doModify()" class="btn btn-sm btn-warning">新增</button>
                 </div>
             </div>
         </div>
@@ -73,30 +73,35 @@
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-default">
                 <tr class="text-center">
-                    <th>法规标题</th>
-                    <th>法规类别</th>
-                    <th>法规状态</th>
+                    <th>需求名称</th>
+                    <th>发布人</th>
+                    <th>需求类别</th>
+                    <th>需求状态</th>
+                    <th>需求性质</th>
                     <th>创建时间</th>
                     <th style="width: 20%;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(notice,index) in list" class="text-center">
-                    <td>{{notice.title}}</td>
-                    <td>{{notice.noticeKind}}</td>
-                    <td>{{notice.noticeStatus}}</td>
-                    <td>{{notice.createDateStr}}</td>
+                <tr v-for="(demand,index) in list" class="text-center">
+                    <td>{{demand.title}}</td>
+                    <td>{{demand.person}}</td>
+                    <td>{{demand.demandKind | demandKindFilter}}</td>
+                    <td>{{ ('' + demand.demandStatus) | projectStatusFilter}}</td>
+                    <td>{{demand.demandInfoKind | projectKindFilter}}</td>
+                    <td>{{demand.createDateStr}}</td>
                     <td class="inline">
-                        <button type="button" class="btn btn-sm btn-warning" @click="doModify(user)">修改</button>
-                        <button type="button" class="btn btn-sm btn-warning" @click="doModify(user)">删除</button>
+                        <button type="button" class="btn btn-sm btn-warning" @click="doAudit(demand)">审核</button>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="row mx-auto text-center">
-        <ul id='pagination'></ul>
+    <div class="row" style="width: 95%;">
+        <div class="col-12 text-center" >
+            <ul id='pagination'></ul>
+        </div>
     </div>
 </div>
 </body>
@@ -119,43 +124,40 @@
         });
     })
 
-    let vm = new Vue({
+    var vm = new Vue({
         el: "#vueApp",
         data: {
             form: {
                 title:'',
-                noticeKind:'',
-                noticeStatus:'',
+                demandKind: null,
+                demandStatus: null,
                 pageNo: 1,
                 pageSize: 2,
             },
             list: [],
-            status:{},
-            kinds:{},
+        },
+        computed:{
+            kinds: function(){
+                let arr = [];
+                for(let x in demandKindDic){
+                    if(demandKindDic[x].value != 0){
+                        arr.push(demandKindDic[x]);
+                    }
+                }
+                return arr;
+            },
+            status: function(){
+                return projectStatusDic;
+            }
         },
         mounted : function() {
             this.doQuery();
         },
-        created: function(){
-            let _this = this;
-            $.post("/user/allRoles",null,function(resp){
-                let obj = {};
-                for(let i=0;i < resp.result.length;i++){
-                    obj[resp.result[i].roleId] = resp.result[i].roleName;
-                }
-                _this.roleInfos = obj;
-            });
-            $.get("/user/getUserStatus","", function (resp) {
-                if(0 == resp.code){
-                    _this.status = resp.status;
-                }
-            });
-        },
         methods:{
-            doQuery: function(currPage){
+            doQuery: function(){
                 let obj = {};
                 for(let x in this.form){
-                    if(this.form[x]){
+                    if(this.form[x] != ''){
                         obj[x] = this.form[x];
                     }
                 }
@@ -165,35 +167,34 @@
                 if($("#endDate").val()){
                     obj.endDate = $("#endDate").val();
                 }
-                hzToolObj.getdomInit("/notice/noticeSearch", obj, this.callback, currPage);
+                hzToolObj.getdomInit("/demand/demandSearch", obj, this.callback, this.form.pageNo);
             },
             callback: function(result){
-                this.list = result.pageInfo.list;
-            },
-            doModify: function(user){
-                let userId = "";
-                let title = "新增用户";
-                if(user && user.userId){
-                    userId =  user.userId;
-                    title = "修改用户-" + user.userName;
+                if(result.pageInfo.pageNum){
+                    this.form.pageNo = result.pageInfo.pageNum;
+                } else {
+                    this.form.pageNo = 1;
                 }
 
+                this.list = result.pageInfo.list;
+            },
+            doAudit: function(demand){
                 layer.open({
                     type: 2,
-                    title: title,
+                    title: '审核-' + demand.title,
                     area: ['90%', '90%'],
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/userModify?userId=' + userId,
-                    btn:['保存','清空','关闭'],
+                    content: '/admin/demandAudit?demandId=' + demand.demandId,
+                    btn:['通过','拒绝','关闭'],
                     yes: function(index, layero){
                         let iframeWin = window[layero.find('iframe')[0]['name']];
-                        iframeWin.vm.save();
+                        iframeWin.vm.audit('1');
                     },
                     btn2: function(index, layero){
                         let iframeWin = window[layero.find('iframe')[0]['name']];
-                        iframeWin.vm.clear();
+                        iframeWin.vm.audit('3');
                         return false;
                     },
                     btn3: function(){

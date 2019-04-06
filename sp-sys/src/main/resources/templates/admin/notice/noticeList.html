@@ -95,7 +95,7 @@
             </table>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="width: 95%;">
         <div class="col-12 text-center">
             <ul id='pagination'></ul>
         </div>
@@ -174,7 +174,11 @@
             },
 
             callback: function(result){
-                this.form.pageNo = result.pageInfo.pageNum;
+                if(result.pageInfo.pageNum){
+                    this.form.pageNo = result.pageInfo.pageNum;
+                } else {
+                    this.form.pageNo = 1;
+                }
                 this.list = result.pageInfo.list;
             },
             doModify: function(notice){

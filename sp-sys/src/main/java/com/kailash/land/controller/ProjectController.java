@@ -217,6 +217,11 @@ public class ProjectController extends AbstractController {
 		return Result.ok().put("pageInfo", mapPageInfo);
 	}
 	
+	/**
+	 * 项目信息审批
+	 * @param project
+	 * @return
+	 */
 	@ResponseBody
 	@PostMapping(value = "/projectAudit")
 	public Result projectAudit(Project project) {

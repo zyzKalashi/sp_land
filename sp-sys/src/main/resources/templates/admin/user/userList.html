@@ -98,7 +98,7 @@
             </table>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="width: 95%;">
         <div class="col-12 text-center">
             <ul id='pagination'></ul>
         </div>
@@ -145,7 +145,11 @@
                 hzToolObj.getdomInit("/user/userSearch", obj, this.callback, this.form.pageNo);
             },
             callback: function(result){
-                this.form.pageNo = result.pageInfo.pageNum;
+                if(result.pageInfo.pageNum){
+                    this.form.pageNo = result.pageInfo.pageNum;
+                } else {
+                    this.form.pageNo = 1;
+                }
                 this.list = result.pageInfo.list;
             },
             doAudit: function(user){

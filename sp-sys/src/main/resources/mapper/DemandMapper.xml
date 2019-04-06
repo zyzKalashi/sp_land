@@ -49,7 +49,40 @@
 		ORDER BY 
 			pkid DESC
 	</select>
-	
-	
+
+	<select id="selectDemandInfo" parameterType="com.kailash.land.entity.Demand" resultType="Map">
+		SELECT
+		pkid AS demandId,
+		title,
+		person,
+		demand_kind AS demandKind,
+		demand_status AS demandStatus,
+		demand_info_kind AS demandInfoKind,
+		DATE_FORMAT(create_date,'%Y-%m-%d') AS createDateStr
+		FROM
+		demand
+		<where>
+			<if test="title != null">
+				AND title like CONCAT('%',#{title},'%')
+			</if>
+			<if test="person != null">
+				AND person like CONCAT('%',#{person},'%')
+			</if>
+			<if test="demandKind != null">
+				AND demand_kind = #{demandKind}
+			</if>
+			<if test="demandStatus != null">
+				AND demand_status = #{demandStatus}
+			</if>
+			<if test="startDate != null">
+				AND create_date <![CDATA[ >= ]]> #{startDate}
+			</if>
+			<if test="endDate != null">
+				AND create_date <![CDATA[ <= ]]> #{endDate}
+			</if>
+		</where>
+		ORDER BY
+		pkid DESC
+	</select>
 	
 </mapper>
