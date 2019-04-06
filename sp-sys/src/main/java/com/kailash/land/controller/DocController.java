@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/doc")
@@ -57,7 +58,7 @@ public class DocController extends AbstractController {
         return Result.error();
     }
     
-    @PostMapping(value = "/notice_modify")
+    @PostMapping(value = "/doc_modify")
     @ResponseBody
     public Result modify(DocInfo doc) {
         doc.setUpdateUser(getUserId().intValue());
@@ -72,5 +73,15 @@ public class DocController extends AbstractController {
             return Result.ok();
         }
         return Result.error();
+    }
+    @ResponseBody
+    @PostMapping(value = "/queryDetail")
+    public Result detail(DocInfo doc){
+        if(Objects.isNull(doc.getDocId())){
+            return Result.error("参数错误");
+        }
+        DocInfo docDetail = this.docService.selectById(doc.getDocId());
+        
+        return Result.ok().put("objData",docDetail);
     }
 }

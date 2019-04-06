@@ -16,18 +16,16 @@
     <div>
         <form class="form-horizontal" role="form">
             <div class="form-group form-inline">
-                <label class="col-sm-2" for="docKind">文档类别</label>
+                <label class="col-sm-2" for="docType">文档类别</label>
                 <div class="col-sm-4">
-                    <select class="form-control" id="docKind" v-model="form.docKind" style="width: 100%;" >
-                        <option></option>
-                        <option v-for="(name,key) in kinds" :value="key">{{name}}</option>
+                    <select class="form-control" id="docType" v-model="form.docType" style="width: 100%;" >
+                        <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
                     </select>
                 </div>
                 <label class="col-sm-2" for="docStatus">文档状态</label>
                 <div class="col-sm-4">
                     <select class="form-control" id="docStatus" v-model="form.docStatus" style="width: 100%;" >
-                        <option></option>
-                        <option v-for="(name,key) in status" :value="key">{{name}}</option>
+                        <option v-for="item in status" :value="item.value">{{item.label}}</option>
                     </select>
                 </div>
             </div>
@@ -37,7 +35,7 @@
                     <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入文档标题" style="width: 100%;"/>
                 </div>
                 <div class="col-sm-2" style="text-align: center;">
-                    <span id="picker">下载文件</span>
+                    <span id="picker">上传附件</span>
                 </div>
                 <div class="col-sm-4">
                     <div id="fileName" style="width: 100%;"></div>
@@ -60,6 +58,7 @@
 <script th:src="@{/static/plugin/ckeditor/zh-cn.js}"></script>
 <script th:src="@{/static/plugin/layer/layer.js}"></script>
 <script th:src="@{/static/plugin/webuploader/webuploader.min.js}"></script>
+<script th:src="@{/static/js/common_status_filter.js}"></script>
 
 <script type="text/javascript">
     var docId = '[[${docId}]]';
@@ -73,7 +72,7 @@
                 this.loader.file.then(function(result){
                     const data = new FormData();
                     data.append('file', result);
-                    data.append('fileKind', 2);//允许图片上传的大小/兆
+                    data.append('fileKind', 2);
                     $.ajax({
                         url:  "/file/upload",//上传图片的url
                         type: 'POST',
@@ -111,27 +110,27 @@
                 docText: '',
                 docUrl: '',
             },
-            status:{},
-            kinds:{},
             editor:{},
         },
-        created: function(){
-            let _this = this;
-            $.get("/doc/getdocKinds",null,function(resp){
-                if(0 == resp.code){
-                    _this.kinds = resp.kinds;
-                }
-            });
-            $.get("/user/getUserStatus","", function (resp) {
-                if(0 == resp.code){
-                    _this.status = {};
-                    for(let x in resp.status){
-                        if(x.match("0|1|5")){
-                            _this.status[x] = resp.status[x];
-                        }
+        computed:{
+            kinds: function(){
+                let arr = [];
+                for(let x in docKindDic){
+                    if(docKindDic[x].value.toString().match("1|2")){
+                        arr.push(docKindDic[x]);
                     }
                 }
-            });
+                return arr;
+            },
+            status: function(){
+                let arr = [];
+                for(let x in commonStatusterDic){
+                    if(commonStatusterDic[x].value.toString().match("0|1|5")){
+                        arr.push(commonStatusterDic[x]);
+                    }
+                }
+                return arr;
+            }
         },
         mounted: function(){
             let _this = this;
@@ -165,7 +164,7 @@
             }).on("uploadSuccess",function(file, resp){
                 if(0 == resp.code){
                     $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.showPic(\"" + resp.url +"\")'>预览</a>");
-                    _this.form.docPic = resp.url;
+                    _this.form.docUrl = resp.url;
                     this.reset();
                 } else {
                     alert(resp.msg);
@@ -175,11 +174,11 @@
             if(docId){
                 $.post("/doc/queryDetail?docId=" + docId, "", function(resp){
                     if(0 == resp.code){
-                        for(var x in _this.form){
+                        for(let x in _this.form){
                             _this.form[x] = resp.objData[x];
                         }
-                        if(_this.form.docPic){
-                            $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.showPic(\"" + _this.form.docPic +"\")'>预览</a>");
+                        if(_this.form.docUrl){
+                            $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + _this.form.docUrl +"\")'>下载</a>");
                         }
                         _this.editor.setData(resp.objData.docText);
                     } else {
@@ -189,22 +188,19 @@
             }
         },
         methods : {
-            showPic: function(url){
-                layer.photos({
-                    photos: {
-                        "data": [
-                            {"src": url}
-                        ]
-                    }
-                });
+            downFile: function(url){
+                let frame = document.createElement("iframe");
+                frame.src = url;
+                frame.style.display = "none";
+                document.body.appendChild(frame);
             },
             checkNull: function () {
-                if (!this.form.docKind) {
+                if (!this.form.docType) {
                     layer.msg("请选择文档类别！");
-                    $("#docKind").focus();
+                    $("#docType").focus();
                     return false;
                 }
-                if (!this.form.docStatus) {
+                if (!this.form.docStatus && this.form.docStatus != 0) {
                     layer.msg("请选择文档状态！");
                     $("#docStatus").focus();
                     return false;
@@ -212,10 +208,6 @@
                 if (!this.form.title) {
                     layer.msg("请输入文档标题！");
                     $("#title").focus();
-                    return false;
-                }
-                if (!this.form.docPic) {
-                    layer.msg("请上传首页展示图片！");
                     return false;
                 }
                 if (!this.form.docText) {
@@ -246,13 +238,14 @@
                     $.post(url, tdoc, function (result) {
                         if (result.code == 0) {
                             layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
-                                var index = parent.layer.getFrameIndex(window.name);
+                                let index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
-                                parent.vm.doQuery();
                             });
+                            parent.vm.doQuery();
                         } else {
                             layer.msg(result.msg);
                         }
+
                     });
                 }
                 return false;

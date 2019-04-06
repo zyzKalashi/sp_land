@@ -13,6 +13,7 @@
     <script th:src="@{../static/plugin/pagination/jquery.pagination.js}"></script>
     <script th:src="@{../static/plugin/pagination/bootstrap-paginator.js}"></script>
     <script th:src="@{/static/js/common.js}"></script>
+    <script th:src="@{/static/js/common_status_filter.js}"></script>
 </head>
 <style>
     .btn{
@@ -42,7 +43,7 @@
             <div class="col-sm-2">
                 <select class="form-control" id="userStatus" v-model="form.userStatus" placeholder="请选择用户状态" style="width: 90%;" >
                     <option></option>
-                    <option v-for="(name,key) in status" :value="key">{{name}}</option>
+                    <option v-for="item in status" :value="item.value">{{item.label}}</option>
                 </select>
             </div>
         </div>
@@ -87,7 +88,7 @@
                     <td>{{user.email}}</td>
                     <td>{{user.mobile}}</td>
                     <td>{{roleInfos[user.roleId]}}</td>
-                    <td>{{status[user.userStatus]}}</td>
+                    <td>{{user.userStatus | commonStatusFilter}}</td>
                     <td class="inline">
                         <button type="button" class="btn btn-sm btn-warning" @click="doAudit(user)">审核</button>
                         <button type="button" class="btn btn-sm btn-warning" @click="doModify(user)">修改</button>
@@ -97,13 +98,15 @@
             </table>
         </div>
     </div>
-    <div class="row mx-auto">
-        <ul id='pagination'></ul>
+    <div class="row">
+        <div class="col-12 text-center">
+            <ul id='pagination'></ul>
+        </div>
     </div>
 </div>
 </body>
 <script>
-    let vm = new Vue({
+    var vm = new Vue({
         el: "#vueApp",
         data: {
             form: {
@@ -116,7 +119,7 @@
             },
             list: [],
             roleInfos:{},
-            status:{},
+            status: commonStatusterDic,
         },
         mounted : function() {
             this.doQuery();
@@ -130,29 +133,26 @@
                 }
                 _this.roleInfos = obj;
             });
-            $.get("/user/getUserStatus","", function (resp) {
-                if(0 == resp.code){
-                    _this.status = resp.status;
-                }
-            });
         },
         methods:{
-            doQuery: function(currPage){
+            doQuery: function(){
                 let obj = {};
                 for(let x in this.form){
                     if(this.form[x]){
                         obj[x] = this.form[x];
                     }
                 }
-                hzToolObj.getdomInit("/user/userSearch", obj, this.callback, currPage);
+                hzToolObj.getdomInit("/user/userSearch", obj, this.callback, this.form.pageNo);
             },
             callback: function(result){
+                this.form.pageNo = result.pageInfo.pageNum;
                 this.list = result.pageInfo.list;
             },
             doAudit: function(user){
+                let _this = this;
                 let userId =  user.userId;
                 let buttons = [];
-                if(user.userStatus == '3' || user.userStatus == '4'){
+                if(user.userStatus == '2' || user.userStatus == '3'){
                     buttons.push("通过");
                     buttons.push("拒绝");
                 }
@@ -170,7 +170,7 @@
                     yes: function(index, layero){
                         if(3 == buttons.length){
                             let iframeWin = window[layero.find('iframe')[0]['name']];
-                            iframeWin.vm.audit(userId,"0");
+                            iframeWin.vm.audit(userId,"1");
                         } else{
                             layer.close(layer.index);
                         }
@@ -178,7 +178,7 @@
                     },
                     btn2: function(index, layero){
                         let iframeWin = window[layero.find('iframe')[0]['name']];
-                        iframeWin.vm.audit(userId,"4");
+                        iframeWin.vm.audit(userId,"3");
                         return false;
                     },
                     btn3: function(){
@@ -187,6 +187,7 @@
                 });
             },
             doModify: function(user){
+                let _this = this;
                 let userId = "";
                 let title = "新增用户";
                 if(user && user.userId){

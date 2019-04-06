@@ -41,14 +41,14 @@
             <div class="col-sm-2">
                 <select class="form-control" id="docType" v-model="form.docType" placeholder="请选择文档类别" style="width: 90%;" >
                     <option></option>
-                    <option v-for="(name,key) in kinds" :value="key">{{name}}</option>
+                    <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
                 </select>
             </div>
             <label class="col-sm-2" for="docStatus">文档状态</label>
             <div class="col-sm-2">
                 <select class="form-control" id="docStatus" v-model="form.docStatus" placeholder="请选择文档状态" style="width: 90%;" >
                     <option></option>
-                    <option v-for="(name,key) in status" :value="key">{{name}}</option>
+                    <option v-for="item in status" :value="item.value">{{item.label}}</option>
                 </select>
             </div>
         </div>
@@ -95,8 +95,10 @@
             </table>
         </div>
     </div>
-    <div class="row mx-auto text-center">
-        <ul id='pagination'></ul>
+    <div class="row">
+        <div class="col-12 text-center">
+            <ul id='pagination'></ul>
+        </div>
     </div>
 </div>
 </body>
@@ -119,7 +121,7 @@
         });
     })
 
-    let vm = new Vue({
+    var vm = new Vue({
         el: "#vueApp",
         data: {
             form: {
@@ -130,32 +132,32 @@
                 pageSize: 2,
             },
             list: [],
-            status:{},
-            kinds:{},
         },
         mounted : function() {
             this.doQuery();
         },
-        created: function(){
-            let _this = this;
-            $.get("/doc/getdocKinds",null,function(resp){
-                if(0 == resp.code){
-                    _this.kinds = resp.kinds;
-                }
-            });
-            $.get("/user/getUserStatus","", function (resp) {
-                if(0 == resp.code){
-                    _this.status = {};
-                    for(let x in resp.status){
-                        if(x.match("0|1|5")){
-                            _this.status[x] = resp.status[x];
-                        }
+        computed:{
+            kinds: function(){
+                let arr = [];
+                for(let x in docKindDic){
+                    if(docKindDic[x].value.toString().match("1|2")){
+                        arr.push(docKindDic[x]);
                     }
                 }
-            });
+                return arr;
+            },
+            status: function(){
+                let arr = [];
+                for(let x in commonStatusterDic){
+                    if(commonStatusterDic[x].value.toString().match("0|1|5")){
+                        arr.push(commonStatusterDic[x]);
+                    }
+                }
+                return arr;
+            }
         },
         methods:{
-            doQuery: function(currPage){
+            doQuery: function(){
                 let obj = {};
                 for(let x in this.form){
                     if(this.form[x]){
@@ -168,12 +170,14 @@
                 if($("#endDate").val()){
                     obj.endDate = $("#endDate").val();
                 }
-                hzToolObj.getdomInit("/doc/docSearch", obj, this.callback, currPage);
+                hzToolObj.getdomInit("/doc/docSearch", obj, this.callback, this.form.pageNo);
             },
             callback: function(result){
+                this.form.pageNo = result.pageInfo.pageNum;
                 this.list = result.pageInfo.list;
             },
             doModify: function(doc){
+                let _this = this;
                 let docId = "";
                 let title = "新增文档";
                 if(doc && doc.docId){
