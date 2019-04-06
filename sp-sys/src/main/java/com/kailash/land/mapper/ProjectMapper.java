@@ -1,18 +1,23 @@
 package com.kailash.land.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.github.pagehelper.Page;
 import com.kailash.land.entity.Project;
 import com.kailash.land.filter.ProjectFiter;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProjectMapper extends BaseMapper<Project> {
+	/**
+	 * 后台列表查询
+	 * @param filter
+	 * @return
+	 */
+	List<Map<String, Object>> selectProjectInfo(ProjectFiter filter);
 
 	Page<Map<String, Object>> querySimpleList(@Param("pro") ProjectFiter filter);
 	

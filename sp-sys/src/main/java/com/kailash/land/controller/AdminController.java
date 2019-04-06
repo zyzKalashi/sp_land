@@ -126,4 +126,51 @@ public class AdminController {
 		mav.setViewName("admin/doc/docModify");
 		return mav;
 	}
+	/**
+	 * 项目审批列表页面跳转
+	 * @return
+	 */
+	@RequestMapping(value = "/projectList", method = RequestMethod.GET)
+	public ModelAndView toProjectList() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/project/projectList");
+		return mav;
+	}
+	
+	/**
+	 * 项目审批页面跳转
+	 * @param projectId
+	 * @return
+	 */
+	@RequestMapping(value = "/projectAudit", method = RequestMethod.GET)
+	public ModelAndView toProjectAudit(String projectId) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("projectId", projectId);
+		mav.setViewName("admin/project/projectAudit");
+		return mav;
+	}
+	
+	/**
+	 * 需求审批列表页面跳转
+	 * @return
+	 */
+	@RequestMapping(value = "/demandList", method = RequestMethod.GET)
+	public ModelAndView toDemandList() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/demand/demandList");
+		return mav;
+	}
+	
+	/**
+	 * 需求审批页面跳转
+	 * @param demandId
+	 * @return
+	 */
+	@RequestMapping(value = "/demandAudit", method = RequestMethod.GET)
+	public ModelAndView toDemandAudit(String demandId) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("demandId", demandId);
+		mav.setViewName("admin/demand/demandAudit");
+		return mav;
+	}
 }

@@ -1,5 +1,6 @@
 package com.kailash.land.filter;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -53,7 +54,7 @@ public class ProjectFiter extends BasePageFilter {
 	private String hopeOutputDate;
 	private Integer projectStatus;
 	private String projectNo;
-
+	
 	// projectAround
 	private Long projectAroundId;
 	private String areaName;
@@ -71,5 +72,9 @@ public class ProjectFiter extends BasePageFilter {
 	private String supplement;
 
 	private Integer createUser;
-
+	
+	@TableField(exist = false)
+	private String startDate;
+	@TableField(exist = false)
+	private String endDate;
 }

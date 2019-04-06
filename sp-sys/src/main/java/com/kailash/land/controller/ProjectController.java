@@ -1,18 +1,5 @@
 package com.kailash.land.controller;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.github.pagehelper.PageInfo;
@@ -30,6 +17,15 @@ import com.kailash.land.util.BeanUtils;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
 import com.kailash.land.util.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "project")
@@ -209,5 +205,41 @@ public class ProjectController extends AbstractController {
 
 		return Result.ok(returnMap);
 	}
-
+	
+	/**
+	 * 后台查询项目信息
+	 * @param project
+	 * @return
+	 */
+	@RequestMapping(value = "projectSearch", method = RequestMethod.POST)
+	public Result projectSearch(ProjectFiter project) {
+		PageInfo<Map<String, Object>> mapPageInfo = this.projectService.selectProjectInfo(project);
+		return Result.ok().put("pageInfo", mapPageInfo);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/projectAudit")
+	public Result projectAudit(Project project) {
+		try {
+			if (project.getPkid() == null || project.getProjectStatus() == null) {
+				return Result.error("参数错误");
+			}
+			
+			EntityWrapper<Project> ewProject = new EntityWrapper<Project>();
+			ewProject.setEntity(new Project());
+			ewProject.where("pkid = {0}", project.getPkid());
+			this.projectService.update(new Project() {
+				{
+					this.setProjectStatus(project.getProjectStatus());
+					this.setUpdateUser(getUserId().intValue());
+					this.setUpdateDate(new Date());
+				}
+			}, ewProject);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("系统异常");
+		}
+		return Result.ok();
+	}
 }

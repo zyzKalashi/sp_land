@@ -8,7 +8,7 @@
  <!-- v-cloak -->
 	<div id="app" v-cloak>
 		<div th:replace="common::top"></div>
-	 
+
 		<!-- container begin -->
 		<div class="main clearfix mt10">
 		
@@ -21,6 +21,7 @@
 				<b>发布时间：</b><span>{{ projectData.createDateStr }}</span> &nbsp;&nbsp;
 				<b>访问数量:</b><span>{{ visitNum }}</span>
 			</p>
+			<div th:fragment="project_detail">
 			<div class="tdfb clear public2">
 				<div class="main_r" style="width: auto;">
 					<h3 class="col_Name c4">发布人信息</h3>
@@ -35,16 +36,16 @@
 									<td class="t_prop_a">
 										<p>{{ projectData.name }}</p>
 									</td>
-									<td class="t_prop mt15"><strong>性&nbsp;&nbsp;&nbsp;&nbsp;别：</strong></td>
-									<td><p>{{ projectData.sex | sexFilter }}</p></td>
+									<td class="t_prop"><strong>性&nbsp;&nbsp;&nbsp;&nbsp;别：</strong></td>
+									<td class="t_prop_a"><p>{{ projectData.sex | sexFilter }}</p></td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>手&nbsp;&nbsp;&nbsp;&nbsp;机：</strong></td>
 									<td class="t_prop_a">
 										<p>{{ projectData.mobile }}</p>
 									</td>
-									<td class="t_prop mt15"><strong>信息属权：</strong></td>
-									<td><p>{{ projectData.infoKind | projectInfoKindFilter }}</p></td>
+									<td class="t_prop"><strong>信息属权：</strong></td>
+									<td class="t_prop_a"><p>{{ projectData.infoKind | projectInfoKindFilter }}</p></td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>联 系地址：</strong></td>
@@ -339,14 +340,16 @@
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>合同书：</strong></td>
-									<td colspan="3" class="pl5"><input type="text"
-										style="border: none; color: #000; font-size: 14px; height: 35px; width: 98%; padding: 0px 2px;"
-										name="name" placeholder="成交合同书上传"></td>
+									<td colspan="3" class="t_prop_b"><input type="text"
+										size="30"
+										style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 90%; height: 35px;"
+										name="name" placeholder="成交合同书上传">
 								</tr>
 							</table>
 						</div>
 					</div>
 				</div>
+			</div>
 			</div>
 
 			<div class="clearl" style="width: 90%; margin: 0 auto;">

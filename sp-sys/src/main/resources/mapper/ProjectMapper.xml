@@ -114,6 +114,41 @@
 		ORDER BY p.pkid DESC
 	</select>
 
+	<select id="selectProjectInfo" parameterType="com.kailash.land.filter.ProjectFiter" resultType="Map">
+		select
+		A.pkid AS projectId,
+		A.project_name AS projectName,
+		C.name AS personName,
+		A.project_kind AS projectKind,
+		A.project_status AS projectStatus,
+		B.show_preice AS showPreice,
+		DATE_FORMAT(A.create_date,'%Y-%m-%d') AS createDateStr
+		from project A
+		left join project_around B ON A.pkid = B.project_id
+		left join project_person C ON A.pkid = C.project_id
+		<where>
+			<if test="projectName != null">
+				AND A.project_name like CONCAT('%',#{projectName},'%')
+			</if>
+			<if test="personName != null">
+				AND C.name like CONCAT('%',#{personName},'%')
+			</if>
+			<if test="projectKind != null">
+				AND A.project_kind = #{projectKind}
+			</if>
+			<if test="projectStatus != null">
+				AND A.project_status = #{projectStatus}
+			</if>
+			<if test="startDate != null">
+				AND A.create_date <![CDATA[ >= ]]> #{startDate}
+			</if>
+			<if test="endDate != null">
+				AND A.create_date <![CDATA[ <= ]]> #{endDate}
+			</if>
+		</where>
+		ORDER BY
+		A.pkid DESC
+	</select>
 
 	<select id="projectStatistics" resultType="java.util.HashMap">
         select cast(sum(1) as char) AS ALL_PROJECT, cast(sum( case when project_status = '2' then 1 else 0 end) as char) AS AUDIT_PROJECT FROM project

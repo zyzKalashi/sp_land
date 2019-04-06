@@ -67,66 +67,88 @@ let moneyLevelDic = [
 // task
 // 状态过滤-zyz
 Vue.filter('projectKindFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return projectKindDic.filter((item)=>{
         return item.value == val
     })[0].label;
 });
 // 状态过滤-zyz
 Vue.filter('demandKindFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return demandKindDic.filter((item)=>{
         return item.value == val
     })[0].label;
 });
 // 状态过滤-zyz
 Vue.filter('noticeKindFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return noticeKindDic.filter((item)=>{
         return item.value == val
     })[0].label;
 });
 
 Vue.filter('docKindFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return docKindDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
 });
 
 Vue.filter('projectInfoKindFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return projectInfoKindDic.filter((item)=>{
         return item.value == val
     })[0].label;
 });
 
 Vue.filter('commonStatusFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return commonStatusterDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
 });
 
 Vue.filter('commonYesNoFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return commonYesNoDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
 });
 
 Vue.filter('sexFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return sexDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
 });
 
 Vue.filter('sexRespectFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return sexRespectDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
 });
 
 Vue.filter('projectStatusFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return projectStatusDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
 });
 
 Vue.filter('moneyLevelFilter', function(val) {
+	if(val == undefined || val == '') return '';
+
 	return moneyLevelDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
