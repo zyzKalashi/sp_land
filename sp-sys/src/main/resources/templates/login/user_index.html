@@ -305,13 +305,17 @@
 			},
 			methods : {
 				initUser: function () {
-					$.post("/user/userDetail", this.userData, function (result) {
+					let tUser = new Object();
+					tUser.userId = this.userData.userId;
+
+					$.post("/user/userDetail", tUser, function (result) {
 						if (result.code == 0) {
                         	vm.userData = result.userData;
                         	vm.userData.createDate = null;
                         	vm.userData.updateDate = null;
                         	vm.loginLog = result.loginLog;
                         } else {
+							alert(result.msg);
                             layer.msg(result.msg);
                         }
 	                });
@@ -405,20 +409,23 @@
 				openWin: function(id, flag){
 					layer.open({
 						  type: 1,
-						  title: false,
-						  area: ['630px', '360px'],
-						  shade: 0.8,
-						  closeBtn: 1,
-						  shadeClose: true,
-						  content: $('#'+id+'')
+						title: false,
+						area: ['630px', '360px'],
+						shade: 0.8,
+						closeBtn: 1,
+						shadeClose: true,
+						content: $('#'+id+'')
 						});
 				},
 				updUserPassword: function(flag){
 					if(vm.userData.newPassword.length < 6){
 						layer.alert("密码长度应大于6位！");
 					}
-					vm.userData.password = hex_md5(vm.userData.password);
-					$.post("/user/checkUser", vm.userData, function (result) {
+					let tUser = new Object();
+					tUser.userId = vm.userData.userId;
+					tUser.password = hex_md5(vm.userData.password);
+					//vm.userData.password = hex_md5(vm.userData.password);
+					$.post("/user/checkUser", tUser, function (result) {
 						if (result.code == 0) {
 							vm.modifyUser("changePassword");
                         } else {
@@ -427,23 +434,31 @@
                 	});
 				},
 				modifyUser: function(flag){
+					let _this = this;
+					let tUser = new Object();
+					tUser.userId = vm.userData.userId;
+
 					if(flag == "changeMobile"){
 						if(!(/^1[34578]\d{9}$/.test(vm.userData.newMobile))){ 
 							layer.alert("手机号码有误，请重填");  
 							return; 
 						} else {
-							vm.userData.mobile = vm.userData.newMobile;
+							//vm.userData.mobile = vm.userData.newMobile;
+							tUser.mobile = this.userData.newMobile;
 						}
 					} else if (flag == "changEmail") {
-						vm.userData.email = vm.userData.newEmail;
+						//vm.userData.email = vm.userData.newEmail;
+						tUser.email = this.userData.newEmail;
 					} else if (flag == "changePassword") {
-						vm.userData.password = hex_md5(vm.userData.newWassword);
+						//vm.userData.password = hex_md5(vm.userData.newPassword);
+						tUser.password = hex_md5(this.userData.newPassword)
 					}
-					$.post("/user/users_modify", vm.userData, function (result) {
+					$.post("/user/users_modify", tUser, function (result) {
 						if (result.code == 0) {
-							closeWin();
-							layer.msg("更新成功！");
-							vm.initUser();
+							layer.msg("修改成功！",{icon:1, time:2000, shade:0.4},function () {
+								_this.initUser();
+								closeWin();
+							});
                         } else {
                         	layer.msg(result.msg);
                         }
