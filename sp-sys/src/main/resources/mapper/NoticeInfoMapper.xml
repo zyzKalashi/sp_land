@@ -68,8 +68,21 @@
 		ORDER BY
 			pkid DESC
 	</select>
-
-
+	
+	<!-- zyz -->
+	<select id="querySimpleImgList" resultType="Map">
+		SELECT
+			pkid AS noticeId,
+			title,
+			notice_pic AS noticePic
+		FROM
+			notice_info
+		<where>
+			notice_status = 1
+		</where>
+		ORDER BY
+			pkid DESC
+	</select>
 	
 	
 </mapper>

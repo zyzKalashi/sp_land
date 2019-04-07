@@ -39,19 +39,20 @@ public class NoticeController extends AbstractController {
 		PageInfo<NoticeInfo> pageInfo = this.noticeInfoService.selectNoticePage(notice);
 		return Result.ok().put("pageInfo", pageInfo);
 	}
-	
+
 	@RequestMapping(value = "getNoticesKinds", method = RequestMethod.GET)
-	public Result getNoticesKinds(){
+	public Result getNoticesKinds() {
 		Map<String, Object> returnMap = new HashMap<>();
-		
-		Map<String,String> kinds = new HashMap<>();
+
+		Map<String, String> kinds = new HashMap<>();
 		kinds.put("1", "新闻");
 		kinds.put("2", "政策");
 		kinds.put("3", "法规");
 		kinds.put("4", "公告");
-		returnMap.put("kinds",kinds);
+		returnMap.put("kinds", kinds);
 		return Result.ok(returnMap);
 	}
+
 	@PostMapping(value = "/notice_add")
 	@ResponseBody
 	public Result add(NoticeInfo notice) {
@@ -65,23 +66,23 @@ public class NoticeController extends AbstractController {
 		}
 		return Result.error();
 	}
-	
+
 	@PostMapping(value = "/notice_modify")
 	@ResponseBody
 	public Result modify(NoticeInfo notice) {
 		notice.setUpdateUser(getUserId().intValue());
 		notice.setUpdateDate(new Date());
-		
+
 		EntityWrapper<NoticeInfo> ewNotice = new EntityWrapper<>();
 		ewNotice.setEntity(new NoticeInfo());
 		ewNotice.where(" pkid = {0} ", notice.getNoticeId());
-		boolean zt = this.noticeInfoService.update(notice,ewNotice);
+		boolean zt = this.noticeInfoService.update(notice, ewNotice);
 		if (zt) {
 			return Result.ok();
 		}
 		return Result.error();
 	}
-	
+
 	/**
 	 * 简单列表
 	 * 
@@ -153,5 +154,13 @@ public class NoticeController extends AbstractController {
 		returnMap.put("nextNotice", nextNotice);
 
 		return Result.ok(returnMap);
+	}
+
+	@PostMapping(value = "/simpleImgList")
+	public Result simpleImgList(NoticeInfo notice) {
+
+		PageInfo<Map<String, Object>> pageInfo = this.noticeInfoService.simpleImgList(notice);
+
+		return Result.ok().put("pageInfo", pageInfo);
 	}
 }

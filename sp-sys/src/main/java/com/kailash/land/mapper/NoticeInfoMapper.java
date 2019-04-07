@@ -13,7 +13,6 @@ import com.kailash.land.entity.NoticeInfo;
 @Mapper
 public interface NoticeInfoMapper extends BaseMapper<NoticeInfo> {
 
-
 	List<NoticeInfo> selectNoticeInfo(NoticeInfo notice);
 
 	/**
@@ -22,4 +21,11 @@ public interface NoticeInfoMapper extends BaseMapper<NoticeInfo> {
 	 * @return
 	 */
 	Page<Map<String, Object>> querySimpleList(@Param("obj") NoticeInfo notice);
+
+	/**
+	 * @author zyz
+	 * @param notice
+	 * @return
+	 */
+	Page<Map<String, Object>> querySimpleImgList(@Param("obj") NoticeInfo notice);
 }

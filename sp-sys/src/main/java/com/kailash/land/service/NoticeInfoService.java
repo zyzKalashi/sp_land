@@ -18,5 +18,13 @@ public interface NoticeInfoService extends IService<NoticeInfo> {
 	 * @return
 	 */
 	PageInfo<Map<String, Object>> simpleList(NoticeInfo notice);
+	/**
+	 * 列表数据-分页-首页
+	 * 
+	 * @author zyz
+	 * @param notice
+	 * @return
+	 */
+	PageInfo<Map<String, Object>> simpleImgList(NoticeInfo notice);
 
 }

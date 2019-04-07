@@ -35,4 +35,12 @@ public class NoticeInfoServiceImpl extends ServiceImpl<NoticeInfoMapper, NoticeI
 		PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(pageList);
 		return pageInfo;
 	}
+
+	@Override
+	public PageInfo<Map<String, Object>> simpleImgList(NoticeInfo notice) {
+		PageHelper.startPage(notice.getPageNo(), notice.getPageSize());
+		Page<Map<String, Object>> pageList = this.noticeInfoMapper.querySimpleImgList(notice);
+		PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(pageList);
+		return pageInfo;
+	}
 }
