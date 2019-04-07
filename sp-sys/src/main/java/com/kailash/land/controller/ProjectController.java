@@ -1,5 +1,20 @@
 package com.kailash.land.controller;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.github.pagehelper.PageInfo;
@@ -17,15 +32,6 @@ import com.kailash.land.util.BeanUtils;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
 import com.kailash.land.util.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "project")
@@ -205,9 +211,10 @@ public class ProjectController extends AbstractController {
 
 		return Result.ok(returnMap);
 	}
-	
+
 	/**
 	 * 后台查询项目信息
+	 * 
 	 * @param project
 	 * @return
 	 */
@@ -216,9 +223,10 @@ public class ProjectController extends AbstractController {
 		PageInfo<Map<String, Object>> mapPageInfo = this.projectService.selectProjectInfo(project);
 		return Result.ok().put("pageInfo", mapPageInfo);
 	}
-	
+
 	/**
 	 * 项目信息审批
+	 * 
 	 * @param project
 	 * @return
 	 */
@@ -229,7 +237,7 @@ public class ProjectController extends AbstractController {
 			if (project.getPkid() == null || project.getProjectStatus() == null) {
 				return Result.error("参数错误");
 			}
-			
+
 			EntityWrapper<Project> ewProject = new EntityWrapper<Project>();
 			ewProject.setEntity(new Project());
 			ewProject.where("pkid = {0}", project.getPkid());
@@ -240,11 +248,34 @@ public class ProjectController extends AbstractController {
 					this.setUpdateDate(new Date());
 				}
 			}, ewProject);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Result.error("系统异常");
 		}
+		return Result.ok();
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "batchModify", method = RequestMethod.POST)
+	public Result batchModify(Map<String, Object> param) {
+		if (!param.containsKey("projectIds") || param.get("projectIds") == null) {
+			return Result.error("参数错误");
+		}
+		List<Long> projectIds = (List<Long>) param.get("projectIds");
+		if (projectIds.size() < 1) {
+			return Result.error("参数错误");
+		}
+		List<Project> projects = new ArrayList<Project>();
+		List<ProjectAround> projectArounds = new ArrayList<ProjectAround>();
+		List<ProjectPerson> projectPersons = new ArrayList<ProjectPerson>();
+		for (Long id : projectIds) {
+			if (param.containsKey("status") && param.get("status") != null) {
+				projects.add(new Project(id, Integer.parseInt(param.get("status").toString())));
+			}
+		}
+		this.projectService.updateBatchById(projects);
+
 		return Result.ok();
 	}
 }

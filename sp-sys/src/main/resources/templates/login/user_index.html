@@ -97,7 +97,7 @@
 									class="ml10"></td>
 								<td style="">
 									<p class="fl pl20" style="margin: 0 auto;">
-										<a href="#loginout" data-toggle="tab">账号注销</a>
+										<a @click="cancelUser" data-toggle="tab">账号注销</a>
 									</p>
 								</td>
 							</tr>
@@ -340,14 +340,30 @@
 					layer.confirm("确认注销吗？", {
 	                    icon: 3,
 	                    title: '提示',
-	                    btn: ["删除", "取消"]
+	                    btn: ["注销", "取消"]
 	                }, function (index) {
 	                	layer.closeAll('dialog');
-	                    var newObj = {
-	                    	projectId: projectId,
-	                        projectStatus: 0,
-	                    }
-	                    vm.updateProject(newObj);
+	                	vm.modifyUser("cancelUser");
+	                	var projectIds = [];
+	                	projectList.filter((item)=>{
+	                		if(item.status == 2){
+	                			projectIds.add(item.projectId);
+	                		}
+	                    });
+	                	var demandIds = [];
+	                	demandList.filter((item)=>{
+	                		if(item.status == 2){
+	                			demandIds.add(item.demandId);
+	                		}
+	                    });
+	                	var obj = {
+	                			projectIds: projectIds,
+	                		 	demandIds: demandIds,
+	                			status: 0,
+	                	}
+	                	$.post("/project/batchModify", obj, function (result) {});
+	                	$.post("/demand/batchModify", obj, function (result) {});
+	                	window.location.herf = "/logoutCommon";
 	                });
 				},
 				delProject: function(projectId){
@@ -410,7 +426,7 @@
 					layer.open({
 						  type: 1,
 						title: false,
-						area: ['630px', '360px'],
+						area: ['500px', '250px'],
 						shade: 0.8,
 						closeBtn: 1,
 						shadeClose: true,
@@ -452,6 +468,8 @@
 					} else if (flag == "changePassword") {
 						//vm.userData.password = hex_md5(vm.userData.newPassword);
 						tUser.password = hex_md5(this.userData.newPassword)
+					} else if (flag == "cancelUser"){
+						tUser.userStatus = 0;
 					}
 					$.post("/user/users_modify", tUser, function (result) {
 						if (result.code == 0) {

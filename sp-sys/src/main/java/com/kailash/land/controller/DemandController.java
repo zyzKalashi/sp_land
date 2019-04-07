@@ -1,5 +1,20 @@
 package com.kailash.land.controller;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.PageInfo;
 import com.kailash.land.common.enums.StatusEnum;
@@ -7,11 +22,6 @@ import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.Demand;
 import com.kailash.land.service.DemandService;
 import com.kailash.land.util.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.Serializable;
-import java.util.*;
 
 @RestController
 @RequestMapping(value = "demand")
@@ -96,9 +106,10 @@ public class DemandController extends AbstractController {
 
 		return Result.ok(returnMap);
 	}
-	
+
 	/**
 	 * 后台查询需求信息
+	 * 
 	 * @param demand
 	 * @return
 	 */
@@ -107,9 +118,10 @@ public class DemandController extends AbstractController {
 		PageInfo<Map<String, Object>> mapPageInfo = this.demandService.selectDemandInfo(demand);
 		return Result.ok().put("pageInfo", mapPageInfo);
 	}
-	
+
 	/**
 	 * 需求信息审批
+	 * 
 	 * @param demand
 	 * @return
 	 */
@@ -120,7 +132,7 @@ public class DemandController extends AbstractController {
 			if (demand.getDemandId() == null || demand.getDemandStatus() == null) {
 				return Result.error("参数错误");
 			}
-			
+
 			EntityWrapper<Demand> ewProject = new EntityWrapper<Demand>();
 			ewProject.setEntity(new Demand());
 			ewProject.where("pkid = {0}", demand.getDemandId());
@@ -131,11 +143,32 @@ public class DemandController extends AbstractController {
 					this.setUpdateDate(new Date());
 				}
 			}, ewProject);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Result.error("系统异常");
 		}
+		return Result.ok();
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "batchModify", method = RequestMethod.POST)
+	public Result batchModify(Map<String, Object> param) {
+		if (!param.containsKey("demandIds") || param.get("demandIds") == null) {
+			return Result.error("参数错误");
+		}
+		List<Long> demandIds = (List<Long>) param.get("demandIds");
+		if (demandIds.size() < 1) {
+			return Result.error("参数错误");
+		}
+		List<Demand> demands = new ArrayList<Demand>();
+		for (Long id : demandIds) {
+			if (param.containsKey("status") && param.get("status") != null) {
+				demands.add(new Demand(id, Integer.parseInt(param.get("status").toString())));
+			}
+		}
+		this.demandService.updateBatchById(demands);
+
 		return Result.ok();
 	}
 }

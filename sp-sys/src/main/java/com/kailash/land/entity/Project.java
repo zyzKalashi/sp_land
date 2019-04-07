@@ -23,7 +23,7 @@ public class Project extends Model<Project> implements Serializable {
 
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long pkid;
-	
+
 	private Date createDate;
 	private Integer createUser;
 	private Date updateDate;
@@ -93,6 +93,11 @@ public class Project extends Model<Project> implements Serializable {
 	@Override
 	protected Serializable pkVal() {
 		return pkid;
+	}
+
+	public Project(Long projectId, Integer projectStatus) {
+		this.pkid = projectId;
+		this.projectStatus = projectStatus;
 	}
 
 }
