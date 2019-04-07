@@ -38,7 +38,7 @@
         FROM
         users u
         <where>
-            u.user_status = 0
+            u.user_status = 1
             <if test="_parameter != null and _parameter != ''">
                 AND u.user_name =#{_parameter} OR u.mobile =#{_parameter}
             </if>

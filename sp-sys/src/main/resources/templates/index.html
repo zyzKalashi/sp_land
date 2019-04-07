@@ -155,7 +155,7 @@
 							<ul class="news_list clear fr" id="uls3">
 								<li v-if="noticeImgList && noticeImgList.length > 0" v-for="item in noticeImgList">
 									<a @click="goNotDetail(item.noticeId)">
-										<!-- <img :src="item.noticePic'" border=0> -->
+										<img v-bind:src="item.noticePic" border=0>
 									</a>
 									<p><span></span> <b>{{ item.title }}</b></p>
 								</li>
@@ -361,6 +361,7 @@
 				},
 				goNotDetail: function(noticeId){
 					storage.setItem("noticeQueryData",JSON.stringify({pageNo : 1,pageSize : 9, queryPage:"index"}));
+					//window.btoa
 					window.location.href="../html/notice_detail?noticeId=" + noticeId;
 				},
 				initProjectList : function() {

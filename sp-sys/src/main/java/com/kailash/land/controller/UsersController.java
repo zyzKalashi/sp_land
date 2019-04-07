@@ -122,9 +122,9 @@ public class UsersController extends AbstractController {
 		}
 		Users oldUser = this.usersService.selectOne(ewUser);
 		if (Objects.isNull(oldUser)) {
-			return Result.ok();
+			return Result.error("密码错误");
 		} else {
-			return Result.error();
+			return Result.ok();
 		}
 
 	}

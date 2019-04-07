@@ -5,12 +5,15 @@
 	<title id="pageTitle">会员中心—铁西区农村经济总站土地流转交易监管平台</title>
 </head>
 	<style type="text/css">
-	.openWin{
+	.tab-pane{
 		    background-color: rgb(246, 239, 227);
-	
+		    width: 100%;
+    		height: 100%;
 	}
-	
-	
+	.openWinDiv{
+			text-align: center;
+		  	padding: 20px;
+	}
 	
 	</style>
 
@@ -225,42 +228,43 @@
 						</div>
 						<!-- 以下是修改密码的内容 -->
 						<div class="tab-pane" id="mima" >
-							<div>
+							<div class="openWinDiv"></div>
+							<div class="openWinDiv">
 								<span>原密码</span>
 								<input type="password" v-model="userData.password" placeholder="原密码">
 							</div>
-							<div>
+							<div class="openWinDiv">
 								<span>新密码</span>
 								<input type="password" v-model="userData.newPassword" placeholder="新密码">
 							</div>
-							<div>
+							<div class="openWinDiv">
 								<button @click="updUserPassword">确定</button>
 								<button onclick="closeWin()">取消</button>
 							</div>
 						</div>
 						<!-- 以下是更换手机的内容 -->
 						<div class="tab-pane" id="tel">
-							<div>
+							<div class="openWinDiv"></div>
+							<div class="openWinDiv">
 								<span>新手机号</span>
 								<input type="text" v-model="userData.newMobile" placeholder="新手机号">
 							</div>
-							<div>
+							<div class="openWinDiv">
 								<button @click="modifyUser('changeMobile')">确定</button>
 								<button onclick="closeWin()">取消</button>
 							</div>
 						</div>
 						<!-- 以下更改邮箱的内容 -->
 						<div class="tab-pane" id="email">
-							<div>
+							<div class="openWinDiv"></div>
+							<div class="openWinDiv">
 								<span>新email</span>
 								<input type="email" v-model="userData.newEmail" placeholder="新email">
+							</div>
+							<div class="openWinDiv">
 								<button @click="modifyUser('changeEmail')">确定</button>
 								<button onclick="closeWin()">取消</button>
 							</div>
-						</div>
-						<!-- 以下是账号注销的内容 -->
-						<div class="tab-pane" id="loginout">
-							
 						</div>
 					</div>
 				</div>
@@ -304,6 +308,8 @@
 					$.post("/user/userDetail", this.userData, function (result) {
 						if (result.code == 0) {
                         	vm.userData = result.userData;
+                        	vm.userData.createDate = null;
+                        	vm.userData.updateDate = null;
                         	vm.loginLog = result.loginLog;
                         } else {
                             layer.msg(result.msg);
@@ -325,6 +331,20 @@
 				},
 				modifyDemand: function(demandId){
 					window.location.href = "../login/demand_add?demandId=" + demandId;
+				},
+				cancelUser: function(){
+					layer.confirm("确认注销吗？", {
+	                    icon: 3,
+	                    title: '提示',
+	                    btn: ["删除", "取消"]
+	                }, function (index) {
+	                	layer.closeAll('dialog');
+	                    var newObj = {
+	                    	projectId: projectId,
+	                        projectStatus: 0,
+	                    }
+	                    vm.updateProject(newObj);
+	                });
 				},
 				delProject: function(projectId){
 					 layer.confirm("确认删除吗？", {
@@ -388,7 +408,7 @@
 						  title: false,
 						  area: ['630px', '360px'],
 						  shade: 0.8,
-						  closeBtn: 0,
+						  closeBtn: 1,
 						  shadeClose: true,
 						  content: $('#'+id+'')
 						});
@@ -401,7 +421,9 @@
 					$.post("/user/checkUser", vm.userData, function (result) {
 						if (result.code == 0) {
 							vm.modifyUser("changePassword");
-                        } 
+                        } else {
+                        	layer.msg(result.msg);
+                        }
                 	});
 				},
 				modifyUser: function(flag){
@@ -419,6 +441,7 @@
 					}
 					$.post("/user/users_modify", vm.userData, function (result) {
 						if (result.code == 0) {
+							closeWin();
 							layer.msg("更新成功！");
 							vm.initUser();
                         } else {

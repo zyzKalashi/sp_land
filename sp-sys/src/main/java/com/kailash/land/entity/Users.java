@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
@@ -24,7 +25,7 @@ public class Users extends Model<Users> implements Serializable {
 	
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long userId;
-
+	
 	private Date createDate;
 	private Integer createUser;
 	private Date updateDate;
