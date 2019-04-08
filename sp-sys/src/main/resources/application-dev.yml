@@ -70,7 +70,7 @@ mybatis-plus:
     jdbc-type-for-null: 'null'
 
 upload:
-  base-dir: /Users/yaozi/upload/
+  base-dir: /root/sp-upload/
   dirs:
     1: notice_pic/
     2: doc_upload/
