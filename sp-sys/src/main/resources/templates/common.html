@@ -26,16 +26,10 @@
 	<div class="top">
 		<div class="top-c">
 			<ul class="fl">
-				<li>欢迎访问铁西区土地流转交易监管平台&nbsp;&nbsp;</li>
-				<span id="loginWin">
-					<li>请&nbsp;<a href="/html/login" class="bold">登录</a>&nbsp;|&nbsp; </li><li><a href="/html/register" class="bold">注册</a></li>
-				</span>
-				<span id="userWin" style="display:none">
-					欢迎你~
-					<span id="baseUserName"><shiro:principal property='userName'></span>&nbsp;|&nbsp;
-					<a href="/logoutCommon"> <span class="am-icon-sign-out"></span> 退出 </a>
-					<span hidden="true" id="baseUserId"><shiro:principal property='userId'/></span>
-				</span>
+				<li>欢迎<span id="baseUserName">&nbsp;<shiro:principal property='userName'>&nbsp;</span>访问铁西区土地流转交易监管平台&nbsp;&nbsp;</li>
+				<li><span id="loginWin"> 请&nbsp;<a href="/html/login" class="bold">登录</a>&nbsp;|&nbsp; <a href="/html/register" class="bold">注册</a></span></li>
+				<li><span id="userWin" style="display:none">|&nbsp;<a href="/logoutCommon"> <span class="am-icon-sign-out"></span> 退出 </a></span><li>
+				<li><span hidden="true" id="baseUserId"><shiro:principal property='userId'/></span><li>
 			</ul>
 			<ul class="fr huiyuan tform">
 				<li><a href="../login/user_index.html">会员中心</a></li>
