@@ -109,10 +109,20 @@
             },
             list: [],
             roleInfos:{},
-            status: commonStatusterDic,
         },
         mounted : function() {
             this.doQuery();
+        },
+        computed:{
+            status: function(){
+                let arr = [];
+                for(let x in commonStatusterDic){
+                    if(!("" + commonStatusterDic[x].value).match("0|5")){
+                        arr.push(commonStatusterDic[x]);
+                    }
+                }
+                return arr;
+            }
         },
         created: function(){
             let _this = this;
