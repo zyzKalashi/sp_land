@@ -82,6 +82,7 @@
                     <td class="inline">
                         <button type="button" class="btn btn-sm btn-warning" @click="doAudit(user)">审核</button>
                         <button type="button" class="btn btn-sm btn-warning" @click="doModify(user)">修改</button>
+                        <button type="button" class="btn btn-sm btn-warning" @click="doDelete(user)">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -219,6 +220,26 @@
                     },
                     btn3: function(){
                     },
+                });
+            },
+            doDelete: function(user){
+                let _this = this;
+                layer.confirm('确认删除该用户吗？', {
+                    btn: ['确认','取消'] //按钮
+                }, function(){
+                    var tUser = new Object();
+                    tUser.userId = user.userId;
+                    tUser.userStatus = '0';
+                    $.post("/user/users_modify",tUser,function(resp){
+                        if(0 == resp.code){
+                            layer.msg('删除成功', {icon: 1});
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                        _this.doQuery();
+                    });
+                }, function(){
+
                 });
             }
         }
