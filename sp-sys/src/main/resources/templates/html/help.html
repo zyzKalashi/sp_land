@@ -30,7 +30,7 @@
 							<li v-for="item in helpInfoList">
 								<a :title="item.title" > 
 									<i @click="goDetail(item.docId, 1)">{{ item.title }}</i>
-									<p @click="download(item.docId)">下载</p>
+									<p @click="download(item.docUrl)">下载</p>
 								</a>
 							</li>
 						</ul>
