@@ -152,3 +152,14 @@ Vue.filter('moneyLevelFilter', function(val) {
 		return item.value == val
 	})[0].label;
 });
+
+Vue.filter('simpleNameFilter', function(val) {
+	var simpleName = "";
+	if (val && typeof val != "undefined" && val.length > 1) {
+		simpleName = val.substr(0, 1);
+	}
+	return simpleName;
+});
+
+
+ 

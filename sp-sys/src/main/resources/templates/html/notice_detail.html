@@ -94,16 +94,6 @@
 						window.location.href="../html/notice_detail?noticeId=" + id;
 					},
 				},
-				filter: {
-					htmlFilter: function(str) {
-						/* str = str.replace(/&lt;/g,'<');
-					    str = str.replace(/&gt;/g,'>');
-					    return str; */
-					    str = str.replace(/</g,'&lt;');
-					    str = str.replace(/>/g,'&gt;');
-					    return str;
-					},
-				}
 			});
 		</script>
 	</div>
