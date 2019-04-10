@@ -48,23 +48,22 @@
 		select
 		<include refid="Base_Column_List" />
 		from notice_info
-		<where>
-			<if test="noticeStatus != null">
-				AND notice_status = #{noticeStatus}
-			</if>
-			<if test="title != null">
-				AND title like CONCAT('%',#{title},'%')
-			</if>
-			<if test="noticeKind != null">
-				AND notice_kind = #{noticeKind}
-			</if>
-			<if test="startDate != null">
-				AND create_date <![CDATA[ >= ]]> #{startDate}
-			</if>
-			<if test="endDate != null">
-				AND create_date <![CDATA[ <= ]]> #{endDate}
-			</if>
-		</where>
+		where notice_status <![CDATA[ <> ]]> '0'
+		<if test="noticeStatus != null">
+			AND notice_status = #{noticeStatus}
+		</if>
+		<if test="title != null">
+			AND title like CONCAT('%',#{title},'%')
+		</if>
+		<if test="noticeKind != null">
+			AND notice_kind = #{noticeKind}
+		</if>
+		<if test="startDate != null">
+			AND create_date <![CDATA[ >= ]]> #{startDate}
+		</if>
+		<if test="endDate != null">
+			AND create_date <![CDATA[ <= ]]> #{endDate}
+		</if>
 		ORDER BY
 			pkid DESC
 	</select>

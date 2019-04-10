@@ -43,7 +43,7 @@
             <div class="control-group form-inline">
                 <div class="controls col-md-12">
                     <div id="toolbar-container"></div>
-                    <div id="editor" style="background-color: white;min-height: 200px;">
+                    <div id="editor" style="background-color: white;min-height: 400px;">
                     </div>
                 </div>
             </div>
@@ -105,8 +105,8 @@
         data: {
             form: {
                 title:'',
-                noticeKind: '',
-                noticeStatus: '',
+                noticeKind: '1',
+                noticeStatus: '1',
                 noticeText: '',
                 noticePic: '',
             },
@@ -125,7 +125,7 @@
             status: function(){
                 let arr = [];
                 for(let x in commonStatusterDic){
-                    if(commonStatusterDic[x].value.toString().match("0|1|5")){
+                    if(("" + commonStatusterDic[x].value).match("1|5")){
                         arr.push(commonStatusterDic[x]);
                     }
                 }
