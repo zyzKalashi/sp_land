@@ -158,7 +158,11 @@
 		select
 			date_format(A.create_date,'%Y-%m-%d') AS TDATE,
 			cast(A.project_kind as char) AS KIND,
-			cast(SUM(ifnull(B.show_preice,0)) AS char) AS TOTAL
+			cast(
+				SUM(
+					ifnull(B.show_preice,0)
+				) / 10000 AS char
+			) AS TOTAL
 		FROM
 			project A, project_around B
 		WHERE
