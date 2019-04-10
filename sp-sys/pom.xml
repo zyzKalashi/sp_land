@@ -32,6 +32,10 @@
 		<github.pagehelper>4.1.6</github.pagehelper>
 		<shiro.version>1.4.0</shiro.version>
 		<commons.io.version>2.5</commons.io.version>
+		
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.release>11</maven.compiler.release>
 	</properties>
 
 	<dependencies>
@@ -222,6 +226,26 @@
 					<overwrite>true</overwrite>
 					<verbose>true</verbose>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-toolchains-plugin</artifactId>
+				<configuration>
+					<toolchains>
+						<jdk>
+							<version>11</version>
+							<vendor>oracle</vendor>
+						</jdk>
+					</toolchains>
+				</configuration>
+				<executions>
+					<!-- <execution>
+						<goals>
+							<goal>toolchain</goal>
+						</goals>
+					</execution> -->
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

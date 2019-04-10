@@ -1,0 +1,18 @@
+.btn {
+	width: auto;
+}
+
+.current {
+	background-color: #F2F2F2;
+}
+
+.layer-skin .layui-layer-btn a {
+	background-color: #965818;
+	border: 1px solid #965818;
+	color: #ffff;
+}
+
+.control-group{
+    margin-top: 10px;
+}
+
