@@ -82,6 +82,7 @@
                     <td>{{project.createDateStr}}</td>
                     <td class="inline">
                         <button type="button" class="btn btn-sm btn-warning" @click="doAudit(project)">审核</button>
+                        <button type="button" class="btn btn-sm btn-warning" @click="doDelete(project)">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -137,7 +138,13 @@
                 return arr;
             },
             status: function(){
-                return projectStatusDic;
+                let arr = [];
+                for(let x in projectStatusDic){
+                    if(!("" + projectStatusDic[x].value).match("0|5")){
+                        arr.push(projectStatusDic[x]);
+                    }
+                }
+                return arr;
             }
         },
         mounted : function() {
@@ -168,6 +175,13 @@
                 this.list = result.pageInfo.list;
             },
             doAudit: function(project){
+                let buttons = [];
+                if(("" + project.projectStatus).match("1|2|3")){
+                    buttons.push("通过");
+                    buttons.push("拒绝");
+                }
+                buttons.push("关闭");
+
                 layer.open({
                     type: 2,
                     title: '审核-' + project.projectName,
@@ -176,10 +190,14 @@
                     skin: 'layer-skin',
                     maxmin: true,
                     content: '/admin/projectAudit?projectId=' + project.projectId,
-                    btn:['通过','拒绝','关闭'],
+                    btn: buttons,
                     yes: function(index, layero){
-                        let iframeWin = window[layero.find('iframe')[0]['name']];
-                        iframeWin.vm.audit('1');
+                        if(3 == buttons.length) {
+                            let iframeWin = window[layero.find('iframe')[0]['name']];
+                            iframeWin.vm.audit('1');
+                        } else {
+                            layer.close(layer.index);
+                        }
                     },
                     btn2: function(index, layero){
                         let iframeWin = window[layero.find('iframe')[0]['name']];
@@ -188,6 +206,26 @@
                     },
                     btn3: function(){
                     },
+                });
+            },
+            doDelete: function(project){
+                let _this = this;
+                layer.confirm('确认删除该文档吗？', {
+                    btn: ['确认','取消'] //按钮
+                }, function(){
+                    var tProject = new Object();
+                    tProject.projectId = project.projectId;
+                    tProject.projectStatus = '0';
+                    $.post("/project/projectModify",tProject,function(resp){
+                        if(0 == resp.code){
+                            layer.msg('删除成功', {icon: 1});
+                        } else {
+                            layer.msg(resp.msg);
+                        }
+                        _this.doQuery();
+                    });
+                }, function(){
+
                 });
             }
         }
