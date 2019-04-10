@@ -24,24 +24,23 @@
         select
         <include refid="Base_Column_List" />
         from doc_info
-        <where>
-            <if test="docType != null">
-                AND doc_type = #{docType}
-            </if>
-            <if test="docStatus != null">
-                AND doc_status = #{docStatus}
-            </if>
-            <if test="title != null">
-                AND title like CONCAT('%',#{title},'%')
-            </if>
+        where doc_status <![CDATA[ <> ]]> '0'
+        <if test="docType != null">
+            AND doc_type = #{docType}
+        </if>
+        <if test="docStatus != null">
+            AND doc_status = #{docStatus}
+        </if>
+        <if test="title != null">
+            AND title like CONCAT('%',#{title},'%')
+        </if>
 
-            <if test="startDate != null">
-                AND create_date <![CDATA[ >= ]]> #{startDate}
-            </if>
-            <if test="endDate != null">
-                AND create_date <![CDATA[ <= ]]> #{endDate}
-            </if>
-        </where>
+        <if test="startDate != null">
+            AND create_date <![CDATA[ >= ]]> #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND create_date <![CDATA[ <= ]]> #{endDate}
+        </if>
         ORDER BY
         pkid DESC
     </select>

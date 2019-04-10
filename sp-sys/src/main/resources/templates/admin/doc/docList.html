@@ -79,6 +79,7 @@
                     <td>{{ doc.createDateStr }}</td>
                     <td class="inline">
                         <button type="button" class="btn btn-sm btn-warning" @click="doModify(doc)">修改</button>
+                        <button type="button" class="btn btn-sm btn-warning" @click="doDelete(doc)">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -139,7 +140,7 @@
             status: function(){
                 let arr = [];
                 for(let x in commonStatusterDic){
-                    if(commonStatusterDic[x].value.toString().match("0|1|5")){
+                    if(("" + commonStatusterDic[x].value).match("1|5")){
                         arr.push(commonStatusterDic[x]);
                     }
                 }
@@ -194,6 +195,26 @@
                     },
                     btn2: function(index, layero){
                     },
+                });
+            },
+            doDelete: function(doc){
+                let _this = this;
+                layer.confirm('确认删除该文档吗？', {
+                    btn: ['确认','取消'] //按钮
+                }, function(){
+                    var tDoc = new Object();
+                    tDoc.docId = doc.docId;
+                    tDoc.docStatus = '0';
+                    $.post("/doc/doc_modify",tDoc,function(resp){
+                        if(0 == resp.code){
+                            layer.msg('删除成功', {icon: 1});
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                        _this.doQuery();
+                    });
+                }, function(){
+
                 });
             }
         }
