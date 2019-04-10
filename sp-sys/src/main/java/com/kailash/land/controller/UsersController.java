@@ -1,5 +1,20 @@
 package com.kailash.land.controller;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.PageInfo;
 import com.kailash.land.common.enums.StatusEnum;
@@ -13,11 +28,6 @@ import com.kailash.land.service.UsersService;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
 import com.kailash.land.util.Result;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -35,7 +45,7 @@ public class UsersController extends AbstractController {
 	@ResponseBody
 	@PostMapping(value = "/users_register")
 	public Result register(Users user) {
-		user.setUserStatus(StatusEnum.USER_NORMAL.getId());
+		user.setUserStatus(StatusEnum.COMMON_NORMAL.getId());
 		user.setCreateDate(new Date());
 		int i = this.usersService.registerUser(user);
 		if (i > 0) {

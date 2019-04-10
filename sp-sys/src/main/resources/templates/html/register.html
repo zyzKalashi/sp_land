@@ -109,6 +109,10 @@
                     layer.msg("请输入密码！");
                     $("#password").focus();
                     return false;
+                } else if(this.user.password.length < 6){
+                	 layer.msg("密码长度应大于6位！");
+                     $("#password").focus();
+                     return false;
                 }
                 if (!this.user.password_v) {
                     layer.msg("请再次输入密码！");

@@ -27,9 +27,11 @@
 							<table class="attrs_table">
 								<tr>
 									<td class="t_prop"><strong>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</strong></td>
-									<td class="t_prop_a"><input type="text" size="30"
-										style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;"
-										name="name" placeholder="输入产权人（或发布者）姓名" v-model="projectData.name"></td>
+									<td class="t_prop_a">
+										<input type="text" size="30" id="name"
+										style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px;" 
+										name="name" placeholder="输入产权人（或发布者）姓名" v-model="projectData.name">
+									</td>
 									<td class="t_prop mt15"><strong>性&nbsp;&nbsp;&nbsp;&nbsp;别：</strong></td>
 									<td class="pl10"><input type="radio" name="sex" value="0"
 										v-model="projectData.sex">&nbsp;&nbsp;男&nbsp;&nbsp;&nbsp;&nbsp;
@@ -37,9 +39,11 @@
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>手&nbsp;&nbsp;&nbsp;&nbsp;机：</strong></td>
-									<td class="t_prop_a"><input type="text" size="30"
-										style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 100%;"
-										name="mobile" placeholder="有效手机号码" v-model="projectData.mobile"></td>
+									<td class="t_prop_a">
+										<input type="text" size="30" id="mobile"
+											style="border: none; color: #000; font-size: 14px; padding: 0px 2px; height: 35px; width: 100%;"
+											name="mobile" placeholder="有效手机号码" v-model="projectData.mobile">
+									</td>
 									<td class="t_prop mt15"><strong>信息属权：</strong></td>
 									<td class="pl10">
 										<input type="radio" name="infoKind" value="0" v-model="projectData.infoKind">&nbsp;&nbsp;{{ 0 | projectInfoKindFilter }}&nbsp;&nbsp;
@@ -77,13 +81,15 @@
 							<table class="attrs_table">
 								<tr>
 									<td class="t_prop"><strong>项目名称：</strong></td>
-									<td class="t_prop_a"><input type="text" size="30"
+									<td class="t_prop_a">
+										<input type="text" size="30" id="projectName"
 										style="border: none; color: #000; font-size: 13px; padding: 0px 2px; height: 35px; width: 100%;"
-										name="xmmc" placeholder="项目详细名称" v-model="projectData.projectName"></td>
+										name="xmmc" placeholder="项目详细名称" v-model="projectData.projectName">
+									</td>
 									<td class="t_prop"><strong>流转方式：</strong></td>
 
 									<td class="pl10">
-										<select v-model="projectData.projectKind">
+										<select v-model="projectData.projectKind" id="projectKind">
 											<option value="0">请选择流转方式</option>
 											<option value="1">{{ 1 | projectKindFilter }}</option>
 											<option value="2">{{ 2 | projectKindFilter }}</option>
@@ -314,10 +320,11 @@
 							</tr>
 							<tr>
 								<td class="t_prop bold">标的公告价格（元）</td>
-								<td colspan="3" class="t_prop_c"><input type="number"
-									size="30"
+								<td colspan="3" class="t_prop_c">
+									<input type="number" size="30" id="showPreice"
 									style="border: none; color: #000; font-size: 14px; padding: 0px 2px; width: 80%; height: 35px;"
-									name="ggjg" placeholder="总成交金额" v-model="projectData.showPreice"></td>
+									name="ggjg" placeholder="总成交金额" v-model="projectData.showPreice">
+								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">合同支付方式</td>
@@ -465,6 +472,7 @@
 				},
 				submitProject : function(kind) {
 					if (vm.checkProject()) {
+						var index = layer.load(0, { shade: [0.1,'#fff'] });
 						var url = "/project/projectAdd";
 						if(kind == "upd"){
 							url = "/project/projectModify";
@@ -476,11 +484,37 @@
 	                            });
 	                        } else {
 	                            layer.msg(result.msg);
+		                    	layer.close(index);
 	                        }
 	                    });
 					}
 				},
 				checkProject : function() {
+					if(!vm.projectData.mobile && !(/^1[34578]\d{9}$/.test(vm.projectData.mobile))){
+						layer.msg("手机号码有误，请重填");  
+						$("#mobile").focus();
+						return false; 
+					}
+					if(!vm.projectData.name){
+						layer.msg("请填写姓名");  
+						$("#name").focus();
+						return false; 
+					}
+					if(!vm.projectData.projectName){
+						layer.msg("请填写项目名称");  
+						$("#projectName").focus();
+						return false; 
+					}
+					if(!vm.projectData.projectKind){
+						layer.msg("请选择流转方式");  
+						$("#projectKind").focus();
+						return false; 
+					}
+					if(!vm.projectData.showPreice){
+						layer.msg("请填写标的公告价格");  
+						$("#showPreice").focus();
+						return false; 
+					}
 					return true;
 				},
 				initProject: function(){

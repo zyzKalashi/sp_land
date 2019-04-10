@@ -60,7 +60,7 @@ function baseInfo() {
 	var hzObj = {};
 	hzObj.postRpc = function(url, data) {
 		if (url) {
-			var index = layer.load(1);
+			var index = layer.load(0, { shade: [0.1,'#fff'] });
 			return $.ajax({
 				url : url,
 				data : data,
@@ -81,7 +81,7 @@ function baseInfo() {
 	};
 
 	hzObj.getRpc = function(url, data) {
-		var index = layer.load(1);
+		var index = layer.load(0, { shade: [0.1,'#fff'] });
 		return $.ajax({
 			url : url,
 			data : data,

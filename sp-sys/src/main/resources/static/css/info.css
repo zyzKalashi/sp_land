@@ -173,13 +173,14 @@
 .attrs_table table td input{vertical-align:top;}
 .attrs_table .tech_field{padding:0.3em;width:100%;}
 .pinka_con{background-color:#fff;border:1px solid #dddddd;border-radius:3px; min-height:auto;}
-.select-tabs{height:33px; border-bottom:2px solid #653a0f;padding-top:3px; }
+.select-tabs{height:33px; border-bottom:2px solid #653a0f;padding-top:3px;}
 .select-tabs ul{list-style:none outside none;width:100%;float:left;}
 .select-tabs ul li{float:left;margin-left:10px;line-height:28px;}
 .select-tabs ul li a{padding:0 12px;background-color:#eaeaea;border-top-left-radius:3px;border-top-right-radius:3px;display:block;}
 .select-tabs ul li a:hover{background-color:#653a0f;color:#fff;}
 .select-tabs select{float:left;height:21px;margin-top:2px;}
 .select-tabs .sel-tab-cur a{background-color:#653a0f;color:#fff;}
+.sel-tab-cur{color:#fff;}
 .info-sel-title{width:100%; line-height:35px;background-color:#f5f5f5;}
 .info-sel-title .s-t-name{width:33%;text-align:center;}
 .info-sel-title .s-t-hy{width:33%;text-align:center;}
@@ -243,9 +244,9 @@
 	float:left;
 }
 .main6 {
-	width:85%;
+	width:90%;
 	float:right;
-	margin-right:8px;
+	margin-right:5%;
 }
 .main6r {
 	width:100%;
