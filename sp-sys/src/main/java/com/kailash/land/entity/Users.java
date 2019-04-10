@@ -31,6 +31,7 @@ public class Users extends Model<Users> implements Serializable {
 	private Date updateDate;
 	private Integer updateUser;
 	private String userName;
+	private String nickName;
 	private String password;
 	private Integer roleId;
 	private String mobile;
