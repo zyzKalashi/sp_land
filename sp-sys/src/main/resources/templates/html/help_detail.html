@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head th:include="common :: header">
+<title id="pageTitle">帮助资料详情-铁西区农村经济总站土地流转交易监管平台</title>
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<div th:replace="common::top"></div>
+		<!-- container begin -->
+		<div class="sam clear" style="background: #fff;">
+
+			<div th:include="common :: location">
+				<div id="pageLocaton">帮助资料详情</div>
+			</div>
+
+			<h3 class="c2 text-center" style="letter-spacing: 5px;">
+			</h3>
+				[<span class="bold" style="color: red; font-family: '新宋体';">{{ docData.docType | docKindFilter }}</span>]{{ docData.title }}
+			<p class="text-center f14" style="font-family: '宋体';">
+				<b>发布时间：</b><span>{{ docData.createDateStr }}</span> &nbsp;&nbsp;
+				<b>访问数量:</b><span>{{ visitNum }}</span>
+			</p>
+			<div class="detail clear">
+				<div class="main1 clearfix">
+					<h4 class="mt15">{{ docData.title }}</h4>
+					<div v-html="docData.docText">{{ docData.docText }}</div>
+				</div>
+			</div>
+
+			<div class="clearl" style="width: 90%; margin: 0 auto;">
+				<p class="fl clear pl15 mb20" style="font-family: '微软雅黑'; font-size: 12px;">
+					<b>上一页:</b>
+					<a v-if="preDoc" @click="goDetail(preDoc.docId)" style="font: '宋体' 12px;" >{{ preDoc.title }}</a>
+					<a v-else>无 </a>
+				</p>
+				<p class="pr15 fr mb20" style="font-family: '微软雅黑'; font-size: 12px;">
+					<b>下一页：</b>
+					<a v-if="nextDoc" @click="goDetail(nextDoc.docId)" style="font: '宋体' 12px;" >{{ nextDoc.title }}</a>
+					<a v-else>无 </a>
+				</p>
+				<br>
+			</div>
+		</div>
+		<footer class="footer">
+			<div th:replace="common :: foot"></div>
+		</footer>
+		<div th:replace="common :: js"></div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el : '#app',
+				data : {
+					queryData : {},
+					docData : {},
+					preDoc : {},
+					nextDoc : {},
+					visitNum : 0,
+				},
+				mounted : function() {
+					this.docData.docId = getUrlParam('docId');
+					this.queryData = JSON.parse(storage.getItem("docQueryData"));
+					this.queryData.docId = this.docData.docId;
+					this.initPage();
+				},
+				methods : {
+					initPage: function(){
+						this.initDoc();
+						this.initPreNext();
+						hzToolObj.postRpc("/sysLog/addVisitLog", {bizKind:4,bizId: this.queryData.docId}).done(function(result) {
+							vm.visitNum = result.visitNum;
+						});
+					},
+					initDoc: function(){
+						$.post("/doc/queryDetail", this.docData, function (result) {
+	                        if (result.code == 0) {
+	                           vm.docData = result.objData;
+	                        } else {
+	                            layer.msg(result.msg);
+	                        }
+	                    });
+					},
+					initPreNext: function(){
+						$.post("/doc/queryPreNext", this.queryData, function (result) {
+	                        if (result.code == 0) {
+	                           vm.preDoc = result.preDoc;
+	                           vm.nextDoc = result.nextDoc;
+	                        } else {
+	                            layer.msg(result.msg);
+	                        }
+	                    });
+					},
+					goDetail: function(id){
+						window.location.href="../html/help_detail?docId=" + id;
+					},
+				},
+			});
+		</script>
+	</div>
+
+</body>
+</html>

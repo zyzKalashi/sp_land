@@ -6,12 +6,12 @@ import com.kailash.land.entity.DocInfo;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author Mht
  * @since 2019-04-05
  */
 public interface DocInfoService extends IService<DocInfo> {
-    PageInfo<DocInfo> selectNoticePage(DocInfo doc);
+	PageInfo<DocInfo> selectNoticePage(DocInfo doc);
 }

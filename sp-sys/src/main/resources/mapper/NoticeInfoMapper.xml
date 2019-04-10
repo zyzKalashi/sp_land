@@ -41,6 +41,8 @@
 				AND create_user = #{obj.createUser}
 			</if>		
 		</where>
+		ORDER BY
+			pkid DESC
 	</select>
 
 
