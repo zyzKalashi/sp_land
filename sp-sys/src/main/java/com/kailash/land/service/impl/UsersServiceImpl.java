@@ -1,22 +1,18 @@
 package com.kailash.land.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kailash.land.entity.RoleEntity;
+import com.kailash.land.common.enums.RoleEnum;
+import com.kailash.land.entity.Users;
 import com.kailash.land.mapper.RoleMapper;
+import com.kailash.land.mapper.UsersMapper;
+import com.kailash.land.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.kailash.land.common.enums.RoleEnum;
-import com.kailash.land.entity.Users;
-import com.kailash.land.mapper.UsersMapper;
-import com.kailash.land.service.UsersService;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author: zyz
@@ -66,6 +62,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		PageHelper.startPage(user.getPageNo(), user.getPageSize());
 		EntityWrapper<Users> ewUsers = new EntityWrapper<Users>();
 		ewUsers.setEntity(user);
+		ewUsers.where(" user_status not in ('0','5') ");
 		List<Users> users = usersMapper.selectList(ewUsers);
 		return new PageInfo<>(users);
 	}
