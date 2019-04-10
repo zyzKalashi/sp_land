@@ -1,6 +1,5 @@
 package com.kailash.land.controller;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.PageInfo;
 import com.kailash.land.common.web.AbstractController;
-import com.kailash.land.entity.Demand;
 import com.kailash.land.entity.DocInfo;
 import com.kailash.land.service.DocInfoService;
 import com.kailash.land.util.Result;
