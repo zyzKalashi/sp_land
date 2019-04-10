@@ -30,7 +30,7 @@
     }
 </style>
 <body>
-<div id="vueApp">
+<div id="vueApp" v-cloak>
     <form role="form">
         <div class="form-group form-inline">
             <label class="col-sm-2" for="title">新闻标题</label>
@@ -129,7 +129,7 @@
                 noticeKind:'',
                 noticeStatus:'',
                 pageNo: 1,
-                pageSize: 2,
+                pageSize: 10,
             },
             list: [],
         },
@@ -140,7 +140,7 @@
             kinds: function(){
                 let arr = [];
                 for(let x in noticeKindDic){
-                    if(noticeKindDic[x].value.toString().match("1|2")){
+                    if(noticeKindDic[x].value.toString().match("1|2|3|4")){
                         arr.push(noticeKindDic[x]);
                     }
                 }

@@ -28,7 +28,7 @@
     }
 </style>
 <body>
-<div id="vueApp">
+<div id="vueApp" v-cloak>
     <form role="form">
         <div class="form-group form-inline">
             <label class="col-sm-2" for="userName">用户名</label>
@@ -115,7 +115,7 @@
                 mobile: '',
                 roleId: '',
                 pageNo: 1,
-                pageSize: 2,
+                pageSize: 10,
             },
             list: [],
             roleInfos:{},

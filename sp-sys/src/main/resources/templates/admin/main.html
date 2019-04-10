@@ -17,7 +17,7 @@
 	<script th:src="@{/static/plugin/layer/layer.js}"></script>
 </head>
 <body>
-<div id="app">
+<div id="app" v-cloak>
 	<div class="header clearfix">
 		<div class="header-c clear">
 			<img class="fl mt10" src="/static/images/logo1.png" style="width:32%; height:auto;">
@@ -47,12 +47,12 @@
 						<tr class="clearfix fr" style="display:table; width:95%;">
 							<td>
 								<div id="firstpaneDiv" class="menu_list">
-									<h3 class="menu_head" @click="jumpPage(defaultMenu)">
-										<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;首页
+									<h3 class="menu_head" @click="selectParent($event);jumpPage(defaultMenu)">
+										<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;&nbsp;&nbsp;首页
 									</h3>
 									<div v-for="first in menus">
-										<h3 class="menu_head">
-											<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;{{ first.name }}
+										<h3 class="menu_head" @click="selectParent($event)">
+											<img src="/static/images/cent/379.png" no-repeat width="20" height="20" >&nbsp;{{ first.name }}
 										</h3>
 										<div style="display:none;" class="menu_nva">
 											<a href="#" v-for="second in first.seconds" @click="jumpPage(second)"><img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}</a>
@@ -76,27 +76,6 @@
 </footer>
 </body>
 <script>
-	$(document).ready(function(){
-		//$("#firstpaneDiv .menu_nva:eq(0)").show();
-		//$("#firstpaneDiv .menu_head:eq(0)").addClass("current")
-
-
-		$("#firstpaneDiv h3.menu_head").click(function(){
-			var opened = $(this).hasClass("current");
-
-			$(".menu_nva").each(function(){
-				$(this).hide();
-			})
-			$(".menu_head").each(function(){
-				$(this).removeClass("current");
-			})
-			if(!opened){
-				$(this).show();
-				$(this).addClass("current").next("div.menu_nva").slideToggle(200).siblings("div.menu_nva").slideUp("slow");
-			}
-		});
-	});
-
 	var vm = new Vue({
 		el: '#app',
 		data: {
@@ -119,8 +98,11 @@
 			});
 
 			$.get("/menuInfo","",function(result){
+				_this.menus = [];
 				if(0 == result.code){
-					_this.menus = result.menu;
+					for(var x in result.menu){
+						_this.menus.push(result.menu[x]);
+					}
 				}
 			});
 			window.addEventListener('resize', this.getHeight);
@@ -142,6 +124,21 @@
 			getHeight: function(){
 				var height = $(".header").outerHeight(true) + $(".footer").outerHeight(true) + 38;
 				this.contentStyleObj.height=(window.innerHeight-height)+'px';
+			},
+			selectParent: function(event){
+				let _this = $(event.currentTarget);
+				var opened = $(_this).hasClass("current");
+				$(".menu_nva").each(function(){
+					$(this).hide();
+				})
+				$(".menu_head").each(function(){
+					$(_this).removeClass("current");
+				})
+				if(!opened){
+					$(_this).show();
+					$(_this).addClass("current").next("div.menu_nva").slideToggle(200).siblings("div.menu_nva").slideUp("slow");
+				}
+
 			},
 			jumpPage: function(menu){
 				$("#myrame").attr("src",menu.url);
