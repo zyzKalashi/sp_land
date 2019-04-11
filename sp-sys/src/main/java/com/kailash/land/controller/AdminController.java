@@ -173,4 +173,27 @@ public class AdminController {
 		mav.setViewName("admin/demand/demandAudit");
 		return mav;
 	}
+	
+	/**
+	 * 图片信息管理首页
+	 * @return
+	 */
+	@RequestMapping(value = "/picIndex", method = RequestMethod.GET)
+	public ModelAndView toPicIndex(String  picType) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("picType",picType);
+		mav.setViewName("admin/picinfo/picIndex");
+		return mav;
+	}
+	
+	/**
+	 * 图片信息管理修改
+	 * @return
+	 */
+	@RequestMapping(value = "/picModify", method = RequestMethod.GET)
+	public ModelAndView toPicModify() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/picinfo/picModify");
+		return mav;
+	}
 }

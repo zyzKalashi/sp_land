@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kailash.land.mapper.PicInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.kailash.land.entity.PicInfo">
+        <id column="pkid" property="picId" />
+        <result column="title" property="title" />
+        <result column="pic_type" property="picType" />
+        <result column="pic_status" property="picStatus" />
+        <result column="doc_url" property="docUrl" />
+        <result column="pic_link" property="picLink" />
+        <result column="pic_order" property="picOrder" />
+        <result column="create_user" property="createUser" />
+        <result column="create_date" property="createDate" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+
+</mapper>
