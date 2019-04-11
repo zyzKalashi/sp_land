@@ -33,7 +33,7 @@
 							<table class="attrs_table">
 								<tr>
 									<td class="t_prop"><strong>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</strong></td>
-									<td class="t_prop_a">
+									<td class="t_prop_a" valign="middle">
 										<p>{{ projectData.name }}</p>
 									</td>
 									<td class="t_prop"><strong>性&nbsp;&nbsp;&nbsp;&nbsp;别：</strong></td>
@@ -365,6 +365,7 @@
 				</p>
 				<br>
 			</div>
+			<div id="share" style="float: right; margin-right: 30px;"></div>
 		</div>
 		<!-- container end -->
 		<footer class="footer">
@@ -420,6 +421,8 @@
 				},
 			},
 		});
+		
+		socialShare('#share', {sites: ['qzone', 'qq', 'weibo','wechat']});
 	</script>
 </body>
 </html>
