@@ -52,7 +52,7 @@
 									</h3>
 									<div v-for="first in menus">
 										<h3 class="menu_head" @click="selectParent($event)">
-											<img src="/static/images/cent/379.png" no-repeat width="20" height="20" >&nbsp;{{ first.name }}
+											<img :src="'/static/images/cent/' + first.iconName" no-repeat width="20" height="20" >&nbsp;{{ first.name }}
 										</h3>
 										<div style="display:none;" class="menu_nva">
 											<a href="#" v-for="second in first.seconds" @click="jumpPage(second)"><img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}</a>
@@ -66,13 +66,13 @@
 			</div>
 			<div class="col-lg-9 col-md-9 col-sm-8 column">
 				<div class="clearfix mt10 main6r">
-					<iframe name="myiframe" id="myrame" src="/admin/dashbord" frameborder="0" align="left" width="100%" :style="contentStyleObj"></iframe>
+					<iframe name="myiframe" id="myrame" src="/admin/dashbord" frameborder="0" align="left" width="100%" :style="contentStyleObj" scrolling="no"></iframe>
 				</div>
 			</div>
 	</div>
 </div>
 <footer class="footer" style="margin-bottom: 0px;">
-	<div th:replace="common::foot"></div>
+	<div th:replace="common :: simpleFoot"></div>
 </footer>
 </body>
 <script>
@@ -100,6 +100,7 @@
 			$.get("/menuInfo","",function(result){
 				_this.menus = [];
 				if(0 == result.code){
+					console.log(result);
 					for(var x in result.menu){
 						_this.menus.push(result.menu[x]);
 					}
