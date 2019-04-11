@@ -2,6 +2,11 @@
 	width: auto;
 }
 
+.zbtn {
+	width: auto;
+	background: none;
+}
+
 .current {
 	background-color: #F2F2F2;
 }
@@ -12,7 +17,26 @@
 	color: #ffff;
 }
 
-.control-group{
-    margin-top: 10px;
+.control-group {
+	margin-top: 10px;
 }
 
+.zbtn-mm>.zbtn {
+	padding: 0.25rem 0.5rem;
+	font-size: 0.575rem;
+	line-height: 1;
+	border-radius: 0.2rem;
+}
+
+.zbtn-warning {
+	color: #cd5918;
+}
+
+.zbtn-danger {
+	color: #dc3545;
+}
+
+.thead-default {
+	background: #965818;
+	color: #ffff;
+}

@@ -53,8 +53,8 @@
             </div>
             <div class="col-sm-4" style="text-align: right;">
                 <div style="width: 95%;">
-                    <button type="button" @click="doQuery('1')" class="btn btn-sm btn-info">查询</button>
-                    <button type="button" @click="doModify()" class="btn btn-sm btn-warning">新增</button>
+                    <button type="button" @click="doQuery('1')" class=" btn btn-sm btn-info">查询</button>
+                    <button type="button" @click="doModify()" class="btn btn-sm btn-danger">新增</button>
                 </div>
             </div>
         </div>
@@ -78,8 +78,8 @@
                     <td>{{ doc.docStatus | commonStatusFilter }}</td>
                     <td>{{ doc.createDateStr }}</td>
                     <td class="inline">
-                        <button type="button" class="btn btn-sm btn-warning" @click="doModify(doc)">修改</button>
-                        <button type="button" class="btn btn-sm btn-warning" @click="doDelete(doc)">删除</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doModify(doc)"><i class="am-icon-reply">修改</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(doc)">删除</button>
                     </td>
                 </tr>
                 </tbody>

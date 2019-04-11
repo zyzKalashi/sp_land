@@ -47,8 +47,8 @@
 						<tr class="clearfix fr" style="display:table; width:95%;">
 							<td>
 								<div id="firstpaneDiv" class="menu_list">
-									<h3 class="menu_head" @click="selectParent($event);jumpPage(defaultMenu)">
-										<img src="/static/images/cent/379.png" no-repeat width="20" height="20">&nbsp;&nbsp;&nbsp;首页
+									<h3 class="menu_head" @click="selectParent($event);jumpPage(defaultMenu)" style="text-align: center;">
+										首页
 									</h3>
 									<div v-for="first in menus">
 										<h3 class="menu_head" @click="selectParent($event)">
