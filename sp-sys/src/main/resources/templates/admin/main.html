@@ -39,23 +39,29 @@
 				<div class="main6 mt20" :style="contentStyleObj">
 					<table class="mb10" style="width:100%;">
 						<tr class="mb5 fl" style="width:100%; border-bottom:3px double #bbb;">
-						<td style="margin-left:5px;"><ul>
-							<li><img src="/static/images/cent/set.png" style="width:30px; height:30px; line-height:35px;"></li>
-							<li><h5 class="c2 ml5 bold" style="line-height:35px; font-family:'华文细黑';">后台内容管理</h5></li></ul>
-						</td>
+							<td style="margin-left:5px;"><ul>
+								<li><img src="/static/images/cent/set.png" style="width:30px; height:30px; line-height:35px;"></li>
+								<li><h5 class="c2 ml5 bold" style="line-height:35px; font-family:'华文细黑';">后台内容管理</h5></li></ul>
+							</td>
+						</tr>
+						<tr class="clearfix fr" style="display:table; width:95%;">
+							<td>
+								<div class="menu_list" >
+									<div class="menu_head" @click="selectParent($event);jumpPage(defaultMenu)" style="text-align: center; background: #965818; color: #ffff;">首页</div>
+								</div>
+							</td>
 						</tr>
 						<tr class="clearfix fr" style="display:table; width:95%;">
 							<td>
 								<div id="firstpaneDiv" class="menu_list">
-									<h3 class="menu_head" @click="selectParent($event);jumpPage(defaultMenu)" style="text-align: center;">
-										首页
-									</h3>
 									<div v-for="first in menus">
 										<h3 class="menu_head" @click="selectParent($event)">
 											<img :src="'/static/images/cent/' + first.iconName" no-repeat width="20" height="20" >&nbsp;{{ first.name }}
 										</h3>
 										<div style="display:none;" class="menu_nva">
-											<a href="#" v-for="second in first.seconds" @click="jumpPage(second)"><img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}</a>
+											<a href="#" v-for="second in first.seconds" @click="jumpPage(second)" :id="second.menId">
+												<img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}
+											</a>
 										</div>
 									</div>
 								</div>
@@ -90,7 +96,7 @@
 			}
 		},
 		created: function() {
-			let _this = this;
+			var _this = this;
 			$.get("/loginInfo","",function(result){
 				if(0 == result.code){
 					_this.user = result.user;
@@ -127,7 +133,7 @@
 				this.contentStyleObj.height=(window.innerHeight-height)+'px';
 			},
 			selectParent: function(event){
-				let _this = $(event.currentTarget);
+				var _this = $(event.currentTarget);
 				var opened = $(_this).hasClass("current");
 				$(".menu_nva").each(function(){
 					$(this).hide();

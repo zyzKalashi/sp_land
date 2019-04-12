@@ -22,10 +22,10 @@ import lombok.NoArgsConstructor;
 @TableName("users")
 @SuppressWarnings("serial")
 public class Users extends Model<Users> implements Serializable {
-	
+
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long userId;
-	
+
 	private Date createDate;
 	private Integer createUser;
 	private Date updateDate;
@@ -60,6 +60,9 @@ public class Users extends Model<Users> implements Serializable {
 	@TableField(exist = false)
 	private Integer pageSize;
 
+	@TableField(exist = false)
+	private String fromPage;
+
 	@Override
 	protected Serializable pkVal() {
 		return this.userId;
@@ -68,5 +71,5 @@ public class Users extends Model<Users> implements Serializable {
 	public String getCreateDateStr() {
 		return DateUtils.format(this.createDate, DateFormatConsts.DATE_TIME_PATTERN);
 	}
-	
+
 }

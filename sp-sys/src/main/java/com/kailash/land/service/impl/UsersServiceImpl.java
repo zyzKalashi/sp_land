@@ -1,5 +1,11 @@
 package com.kailash.land.service.impl;
 
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
@@ -9,10 +15,7 @@ import com.kailash.land.entity.Users;
 import com.kailash.land.mapper.RoleMapper;
 import com.kailash.land.mapper.UsersMapper;
 import com.kailash.land.service.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.kailash.land.util.ShiroUtils;
 
 /**
  * @Author: zyz
@@ -63,7 +66,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		EntityWrapper<Users> ewUsers = new EntityWrapper<Users>();
 		ewUsers.setEntity(user);
 		ewUsers.where(" user_status not in ('0','5') ");
+		if (StringUtils.isNotEmpty(user.getFromPage())) {
+			if (user.getFromPage().equals("common")) {
+				ewUsers.where(" role_id = 4 ");
+			} else if (user.getFromPage().equals("admin")) {
+				if (ShiroUtils.getRoleId() == 1) {
+					ewUsers.where(" role_id in (1, 2, 3) ");
+				} else if (ShiroUtils.getRoleId() == 2) {
+					ewUsers.where(" role_id in ( 2, 3) ");
+				}
+			}
+		}
+		ewUsers.orderBy(" role_id ASC ");
 		List<Users> users = usersMapper.selectList(ewUsers);
 		return new PageInfo<>(users);
 	}
+	
 }

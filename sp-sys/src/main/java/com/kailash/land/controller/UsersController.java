@@ -94,10 +94,10 @@ public class UsersController extends AbstractController {
 		returnMap.put("result", allRoles);
 		return Result.ok(returnMap);
 	}
-	
+
 	@RequestMapping(value = "getUserStatus", method = RequestMethod.GET)
-	public Result getUserStatus(){
-		Map<String,String> status = new HashMap<>();
+	public Result getUserStatus() {
+		Map<String, String> status = new HashMap<>();
 		Map<String, Object> returnMap = new HashMap<>();
 		status.put("0", "删除");
 		status.put("1", "正常");
@@ -105,7 +105,7 @@ public class UsersController extends AbstractController {
 		status.put("3", "拒绝");
 		status.put("4", "结束");
 		status.put("5", "禁用");
-		returnMap.put("status",status);
+		returnMap.put("status", status);
 		return Result.ok(returnMap);
 	}
 

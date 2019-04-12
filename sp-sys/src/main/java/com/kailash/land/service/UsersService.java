@@ -9,11 +9,10 @@ import com.kailash.land.entity.Users;
  */
 public interface UsersService extends IService<Users> {
 
-
 	Users queryByUserName(String username);
 
 	int registerUser(Users user);
-	
+
 	PageInfo<Users> selectUsersPage(Users user);
 
 }

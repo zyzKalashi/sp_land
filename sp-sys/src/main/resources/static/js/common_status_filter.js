@@ -1,11 +1,11 @@
-let projectKindDic = [
+var projectKindDic = [
 	{value: 0, label: "全部"},
 	{value: 1, label: "土地承包"},
 	{value: 2, label: "林权转让"},
 	{value: 3, label: "养殖水面"},
 	{value: 4, label: "四荒承包"},
 ];
-let demandKindDic = [
+var demandKindDic = [
 	{value: 0, label: "全部"},
 	{value: 1, label: "土地承包"},
 	{value: 2, label: "林权转让"},
@@ -13,23 +13,23 @@ let demandKindDic = [
 	{value: 4, label: "四荒承包"},
 	{value: 5, label: "其他"},
 ];
-let noticeKindDic = [
+var noticeKindDic = [
 	{value: 0, label: "全部"},
 	{value: 1, label: "新闻"},
 	{value: 2, label: "政策"},
 	{value: 3, label: "法规"},
 	{value: 4, label: "公告"},
 ];
-let docKindDic = [
+var docKindDic = [
 	{value: 0, label: "全部"},
 	{value: 1, label: "帮助中心"},
 	{value: 2, label: "资料下载"},
 ];
-let projectInfoKindDic = [
+var projectInfoKindDic = [
 	{value: 0, label: "家庭个人"},
 	{value: 1, label: "集体单位"},
 ];
-let commonStatusterDic = [
+var commonStatusterDic = [
 	{value: 0, label: "删除"},
 	{value: 1, label: "正常"},
 	{value: 2, label: "待审核"},
@@ -37,19 +37,19 @@ let commonStatusterDic = [
 	{value: 4, label: "结束"},
 	{value: 5, label: "禁用"},
 ];
-let commonYesNoDic = [
+var commonYesNoDic = [
 	{value: 0, label: "否"},
 	{value: 1, label: "是"},
 ];
-let sexDic = [
+var sexDic = [
 	{value: 0, label: "男"},
 	{value: 1, label: "女"},
 ];
-let sexRespectDic = [
+var sexRespectDic = [
 	{value: 0, label: "先生"},
 	{value: 1, label: "女士"},
 ];
-let projectStatusDic = [
+var projectStatusDic = [
 	{value: 0, label: "已删除"},
 	{value: 1, label: "进行中"},
 	{value: 2, label: "待审核"},
@@ -57,7 +57,7 @@ let projectStatusDic = [
 	{value: 4, label: "已结束"},
 	{value: 5, label: "禁用"},
 ];
-let moneyLevelDic = [
+var moneyLevelDic = [
 	{value: 0, label: "1万-10万"},
 	{value: 1, label: "10万-50万"},
 	{value: 2, label: "50万-100万"},
