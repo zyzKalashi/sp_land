@@ -132,8 +132,13 @@
 		<a href="" class="fr">更多>></a>
 	</ul>
 	<div class="youqqi_adress" style="margin: 0 auto;text-align: center;" th:fragment="simpleFoot">
-		Copyright &copy;2019&nbsp;&nbsp;四平市铁西区农业经济总站版权所有&nbsp;&nbsp;吉ICP备19001115号-1
+		Copyright &copy;<span id="fullyear">2019</span>&nbsp;&nbsp;四平市铁西区农业经济总站版权所有&nbsp;&nbsp;吉ICP备19001115号-1
 	</div>
+	<script type="text/javascript">
+		$(function(){
+			$("#fullyear").text((new Date).getFullYear().toString());
+		});
+	</script>
 </div>
 
 <div th:fragment="js">

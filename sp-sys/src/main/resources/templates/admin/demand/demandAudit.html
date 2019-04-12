@@ -23,7 +23,7 @@
             },
         },
         mounted : function() {
-            let _this = this;
+            var _this = this;
             hzToolObj.postRpc("/demand/demandDetail", this.demandData).done(function (result) {
                 if (result.code == 0) {
                     _this.demandData = result.objData;

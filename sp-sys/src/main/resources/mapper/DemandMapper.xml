@@ -68,10 +68,10 @@
 		<if test="person != null">
 			AND person like CONCAT('%',#{person},'%')
 		</if>
-		<if test="demandKind != null">
+		<if test="demandKind != null and demandKind != ''">
 			AND demand_kind = #{demandKind}
 		</if>
-		<if test="demandStatus != null">
+		<if test="demandStatus != null and demandStatus !=''">
 			AND demand_status = #{demandStatus}
 		</if>
 		<if test="startDate != null">

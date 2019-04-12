@@ -23,7 +23,7 @@
             },
         },
         mounted : function() {
-            let _this = this;
+            var _this = this;
             $.post("/project/queryDetail", this.projectData, function (result) {
                 if (result.code == 0) {
                     _this.projectData = result.projectData;

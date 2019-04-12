@@ -40,7 +40,7 @@
             <label class="col-sm-2" for="noticeStatus">状态</label>
             <div class="col-sm-2">
                 <select class="form-control" id="noticeStatus" v-model="form.noticeStatus" placeholder="请选择新闻状态" style="width: 90%;" >
-                    <option></option>
+                     <option value="0">请选择</option>
                     <option v-for="item in status" :value="item.value">{{item.label}}</option>
                 </select>
             </div>
@@ -109,8 +109,8 @@
         data: {
             form: {
                 title:'',
-                noticeKind:'',
-                noticeStatus:'',
+                noticeKind: '',
+                noticeStatus: 0,
                 pageNo: 1,
                 pageSize: 10,
             },
@@ -121,8 +121,8 @@
         },
         computed:{
             kinds: function(){
-                let arr = [];
-                for(let x in noticeKindDic){
+                var arr = [];
+                for(var x in noticeKindDic){
                     if(noticeKindDic[x].value.toString().match("1|2|3|4")){
                         arr.push(noticeKindDic[x]);
                     }
@@ -130,8 +130,8 @@
                 return arr;
             },
             status: function(){
-                let arr = [];
-                for(let x in commonStatusterDic){
+                var arr = [];
+                for(var x in commonStatusterDic){
                     if(("" + commonStatusterDic[x].value).match("1|5")){
                         arr.push(commonStatusterDic[x]);
                     }
@@ -142,8 +142,8 @@
         methods:{
             doQuery: function(){
             	this.form.noticeKind = getUrlParam("noticeKind");
-                let obj = {};
-                for(let x in this.form){
+                var obj = {};
+                for(var x in this.form){
                     if(this.form[x]){
                         obj[x] = this.form[x];
                     }
@@ -166,9 +166,9 @@
                 this.list = result.pageInfo.list;
             },
             doModify: function(notice){
-                let _this = this;
-                let noticeId = "";
-                let title = "新增新闻";
+                var _this = this;
+                var noticeId = "";
+                var title = "新增新闻";
                 if(notice && notice.noticeId){
                     noticeId =  notice.noticeId;
                     title = "修改新闻-" + notice.title;
@@ -184,7 +184,7 @@
                     content: '/admin/noticeModify?noticeId=' + noticeId,
                     btn:['保存','关闭'],
                     yes: function(index, layero){
-                        let iframeWin = window[layero.find('iframe')[0]['name']];
+                        var iframeWin = window[layero.find('iframe')[0]['name']];
                         iframeWin.vm.save();
                     },
                     btn2: function(index, layero){
@@ -192,7 +192,7 @@
                 });
             },
             doDelete: function(notice){
-                let _this = this;
+                var _this = this;
                 layer.confirm('确认删除该新闻吗？', {
                     btn: ['确认','取消'] //按钮
                 }, function(){

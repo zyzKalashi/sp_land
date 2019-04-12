@@ -114,8 +114,8 @@
         },
         computed:{
             kinds: function(){
-                let arr = [];
-                for(let x in noticeKindDic){
+                var arr = [];
+                for(var x in noticeKindDic){
                     if(noticeKindDic[x].value.toString().match("1|2|3|4")){
                         arr.push(noticeKindDic[x]);
                     }
@@ -123,8 +123,8 @@
                 return arr;
             },
             status: function(){
-                let arr = [];
-                for(let x in commonStatusterDic){
+                var arr = [];
+                for(var x in commonStatusterDic){
                     if(("" + commonStatusterDic[x].value).match("1|5")){
                         arr.push(commonStatusterDic[x]);
                     }
@@ -133,7 +133,7 @@
             }
         },
         mounted: function(){
-            let _this = this;
+            var _this = this;
 
             DecoupledEditor
                 .create( document.querySelector( '#editor' ), {
@@ -229,9 +229,9 @@
                 }
 
                 if(this.checkNull()){
-                    let url = "";
-                    let tNotice = new Object();
-                    for(let x in this.form){
+                    var url = "";
+                    var tNotice = new Object();
+                    for(var x in this.form){
                         tNotice[x] = this.form[x];
                     }
                     // 修改
@@ -245,7 +245,7 @@
                     $.post(url, tNotice, function (result) {
                         if (result.code == 0) {
                             layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
-                                let index = window.parent.layer.getFrameIndex(window.name);
+                                var index = window.parent.layer.getFrameIndex(window.name);
                                 window.parent.layer.close(index);
                             });
                             window.parent.vm.doQuery();

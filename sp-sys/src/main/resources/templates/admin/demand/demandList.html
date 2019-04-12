@@ -30,14 +30,14 @@
             <label class="col-sm-2" for="demandKind">需求类别</label>
             <div class="col-sm-2">
                 <select class="form-control" id="demandKind" v-model="form.demandKind" placeholder="请选择需求类别" style="width: 90%;" >
-                    <option></option>
+                    <option value="0">请选择</option>
                     <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
                 </select>
             </div>
             <label class="col-sm-2" for="demandStatus">需求状态</label>
             <div class="col-sm-2">
                 <select class="form-control" id="demandStatus" v-model="form.demandStatus" placeholder="请选择需求状态" style="width: 90%;" >
-                    <option></option>
+                    <option value="0">请选择</option>
                     <option v-for="item in status" :value="'' + item.value">{{item.label}}</option>
                 </select>
             </div>
@@ -81,8 +81,9 @@
                     <td>{{demand.demandInfoKind | projectKindFilter}}</td>
                     <td>{{demand.createDateStr}}</td>
                     <td class="inline">
-                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(demand)">审核</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(demand)">删除</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(demand)" v-if="demand.demandStatus == 2">审核</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doDelete(demand, 4)" v-if="demand.demandStatus == 1">结束</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(demand, 0)">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -120,8 +121,8 @@
         data: {
             form: {
                 title:'',
-                demandKind: null,
-                demandStatus: null,
+                demandKind: 0,
+                demandStatus: 0,
                 pageNo: 1,
                 pageSize: 10,
             },
@@ -129,8 +130,8 @@
         },
         computed:{
             kinds: function(){
-                let arr = [];
-                for(let x in demandKindDic){
+                var arr = [];
+                for(var x in demandKindDic){
                     if(demandKindDic[x].value != 0){
                         arr.push(demandKindDic[x]);
                     }
@@ -138,8 +139,8 @@
                 return arr;
             },
             status: function(){
-                let arr = [];
-                for(let x in projectStatusDic){
+                var arr = [];
+                for(var x in projectStatusDic){
                     if(!("" + projectStatusDic[x].value).match("0|5")){
                         arr.push(projectStatusDic[x]);
                     }
@@ -152,8 +153,8 @@
         },
         methods:{
             doQuery: function(){
-                let obj = {};
-                for(let x in this.form){
+                var obj = {};
+                for(var x in this.form){
                     if(this.form[x] != ''){
                         obj[x] = this.form[x];
                     }
@@ -176,7 +177,7 @@
                 this.list = result.pageInfo.list;
             },
             doAudit: function(demand){
-                let buttons = [];
+                var buttons = [];
                 if(("" + demand.demandStatus).match("1|2|3")){
                     buttons.push("通过");
                     buttons.push("拒绝");
@@ -194,14 +195,14 @@
                     btn:buttons,
                     yes: function(index, layero){
                         if(3 == buttons.length) {
-                            let iframeWin = window[layero.find('iframe')[0]['name']];
+                            var iframeWin = window[layero.find('iframe')[0]['name']];
                             iframeWin.vm.audit('1');
                         } else {
                             layer.close(layer.index);
                         }
                     },
                     btn2: function(index, layero){
-                        let iframeWin = window[layero.find('iframe')[0]['name']];
+                        var iframeWin = window[layero.find('iframe')[0]['name']];
                         iframeWin.vm.audit('3');
                         return false;
                     },
@@ -209,17 +210,17 @@
                     },
                 });
             },
-            doDelete: function(demand){
-                let _this = this;
-                layer.confirm('确认删除该需求审批信息吗？', {
+            doDelete: function(demand, status){
+                var _this = this;
+                layer.confirm('确认'+ (status == 0? '删除':'结束') +'该需求审批信息吗？', {
                     btn: ['确认','取消'] //按钮
                 }, function(){
                     var tDemand = new Object();
                     tDemand.demandId = demand.demandId;
-                    tDemand.demandStatus = '0';
+                    tDemand.demandStatus = status;
                     $.post("/demand/demandAudit",tDemand,function(resp){
                         if(0 == resp.code){
-                            layer.msg('删除成功', {icon: 1});
+                            layer.msg('操作成功', {icon: 1});
                         } else {
                             layer.msg(resp.msg);
                         }

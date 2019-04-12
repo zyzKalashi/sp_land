@@ -82,7 +82,7 @@
         },
         methods:{
             flushData: function(){
-                let _this = this;
+                var _this = this;
                 $.post("/picInfo/picList", {picType:picType} , function (resp) {
                     _this.list = resp.data;
                 })

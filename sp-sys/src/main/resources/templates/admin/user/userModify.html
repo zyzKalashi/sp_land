@@ -114,8 +114,8 @@
         },
         computed:{
             status: function(){
-                let arr = [];
-                for(let x in commonStatusterDic){
+                var arr = [];
+                for(var x in commonStatusterDic){
                     if(!("" + commonStatusterDic[x].value).match("0|5")){
                         arr.push(commonStatusterDic[x]);
                     }

@@ -240,11 +240,11 @@
 					</toolchains>
 				</configuration>
 				<executions>
-					<!-- <execution>
-						<goals>
+					<execution>
+						<!-- <goals>
 							<goal>toolchain</goal>
-						</goals>
-					</execution> -->
+						</goals> -->
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>

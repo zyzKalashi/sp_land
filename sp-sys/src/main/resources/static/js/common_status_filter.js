@@ -68,6 +68,9 @@ var moneyLevelDic = [
 // 状态过滤-zyz
 Vue.filter('projectKindFilter', function(val) {
 	if(val == undefined) return '';
+	
+	
+	
 	return projectKindDic.filter((item)=>{
         return item.value == val
     })[0].label;
@@ -75,10 +78,11 @@ Vue.filter('projectKindFilter', function(val) {
 // 状态过滤-zyz
 Vue.filter('demandKindFilter', function(val) {
 	if(val == undefined) return '';
-
-	return demandKindDic.filter((item)=>{
-        return item.value == val
-    })[0].label;
+	for (item in demandKindDic){
+		if (item.value == val) {
+			return item.label;
+		}
+	}
 });
 // 状态过滤-zyz
 Vue.filter('noticeKindFilter', function(val) {

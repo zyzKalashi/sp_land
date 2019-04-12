@@ -111,8 +111,8 @@
         },
         computed:{
             kinds: function(){
-                let arr = [];
-                for(let x in docKindDic){
+                var arr = [];
+                for(var x in docKindDic){
                     if(docKindDic[x].value.toString().match("1|2")){
                         arr.push(docKindDic[x]);
                     }
@@ -120,8 +120,8 @@
                 return arr;
             },
             status: function(){
-                let arr = [];
-                for(let x in commonStatusterDic){
+                var arr = [];
+                for(var x in commonStatusterDic){
                     if(("" + commonStatusterDic[x].value).match("1|5")){
                         arr.push(commonStatusterDic[x]);
                     }
@@ -130,7 +130,7 @@
             }
         },
         mounted: function(){
-            let _this = this;
+            var _this = this;
 
             DecoupledEditor
                 .create( document.querySelector( '#editor' ), {
@@ -171,7 +171,7 @@
             if(docId){
                 $.post("/doc/queryDetail?docId=" + docId, "", function(resp){
                     if(0 == resp.code){
-                        for(let x in _this.form){
+                        for(var x in _this.form){
                             _this.form[x] = resp.objData[x];
                         }
                         if(_this.form.docUrl){
@@ -186,7 +186,7 @@
         },
         methods : {
             downFile: function(url){
-                let frame = document.createElement("iframe");
+                var frame = document.createElement("iframe");
                 frame.src = url;
                 frame.style.display = "none";
                 document.body.appendChild(frame);
@@ -219,9 +219,9 @@
                 }
 
                 if(this.checkNull()){
-                    let url = "";
-                    let tdoc = new Object();
-                    for(let x in this.form){
+                    var url = "";
+                    var tdoc = new Object();
+                    for(var x in this.form){
                         tdoc[x] = this.form[x];
                     }
                     // 修改
@@ -235,7 +235,7 @@
                     $.post(url, tdoc, function (result) {
                         if (result.code == 0) {
                             layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
-                                let index = parent.layer.getFrameIndex(window.name);
+                                var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
                             parent.vm.doQuery();
