@@ -2,6 +2,7 @@ package com.kailash.land.controller;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.PicInfo;
 import com.kailash.land.service.PicInfoService;
 import com.kailash.land.util.Result;
@@ -11,6 +12,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,7 +26,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/picInfo")
-public class PicInfoController {
+public class PicInfoController extends AbstractController {
     @Autowired
     private PicInfoService picService;
     
@@ -44,9 +46,23 @@ public class PicInfoController {
     }
     
     @ResponseBody
+    @RequestMapping("/picDetail")
+    public Result picDetail(PicInfo pic){
+        EntityWrapper<PicInfo> ewPic = new EntityWrapper<>();
+        ewPic.setEntity(pic);
+        PicInfo result = picService.selectById(pic);
+        return Result.ok().put("data",result);
+    }
+    
+    @ResponseBody
     @RequestMapping("/add_pic")
     public Result add_pic(PicInfo pic){
         try {
+            pic.setCreateUser(getUserId().intValue());
+            pic.setCreateDate(new Date());
+            pic.setUpdateUser(getUserId().intValue());
+            pic.setUpdateDate(new Date());
+            pic.setPicStatus(1);
             boolean zt = picService.insert(pic);
             if(!zt){
                 return Result.error("保存失败");
@@ -66,6 +82,9 @@ public class PicInfoController {
         }
         
         try{
+            pic.setUpdateUser(getUserId().intValue());
+            pic.setUpdateDate(new Date());
+            
             EntityWrapper<PicInfo> ewPic = new EntityWrapper<>();
             ewPic.setEntity(new PicInfo());
             ewPic.eq("pkid",pic.getPicId());

@@ -191,8 +191,10 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "/picModify", method = RequestMethod.GET)
-	public ModelAndView toPicModify() {
+	public ModelAndView toPicModify(String picId, String picType) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("picId",picId);
+		mav.addObject("picType",picType);
 		mav.setViewName("admin/picinfo/picModify");
 		return mav;
 	}

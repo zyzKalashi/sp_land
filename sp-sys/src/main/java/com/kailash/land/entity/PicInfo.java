@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +20,9 @@ import java.util.Date;
  * @author Mht
  * @since 2019-04-11
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("pic_info")
 public class PicInfo extends Model<PicInfo> {
 
@@ -45,8 +51,8 @@ public class PicInfo extends Model<PicInfo> {
     /**
      * 图片下载路径
      */
-    @TableField("doc_url")
-    private String docUrl;
+    @TableField("pic_url")
+    private String picUrl;
 
     /**
      * 图片链接
@@ -83,77 +89,6 @@ public class PicInfo extends Model<PicInfo> {
      */
     @TableField("update_date")
     private Date updateDate;
-
-    public Integer getPicId() {
-        return picId;
-    }
-
-    public void setPicId(Integer picId) {
-        this.picId = picId;
-    }
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public Integer getPicType() {
-        return picType;
-    }
-
-    public void setPicType(Integer picType) {
-        this.picType = picType;
-    }
-    public Integer getPicStatus() {
-        return picStatus;
-    }
-
-    public void setPicStatus(Integer picStatus) {
-        this.picStatus = picStatus;
-    }
-    public String getDocUrl() {
-        return docUrl;
-    }
-
-    public void setDocUrl(String docUrl) {
-        this.docUrl = docUrl;
-    }
-    public String getPicLink() {
-        return picLink;
-    }
-
-    public void setPicLink(String picLink) {
-        this.picLink = picLink;
-    }
-    public Integer getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Integer createUser) {
-        this.createUser = createUser;
-    }
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-    public Integer getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(Integer updateUser) {
-        this.updateUser = updateUser;
-    }
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
 
     @Override
     protected Serializable pkVal() {

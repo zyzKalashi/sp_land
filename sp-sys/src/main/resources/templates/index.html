@@ -50,20 +50,8 @@
 							</ul>
 							<!-- 轮播图片 -->
 							<div class="carousel-inner">
-								<div class="carousel-item active">
-									<img src="../static/images/slide/s1.jpg">
-								</div>
-								<div class="carousel-item">
-									<img src="../static/images/slide/s2.jpg">
-								</div>
-								<div class="carousel-item">
-									<img src="../static/images/slide/s3.jpg">
-								</div>
-								<div class="carousel-item">
-									<img src="../static/images/slide/s4.jpg">
-								</div>
-								<div class="carousel-item">
-									<img src="../static/images/slide/s5.jpg">
+								<div :class="index==0?'carousel-item active':'carousel-item'" v-for="(picinfo, index) in lunBoImgList">
+									<img :src="picinfo.picUrl">
 								</div>
 							</div>
 						</div>
@@ -329,6 +317,7 @@
 				demandList : [],
 				noticeList: [],
 				noticeImgList: [],
+				lunBoImgList:[],
 				contentStyleObj:{
 					height:'',
 					overflow: 'auto'
@@ -340,6 +329,7 @@
 				this.initDemandList();
 				this.initNoticeList();
 				this.initNoticeImgList();
+				this.initLunboImgList();
 			},
 			methods : {
 				goProDetail: function(id){
@@ -374,6 +364,11 @@
 					hzToolObj.getdomInit("/notice/simpleImgList", {pageNo : 1,pageSize : 3, queryPage:"index"}, function(result){
                     	vm.noticeImgList = result.pageInfo.list;
 					})
+				},
+				initLunboImgList : function() {
+					$.post("/picInfo/picList?picType=1",null ,function(resp){
+						vm.lunBoImgList = resp.data;
+					});
 				},
 
 			},

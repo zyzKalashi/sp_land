@@ -8,7 +8,7 @@
         <result column="title" property="title" />
         <result column="pic_type" property="picType" />
         <result column="pic_status" property="picStatus" />
-        <result column="doc_url" property="docUrl" />
+        <result column="pic_url" property="picUrl" />
         <result column="pic_link" property="picLink" />
         <result column="pic_order" property="picOrder" />
         <result column="create_user" property="createUser" />
