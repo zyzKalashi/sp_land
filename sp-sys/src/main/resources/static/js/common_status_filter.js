@@ -68,9 +68,6 @@ var moneyLevelDic = [
 // 状态过滤-zyz
 Vue.filter('projectKindFilter', function(val) {
 	if(val == undefined) return '';
-	
-	
-	
 	return projectKindDic.filter((item)=>{
         return item.value == val
     })[0].label;

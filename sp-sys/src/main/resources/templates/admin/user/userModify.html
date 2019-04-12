@@ -18,6 +18,12 @@
                 </div>
             </div>
             <div class="control-group form-inline">
+                <label class="control-label col-md-2 offset-md-2" for="userName">姓名</label>
+                <div class="controls col-md-6">
+                    <input type="text" placeholder="请输入姓名" class="form-control" style="width: 90%;" id="userName" v-model="user.nickName">
+                </div>
+            </div>
+            <div class="control-group form-inline">
                 <label class="control-label col-md-2 offset-md-2" for="email">邮箱</label>
                 <div class="controls col-md-6">
                     <input type="text" placeholder="请输入用户邮箱" class="form-control" style="width: 90%;" id="email" v-model="user.email">
@@ -32,20 +38,20 @@
             <div class="control-group form-inline">
                 <label class="control-label col-md-2 offset-md-2" for="password">密码</label>
                 <div class="controls col-md-6">
-                    <input type="text" placeholder="请输入密码" class="form-control" style="width: 90%;" id="password" v-model="user.password">
+                    <input type="password" placeholder="请输入密码" class="form-control" style="width: 90%;" id="password" v-model="user.password">
                 </div>
             </div>
             <div class="control-group form-inline">
                 <label class="control-label col-md-2 offset-md-2" for="password_v">确认密码</label>
                 <div class="controls col-md-6">
-                    <input type="text" placeholder="请再次输入密码" class="form-control" style="width: 90%;" id="password_v" v-model="user.password_v">
+                    <input type="password" placeholder="请再次输入密码" class="form-control" style="width: 90%;" id="password_v" v-model="user.password_v">
                 </div>
             </div>
             <div class="control-group form-inline">
                 <label class="control-label col-md-2 offset-md-2" for="userStatus">用户状态</label>
                 <div class="controls col-md-6">
                     <select class="form-control" id="userStatus" v-model="user.userStatus" placeholder="请选择用户状态" style="width: 90%;" >
-                        <option v-for="item in status" :value="item.value">{{item.label}}</option>
+                        <option v-for="item in commonStatusterDic" :value="item.value" v-if="item.value != 0 && item.value != 5">{{item.label}}</option>
                     </select>
                 </div>
             </div>
@@ -54,6 +60,24 @@
                 <div class="controls col-md-6">
                     <select class="form-control" id="roleId" v-model="user.roleId" placeholder="请选择用户角色" style="width: 90%;" >
                         <option v-for="(roleName,roleId) in roleInfos" :value="roleId">{{roleName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group form-inline" v-if="user.roleId != 1">
+                <label class="control-label col-md-2 offset-md-2" for="areaCode">区域</label>
+                <div class="controls col-md-6">
+                    <select class="form-control" id="areaCode" v-model="user.areaCode" style="width: 90%;" >
+                    	<option value="0">请选择</option>
+                        <option v-for="item in areaDic" :value="item.code">{{ item.areaName }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group form-inline" v-if="user.roleId != 1 && user.roleId != 2">
+                <label class="control-label col-md-2 offset-md-2" for="townCode">乡镇</label>
+                <div class="controls col-md-6">
+                   <select class="form-control" id="townCode" v-model="user.townCode" style="width: 90%;" >
+                    	<option value="0">请选择</option>
+                        <option v-for="item in childAreas" :value="item.code">{{ item.areaName }}</option>
                     </select>
                 </div>
             </div>
@@ -66,10 +90,10 @@
 <script th:src="@{/static/js/vue.min.js}"></script>
 <script th:src="@{/static/js/md5_32.js}"></script>
 <script th:src="@{/static/plugin/layer/layer.js}"></script>
+<script th:src="@{/static/js/common.js}"></script>
 <script th:src="@{/static/js/common_status_filter.js}"></script>
 <script type="text/javascript">
     var userId = '[[${userId}]]';
-
     var vm = new Vue({
         el: '#app',
         data: {
@@ -81,8 +105,12 @@
                 password_v: '',
                 userStatus: '2',
                 roleId: '4',
+                areaCode: 0,
+                townCode: 0,
             },
             roleInfos:{},
+            areaDic: [],
+            childAreas: [],
         },
         created: function(){
             var _this = this;
@@ -112,18 +140,15 @@
                 });
             }
         },
-        computed:{
-            status: function(){
-                var arr = [];
-                for(var x in commonStatusterDic){
-                    if(!("" + commonStatusterDic[x].value).match("0|5")){
-                        arr.push(commonStatusterDic[x]);
-                    }
-                }
-                return arr;
-            }
+        mounted : function() {
+        	this.initArea();	
         },
         methods : {
+        	initArea: function(){
+        		hzToolObj.postRpc("/area/initArea", {}).done(function(result) {
+        			vm.areaDic = result.area;
+        		});
+        	},
             checkNull: function () {
                 if (!this.user.userName) {
                     layer.msg("请输入用户名！");
@@ -207,6 +232,17 @@
                 }
             }
         },
+        watch: {
+			'user.areaCode': function(code){
+				if(code != 0) {
+					for (var item in vm.aeaDic){
+						if(item.code == code){
+							vm.childAreas =  item.childAreas;
+						}
+					}
+				}	
+			},
+		}
     });
 </script>
 </html>
