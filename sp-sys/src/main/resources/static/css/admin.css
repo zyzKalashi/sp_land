@@ -1006,12 +1006,13 @@ a.dengl:hover, a.zhuce:hover {
 
 .steps_wail ul {
 	width: 100%;
+	margin-left: 0%;
 }
 
 .steps_wail ul li {
 	padding: 0 70px 0 80px;
 	height: auto;
-	width:25%;
+	width:24%;
 	background: url(../images/main/parnts_10.png) no-repeat right center;
 }
 
