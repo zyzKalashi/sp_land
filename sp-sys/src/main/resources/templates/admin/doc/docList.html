@@ -54,7 +54,7 @@
             </div>
             <div class="col-sm-4" style="text-align: right;">
                 <div style="width: 95%;">
-                    <button type="button" @click="doQuery('1')" class=" btn btn-sm btn-info">查询</button>
+                    <button type="button" @click="doQuery('1')" class="btn btn-sm btn-info">查询</button>
                     <button type="button" @click="doModify()" class="btn btn-sm btn-danger">新增</button>
                 </div>
             </div>
@@ -181,7 +181,6 @@
                     docId =  doc.docId;
                     title = "修改文档-" + doc.title;
                 }
-
                 layer.open({
                     type: 2,
                     title: title,

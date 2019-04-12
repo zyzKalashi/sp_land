@@ -168,10 +168,10 @@
             doModify: function(notice){
                 var _this = this;
                 var noticeId = "";
-                var title = "新增新闻";
+                var title = "新增";
                 if(notice && notice.noticeId){
                     noticeId =  notice.noticeId;
-                    title = "修改新闻-" + notice.title;
+                    title = "修改-" + notice.title;
                 }
 
                 layer.open({
@@ -181,7 +181,7 @@
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/noticeModify?noticeId=' + noticeId,
+                    content: '/admin/noticeModify?noticeId=' + noticeId + "&noticeKind" + vm.form.noticeKind ,
                     btn:['保存','关闭'],
                     yes: function(index, layero){
                         var iframeWin = window[layero.find('iframe')[0]['name']];
@@ -193,7 +193,7 @@
             },
             doDelete: function(notice){
                 var _this = this;
-                layer.confirm('确认删除该新闻吗？', {
+                layer.confirm('确认删除吗？', {
                     btn: ['确认','取消'] //按钮
                 }, function(){
                     var tNotice = new Object();

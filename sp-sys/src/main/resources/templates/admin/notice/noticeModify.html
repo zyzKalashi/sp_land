@@ -13,12 +13,9 @@
     <div>
         <form class="form-horizontal" role="form">
             <div class="form-group form-inline">
-                <label class="col-sm-2" for="noticeKind">类别</label>
+             	<label class="col-sm-2" for="title">标题</label>
                 <div class="col-sm-4">
-                    <select class="form-control" id="noticeKind" v-model="form.noticeKind" style="width: 100%;" >
-                        <option></option>
-                        <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
-                    </select>
+                    <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入新闻标题" style="width: 100%;"/>
                 </div>
                 <label class="col-sm-2" for="noticeStatus">状态</label>
                 <div class="col-sm-4">
@@ -29,16 +26,13 @@
                 </div>
             </div>
             <div class="form-group form-inline">
-                <label class="col-sm-2" for="title">标题</label>
-                <div class="col-sm-4">
-                    <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入新闻标题" style="width: 100%;"/>
-                </div>
                 <div class="col-sm-2" style="text-align: center;">
                     <span id="picker">首页图片</span>
                 </div>
                 <div class="col-sm-4">
                     <div id="fileName" style="width: 100%;"></div>
                 </div>
+                <div class="col-sm-6"></div>
             </div>
             <div class="control-group form-inline">
                 <div class="controls col-md-12">
@@ -58,6 +52,7 @@
 <script th:src="@{/static/plugin/ckeditor/zh-cn.js}"></script>
 <script th:src="@{/static/plugin/layer/layer.js}"></script>
 <script th:src="@{/static/plugin/webuploader/webuploader.min.js}"></script>
+<script th:src="@{/static/js/common.js}"></script>
 <script th:src="@{/static/js/common_status_filter.js}"></script>
 
 <script type="text/javascript">
@@ -134,7 +129,7 @@
         },
         mounted: function(){
             var _this = this;
-
+            this.form.noticeKind = getUrlParam("noticeKind");
             DecoupledEditor
                 .create( document.querySelector( '#editor' ), {
                     language:"zh-cn"
@@ -198,11 +193,6 @@
                 });
             },
             checkNull: function () {
-                if (!this.form.noticeKind) {
-                    layer.msg("请选择新闻类别！");
-                    $("#noticeKind").focus();
-                    return false;
-                }
                 if (!this.form.noticeStatus) {
                     layer.msg("请选择新闻状态！");
                     $("#noticeStatus").focus();
@@ -211,10 +201,6 @@
                 if (!this.form.title) {
                     layer.msg("请输入新闻标题！");
                     $("#title").focus();
-                    return false;
-                }
-                if (!this.form.noticePic) {
-                    layer.msg("请上传首页展示图片！");
                     return false;
                 }
                 if (!this.form.noticeText) {
