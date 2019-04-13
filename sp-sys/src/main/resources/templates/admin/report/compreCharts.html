@@ -1,0 +1,89 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>铁西区农村经济总站土地流转交易监管平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/admin-html.css}">
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
+    <script th:src="@{/static/js/vue.min.js}"></script>
+    <script th:src="@{/static/plugin/layer/layer.js}"></script>
+    <script th:src="@{/static/js/common.js}"></script>
+    <script th:src="@{/static/js/common_status_filter.js}"></script>
+</head>
+
+<body>
+<div id="vueApp" v-cloak>
+    <form role="form">
+        <div class="form-group form-inline">
+            <label class="col-sm-2" for="timeFrame">时间范围</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="timeFrame" v-model="form.timeFrame" placeholder="请选择时间范围" style="width: 90%;" >
+                    <option v-for="item in timeFrame" :value="item.value">{{item.label}}</option>
+                </select>
+            </div>
+            <label class="col-sm-2" for="timeGran">时间粒度</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="timeGran" v-model="form.timeGran" placeholder="请选择时间粒度" style="width: 90%;" >
+                    <option v-for="item in timeGran" :value="item.value">{{item.label}}</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <div style="width: 95%;text-align: right;">
+                    <button type="button" @click="general()" class="btn btn-sm btn-info" style="margin-top: 3px;">生成图表</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" @click="doQuery()" class="btn btn-sm btn-info" style="height: 31px;margin-top: 3px;">下载Word</button>
+                    <button type="button" @click="doQuery()" class="btn btn-sm btn-info" style="height: 31px;margin-top: 3px;">下载Excel</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="col-sm-1"></label>
+            <div class="col-sm-10" style="border: #9fcdff solid 1px;height: 400px;background-color: #F2F2F2;margin-top: 20px;">
+
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#vueApp",
+        data: {
+            form: {
+                timeFrame: 0,
+                timeGran: 0,
+            },
+            timeGran:[],
+        },
+        computed:{
+            timeFrame: function() {
+                return timeFrameDict;
+            },
+        },
+        watch:{
+            'form.timeFrame': function(n,o){
+                this.timeGran = [];
+                this.timeGran.push(timeGranDict[0]);
+                this.timeGran.push(timeGranDict[1]);
+                if(n > 2){
+                    this.timeGran.push(timeGranDict[2]);
+                }
+            }
+        },
+        mounted: function(){
+            this.form.timeFrame = 1;
+            this.form.timeGran = 1;
+        },
+        methods:{
+            general: function(){
+                $.post("/report/getCompreChartsData",this.form,function(resp){
+                    alert(JSON.stringify(resp));
+                });
+            },
+        }
+    })
+</script>
+</html>

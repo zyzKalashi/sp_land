@@ -68,6 +68,19 @@ var picTypeDict = [
 	{value: 2, label: '合作单位', hasPic: true, hasLink: true},
 	{value: 3, label: '友情链接', hasPic: false, hasLink: true}]
 ;
+var timeFrameDict = [
+	{value: 1, label:'近一季度'},
+	{value: 2, label:'近半年'},
+	{value: 3, label:'近一年'},
+	{value: 4, label:'近三年'},
+	{value: 5, label:'近五年'},
+];
+
+var timeGranDict = [
+	{value: 1, label:'月'},
+	{value: 2, label:'季度'},
+	{value: 3, label:'年'},
+];
 
 // task
 // 状态过滤-zyz

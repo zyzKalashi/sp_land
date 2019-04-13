@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kailash.land.mapper.ReportMapper">
+    <select id="getCompreChartData" parameterType="com.kailash.land.entity.ReportValue" resultType="com.kailash.land.entity.ReportValue">
+		select
+			<choose>
+				<when test='timeGran=="1"'>
+					date_format(A.create_date,'%Y年%m月') AS x,
+				</when>
+				<when test='timeGran=="2"'>
+					concat(date_format(A.create_date,'%Y'),'年第',quarter(A.create_date),'季度') AS x,
+				</when>
+				<when test='timeGran=="3"'>
+					date_format(A.create_date,'%Y年') AS x,
+				</when>
+				<otherwise>
+					'' AS x,
+				</otherwise>
+			</choose>
+			cast(
+				SUM(
+					ifnull(B.show_preice,0)
+				) / 10000 AS char
+			) AS y
+		FROM
+			project A, project_around B
+		WHERE
+				A.pkid = B.project_id
+			AND
+			<choose>
+				<when test='timeFrame=="1"'>
+					DATE_SUB(CURDATE(), INTERVAL 1 QUARTER) <![CDATA[ <= ]]>   date(A.create_date)
+				</when>
+				<when test='timeFrame=="2"'>
+					DATE_SUB(CURDATE(), INTERVAL 6 MONTH) <![CDATA[ <= ]]>   date(A.create_date)
+				</when>
+				<when test='timeFrame=="3"'>
+					DATE_SUB(CURDATE(), INTERVAL 1 YEAR) <![CDATA[ <= ]]>   date(A.create_date)
+				</when>
+				<when test='timeFrame=="4"'>
+					DATE_SUB(CURDATE(), INTERVAL 3 YEAR) <![CDATA[ <= ]]>   date(A.create_date)
+				</when>
+				<when test='timeFrame=="5"'>
+					DATE_SUB(CURDATE(), INTERVAL 5 YEAR) <![CDATA[ <= ]]>   date(A.create_date)
+				</when>
+				<otherwise>
+					1=2
+				</otherwise>
+			</choose>
+		GROUP BY
+			x
+    </select>
+
+</mapper>
