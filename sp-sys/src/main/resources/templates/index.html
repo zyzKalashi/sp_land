@@ -243,18 +243,11 @@
 					<h2 class="pub1 c1" style="margin-bottom: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合作单位</h2>
 					<div class="public2 hez">
 						<ul class="clear">
-							<li class="public2"><a href=""><img
-									src="../static/images/main/houb_07_03.jpg"></a></li>
-							<li class="public2"><a href=""><img
-									src="../static/images/main/houb_1.jpg"></a></li>
-							<li class="public2"><a href=""><img
-									src="../static/images/main/houb_1.jpg"></a></li>
-							<li class="public2"><a href=""><img
-									src="../static/images/main/houb_1.jpg"></a></li>
-							<li class="public2"><a href=""><img
-									src="../static/images/main/houb_1.jpg"></a></li>
-							<li class="public2"><a href=""><img
-									src="../static/images/main/houb_1.jpg"></a></li>
+							<li class="public2" v-for="item in heZuoImgList">
+								<a :href="item.picLink" target="_blank">
+									<img :src="item.picUrl" style="width: 145px;height: 66px;">
+								</a>
+							</li>
 						</ul>
 
 					</div>
@@ -318,6 +311,7 @@
 				noticeList: [],
 				noticeImgList: [],
 				lunBoImgList:[],
+				heZuoImgList:[],
 				contentStyleObj:{
 					height:'',
 					overflow: 'auto'
@@ -330,6 +324,7 @@
 				this.initNoticeList();
 				this.initNoticeImgList();
 				this.initLunboImgList();
+				this.initHezuoImgList();
 			},
 			methods : {
 				goProDetail: function(id){
@@ -370,7 +365,16 @@
 						vm.lunBoImgList = resp.data;
 					});
 				},
-
+				initLunboImgList : function() {
+					$.post("/picInfo/picList?picType=1",null ,function(resp){
+						vm.lunBoImgList = resp.data;
+					});
+				},
+				initHezuoImgList : function() {
+					$.post("/picInfo/picList?picType=2",null ,function(resp){
+						vm.heZuoImgList = resp.data;
+					});
+				},
 			},
 			
 		});

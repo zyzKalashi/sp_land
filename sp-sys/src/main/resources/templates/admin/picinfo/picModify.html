@@ -22,25 +22,33 @@
                     <input class="form-control" id="picOrder" v-model="form.picOrder" type="text" placeholder="请输入序号" style="width: 100%;"/>
                 </div>
             </div>
-            <div class="form-group form-inline text-center">
-                <input type="file" id="filePath" @change="fileChange" accept="image/*"  style="display: none;"/>
-                <label class="col-sm-2"></label>
-                <div class="col-sm-8 text-center">
-                    <button type="button" class="zbtn zbtn-mm zbtn-info" @click="reset()">复位</button>
-                    <button type="button" class="zbtn zbtn-mm zbtn-info" @click="rotate(-90)">左转90º</button>
-                    <button type="button" class="zbtn zbtn-mm zbtn-info" @click="rotate(90)">右转90º</button>
-                    &nbsp;&nbsp;
-                    <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="select">选择文件</button>
-                    <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="upload">确认上传</button>
+            <div class="form-group form-inline" v-if="hasLink">
+                <label class="col-sm-2" for="picLink">链接地址</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="picLink" v-model="form.picLink" type="text" placeholder="请输入链接地址" style="width: 100%;"/>
                 </div>
-                <label class="col-sm-2"></label>
             </div>
-            <div class="form-group form-inline">
-                <label class="col-sm-2"></label>
-                <div class="col-sm-8" style="border: #9fcdff solid 1px;height: 300px;background-color: #F2F2F2;">
-                    <img id="tailoringImg">
+            <div v-if="hasPic">
+                <div class="form-group form-inline text-center">
+                    <input type="file" id="filePath" @change="fileChange" accept="image/*"  style="display: none;"/>
+                    <label class="col-sm-2"></label>
+                    <div class="col-sm-8 text-center">
+                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="reset()">复位</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="rotate(-90)">左转90º</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="rotate(90)">右转90º</button>
+                        &nbsp;&nbsp;
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="select">选择文件</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="upload">确认上传</button>
+                    </div>
+                    <label class="col-sm-2"></label>
                 </div>
-                <label class="col-sm-2"></label>
+                <div class="form-group form-inline">
+                    <label class="col-sm-2"></label>
+                    <div class="col-sm-8" style="border: #9fcdff solid 1px;height: 300px;background-color: #F2F2F2;">
+                        <img id="tailoringImg">
+                    </div>
+                    <label class="col-sm-2"></label>
+                </div>
             </div>
         </form>
     </div>
@@ -51,6 +59,7 @@
 <script th:src="@{/static/js/vue.min.js}"></script>
 <script th:src="@{/static/plugin/cropper/cropper.js}"></script>
 <script th:src="@{/static/plugin/layer/layer.js}"></script>
+<script th:src="@{/static/js/common_status_filter.js}"></script>
 
 <script type="text/javascript">
     var picId = '[[${picId}]]';
@@ -63,17 +72,43 @@
                 title: '',
                 picOrder: '',
                 picUrl: '',
+                picLink:'',
             },
             tailoring: null,
+            picTypeInfo: null,
+        },
+        computed: {
+            hasPic: function(){
+                for(var x in picTypeDict){
+                    if(('' + picTypeDict[x].value) == picType){
+                        return picTypeDict[x].hasPic;
+                    }
+                }
+                return false;
+            },
+            hasLink: function(){
+                for(var x in picTypeDict){
+                    if(('' + picTypeDict[x].value) == picType){
+                        return picTypeDict[x].hasLink;
+                    }
+                }
+                return false;
+            }
         },
         mounted: function () {
             var _this = this;
 
+            var ratio = 1;
+            if(picType == '1'){
+                ratio = 595 / 255;
+            } else if(picType == '2'){
+                ratio =  146 / 66;
+            }
             this.tailoring = $('#tailoringImg').cropper({
-                aspectRatio : 595 / 255,// 默认比例
+                aspectRatio : ratio,// 默认比例
                 preview : '.previewImg',// 预览视图
                 guides : true, // 裁剪框的虚线(九宫格)
-                autoCropArea : 0.5, // 0-1之间的数值，定义自动剪裁区域的大小，默认0.8
+                autoCropArea : 1, // 0-1之间的数值，定义自动剪裁区域的大小，默认0.8
                 movable : false, // 是否允许移动图片
                 dragCrop : true, // 是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
                 movable : true, // 是否允许移动剪裁框
@@ -183,8 +218,13 @@
                     $("#picOrder").focus();
                     return false;
                 }
-                if (!this.form.picUrl) {
+                if (this.hasPic && !this.form.picUrl) {
                     layer.msg("请选择图片，修改后确认上传！");
+                    $("#picUrl").focus();
+                    return false;
+                }
+                if (this.hasLink && !this.form.picLink) {
+                    layer.msg("请输入链接地址！");
                     $("#picUrl").focus();
                     return false;
                 }

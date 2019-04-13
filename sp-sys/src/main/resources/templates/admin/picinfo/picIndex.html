@@ -7,17 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/admin-html.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/plugin/jeDate/jeDate.css}">
     <script th:src="@{/static/js/jquery.min.js}"></script>
     <script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
     <script th:src="@{/static/js/vue.min.js}"></script>
     <script th:src="@{/static/plugin/layer/layer.js}"></script>
-    <script th:src="@{../static/plugin/pagination/jquery.pagination.js}"></script>
-    <script th:src="@{../static/plugin/pagination/bootstrap-paginator.js}"></script>
     <script th:src="@{/static/js/common.js}"></script>
     <script th:src="@{/static/js/common_status_filter.js}"></script>
-    <script th:src="@{/static/plugin/jeDate/jeDate.js}"></script>
 </head>
+<style>
+    .active {
+        color: #6a2d04;
+    }
+</style>
 
 <body>
 <div id="vueApp" v-cloak>
@@ -26,7 +27,11 @@
             <table style="width: 100%;">
                 <tr>
                     <td>
-                        <h3>宣传图片管理</h3>
+                        <label v-for="(item,index) in typeList">
+                            <label></label>
+                            <a href="javascript:void(1);" :class="typeIndex==index?'active':''" style="font-size: 15px;font-weight: bold;" @click="changeType(index)">{{ item.label }}</a>
+                            <label v-if="index != (typeList.length-1)">/</label>
+                        </label>
                     </td>
                     <td style="text-align: right;">
                         <button type="button" class="btn btn-sm btn-danger" @click="doModify()">新增</button>
@@ -53,7 +58,8 @@
                         <button type="button" class="zbtn zbtn-mm zbtn-info" @click="moveOrder(index, 1)" v-if="index!=(list.length-1)">下移</button>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td class="inline">
-                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="showPic(picinfo)">预览</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="curl(picinfo)" v-if="currentType.hasLink">访问</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="showPic(picinfo)" v-if="currentType.hasPic">预览</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doModify(picinfo)">修改</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(picinfo)">删除</button>
                     </td>
@@ -70,21 +76,40 @@
 </div>
 </body>
 <script>
-    var picType = [[${picType}]];
-    var picTypeName = "宣传图片";
+    var picType = '[[${picType}]]';
 
     var vm = new Vue({
         el: "#vueApp",
         data: {
             list: [],
+            typeIndex: 0,
         },
         mounted : function() {
             this.flushData();
         },
+        computed: {
+            typeList: function(){
+                var list = [];
+                if(picType == '1'){
+                    list.push(picTypeDict[0]);
+                } else if(picType == 'x') {
+                    list.push(picTypeDict[1]);
+                    list.push(picTypeDict[2]);
+                }
+                return list;
+            },
+            currentType: function(){
+                return this.typeList[this.typeIndex];
+            }
+        },
         methods:{
+            changeType: function(index){
+                this.typeIndex = index;
+                this.flushData();
+            },
             flushData: function(){
                 var _this = this;
-                $.post("/picInfo/picList", {picType:picType} , function (resp) {
+                $.post("/picInfo/picList", {picType: this.currentType.value} , function (resp) {
                     _this.list = resp.data;
                 })
             },
@@ -97,13 +122,20 @@
                     }
                 });
             },
+            curl: function(picinfo){
+                if(!picinfo.picLink){
+                    layer.msg("链接为空！");
+                    return false;
+                }
+                window.open(picinfo.picLink, '_blank');
+            },
             doModify: function(picinfo){
                 var _this = this;
                 var picId = "";
-                var title = "新增"+ picTypeName;
+                var title = "新增"+ this.currentType.label;
                 if(picinfo && picinfo.picId){
                     picId =  picinfo.picId;
-                    title = "修改" + picTypeName + "-" + picinfo.title;
+                    title = "修改" + this.currentType.label + "-" + picinfo.title;
                 }
 
                 layer.open({
@@ -113,7 +145,7 @@
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/picModify?picId=' + picId + "&picType=" + picType,
+                    content: '/admin/picModify?picId=' + picId + "&picType=" + this.currentType.value,
                     btn:['保存','关闭'],
                     yes: function(index, layero){
                         var iframeWin = window[layero.find('iframe')[0]['name']];

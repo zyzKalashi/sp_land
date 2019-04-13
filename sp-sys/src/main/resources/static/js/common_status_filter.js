@@ -63,6 +63,11 @@ var moneyLevelDic = [
 	{value: 2, label: "50万-100万"},
 	{value: 3, label: "100万以上"},
 ];
+var picTypeDict = [
+	{value: 1, label: '宣传图片', hasPic: true, hasLink: false},
+	{value: 2, label: '合作单位', hasPic: true, hasLink: true},
+	{value: 3, label: '友情链接', hasPic: false, hasLink: true}]
+;
 
 // task
 // 状态过滤-zyz

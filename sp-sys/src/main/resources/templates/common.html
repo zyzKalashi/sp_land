@@ -120,16 +120,7 @@
 	</div>
 </div>
 <div th:fragment="foot">
-	<ul class="clear youqinglj tform" style="width: 80%; margin-left: 10%;">
-		<li>友情链接： &nbsp;</li>
-		<li><a href="http://www.siping.gov.cn/fw/bmfw/">四平市政务网</a></li>&nbsp;&nbsp;
-		<li><a href="http://cz.siping.gov.cn/">四平市财政局</a></li>&nbsp;&nbsp;
-		<li><a href="http://gs.siping.gov.cn/">四平市工商信息网</a></li>&nbsp;&nbsp;
-		<li><a href="http://www.zgny.com.cn/">中国农业网</a></li>&nbsp;&nbsp;
-		<li><a href="http://nw.jlcity.gov.cn/">吉林省农业局</a></li>&nbsp;&nbsp;
-		<li><a href="http://nw.siping.gov.cn/">四平市农业农村局</a></li>&nbsp;&nbsp;
-		<li><a href="http://txq.siping.gov.cn/">四平市铁西区人民政府</a></li>&nbsp;&nbsp;
-		<a href="" class="fr">更多>></a>
+	<ul class="clear youqinglj tform" style="width: 80%; margin-left: 10%;" id="friendlink">
 	</ul>
 	<div class="youqqi_adress" style="margin: 0 auto;text-align: center;" th:fragment="simpleFoot">
 		Copyright &copy;<span id="fullyear">2019</span>&nbsp;&nbsp;四平市铁西区农业经济总站版权所有&nbsp;&nbsp;吉ICP备19001115号-1
@@ -137,6 +128,15 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#fullyear").text((new Date).getFullYear().toString());
+			$.post("/picInfo/picList?picType=3",null ,function(resp){
+				$("#friendlink").html("");
+				if(resp.data){
+					$("#friendlink").append("<li>友情链接：&nbsp;</li>");
+					for(var x in resp.data){
+						$("#friendlink").append('<li><a href="' + resp.data[x].picLink + '" target="_blank">' + resp.data[x].title + '</a></li>&nbsp;&nbsp;');
+					}
+				}
+			});
 		});
 	</script>
 </div>
