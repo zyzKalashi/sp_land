@@ -9,12 +9,15 @@
 		    background-color: rgb(246, 239, 227);
 		    width: 100%;
     		height: 100%;
+    		position: absolute;
 	}
 	.openWinDiv{
 			text-align: center;
 		  	padding: 20px;
 	}
-	
+	.control-group {
+		margin-top: 20px;
+	}
 	</style>
 
 <body>
@@ -36,7 +39,7 @@
 								<td>
 									<p class="f18 ml20" style="color: #93590d;">{{ userData.userName}}</p>
 									<p class="f12 ml20" style="color: #06c; font-family: '宋体';">
-										<a href="#change" data-toggle="tab">修改资料</a>
+										<!-- <a data-toggle="tab" href="#myfirst" @click="winBaseInfo">修改资料</a> -->
 									</p>
 									<p class="ml20" style="font-family: '新宋体'; font-size: 11px;">
 										上次访问时间:<span>{{ loginLog.logDateStr }}</span>
@@ -56,7 +59,7 @@
 									class="ml10"></td>
 								<td style="">
 									<p class="fl pl20" style="margin: 0 auto;">
-										<a href="#shiming" data-toggle="tab">实名认证</a>
+										<a  @click="openWin('idCard')" data-toggle="tab">实名认证</a>
 									</p>
 								</td>
 							</tr>
@@ -93,6 +96,16 @@
 							</tr>
 							<tr class="mb10 fl"
 								style="width: 100%; border-bottom: 1px dashed #ccc; line-height: 39px; padding: 10px 0;">
+								<td><img src="../static/images/cent/pws.png" class="ml10">
+								</td>
+								<td style="">
+									<p class="fl pl20" style="margin: 0 auto;">
+										<a @click="openWin('myfirst')" data-toggle="tab">基础信息</a>
+									</p>
+								</td>
+							</tr>
+							<tr class="mb10 fl"
+								style="width: 100%; border-bottom: 1px dashed #ccc; line-height: 39px; padding: 10px 0;">
 								<td><img src="../static/images/cent/logout2x.png"
 									class="ml10"></td>
 								<td style="">
@@ -101,22 +114,12 @@
 									</p>
 								</td>
 							</tr>
-							<tr class="mb10 fl"
-								style="width: 100%; border-bottom: 1px dashed #ccc; line-height: 39px; padding: 10px 0;">
-								<td><img src="../static/images/cent/help.png" class="ml10">
-								</td>
-								<td style="">
-									<p class="fl pl20" style="margin: 0 auto;">
-										<a href="../html/help.html">帮助中心</a>
-									</p>
-								</td>
-							</tr>
 						</table>
 					</div>
 				</div>
 				<div class="col-md-8 column text-center mt20">
 					<div id="mytabContent" class="tab-content clearfix">
-						<div class="tab-pane active" id="myfirst">
+						<div class="tab-pane active" id="openWin_indexInfo">
 							<!-- row1 start -->
 							<div class="row clearfix member ml10">
 								<table class="mb10"
@@ -158,7 +161,7 @@
 												<a href="../login/project_add.html">发布新信息</a>
 											</li>
 										</ul>
-										<div class="tab-content">
+										<div class="tab-content" style="height: 100%;" >
 											<div class="tab-pane active" id="xmli">
 												<div class="gerenxx clearl mb20">
 													<div class="gerendetail">
@@ -213,78 +216,150 @@
 												</div>
 											</div>
 										</div>
+										<div class="page mt10 mb20">
+												<ul id='pagination'></ul>
+											</div>
 									</div>
 								</div>
 							</div>
-							<div class="page mt10 mb20">
-								<ul id='pagination'></ul>
-							</div>
 						</div>
 						<!-- 以上是首页的内容,以下是’修改资料‘的内容 -->
-						<div class="tab-pane" id="myfirst"></div>
+						<div class="tab-pane" id="myfirst" v-show="win.openWin_baseInfo">
+							<div class="openWinDiv">基础信息</div>
+							<div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="userName">用户名：</label>
+				                <div class="controls col-md-6">
+				                    <input type="text" placeholder="请输入用户名" class="form-control" style="width: 90%;"  v-model="userData.userName" autocomplete="off">
+				                </div>
+				            </div>
+				            <div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="userName">姓名：</label>
+				                <div class="controls col-md-6">
+				                    <input type="text" placeholder="请输入姓名" class="form-control" style="width: 90%;" v-model="userData.nickName">
+				                </div>
+				            </div>
+				            <div class="control-group form-inline" >
+				                <label class="control-label col-md-2 offset-md-2" for="areaCode">区域：</label>
+				                <div class="controls col-md-6">
+				                    <select class="form-control" v-model="userData.areaCode" style="width: 90%;" >
+				                    	<option value="0">请选择</option>
+				                        <option v-for="item in areaDic" :value="item.code">{{ item.areaName }}</option>
+				                    </select>
+				                </div>
+				            </div>
+				            <div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="townCode">乡镇：</label>
+				                <div class="controls col-md-6">
+				                   <select class="form-control" v-model="userData.townCode" style="width: 90%;" >
+				                    	<option value="0">请选择</option>
+				                        <option v-for="item in childAreas" :value="item.code">{{ item.areaName }}</option>
+				                    </select>
+				                </div>
+				            </div>
+				            <div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="townCode">头像：</label>
+				                <div class="controls col-md-6">
+				                	<input type="file">
+				                </div>
+				            </div>
+				            <div class="openWinDiv">
+								<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('baseInfo')">确定</button>
+								<button style="background: #6e3e0d; color: #ffff;" onclick="closeWin()">取消</button>
+							</div>
+						</div>
 						<!-- 以下是实名认证的内容 -->
-						<div class="tab-pane" id="shiming">
+						<div class="tab-pane" id="idCard" v-show="win.openWin_idcard">
 							<div class="main8 clearfix">
-								<div class="row">
-									<span>姓名：</span>
-									<input type="text" placeholder="请输入姓名……">
-								</div>
-								<div class="row">
-									<span>身份证号码：</span>
-									<input type="text" placeholder="请输入身份证号码……">
-								</div>
-								<div class="row">
-									<span>邮箱：</span>
-									<input type="email" placeholder="请输入邮箱……">
-								</div>
-								<div class="row">
-									<span>手机：</span>
-									<input type="text" placeholder="请输入手机……">
-								</div>
-								<div class="row">
-									<span>身份证照片上传：</span>
-									<input type="file" placeholder="">
+								<div class="openWinDiv">实名认证</div>
+								<div class="control-group form-inline">
+					                <label class="control-label col-md-2 offset-md-2" for="password">身份证号：</label>
+					                <div class="controls col-md-6">
+					                    <input type="text" placeholder="请输入身份证号" class="form-control" style="width: 90%;"  v-model="userData.idCardNo" autocomplete="off">
+					                </div>
+					            </div>
+								<div class="control-group form-inline">
+					                <label class="control-label col-md-2 offset-md-2" for="password">身份证正面照片：</label>
+					                <div class="controls col-md-6">
+					                    <input type="file" placeholder="请输入身份证号" class="form-control" style="width: 90%;"  v-model="userData.idCardPic" autocomplete="off">
+					                </div>
+					            </div>
+								<div class="control-group form-inline">
+					                <label class="control-label col-md-2 offset-md-2" for="password">身份证正面照片：</label>
+					                <div class="controls col-md-6">
+					                    <input type="file" placeholder="请输入身份证号" class="form-control" style="width: 90%;"  v-model="userData.idCardPicBack" autocomplete="off">
+					                </div>
+					            </div>
+								<div class="openWinDiv">
+									<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('changeIdCard')">确定</button>
+									<button style="background: #6e3e0d; color: #ffff;" onclick="closeWin()">取消</button>
 								</div>
 							</div>
 						</div>
 						<!-- 以下是修改密码的内容 -->
-						<div class="tab-pane" id="mima" >
-							<div class="openWinDiv"></div>
+						<div class="tab-pane" id="mima" v-show="win.openWin_password">
+							<div class="openWinDiv">修改密码</div>
+							<div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="password">原密码</label>
+				                <div class="controls col-md-6">
+				                    <input type="password" placeholder="请输入原密码" class="form-control" style="width: 90%;"  v-model="userData.password" autocomplete="off">
+				                </div>
+				            </div>
+							<div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="password">新密码</label>
+				                <div class="controls col-md-6">
+				                    <input type="password" placeholder="请输入密码" class="form-control" style="width: 90%;"  v-model="userData.newPassword" autocomplete="off">
+				                </div>
+				            </div>
+				            <div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="password_v">确认密码</label>
+				                <div class="controls col-md-6">
+				                    <input type="password" placeholder="请再次输入密码" class="form-control" style="width: 90%;" v-model="userData.newPassword_v" autocomplete="off">
+				                </div>
+				            </div>
 							<div class="openWinDiv">
-								<span>原密码</span>
-								<input type="password" v-model="userData.password" placeholder="原密码">
-							</div>
-							<div class="openWinDiv">
-								<span>新密码</span>
-								<input type="password" v-model="userData.newPassword" placeholder="新密码">
-							</div>
-							<div class="openWinDiv">
-								<button @click="updUserPassword">确定</button>
-								<button onclick="closeWin()">取消</button>
+								<button style="background: #6e3e0d; color: #ffff;" @click="updUserPassword">确定</button>
+								<button style="background: #6e3e0d; color: #ffff;" onclick="closeWin()">取消</button>
 							</div>
 						</div>
 						<!-- 以下是更换手机的内容 -->
-						<div class="tab-pane" id="tel">
-							<div class="openWinDiv"></div>
+						<div class="tab-pane" id="tel" v-show="win.openWin_mobile">
+							<div class="openWinDiv">更换手机</div>
+							<div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="password">原手机号</label>
+				                <div class="controls col-md-6">
+				                    <input type="text" placeholder="请输入原手机号" class="form-control" style="width: 90%;" v-model="userData.mobile" autocomplete="off">
+				                </div>
+				            </div>
+							<div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="password">新手机号</label>
+				                <div class="controls col-md-6">
+				                    <input type="text" placeholder="请输入新手机号" class="form-control" style="width: 90%;" v-model="userData.newMobile" autocomplete="off">
+				                </div>
+				            </div>
 							<div class="openWinDiv">
-								<span>新手机号</span>
-								<input type="text" v-model="userData.newMobile" placeholder="新手机号">
-							</div>
-							<div class="openWinDiv">
-								<button @click="modifyUser('changeMobile')">确定</button>
-								<button onclick="closeWin()">取消</button>
+								<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('changeMobile')">确定</button>
+								<button style="background: #6e3e0d; color: #ffff;" onclick="closeWin()">取消</button>
 							</div>
 						</div>
 						<!-- 以下更改邮箱的内容 -->
-						<div class="tab-pane" id="email">
-							<div class="openWinDiv"></div>
+						<div class="tab-pane" id="email" v-show="win.openWin_email">
+							<div class="openWinDiv">更改邮箱</div>
+							<div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="password">原email</label>
+				                <div class="controls col-md-6">
+				                    <input type="text" placeholder="请输入原email" class="form-control" style="width: 90%;"  v-model="userData.email" autocomplete="off">
+				                </div>
+				            </div>
+							<div class="control-group form-inline">
+				                <label class="control-label col-md-2 offset-md-2" for="password">新email</label>
+				                <div class="controls col-md-6">
+				                    <input type="text" placeholder="请输入新email" class="form-control" style="width: 90%;"  v-model="userData.newEmail" autocomplete="off">
+				                </div>
+				            </div>
+						
 							<div class="openWinDiv">
-								<span>新email</span>
-								<input type="email" v-model="userData.newEmail" placeholder="新email">
-							</div>
-							<div class="openWinDiv">
-								<button @click="modifyUser('changeEmail')">确定</button>
-								<button onclick="closeWin()">取消</button>
+								<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('changeEmail')">确定</button>
+								<button style="background: #6e3e0d; color: #ffff;" onclick="closeWin()">取消</button>
 							</div>
 						</div>
 					</div>
@@ -315,6 +390,15 @@
 				loginLog: {},
 				projectList:[],
 				demandList:[],
+				areaDic:[],
+				childAreas:[],
+				win: {
+					openWin_indexInfo: true,
+					openWin_baseInfo: false,
+					openWin_idCard: false,
+					openWin_mobile: false,
+					openWin_email: false,
+				}
 			},
 			mounted : function() {
 				this.userData.userId = this.queryData_pro.createUser = this.queryData_pro.queryData_dem = $("#baseUserId").text();
@@ -325,10 +409,19 @@
 				this.initProjectList();
 			},
 			methods : {
+				winBaseInfo: function(){
+					/* if(vm.win.openWin_baseInfo){
+						vm.win.openWin_indexInfo = true;
+						href ="#openWin_indexInfo";
+						vm.win.openWin_baseInfo = false;
+					} else {
+						vm.win.openWin_baseInfo = true;
+						vm.win.openWin_indexInfo = false;
+					} */
+				},
 				initUser: function () {
-					let tUser = new Object();
+					var tUser = new Object();
 					tUser.userId = this.userData.userId;
-
 					$.post("/user/userDetail", tUser, function (result) {
 						if (result.code == 0) {
                         	vm.userData = result.userData;
@@ -447,7 +540,7 @@
 					layer.open({
 						  type: 1,
 						title: false,
-						area: ['500px', '250px'],
+						area: ['60%', '40%'],
 						shade: 0.8,
 						closeBtn: 1,
 						shadeClose: true,
@@ -458,7 +551,7 @@
 					if(vm.userData.newPassword.length < 6){
 						layer.alert("密码长度应大于6位！");
 					}
-					let tUser = new Object();
+					var tUser = new Object();
 					tUser.userId = vm.userData.userId;
 					tUser.password = hex_md5(vm.userData.password);
 					//vm.userData.password = hex_md5(vm.userData.password);
@@ -471,8 +564,8 @@
                 	});
 				},
 				modifyUser: function(flag){
-					let _this = this;
-					let tUser = new Object();
+					var _this = this;
+					var tUser = new Object();
 					tUser.userId = vm.userData.userId;
 
 					if(flag == "changeMobile"){

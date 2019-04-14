@@ -53,11 +53,11 @@ function removeEvent(obj, sEv, fn)
 }
 
 
-addEvent(window,'load',public);
+//addEvent(window,'load',public);
 
 function public(){
 		 var oSel=document.getElementsByName('sel1')[0];
-		 markeSelect(oSel);
+		 //markeSelect(oSel);
 }
 
 

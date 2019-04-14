@@ -65,6 +65,8 @@ public class Users extends Model<Users> implements Serializable {
 	@TableField(strategy = FieldStrategy.NOT_EMPTY)
 	private String company;
 	@TableField(strategy = FieldStrategy.NOT_EMPTY)
+	private String idCardNo;
+	@TableField(strategy = FieldStrategy.NOT_EMPTY)
 	private String idCardPic;
 	@TableField(strategy = FieldStrategy.NOT_EMPTY)
 	private String idCardPicBack;
