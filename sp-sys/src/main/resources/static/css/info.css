@@ -394,7 +394,7 @@
 
 .select-tabs ul li a:hover {
 	background-color: #653a0f;
-	color: #fff;
+	color: #ffff important;
 }
 
 .select-tabs select {

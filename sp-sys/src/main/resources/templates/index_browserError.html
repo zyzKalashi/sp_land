@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common::head">
+<title id="pageTitle">铁西区农村经济总站土地流转交易监管平台</title>
+</head>
+
+<style type="text/css">
+#error-msg-table tr td {
+	font-size: 16px;
+	line-height: 28px;
+}
+</style>
+
+<body>
+
+	<div th:replace="common::top"></div>
+
+	<div class="sam clear" style="background: #fff;">
+		<div class="row clearfix">
+			<div class="col-md-6 column">
+				<div class="table tform" style="margin: 0 auto;">
+					<img class="fr" src="../static/images/main/denglu.png">
+				</div>
+			</div>
+			<div class="col-md-6 column mt20 mb20">
+				<div class="card clearl mt10"
+					style="background: #fff; width: 80%; height: 330px; margin: 0 auto; box-shadow: 2px 2px 2px 5px #6e3e0d; color: #6e3e0d;">
+					<div class="card-header bold"
+						style="text-align: center; font-size: 20px;">
+						对不起，系统暂不支持您当前浏览器。</div>
+					<div style="padding: 10px 10px;">
+						<form>
+							<ul>
+								<li>
+									<div style="margin-left: 50px;">
+										<br> <span style="font-size: 16px"> 请使用如下浏览器登录访问：
+										</span>
+										<table id="error-msg-table">
+											<tr>
+												<td>Chrome浏览器</td>
+												<td>Firefox浏览器</td>
+											</tr>
+											<tr>
+												<td>Safari浏览器</td>
+												<td>WINDOWS EDGE浏览器</td>
+											</tr>
+											<tr>
+												<td>360浏览器(极速模式)</td>
+												<td rowspan="2" style="text-align: right;"><a
+													style="color: red; font-size: 14px;"
+													href="https://jingyan.baidu.com/article/22a299b539f4b19e18376a5b.html">如何切换?</a>
+												</td>
+											</tr>
+											<tr>
+												<td>QQ浏览器(极速模式)</td>
+											</tr>
+										</table>
+									</div>
+								</li>
+							</ul>
+							<button type="button" class="btn btn-def btn-default"
+								onclick="closePage()" style="background: #93590d; color: #fff;">
+								关&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;闭</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<div th:replace="common::foot"></div>
+		</footer>
+	</div>
+	<div th:include="common :: js"></div>
+
+</body>
+</html>

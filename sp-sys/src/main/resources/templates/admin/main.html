@@ -24,9 +24,7 @@
 			<img class="fl mt10" src="/static/images/logo1.png" style="width:32%; height:auto;">
 			<ul class="fr">
 				<li><img src="/static/images/cent/pers36.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
-				<li class="mt35 mr10">{{user.userName}}</li>
-				<li><img src="/static/images/cent/pws.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
-				<li class="mt35 mr10">密码设置</li>
+				<li class="mt35 mr10">{{user.nickName}}</li>
 				<li><img src="/static/images/cent/371.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
 				<li class="mt35 mr10" @click="logout">退出</li>
 			</ul>
@@ -123,7 +121,7 @@
 			logout: function(){
 				$.get("/logout","",function(result){
 					if (result.code == 0) {
-						window.location.href = "/admin";
+						window.location.href = "/index";
 					} else {
 						layer.msg(result.msg);
 					}

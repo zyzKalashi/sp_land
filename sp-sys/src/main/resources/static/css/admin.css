@@ -496,7 +496,6 @@ body, input, select, textarea {
 	border: #fff medium;
 	width: 265px;
 	height: 32px;
-	padding-left: 65px;
 	background: url(../images/search/sear_text.png) no-repeat 0 0;
 }
 
@@ -527,7 +526,6 @@ body, input, select, textarea {
 	color: #696969;
 	font: 12px/28px "宋体";
 	margin-top: 1px;
-	background: #f8f8f8 url(../images/search/search_03.png) no-repeat 40px 12px;
 }
 
 .quanbu .zindex {

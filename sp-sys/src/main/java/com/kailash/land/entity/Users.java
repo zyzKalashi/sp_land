@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
@@ -47,11 +46,12 @@ public class Users extends Model<Users> implements Serializable {
 	private String birthday;
 	private String address;
 	private String company;
-	private String position;
 	private String idCardPic;
 	private String idCardPicBack;
 	private String userPic;
 	private String postcode;
+	private Integer townCode;
+	private Integer areaCode;
 
 	@TableField(exist = false)
 	private String createDateStr;

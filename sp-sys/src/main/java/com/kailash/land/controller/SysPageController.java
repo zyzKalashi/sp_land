@@ -17,6 +17,11 @@ public class SysPageController extends AbstractController {
 	public String index() {
 		return "index";
 	}
+
+	@RequestMapping(value = "/index_browserError", method = RequestMethod.GET)
+	public String indexBrowserError() {
+		return "index_browserError";
+	}
 	
 	@RequestMapping(value = "/html/{page}", method = RequestMethod.GET)
 	public String htmlPage(@PathVariable("page")String page) {

@@ -108,6 +108,7 @@
 				pageSize: 15,
 				areaCode: 0,
 				projectStatus: 14,
+				projectName: "", 
 			},
 			projectList:[],
 			projectKindList: [
@@ -119,10 +120,24 @@
 			],
 		},
 		mounted : function() {
-			this.initArea();
-			hzToolObj.getdomInit("/project/simpleList", this.queryData, this.callback);
+			this.initPage();
 		},
 		methods : {
+			initPage: function(){
+				this.initArea();
+				this.queryData.projectName = getUrlParam("projectName"); 
+				if(getUrlParam("projectKind")){
+					this.queryData.projectKind = getUrlParam("projectKind");
+					this.projectKindList.forEach(v=>{  
+					    if(v.value !=  this.queryData.projectKind ){
+					    	v.show = false;
+					    } else {
+					    	v.show = true;
+					    }  
+					}); 
+				}
+				hzToolObj.getdomInit("/project/simpleList", this.queryData, this.callback);
+			},
 			callback: function (result) {
 				vm.projectList = result.pageInfo.list;
 	        },

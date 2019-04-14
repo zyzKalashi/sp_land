@@ -1,5 +1,113 @@
 var storage = window.localStorage;
 
+/* zyz begin*/
+/* 浏览器逻辑 */
+$(function(){
+	
+	if( $("#baseUserName").text() ){
+		$("#loginWin").hide();
+		document.getElementById("userWin").style.display = ""; 
+	}
+	
+	var useragent = navigator.userAgent;
+	if (is_weixn()) {
+		window.location.href = 'index_wx.html';
+	} else {
+		var url = window.location.href;
+		var cb = cusBrowser();
+		if ( url.indexOf("index_browserError") <= -1 ) {
+			if ( "IE" == cb ) {
+				if ( !IEVersion() ) {
+					window.location.href = 'index_browserError';
+				} 
+			} else {
+				if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
+					window.location.href = 'index_browserError';
+				} 
+			}
+		} else {
+			if ( "IE" == cb ) {
+				if ( IEVersion() ) {
+					window.location.href = 'index';
+				} 
+			} else {
+				if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
+					
+				} else {
+					window.location.href = 'index';
+				}
+			}
+		}
+	}
+});
+
+/* 判断浏览器种类 */
+function cusBrowser(){
+    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+    var OsObject=navigator.userAgent;// 包含「Opera」文字列 
+    if(OsObject.indexOf("Opera") != -1) { 
+    		return "Opera"
+    } else if(OsObject.indexOf("compatible") > -1 && OsObject.indexOf("MSIE") > -1 && OsObject.indexOf("Opera") <= -1) { // 包含「MSIE」文字列
+	    	return "IE";
+    } else if(OsObject.indexOf("Chrome") != -1) { // 包含「chrome」文字列 ，不过360浏览器也照抄chrome的UA
+    		return "Chrome"; 
+    } else if(OsObject.indexOf("UCBrowser") != -1) { // 包含「UCBrowser」文字列 
+	    	return "UC"; 
+    } else if(OsObject.indexOf("BIDUBrowser") != -1) { // 包含「BIDUBrowser」文字列
+	    	return "baidu"; 
+    } else if(OsObject.indexOf("Firefox") != -1) { // 包含「Firefox」文字列 
+    		return "Firefox";
+    } else if(OsObject.indexOf("Netscape") != -1) { // 包含「Netscape」文字列 
+	    	return "Netscape";
+    } else if(OsObject.indexOf("Safari") != -1) { // 包含「Safari」文字列 
+    		return "Safari";
+    } else { 
+	    	return "xxx";
+    } 
+}
+
+/* 判断ie浏览器版本 */
+function IEVersion() {
+	var IE5 = IE55 = IE6 = IE7 = IE8 = false;
+    var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+    reIE.test(navigator.userAgent);
+    var fIEVersion = parseFloat(RegExp["$1"]);
+    IE55 = fIEVersion == 5.5;
+    IE6 = fIEVersion == 6.0;
+    IE7 = fIEVersion == 7.0;
+    IE8 = fIEVersion == 8.0;
+    IE9 = fIEVersion == 9.0;
+    IE10 = fIEVersion == 10.0;
+    if ( IE55 || IE6 || IE7 || IE8 || IE9 || IE10 ) {
+        return false;
+    } else {
+    		return true;
+    }
+}
+
+/*判断是否为微信登录*/
+function is_weixn(){  
+    var ua = navigator.userAgent.toLowerCase();  
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {  
+        return true;  
+    } else {  
+        return false;  
+    }  
+}  
+
+/* 提示 + 跳转 + 关闭页面 */
+function closePage(){
+	window.opener=null;
+	window.open('','_self');
+	window.location.href="about:blank";//用于Chrome
+	window.close();
+}
+/* zyz end*/
+function indexSearch () {
+	var searchProjectName = $("#searchProjectName").val();
+	window.location.href = "../html/project_list?projectName=" + searchProjectName; 
+}
+
 /* 按钮提示 zyz */
 function showBtnTip(msg, id) {
 	layer.tips(msg, "#" + id, {

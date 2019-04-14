@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.github.pagehelper.PageInfo;
+import com.kailash.land.common.enums.RoleEnum;
 import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.Project;
@@ -220,6 +221,11 @@ public class ProjectController extends AbstractController {
 	 */
 	@RequestMapping(value = "projectSearch", method = RequestMethod.POST)
 	public Result projectSearch(ProjectFiter project) {
+		if (getRoleId() == RoleEnum.AREAADMIN.getRoleId()) {
+			project.setAreaCode(getUser().getAreaCode());
+		} else if (getRoleId() == RoleEnum.TOWNADMIN.getRoleId()) {
+			project.setTownCode(getUser().getTownCode());
+		}
 		PageInfo<Map<String, Object>> mapPageInfo = this.projectService.selectProjectInfo(project);
 		return Result.ok().put("pageInfo", mapPageInfo);
 	}

@@ -27,7 +27,7 @@
 	<div class="top">
 		<div class="top-c">
 			<ul class="fl">
-				<li>欢迎<span id="baseUserName"><shiro:principal property='userName'></span>访问铁西区土地流转交易监管平台&nbsp;&nbsp;</li>
+				<li>欢迎<span id="baseUserName"><shiro:principal property='nickName'></span>访问铁西区土地流转交易监管平台&nbsp;&nbsp;</li>
 				<li><span id="loginWin"> 请&nbsp;<a href="/html/login" class="bold">登录</a>&nbsp;|&nbsp; <a href="/html/register" class="bold">注册</a></span></li>
 				<li><span id="userWin" style="display:none">|&nbsp;<a href="/logoutCommon"> <span class="am-icon-sign-out"></span> 退出 </a></span><li>
 				<li><span hidden="true" id="baseUserId"><shiro:principal property='userId'/></span><li>
@@ -37,14 +37,6 @@
 				<li><a href="../html/help.html"> 帮助中心</a></li>
 			</ul>
 		</div>
-		<script type="text/javascript">
-			$(function(){
-				if( $("#baseUserName").text() ){
-					$("#loginWin").hide();
-					document.getElementById("userWin").style.display = ""; 
-				}
-			});
-		</script>
 	</div>
 	<div class="header fl" style="margin-bottom: 5px;">
 		<div class="header-c">
@@ -55,23 +47,18 @@
 			</div>
 			<div class="search-main tform">
 				<form action="" name="">
-					<input type="text" name="" class="text" />
-					<input type="submit" name="" class="submit" value="搜索" />
-					<select name="sel1" class="sel1">
-						<option value="全部">全部</option>
-						<option value="土地流转">土地</option>
-						<option value="林权转让">林权</option>
-						<option value="四荒使用">四荒</option>
-						<option value="养殖水面">水面</option>
-					</select>
+					<input type="text" class="text" id="searchProjectName"/>
+					<input type="button" name="" class="submit" value="搜索" onclick="indexSearch()"/>
 				</form>
 			</div>
 			<ul class="remen clear tform">
 				<li>近期热门搜索：</li>
-				<li><a href="">土地承包</a></li>
-				<li><a href="">林权转让</a></li>
-				<li><a href="">养殖水面</a></li>
-				<li><a href="">四荒承包</a></li>
+				<li>
+					<a href="../html/project_list?projectKind=1">土地承包</a>
+					<a href="../html/project_list?projectKind=2">林权转让</a>
+					<a href="../html/project_list?projectKind=3">养殖水面</a>
+					<a href="../html/project_list?projectKind=4">四荒承包</a>
+				</li>
 			</ul>
 		</div>
 	</div>

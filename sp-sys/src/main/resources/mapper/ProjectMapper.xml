@@ -109,44 +109,55 @@
 			<if test="pro.areaCode != null and pro.areaCode !=''">
 				AND pp.area_code = #{pro.areaCode}
 			</if>
-
+			<if test="pro.projectName != null and pro.projectName != ''">
+				AND p.project_name like CONCAT('%',#{pro.projectName},'%')
+			</if>
 		</where>
 		ORDER BY p.pkid DESC
 	</select>
 
 	<select id="selectProjectInfo" parameterType="com.kailash.land.filter.ProjectFiter" resultType="Map">
 		select
-		A.pkid AS projectId,
-		A.project_name AS projectName,
-		C.name AS personName,
-		A.project_kind AS projectKind,
-		A.project_status AS projectStatus,
-		B.show_preice AS showPreice,
-		DATE_FORMAT(A.create_date,'%Y-%m-%d') AS createDateStr
-		from project A
-		left join project_around B ON A.pkid = B.project_id
-		left join project_person C ON A.pkid = C.project_id
-		where project_status not in (0,5)
-		<if test="projectName != null">
-			AND A.project_name like CONCAT('%',#{projectName},'%')
-		</if>
-		<if test="personName != null">
-			AND C.name like CONCAT('%',#{personName},'%')
-		</if>
-		<if test="projectKind != null and projectKind != ''">
-			AND A.project_kind = #{projectKind}
-		</if>
-		<if test="projectStatus != null and projectStatus != ''">
-			AND A.project_status = #{projectStatus}
-		</if>
-		<if test="startDate != null">
-			AND A.create_date <![CDATA[ >= ]]> #{startDate}
-		</if>
-		<if test="endDate != null">
-			AND A.create_date <![CDATA[ <= ]]> #{endDate}
-		</if>
+			A.pkid AS projectId,
+			A.project_name AS projectName,
+			C.name AS personName,
+			A.project_kind AS projectKind,
+			A.project_status AS projectStatus,
+			B.show_preice AS showPreice,
+			DATE_FORMAT(A.create_date,'%Y-%m-%d') AS createDateStr
+		from 
+			project A
+			left join project_around B ON A.pkid = B.project_id
+			left join project_person C ON A.pkid = C.project_id
+		<where>
+			project_status not in (0,5)
+			<if test="projectName != null">
+				AND A.project_name like CONCAT('%',#{projectName},'%')
+			</if>
+			<if test="personName != null">
+				AND C.name like CONCAT('%',#{personName},'%')
+			</if>
+			<if test="projectKind != null and projectKind != ''">
+				AND A.project_kind = #{projectKind}
+			</if>
+			<if test="projectStatus != null and projectStatus != ''">
+				AND A.project_status = #{projectStatus}
+			</if>
+			<if test="startDate != null">
+				AND A.create_date <![CDATA[ >= ]]> #{startDate}
+			</if>
+			<if test="endDate != null">
+				AND A.create_date <![CDATA[ <= ]]> #{endDate}
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				AND C.area_code = #{areaCode}
+			</if>
+			<if test="townCode != null and townCode != ''">
+				AND C.town_code = #{townCode}
+			</if>
+		</where> 
 		ORDER BY
-		A.pkid DESC
+			A.pkid DESC
 	</select>
 
 	<select id="projectStatistics" resultType="java.util.HashMap">

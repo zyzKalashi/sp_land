@@ -35,7 +35,7 @@
                     <input type="text" placeholder="请输入手机号" class="form-control" style="width: 90%;" id="mobile" v-model="user.mobile">
                 </div>
             </div>
-            <div class="control-group form-inline">
+           <!--  <div class="control-group form-inline">
                 <label class="control-label col-md-2 offset-md-2" for="password">密码</label>
                 <div class="controls col-md-6">
                     <input type="password" placeholder="请输入密码" class="form-control" style="width: 90%;" id="password" v-model="user.password">
@@ -46,7 +46,7 @@
                 <div class="controls col-md-6">
                     <input type="password" placeholder="请再次输入密码" class="form-control" style="width: 90%;" id="password_v" v-model="user.password_v">
                 </div>
-            </div>
+            </div> -->
             <div class="control-group form-inline">
                 <label class="control-label col-md-2 offset-md-2" for="userStatus">用户状态</label>
                 <div class="controls col-md-6">
@@ -165,7 +165,7 @@
                     $("#mobile").focus();
                     return false;
                 }
-
+/* 
                 if(!userId){
                     if (!this.user.password) {
                         layer.msg("请输入密码！");
@@ -177,12 +177,12 @@
                         $("#password_v").focus();
                         return false;
                     }
-                }
-                if((this.user.password || this.user.password_v) && this.user.password != this.user.password_v){
+                } */
+               /*  if((this.user.password || this.user.password_v) && this.user.password != this.user.password_v){
                     layer.msg("两次输入密码不一致！");
                     $("#password").focus();
                     return false;
-                }
+                } */
                 return true;
             },
             save : function () {
@@ -235,9 +235,9 @@
         watch: {
 			'user.areaCode': function(code){
 				if(code != 0) {
-					for (var item in vm.aeaDic){
-						if(item.code == code){
-							vm.childAreas =  item.childAreas;
+					for(var i=0; i<vm.areaDic.length; i++){
+						if(vm.areaDic[i].code == code){
+							vm.childAreas = vm.areaDic[i].childAreas;
 						}
 					}
 				}	

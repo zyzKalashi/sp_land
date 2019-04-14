@@ -21,13 +21,14 @@
         <result column="address" jdbcType="VARCHAR" property="address"/>
         <result column="postcode" jdbcType="VARCHAR" property="postcode"/>
         <result column="company" jdbcType="VARCHAR" property="company"/>
-        <result column="position" jdbcType="VARCHAR" property="position"/>
+        <result column="area_code" jdbcType="INTEGER" property="areaCode"/>
+        <result column="town_code" jdbcType="INTEGER" property="townCode"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         pkid, user_name, nick_name,
         password, user_status, role_id, create_date,
-        update_date, update_user, mobile, email
+        update_date, update_user, mobile, email, area_code, town_code
     </sql>
 
     
@@ -40,7 +41,7 @@
         <where>
             u.user_status = 1
             <if test="_parameter != null and _parameter != ''">
-                AND u.user_name =#{_parameter} OR u.mobile =#{_parameter}
+                AND u.user_name =#{_parameter} OR u.mobile =#{_parameter} or u.email=#{_parameter}
             </if>
         </where>
     </select>

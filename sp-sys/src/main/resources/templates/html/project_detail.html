@@ -4,6 +4,13 @@
 <head th:include="common :: header">
 	<title id="pageTitle">交易信息详情—铁西区农村经济总站土地流转交易监管平台</title>
 </head>
+
+<style type="text/css">
+	.t_prop_a{
+		text-align: left !important;
+	}
+</style>
+
 <body>
  <!-- v-cloak -->
 	<div id="app" v-cloak>
@@ -20,7 +27,7 @@
 			<p class="text-center f14" style="font-family: '宋体';">
 				<b>发布时间：</b><span>{{ projectData.createDateStr }}</span> &nbsp;&nbsp;
 				<b>访问数量:</b><span>{{ visitNum }}</span>
-			</p>
+			
 			<div th:fragment="project_detail">
 			<div class="tdfb clear public2">
 				<div class="main_r" style="width: auto;">
@@ -33,28 +40,22 @@
 							<table class="attrs_table">
 								<tr>
 									<td class="t_prop"><strong>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</strong></td>
-									<td class="t_prop_a" valign="middle">
-										<p>{{ projectData.name }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.name }}</td>
 									<td class="t_prop"><strong>性&nbsp;&nbsp;&nbsp;&nbsp;别：</strong></td>
-									<td class="t_prop_a"><p>{{ projectData.sex | sexFilter }}</p></td>
+									<td class="t_prop_a">{{ projectData.sex | sexFilter }}</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>手&nbsp;&nbsp;&nbsp;&nbsp;机：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.mobile }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.mobile }}</td>
 									<td class="t_prop"><strong>信息属权：</strong></td>
-									<td class="t_prop_a"><p>{{ projectData.infoKind | projectInfoKindFilter }}</p></td>
+									<td class="t_prop_a">{{ projectData.infoKind | projectInfoKindFilter }}</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>联 系地址：</strong></td>
 									<td colspan="3" class="pl5">
-										<p>
-											<span v-if="projectData.areaName">{{ projectData.areaName }} - </span>
-											<span v-if="projectData.townName">{{ projectData.townName }} - </span>
-											{{ projectData.address }}
-										</p>
+										<span v-if="projectData.areaName">{{ projectData.areaName }} - </span>
+										<span v-if="projectData.townName">{{ projectData.townName }} - </span>
+										{{ projectData.address }}
 									</td>
 								</tr>
 							</table>
@@ -72,147 +73,111 @@
 							<table class="attrs_table">
 								<tr>
 									<td class="t_prop"><strong>项目名称：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.projectName }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.projectName }}</td>
 									<td class="t_prop"><strong>流转方式：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.projectKind | projectKindFilter }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.projectKind | projectKindFilter }}</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>项目地址：</strong></td>
-									<td colspan="3" class="pl5">
-										<p>{{ projectData.projectAddress }}</p>
-									</td>
+									<td colspan="3" class="pl5">{{ projectData.projectAddress }}</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>转出方：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.outputPersonName }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.outputPersonName }}</td>
 									<td class="t_prop mt15"><strong>项目属权：</strong></td>
-									<td>
-										<p>{{ projectData.rightKind | projectInfoKindFilter }}</p>
-									</td>
+									<td>{{ projectData.rightKind | projectInfoKindFilter }}</td>
 								</tr>
 								<tr>
 									<td class="t_prop"><strong>权证编号：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.warrantNum }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.warrantNum }}</td>
 									<td class="t_prop"><strong>面积|数量（亩|㎡）：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.areaNum }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.areaNum }}</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>承包经营权人：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.personName }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.personName }}</td>
 									<td class="t_prop mt15"><strong>是否他项权利人：</strong></td>
-									<td><p>{{ projectData.otherRightFlag | commonYesNoFilter }}</p></td>
+									<td>{{ projectData.otherRightFlag | commonYesNoFilter }}</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>他项权利人：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.otherRightName }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.otherRightName }}</td>
 									<td class="t_prop"><strong>他项权利内容：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.otherRightContext }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.otherRightContext }}</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>涉及农户数：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.famerNum }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.famerNum }}</td>
 									<td class="t_prop"><strong>原承包/租赁期：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.oldRentDate }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.oldRentDate }}</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>地&nbsp;&nbsp;&nbsp;级：</strong></td>
-									<td class="t_prop_a">
-										<p>一级</p>
-									</td>
+									<td class="t_prop_a">一级</td>
 									<td class="t_prop"><strong>地上物情况：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.upThings }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.upThings }}</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>交通情况：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.traffic }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.traffic }}</td>
 									<td class="t_prop"><strong>是否属再次转出：</strong></td>
-									<td><p>{{ projectData.againFlag | commonYesNoFilter }}</p></td>
+									<td>{{ projectData.againFlag | commonYesNoFilter }}</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>流转承包用途：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.rentUse }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.rentUse }}</td>
 									<td class="t_prop"><strong>原承包/出租人（发包人）是否同意：</strong></td>
-									<td>
-										<p>{{ projectData.agreeFlag | commonYesNoFilter }}</p>
-									</td>
+									<td>{{ projectData.agreeFlag | commonYesNoFilter }}</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>前次转出方式：</strong></td>
-									<td class="t_prop_a">
-										<p>{{ projectData.oldOutput }}</p>
-									</td>
+									<td class="t_prop_a">{{ projectData.oldOutput }}</td>
 									<td class="t_prop"><strong>拟转出方式：</strong></td>
 									<td class="t_prop_a">
-										<p>{{ projectData.hopeOutput }}</p>
+										{{ projectData.hopeOutput }}
 									</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>放弃行使优先权：</strong></td>
 									<td colspan="3">
-										<p>{{ projectData.giveupRightFlag | commonYesNoFilter }}</p>
+										{{ projectData.giveupRightFlag | commonYesNoFilter }}
 									</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>评估机构：</strong></td>
 									<td class="t_prop_a">
-										<p>{{ projectData.assessOrg }}</p>
+										{{ projectData.assessOrg }}
 									</td>
 									<td class="t_prop"><strong>评估基准日：</strong></td>
 									<td class="t_prop_a">
-										<p>{{ projectData.assessDate }}</p>
+										{{ projectData.assessDate }}
 									</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>评估值（元）：</strong></td>
 									<td class="t_prop_a">
-										<p>{{ projectData.assessValue }}</p>
+										{{ projectData.assessValue }}
 									</td>
 									<td class="t_prop"><strong>转出方式：</strong></td>
 									<td class="t_prop_a">
-										<p>{{ projectData.outputWay }}</p>
+										{{ projectData.outputWay }}
 									</td>
 								</tr>
 
 								<tr>
 									<td class="t_prop"><strong>拟转出期限：</strong></td>
 									<td colspan="3" class="t_prop_a">
-										<p>{{ projectData.hopeOutputDate }}</p>
+										{{ projectData.hopeOutputDate }}
 									</td>
 								</tr>
 
@@ -233,35 +198,35 @@
 							<tr>
 								<td class="t_prop">地块名称：</td>
 								<td class="t_prop_a">
-									<p>{{ projectData.areaName }}</p>
+									{{ projectData.areaName }}
 								</td>
 								<td class="t_prop">面积（亩）：</td>
 								<td class="t_prop_a">
-									<p>{{ projectData.area }}</p>
+									{{ projectData.area }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">东</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.east }}</p>
+									{{ projectData.east }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">南</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.south }}</p>
+									{{ projectData.south }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">西</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.west }}</p>
+									{{ projectData.west }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">北</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.north }}</p>
+									{{ projectData.north }}
 								</td>
 							</tr>
 
@@ -271,43 +236,43 @@
 							<tr>
 								<td class="t_prop">标的公告价格（元）</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.showPreice }}</p>
+									{{ projectData.showPreice }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">合同支付方式</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.payWay }}</p>
+									{{ projectData.payWay }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">支付期限</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.payLimit }}</p>
+									{{ projectData.payLimit }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">其他交易条件</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.otherPay }}</p>
+									{{ projectData.otherPay }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">受让方应具备的条件</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.shouldHave }}</p>
+									{{ projectData.shouldHave }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">到期未征集到受让方</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.overdue }}</p>
+									{{ projectData.overdue }}
 								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">补充事项</td>
 								<td colspan="3" class="t_prop_a">
-									<p>{{ projectData.supplement }}</p>
+									{{ projectData.supplement }}
 								</td>
 							</tr>
 						</table>
