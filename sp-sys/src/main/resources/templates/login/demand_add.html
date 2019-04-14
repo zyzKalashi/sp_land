@@ -26,20 +26,8 @@
 					<tr>
 						<td align=right><b>*</b>需求类别：</td>
 						<td class="checkBox">
-							<label for="projectKind1"> 
-								<input type="radio" name="demandKind" value="1" v-model="demandData.demandKind" id="projectKind1"><span>{{ 1|demandKindFilter }}</span>
-							</label>
-							<label for="projectKind2"> 
-								<input type="radio" name="demandKind" value="2" id="projectKind2" v-model="demandData.demandKind"><span>{{ 2|demandKindFilter }}</span>
-							</label>
-							<label for="projectKind3"> 
-								<input type="radio" name="demandKind" value="3" id="projectKind3" v-model="demandData.demandKind"><span>{{ 3|demandKindFilter }}</span>
-							</label>
-							<label for="projectKind4"> 
-								<input type="radio" name="demandKind" value="4" id="projectKind4" v-model="demandData.demandKind"><span>{{ 4|demandKindFilter }}</span>
-							</label>
-							<label for="projectKind5"> 
-								<input type="radio" name="demandKind" value="5" id="projectKind5" v-model="demandData.demandKind"><span>{{ 5|demandKindFilter}}</span>
+							<label v-for="item in demandKindDic" v-if="item.value != 0"> 
+								<input type="radio" name="demandKind" :value="item.value" v-model="demandData.demandKind"><span>{{ item.label }}</span>
 							</label>
 						</td>
 					</tr>
@@ -48,10 +36,7 @@
 						<td>
 							<select v-model="demandData.moneyLevel">
 								<option value="0">请选择</option>
-								<option value="1">1万-10万</option>
-								<option value="2">10万-50万</option>
-								<option value="3">50万-100万</option>
-								<option value="4">100万以上</option>
+								<option v-for="item in moneyLevelDic" :value="item.value">{{ item.label }}</option>
 							</select>
 						</td>
 					</tr>
@@ -154,6 +139,7 @@
 				},
 				demandModify: function(){
 					if(vm.checkNull()){
+						vm.demandData.demandStatus = 2; 
 						$.post("/demand/demandModfiy", vm.demandData, function (result) {
 	                        if (result.code == 0) {
 								window.location.href="../index"	                        	
@@ -184,6 +170,9 @@
 						return false;
 					} else if(!vm.demandData.email){
 						layer.msg("请填写邮箱！");
+						return false;
+					} else if(!readFlag){
+						layer.msg("请阅读并同意本平台相关条款!");
 						return false;
 					} else {
 						return true

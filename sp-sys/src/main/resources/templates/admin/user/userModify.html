@@ -14,7 +14,7 @@
             <div class="control-group form-inline">
                 <label class="control-label col-md-2 offset-md-2" for="userName">用户名</label>
                 <div class="controls col-md-6">
-                    <input type="text" placeholder="请输入用户名" class="form-control" style="width: 90%;" id="userName" v-model="user.userName">
+                    <input type="text" placeholder="请输入用户名" class="form-control" style="width: 90%;" id="userName" v-model="user.userName" autocomplete="off">
                 </div>
             </div>
             <div class="control-group form-inline">
@@ -35,18 +35,6 @@
                     <input type="text" placeholder="请输入手机号" class="form-control" style="width: 90%;" id="mobile" v-model="user.mobile">
                 </div>
             </div>
-           <!--  <div class="control-group form-inline">
-                <label class="control-label col-md-2 offset-md-2" for="password">密码</label>
-                <div class="controls col-md-6">
-                    <input type="password" placeholder="请输入密码" class="form-control" style="width: 90%;" id="password" v-model="user.password">
-                </div>
-            </div>
-            <div class="control-group form-inline">
-                <label class="control-label col-md-2 offset-md-2" for="password_v">确认密码</label>
-                <div class="controls col-md-6">
-                    <input type="password" placeholder="请再次输入密码" class="form-control" style="width: 90%;" id="password_v" v-model="user.password_v">
-                </div>
-            </div> -->
             <div class="control-group form-inline">
                 <label class="control-label col-md-2 offset-md-2" for="userStatus">用户状态</label>
                 <div class="controls col-md-6">
@@ -81,6 +69,23 @@
                     </select>
                 </div>
             </div>
+            <div class="control-group form-inline">
+             	<div class="controls col-md-8 offset-md-2" style="text-align: center;">
+	            	<input type="button" value="修改密码" @click="changePassWord">
+             	</div>
+            </div>
+            <div class="control-group form-inline" v-if="changePassWordFlag">
+                <label class="control-label col-md-2 offset-md-2" for="password">密码</label>
+                <div class="controls col-md-6">
+                    <input type="password" placeholder="请输入密码" class="form-control" style="width: 90%;" id="password" v-model="user.password" autocomplete="off">
+                </div>
+            </div>
+            <div class="control-group form-inline" v-if="changePassWordFlag">
+                <label class="control-label col-md-2 offset-md-2" for="password_v">确认密码</label>
+                <div class="controls col-md-6">
+                    <input type="password" placeholder="请再次输入密码" class="form-control" style="width: 90%;" id="password_v" v-model="user.password_v" autocomplete="off">
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -101,16 +106,17 @@
                 userName: '',
                 email: '',
                 mobile: '',
-                password: '',
+				password: '',
                 password_v: '',
                 userStatus: '2',
                 roleId: '4',
-                areaCode: 0,
+                areaCode: '',
                 townCode: 0,
             },
             roleInfos:{},
             areaDic: [],
             childAreas: [],
+            changePassWordFlag: false,
         },
         created: function(){
             var _this = this;
@@ -123,27 +129,37 @@
                     _this.roleInfos = obj;
                 }
             });
-
-            if(userId){
-                $.post("/user/userDetail?userId=" + userId, "", function(resp){
-                    if(0 == resp.code){
-                        for(var x in _this.user){
-                            _this.user[x] = resp.userData[x];
-                        }
-                        if("3" == _this.user.userStatus || "4" == _this.user.userStatus){
-                            $("#userStatus").attr("disabled","true");
-                        }
-                    } else {
-                        _this.clear();
-                        layer.msg("获取用户信息失败！");
-                    }
-                });
-            }
         },
         mounted : function() {
-        	this.initArea();	
+        	this.initArea();
+			this.initUser();
         },
         methods : {
+        	initUser: function(){
+        		var userId = getUrlParam("userId");
+       		  	if(userId){
+                     $.post("/user/userDetail?userId=" + userId, "", function(resp){
+                         if(0 == resp.code){
+                             vm.user = resp.userData;
+                             vm.user.password = "";
+                             if("3" == vm.user.userStatus || "4" == vm.user.userStatus){
+                                 $("#userStatus").attr("disabled","true");
+                             }
+                         } else {
+                        	 vm.clear();
+                             layer.msg("获取用户信息失败！");
+                         }
+                     });
+                 }
+        	},
+        	changePassWord: function(){
+				if(!vm.changePassWordFlag){
+					vm.changePassWordFlag = true;
+				} else {
+					vm.changePassWordFlag = false;
+					vm.user.password = "";
+				}
+        	},
         	initArea: function(){
         		hzToolObj.postRpc("/area/initArea", {}).done(function(result) {
         			vm.areaDic = result.area;
@@ -165,8 +181,7 @@
                     $("#mobile").focus();
                     return false;
                 }
-/* 
-                if(!userId){
+                if(vm.changePassWordFlag){
                     if (!this.user.password) {
                         layer.msg("请输入密码！");
                         $("#password").focus();
@@ -177,12 +192,12 @@
                         $("#password_v").focus();
                         return false;
                     }
-                } */
-               /*  if((this.user.password || this.user.password_v) && this.user.password != this.user.password_v){
-                    layer.msg("两次输入密码不一致！");
-                    $("#password").focus();
-                    return false;
-                } */
+					if((this.user.password || this.user.password_v) && this.user.password != this.user.password_v){
+	                    layer.msg("两次输入密码不一致！");
+	                    $("#password").focus();
+	                    return false;
+	                }
+                }
                 return true;
             },
             save : function () {
@@ -193,26 +208,17 @@
                     // 修改
                     if(!userId){
                         url = "/user/users_register";
-                        tUser.userName = this.user.userName;
-                        tUser.password = hex_md5(this.user.password);
-                        tUser.email    = this.user.email;
-                        tUser.mobile   = this.user.mobile;
-                        tUser.userStatus = this.user.userStatus;
-                        tUser.roleId = this.user.roleId;
+                        this.user.password = hex_md5(this.user.password);
                     } else {
                         url = "/user/users_modify";
-                        tUser.userId   = userId;
-                        tUser.userName = this.user.userName;
+                        this.user.userId = userId;
                         if(this.user.password){
-                            tUser.password = hex_md5(this.user.password);
+                        	this.user.password = hex_md5(this.user.password);
                         }
-                        tUser.email    = this.user.email;
-                        tUser.mobile   = this.user.mobile;
-                        tUser.userStatus = this.user.userStatus;
-                        tUser.roleId = this.user.roleId;
                     }
-
-                    $.post(url, tUser, function (result) {
+                    delete this.user.createDate;
+                    delete this.user.updateDate;
+                    $.post(url, this.user, function (result) {
                         if (result.code == 0) {
                             layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
                                 var index = parent.layer.getFrameIndex(window.name);
@@ -240,7 +246,9 @@
 							vm.childAreas = vm.areaDic[i].childAreas;
 						}
 					}
-				}	
+				} else {
+					vm.user.townCode = 0;
+				}
 			},
 		}
     });

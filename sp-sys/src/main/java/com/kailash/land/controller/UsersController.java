@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.PageInfo;
+import com.kailash.land.common.enums.RoleEnum;
 import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.LoginLog;
@@ -83,6 +84,10 @@ public class UsersController extends AbstractController {
 
 	@RequestMapping(value = "userSearch", method = RequestMethod.POST)
 	public Result userSearch(Users user) {
+		if (getRoleId() == RoleEnum.AREAADMIN.getRoleId()) {
+			user.setRoleId(RoleEnum.TOWNADMIN.getRoleId());
+			user.setAreaCode(getUser().getAreaCode());
+		}
 		PageInfo<Users> pageInfo = this.usersService.selectUsersPage(user);
 		return Result.ok().put("pageInfo", pageInfo);
 	}
@@ -114,7 +119,6 @@ public class UsersController extends AbstractController {
 		EntityWrapper<Users> ewUser = new EntityWrapper<>();
 		ewUser.setEntity(new Users());
 		ewUser.where(" pkid = {0} ", user.getUserId());
-		user.setUpdateDate(new Date());
 		user.setUpdateUser(getUserId().intValue());
 		boolean zt = this.usersService.update(user, ewUser);
 		if (zt) {

@@ -77,7 +77,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 				}
 			}
 		}
-		ewUsers.orderBy(" role_id ASC ");
+		ewUsers.orderBy(" role_id ASC, pkid DESC ");
 		List<Users> users = usersMapper.selectList(ewUsers);
 		return new PageInfo<>(users);
 	}
