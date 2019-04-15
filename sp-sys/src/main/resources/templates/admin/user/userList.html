@@ -132,6 +132,10 @@
         },
         created: function(){
             var _this = this;
+            if(parent.vm.sunValue){
+                _this.form.userStatus = parent.vm.sunValue;
+                parent.vm.sunValue = '';
+            }
             $.post("/user/allRoles",null,function(resp){
                 var obj = {};
                 for(var i=0;i < resp.result.length;i++){

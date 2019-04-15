@@ -148,6 +148,12 @@
                 return arr;
             }
         },
+        created: function(){
+            if(parent.vm.sunValue){
+                this.form.projectStatus = parent.vm.sunValue;
+                parent.vm.sunValue = '';
+            }
+        },
         mounted : function() {
             this.doQuery();
         },

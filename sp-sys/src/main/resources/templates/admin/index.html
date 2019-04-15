@@ -21,48 +21,56 @@
 <div>
     <div class="row form-inline" style="width: 95%;margin-top: 10px;">
         <div class="col-sm-2 offset-sm-1">
-            <div class="dashboard-stat blue">
-                <div class="visual">
-                    <i class="icon-file"></i>
+            <a href="javascript:void(1)" onclick="parent.vm.toProject()">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="icon-file"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" id="d1">0</div>
+                        <div class="desc">项目总数</div>
+                    </div>
                 </div>
-                <div class="details">
-                    <div class="number" id="d1">0</div>
-                    <div class="desc">项目总数</div>
-                </div>
-            </div>
+            </a>
         </div>
         <div class="col-sm-2 offset-sm-1">
-            <div class="dashboard-stat green">
-                <div class="visual">
-                    <i class="icon-bell"></i>
+            <a href="javascript:void(1)" onclick="parent.vm.toProject('2')">
+                <div class="dashboard-stat green">
+                    <div class="visual">
+                        <i class="icon-bell"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" id="d2">0</div>
+                        <div class="desc">待审核数</div>
+                    </div>
                 </div>
-                <div class="details">
-                    <div class="number" id="d2">0</div>
-                    <div class="desc">待审核数</div>
-                </div>
-            </div>
+            </a>
         </div>
         <div class="col-sm-2 offset-sm-1">
-            <div class="dashboard-stat purple">
-                <div class="visual">
-                    <i class="icon-book"></i>
+            <a href="javascript:void(1)" onclick="parent.vm.toUsers()">
+                <div class="dashboard-stat purple">
+                    <div class="visual">
+                        <i class="icon-book"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" id="d3">0</div>
+                        <div class="desc">会员总数</div>
+                    </div>
                 </div>
-                <div class="details">
-                    <div class="number" id="d3">0</div>
-                    <div class="desc">会员总数</div>
-                </div>
-            </div>
+            </a>
         </div>
         <div class="col-sm-2 offset-sm-1">
-            <div class="dashboard-stat yellow">
-                <div class="visual">
-                    <i class="icon-user"></i>
+            <a href="javascript:void(1)" onclick="parent.vm.toUsers('2')">
+                <div class="dashboard-stat yellow">
+                    <div class="visual">
+                        <i class="icon-user"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" id="d4">0</div>
+                        <div class="desc">本月注册会员数</div>
+                    </div>
                 </div>
-                <div class="details">
-                    <div class="number" id="d4">0</div>
-                    <div class="desc">本月注册会员数</div>
-                </div>
-            </div>
+            </a>
         </div>
     </div>
     <div class="row form-inline" style="width: 95%;margin-top: 30px;">

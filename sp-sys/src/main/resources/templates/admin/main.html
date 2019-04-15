@@ -37,47 +37,47 @@
 		</div>
 	</div>
 	<div class="clearfix row main5" style="width:100%;">
-			<div class="col-lg-3 col-md-3 col-sm-4 column" style="border-right: 3px solid #93590d;" >
-				<div class="main6 mt20" :style="contentStyleObj">
-					<table class="mb10" style="width:100%;">
-						<tr class="mb5 fl" style="width:100%; border-bottom:3px double #bbb;">
-							<td style="margin-left:5px;"><ul>
-								<li><img src="/static/images/cent/set.png" style="width:30px; height:30px; line-height:35px;"></li>
-								<li><h5 class="c2 ml5 bold" style="line-height:35px; font-family:'华文细黑';">后台内容管理</h5></li></ul>
-							</td>
-						</tr>
-						<tr class="clearfix fr" style="display:table; width:95%;">
-							<td>
-								<div class="menu_list" >
-									<div class="menu_head" @click="selectParent($event);jumpPage(defaultMenu)" style="text-align: center; background: #965818; color: #ffff;">首页</div>
-								</div>
-							</td>
-						</tr>
-						<tr class="clearfix fr" style="display:table; width:95%;">
-							<td>
-								<div id="firstpaneDiv" class="menu_list">
-									<div v-for="first in menus">
-										<h3 class="menu_head" @click="selectParent($event)">
-											<img :src="'/static/images/cent/' + first.iconName" no-repeat width="20" height="20" >&nbsp;{{ first.name }}
-										</h3>
-										<div style="display:none;" class="menu_nva">
-											<a href="#" v-for="second in first.seconds" @click="jumpPage(second)" :id="second.menId">
-												<img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}
-											</a>
-										</div>
+		<div class="col-lg-3 col-md-3 col-sm-4 column" style="border-right: 3px solid #93590d;" >
+			<div class="main6 mt20" :style="contentStyleObj">
+				<table class="mb10" style="width:100%;">
+					<tr class="mb5 fl" style="width:100%; border-bottom:3px double #bbb;">
+						<td style="margin-left:5px;"><ul>
+							<li><img src="/static/images/cent/set.png" style="width:30px; height:30px; line-height:35px;"></li>
+							<li><h5 class="c2 ml5 bold" style="line-height:35px; font-family:'华文细黑';">后台内容管理</h5></li></ul>
+						</td>
+					</tr>
+					<tr class="clearfix fr" style="display:table; width:95%;">
+						<td>
+							<div class="menu_list" >
+								<div class="menu_head" id="first_0" @click="selectParent(0);jumpPage(defaultMenu)" style="text-align: center; background: #965818; color: #ffff;">首页</div>
+							</div>
+						</td>
+					</tr>
+					<tr class="clearfix fr" style="display:table; width:95%;">
+						<td>
+							<div id="firstpaneDiv" class="menu_list">
+								<div v-for="first in menus">
+									<h3 class="menu_head" @click="selectParent(first.menuId)" :id="'first_'+first.menuId">
+										<img :src="'/static/images/cent/' + first.iconName" no-repeat width="20" height="20" >&nbsp;{{ first.name }}
+									</h3>
+									<div style="display:none;" class="menu_nva">
+										<a href="#" v-for="second in first.seconds" @click="jumpPage(second)" :id="second.menId">
+											<img src="/static/images/cent/361.png" no-repeat width="16" height="16">&nbsp;{{ second.name }}
+										</a>
 									</div>
 								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
+							</div>
+						</td>
+					</tr>
+				</table>
 			</div>
-			<div class="col-lg-9 col-md-9 col-sm-8 column">
-				<div class="clearfix mt10 main6r">
-					<iframe name="myiframe" id="myrame" src="/admin/dashbord" width="100%" height="100%" marginheight="0" marginwidth="0"  frameborder="0" align="left" :style="contentStyleObj" scrolling="no"></iframe>
-				</div>
+		</div>
+		<div class="col-lg-9 col-md-9 col-sm-8 column">
+			<div class="clearfix mt10 main6r">
+				<iframe name="myiframe" id="myrame" src="/admin/dashbord" frameborder="0" align="left" width="100%" height="100%" style="overflow: auto;" scrolling="no"></iframe>
 			</div>
-			<span hidden="true" id="baseUserId"><shiro:principal property='userId'/>
+		</div>
+		<span hidden="true" id="baseUserId"><shiro:principal property='userId'/></span>
 	</div>
 </div>
 <footer class="footer" style="margin-bottom: 0px;">
@@ -90,6 +90,7 @@
 		data: {
 			menus: [],
 			user: {},
+			sunValue: '',
 			contentStyleObj:{
 				height:'',
 				overflow: 'auto'
@@ -115,11 +116,10 @@
 					}
 				}
 			});
-			window.addEventListener('resize', this.getHeight);
-			this.getHeight()
 		},
 		mounted: function(){
-			//$("#datadiv").css("height",(document.body.clientHeight) + 'px');
+			window.addEventListener('resize', this.setFrameHeightAuto);
+			this.setFrameHeightAuto();
 		},
 		methods: {
 			logout: function(){
@@ -131,18 +131,42 @@
 					}
 				});
 			},
-			getHeight: function(){
-				var height = $(".header").outerHeight(true) + $(".footer").outerHeight(true) + 38;
-				this.contentStyleObj.height=(window.innerHeight + height)+'px';
+			setFrameHeightAuto: function(){
+				try{
+					var iframe = document.getElementById("myrame");
+
+					var height = $(".header").outerHeight(true) + $(".footer").outerHeight(true) + 38;
+					var defaultheight=(window.innerHeight-height)+'px';
+
+					if(iframe.attachEvent){
+						iframe.attachEvent("onload", function(){
+							iframe.height =  iframe.contentWindow.document.documentElement.scrollHeight + 20;
+							if(defaultheight > iframe.height){
+								iframe.height = defaultheight;
+							}
+						});
+						return;
+					}else{
+						iframe.onload = function(){
+							iframe.height = iframe.contentDocument.body.scrollHeight + 20;
+							if(defaultheight > iframe.height){
+								iframe.height = defaultheight;
+							}
+						};
+						return;
+					}
+				}catch(e){
+					throw new Error('setIframeHeight Error');
+				}
 			},
-			selectParent: function(event){
-				var _this = $(event.currentTarget);
+			selectParent: function(menuId){
+				var _this = $("#first_" + menuId);
 				var opened = $(_this).hasClass("current");
 				$(".menu_nva").each(function(){
 					$(this).hide();
 				})
 				$(".menu_head").each(function(){
-					$(_this).removeClass("current");
+					$(this).removeClass("current");
 				})
 				if(!opened){
 					$(_this).show();
@@ -152,6 +176,20 @@
 			},
 			jumpPage: function(menu){
 				$("#myrame").attr("src",menu.url);
+			},
+			toProject: function(type){
+				this.selectParent(4);
+				if(type){
+					this.sunValue = type;
+				}
+				$("#myrame").attr("src",'/admin/projectList');
+			},
+			toUsers: function(type){
+				this.selectParent(2);
+				if(type){
+					this.sunValue = type;
+				}
+				$("#myrame").attr("src",'/admin/userList?page=common');
 			},
 			modifyUser: function(){
 				$("#myrame").attr("src", "/user/userModify?userId=" + $("#baseUserId").text());
