@@ -1,7 +1,10 @@
 package com.kailash.land.mapper;
 
-import com.kailash.land.entity.PicInfo;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.github.pagehelper.Page;
+import com.kailash.land.entity.PicInfo;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2019-04-11
  */
 public interface PicInfoMapper extends BaseMapper<PicInfo> {
+
+	Page<Map<String, Object>> querySimpleList(PicInfo picInfo);
 
 }

@@ -16,5 +16,27 @@
         <result column="update_user" property="updateUser" />
         <result column="update_date" property="updateDate" />
     </resultMap>
+    
+    <select id="querySimpleList" resultType="Map">
+    	SELECT 
+    		title, 
+    		pic_url AS picUrl,
+    		pic_order AS picOrder
+    	FROM 
+    		pic_info
+    	<where>
+    		pic_url IS NOT NULL
+    		AND pic_url != ""
+    		<if test="picType != null and picType != ''">
+    			AND pic_type = #{picType} 
+    		</if>
+    		<if test="picStatus != null and picStatus != ''">
+    			AND pic_status = #{picStatus} 
+    		</if>
+    	</where>
+    	ORDER BY 
+    		pic_order ASC, 
+    		pkid DESC 
+    </select>
 
 </mapper>

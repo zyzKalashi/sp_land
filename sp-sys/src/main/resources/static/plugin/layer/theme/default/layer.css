@@ -672,7 +672,8 @@ opacity
 
 .layui-layer-page .layui-layer-content {
 	position: relative;
-	overflow: auto
+	overflow: auto;
+	background-color: rgb(246, 239, 227);
 }
 
 .layui-layer-iframe .layui-layer-btn, .layui-layer-page .layui-layer-btn

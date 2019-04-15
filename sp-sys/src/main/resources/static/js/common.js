@@ -3,6 +3,7 @@ var storage = window.localStorage;
 /* zyz begin*/
 /* 浏览器逻辑 */
 $(function(){
+	initFooter();
 	
 	if( $("#baseUserName").text() ){
 		$("#loginWin").hide();
@@ -18,29 +19,40 @@ $(function(){
 		if ( url.indexOf("index_browserError") <= -1 ) {
 			if ( "IE" == cb ) {
 				if ( !IEVersion() ) {
-					window.location.href = 'index_browserError';
+					window.location.href = '../index_browserError';
 				} 
 			} else {
 				if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
-					window.location.href = 'index_browserError';
+					window.location.href = '../index_browserError';
 				} 
 			}
 		} else {
 			if ( "IE" == cb ) {
 				if ( IEVersion() ) {
-					window.location.href = 'index';
+					window.location.href = '../index';
 				} 
 			} else {
 				if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
 					
 				} else {
-					window.location.href = 'index';
+					window.location.href = '../index';
 				}
 			}
 		}
 	}
 });
-
+function initFooter(){
+	$("#fullyear").text((new Date).getFullYear().toString());
+	$.post("/picInfo/picList?picType=3",null ,function(resp){
+		$("#friendlink").html("");
+		if(resp.data){
+			$("#friendlink").append("<li>友情链接：&nbsp;</li>");
+			for(var x in resp.data){
+				$("#friendlink").append('<li><a href="' + resp.data[x].picLink + '" target="_blank">' + resp.data[x].title + '</a></li>&nbsp;&nbsp;');
+			}
+		}
+	});
+}
 /* 判断浏览器种类 */
 function cusBrowser(){
     var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串

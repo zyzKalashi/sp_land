@@ -16,6 +16,7 @@
 	<script th:src="@{/static/js/vue.min.js}"></script>
 	<script th:src="@{/static/js/md5_32.js}"></script>
 	<script th:src="@{/static/plugin/layer/layer.js}"></script>
+	<script th:src="@{/static/js/common.js}"></script>
 </head>
 <body>
 <div id="app" v-cloak>
@@ -25,6 +26,8 @@
 			<ul class="fr">
 				<li><img src="/static/images/cent/pers36.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
 				<li class="mt35 mr10">{{user.nickName}}</li>
+				<li><img src="/static/images/cent/pws.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
+				<li class="mt35 mr10" @click="modifyUser">修改账户</li>
 				<li><img src="/static/images/cent/371.png" style="width:20px;height:auto;" class="mr5 mt35"></li>
 				<li class="mt35 mr10" @click="logout">退出</li>
 			</ul>
@@ -71,9 +74,10 @@
 			</div>
 			<div class="col-lg-9 col-md-9 col-sm-8 column">
 				<div class="clearfix mt10 main6r">
-					<iframe name="myiframe" id="myrame" src="/admin/dashbord" frameborder="0" align="left" width="100%" height="100%" :style="contentStyleObj" scrolling="no"></iframe>
+					<iframe name="myiframe" id="myrame" src="/admin/dashbord" width="100%" height="100%" marginheight="0" marginwidth="0"  frameborder="0" align="left" :style="contentStyleObj" scrolling="no"></iframe>
 				</div>
 			</div>
+			<span hidden="true" id="baseUserId"><shiro:principal property='userId'/>
 	</div>
 </div>
 <footer class="footer" style="margin-bottom: 0px;">
@@ -129,7 +133,7 @@
 			},
 			getHeight: function(){
 				var height = $(".header").outerHeight(true) + $(".footer").outerHeight(true) + 38;
-				this.contentStyleObj.height=(window.innerHeight-height)+'px';
+				this.contentStyleObj.height=(window.innerHeight + height)+'px';
 			},
 			selectParent: function(event){
 				var _this = $(event.currentTarget);
@@ -148,7 +152,10 @@
 			},
 			jumpPage: function(menu){
 				$("#myrame").attr("src",menu.url);
-			}
+			},
+			modifyUser: function(){
+				$("#myrame").attr("src", "/user/userModify?userId=" + $("#baseUserId").text());
+			},
 		}
 	});
 </script>

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
+import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
+/*
  * <p>
  * 图片信息
  * </p>
@@ -26,73 +28,61 @@ import java.util.Date;
 @TableName("pic_info")
 public class PicInfo extends Model<PicInfo> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @TableId(value = "pkid", type = IdType.AUTO)
-    private Integer picId;
+	@TableId(value = "pkid", type = IdType.AUTO)
+	private Integer picId;
 
-    /**
-     * 图片标题
-     */
-    private String title;
+	/* 图片标题 */
+	private String title;
 
-    /**
-     * 图片类别
-     */
-    @TableField("pic_type")
-    private Integer picType;
+	/* 图片类别 */
+	@TableField(value = "pic_type", strategy = FieldStrategy.NOT_EMPTY)
+	private Integer picType;
 
-    /**
-     * 图片状态
-     */
-    @TableField("pic_status")
-    private Integer picStatus;
+	/*
+	 * 图片状态
+	 */
+	@TableField(value = "pic_status", strategy = FieldStrategy.NOT_EMPTY)
+	private Integer picStatus;
 
-    /**
-     * 图片下载路径
-     */
-    @TableField("pic_url")
-    private String picUrl;
+	/* 图片下载路径 */
+	@TableField(value = "pic_url", strategy = FieldStrategy.NOT_EMPTY)
+	private String picUrl;
 
-    /**
-     * 图片链接
-     */
-    @TableField("pic_link")
-    private String picLink;
-    
-    /**
-     * 图片序号
-     */
-    @TableField("pic_order")
-    private Integer picOrder;
+	/* 图片链接 */
+	@TableField(value = "pic_link", strategy = FieldStrategy.NOT_EMPTY)
+	private String picLink;
 
-    /**
-     * 创建人
-     */
-    @TableField("create_user")
-    private Integer createUser;
+	/* 图片序号 */
+	@TableField(value = "pic_order", strategy = FieldStrategy.NOT_EMPTY)
+	private Integer picOrder;
 
-    /**
-     * 创建日期
-     */
-    @TableField("create_date")
-    private Date createDate;
+	/* 创建人 */
+	@TableField(value = "create_user", strategy = FieldStrategy.NOT_EMPTY)
+	private Integer createUser;
 
-    /**
-     * 更新人
-     */
-    @TableField("update_user")
-    private Integer updateUser;
+	/* 更新人 */
+	@TableField(value = "update_user", strategy = FieldStrategy.NOT_EMPTY)
+	private Integer updateUser;
 
-    /**
-     * 更新日期
-     */
-    @TableField("update_date")
-    private Date updateDate;
+	/* 创建日期 */
+	@TableField(value = "create_date", strategy = FieldStrategy.NOT_EMPTY, fill = FieldFill.INSERT)
+	private Date createDate;
+	/* 更新日期 */
+	@TableField(value = "update_date", strategy = FieldStrategy.NOT_EMPTY, fill = FieldFill.UPDATE, update = "NOW()")
+	private Date updateDate;
 
-    @Override
-    protected Serializable pkVal() {
-        return this.picId;
-    }
+	@TableField(exist = false)
+	private String createDateStr;
+	@TableField(exist = false)
+	private Integer pageNo;
+	@TableField(exist = false)
+	private Integer pageSize;
+
+	@Override
+	protected Serializable pkVal() {
+		return this.picId;
+	}
 
 }

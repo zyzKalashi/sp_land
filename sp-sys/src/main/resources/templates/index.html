@@ -174,11 +174,11 @@
 					<!-- Function Nav Start(there are some serious Error here) !important -->
 					<div class="lun_steps mb15" id="parents">
 						<div class="steps public2" style="display: none;">
-							<p style="width: 18%; margin-left: 5%;"><a href="">发布信息</a> <span></span></p>
-							<p style="width: 18%"><a href="" class="xians">即时显示</a> <span></span></p>
-							<p style="width: 18%"><a href="" class="chakan">关注查看</a> <span></span></p>
-							<p style="width: 18%"><a href="" class="ship">线下交易</a> <span></span></p>
-							<p style="width: 18%"><a href="" class="gongs">达成共识</a></p>
+							<p style="; margin-left: 5%;"><a href="">发布信息</a> <span></span></p>
+							<p style=""><a href="" class="xians">即时显示</a> <span></span></p>
+							<p style=""><a href="" class="chakan">关注查看</a> <span></span></p>
+							<p style=""><a href="" class="ship">线下交易</a> <span></span></p>
+							<p style=""><a href="" class="gongs">达成共识</a></p>
 						</div>
 						<div class="steps_wail public2 clear">
 							<ul class="clear">
@@ -367,18 +367,13 @@
 					})
 				},
 				initLunboImgList : function() {
-					$.post("/picInfo/picList?picType=1",null ,function(resp){
-						vm.lunBoImgList = resp.data;
-					});
-				},
-				initLunboImgList : function() {
-					$.post("/picInfo/picList?picType=1",null ,function(resp){
-						vm.lunBoImgList = resp.data;
+					hzToolObj.getdomInit("/picInfo/picList", {pageNo: 1,pageSize: 5,picType: 1, picStatus:1}, function(result){
+						vm.lunBoImgList = result.pageInfo.list;
 					});
 				},
 				initHezuoImgList : function() {
-					$.post("/picInfo/picList?picType=2",null ,function(resp){
-						vm.heZuoImgList = resp.data;
+					hzToolObj.getdomInit("/picInfo/picList", {pageNo: 1,pageSize: 6,picType: 2, picStatus:1}, function(result){
+						vm.heZuoImgList = result.pageInfo.list;
 					});
 				},
 			},

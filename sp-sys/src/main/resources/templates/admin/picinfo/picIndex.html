@@ -67,6 +67,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="page mt10 mb20">
+			<ul id='pagination'></ul>
+		</div>
     </div>
     <div class="row" style="width: 95%;">
         <div class="col-12 text-center">
@@ -81,6 +84,11 @@
     var vm = new Vue({
         el: "#vueApp",
         data: {
+        	queryData: {
+				pageNo: 1,
+				pageSize: 10,
+				picType: "",
+			},
             list: [],
             typeIndex: 0,
         },
@@ -109,9 +117,10 @@
             },
             flushData: function(){
                 var _this = this;
-                $.post("/picInfo/picList", {picType: this.currentType.value} , function (resp) {
-                    _this.list = resp.data;
-                })
+                vm.queryData.picType = this.currentType.value;
+                hzToolObj.getdomInit("/project/simpleList", this.queryData, function(result){
+                	_this.list = result.pageInfo.list;
+                });
             },
             showPic: function(picinfo){
                 layer.photos({

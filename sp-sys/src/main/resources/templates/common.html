@@ -113,18 +113,7 @@
 		Copyright &copy;<span id="fullyear">2019</span>&nbsp;&nbsp;四平市铁西区农业经济总站版权所有&nbsp;&nbsp;吉ICP备19001115号-1
 	</div>
 	<script type="text/javascript">
-		$(function(){
-			$("#fullyear").text((new Date).getFullYear().toString());
-			$.post("/picInfo/picList?picType=3",null ,function(resp){
-				$("#friendlink").html("");
-				if(resp.data){
-					$("#friendlink").append("<li>友情链接：&nbsp;</li>");
-					for(var x in resp.data){
-						$("#friendlink").append('<li><a href="' + resp.data[x].picLink + '" target="_blank">' + resp.data[x].title + '</a></li>&nbsp;&nbsp;');
-					}
-				}
-			});
-		});
+		
 	</script>
 </div>
 
