@@ -166,7 +166,7 @@
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/userAudit?userId=' + userId,
+                    content: '/admin/user/audit?userId=' + userId,
                     btn:buttons,
                     yes: function(index, layero){
                         if(3 == buttons.length){
@@ -203,7 +203,7 @@
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/userModify?userId=' + userId,
+                    content: '/admin/user/modify?userId=' + userId,
                     btn:['保存','清空','关闭'],
                     yes: function(index, layero){
                         var iframeWin = window[layero.find('iframe')[0]['name']];

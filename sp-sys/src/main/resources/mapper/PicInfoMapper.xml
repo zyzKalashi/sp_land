@@ -22,12 +22,13 @@
     		pkid AS picId,
     		title, 
     		pic_url AS picUrl,
+    		pic_link AS picLink,
     		pic_order AS picOrder
     	FROM 
     		pic_info
     	<where>
-    		pic_url IS NOT NULL
-    		AND pic_url != ""
+    		<!-- pic_url != "" -->
+    		pic_status != 0
     		<if test="picType != null and picType != ''">
     			AND pic_type = #{picType} 
     		</if>

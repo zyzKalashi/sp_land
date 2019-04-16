@@ -118,11 +118,7 @@
 			});
 		},
 		mounted: function(){
-			//$("#first_0").click();
 			this.jumpPage(this.defaultMenu);
-			/* window.addEventListener('resize', this.setJumpPageHeight);
-			this.setJumpPageHeight(); */
-			//$("#myrame").attr("src", '/admin/dashbord');
 		},
 		methods: {
 			logout: function(){
@@ -177,17 +173,17 @@
 				if(type){
 					this.sunValue = type;
 				}
-				$("#myrame").attr("src",'/admin/projectList');
+				$("#myrame").attr("src",'/admin/project/index');
 			},
 			toUsers: function(type){
 				this.selectParent(2);
 				if(type){
 					this.sunValue = type;
 				}
-				$("#myrame").attr("src",'/admin/userList?page=common');
+				$("#myrame").attr("src",'/admin/user/index?page=common');
 			},
 			modifyUser: function(){
-				$("#myrame").attr("src", "/user/userModify?userId=" + $("#baseUserId").text());
+				$("#myrame").attr("src", "/admin/user/modify?userId=" + $("#baseUserId").text());
 			},
 		},
 		

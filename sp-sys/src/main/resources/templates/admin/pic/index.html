@@ -15,20 +15,13 @@
         <div class="col-12">
             <table style="width: 100%;">
                 <tr>
-                    <td>
-                        <label v-for="(item,index) in typeList">
-                            <label></label>
-                            <a href="javascript:void(1);" :class="typeIndex==index?'active':''" style="font-size: 15px;font-weight: bold;" @click="changeType(index)">{{ item.label }}</a>
-                            <label v-if="index != (typeList.length-1)">/</label>
-                        </label>
-                    </td>
                     <td style="text-align: right;">
                         <button type="button" class="btn btn-sm btn-danger" @click="doModify()">新增</button>
                     </td>
                 </tr>
             </table>
         </div>
-        <div class="col-12">
+        <div class="col-12" style="min-height: 600px;">
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-default">
                 <tr class="text-center">
@@ -47,8 +40,8 @@
                         <button type="button" class="zbtn zbtn-mm zbtn-info" @click="moveOrder(index, 1)" v-if="index!=(list.length-1)">下移</button>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td class="inline">
-                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="curl(picinfo)" v-if="currentType.hasLink">访问</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="showPic(picinfo)" v-if="currentType.hasPic">预览</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="curl(picinfo)" v-if="queryData.picType != 1">访问</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="showPic(picinfo)" v-if="queryData.picType != 3">预览</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doModify(picinfo)">修改</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(picinfo)">删除</button>
                     </td>
@@ -79,39 +72,18 @@
             typeIndex: 0,
         },
         mounted : function() {
+        	this.queryData.picType = picType;
             this.flushData();
-            this.queryData.picType = picType;
-        },
-        computed: {
-            typeList: function(){
-                var list = [];
-                if(picType == '1'){
-                    list.push(picTypeDict[0]);
-                } else if(picType == 'x') {
-                    list.push(picTypeDict[1]);
-                    list.push(picTypeDict[2]);
-                }
-                return list;
-            },
-            currentType: function(){
-                return this.typeList[this.typeIndex];
-            }
         },
         methods:{
-            changeType: function(index){
+			/*  changeType: function(index){
                 this.typeIndex = index;
                 this.flushData();
-            },
+            },*/            
             flushData: function(){
-                this.queryData.picType = this.currentType.value;
-				hzToolObj.getdomInit("/picInfo/picList", this.queryData, function(result){
-                	 if(result.pageInfo.pageNum){
-                         vm.queryData.pageNo = result.pageInfo.pageNum;
-                     } else {
-                         vm.queryData.pageNo = 1;
-                     }
-                	 vm.list = result.pageInfo.list;
-                }, this.queryData.pageNo);
+            	hzToolObj.getdomInit("/picInfo/picList", this.queryData, function(result){
+					vm.list = result.pageInfo.list;
+				});
             },
             showPic: function(picinfo){
                 layer.photos({
@@ -132,10 +104,10 @@
             doModify: function(picinfo){
                 var _this = this;
                 var picId = "";
-                var title = "新增"+ this.currentType.label;
+                var title = "新增";
                 if(picinfo && picinfo.picId){
                     picId =  picinfo.picId;
-                    title = "修改" + this.currentType.label + "-" + picinfo.title;
+                    title = "修改 -" + picinfo.title;
                 }
 
                 layer.open({
@@ -145,7 +117,7 @@
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/pic/modify?picId=' + picId + "&picType=" + this.currentType.value,
+                    content: '/admin/pic/modify?picId=' + picId + "&picType=" + vm.queryData.picType,
                     btn:['保存','关闭'],
                     yes: function(index, layero){
                         var iframeWin = window[layero.find('iframe')[0]['name']];
@@ -166,10 +138,12 @@
                     $.post("/picInfo/modify_pic",tPic,function(resp){
                         if(0 == resp.code){
                             layer.msg('删除成功', {icon: 1});
+	                        hzToolObj.getdomInit("/picInfo/picList", vm.queryData, function(result){
+	        					vm.list = result.pageInfo.list;
+	        				});
                         } else {
                             layer.msg(resp.msg);
                         }
-                        _this.flushData();
                     });
                 }, function(){
 
@@ -182,10 +156,12 @@
                 tPic.picOrder = vm.list[index + pos].picOrder;
                 $.post("/picInfo/modify_pic",tPic,function(resp){
                     if(0 == resp.code){
+	                    hzToolObj.getdomInit("/picInfo/picList", vm.queryData, function(result){
+	    					vm.list = result.pageInfo.list;
+	    				});
                     } else {
                         layer.msg(resp.msg);
                     }
-                    vm.flushData();
                 });
             }
         }

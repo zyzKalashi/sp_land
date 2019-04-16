@@ -126,4 +126,17 @@ public class AdminController {
 		return mav;
 	}
 
+	/**
+	 * 地域管理
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/area/{page}", method = RequestMethod.GET)
+	public ModelAndView toAreaPage(@PathVariable("page") String page, String areaId) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/area/" + page);
+		mav.addObject("areaId", areaId);
+		return mav;
+	}
+
 }
