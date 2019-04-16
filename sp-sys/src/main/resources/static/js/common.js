@@ -1,9 +1,11 @@
 var storage = window.localStorage;
-
+var mobileReg = /^1[34578]\d{9}$/;
+var emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
 /* zyz begin*/
 /* 浏览器逻辑 */
 $(function(){
 	initFooter();
+	
 	
 	if( $("#baseUserName").text() ){
 		$("#loginWin").hide();
@@ -53,6 +55,7 @@ function initFooter(){
 		}
 	});
 }
+
 /* 判断浏览器种类 */
 function cusBrowser(){
     var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串

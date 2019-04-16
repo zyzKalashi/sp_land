@@ -74,3 +74,4 @@ upload:
   dirs:
     1: notice_pic/
     2: doc_upload/
+    3: demand_upload/

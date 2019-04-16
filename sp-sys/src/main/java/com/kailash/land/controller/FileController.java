@@ -51,7 +51,7 @@ public class FileController {
 			}
 			try {
 				file.transferTo(dest);
-				result.put("url","/upload/" + fileName);
+				result.put("url",fileName);
 				return result;
 			} catch (IOException e) {
 				logger.error(e.toString(), e);
@@ -114,9 +114,11 @@ public class FileController {
 	 * @param filePath 文件路径
 	 * @return
 	 */
+	@GetMapping(value = "/downFile")
 	public Result downFile(String filePath, HttpServletRequest request, HttpServletResponse response) {
 		InputStream fis = null;
 		OutputStream toClient = null;
+		filePath = uploadDir + "/" + filePath;
 		File file = new File(filePath);
 		if (!file.exists()) {
 			return Result.error("file exists");
