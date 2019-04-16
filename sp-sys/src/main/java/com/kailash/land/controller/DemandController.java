@@ -45,7 +45,6 @@ public class DemandController extends AbstractController {
 			}
 			demand.setUpdateDate(new Date());
 			demand.setUpdateUser(getUserId().intValue());
-			demand.setDemandStatus(StatusEnum.COMMON_NORMAL.getId());
 
 			this.demandService.insertOrUpdate(demand);
 		} catch (Exception e) {

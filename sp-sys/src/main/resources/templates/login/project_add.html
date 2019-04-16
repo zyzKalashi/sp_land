@@ -406,7 +406,7 @@
 		<div class="clear mb25" style="text-align: center;">
 			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d; margin-right: 25px;" v-if="!projectData.projectId" @click="submitProject('add')">提交审批</button>
 			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d; margin-right: 25px;" v-else @click="submitProject('upd')">提交修改</button>
-			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d;" onclick="reload()">取消</button>
+			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d;" @click="cancel">取消</button>
 
 		</div>
 		<footer class="footer">
@@ -518,6 +518,9 @@
 				openUpload: function(type){
 					
 				},
+				cancel: function(){
+					window.location.href = "/login/user_index";
+				}
 			},
 			watch: {
 				'projectData.areaCode': function(code){

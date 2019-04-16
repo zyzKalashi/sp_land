@@ -45,12 +45,12 @@ $(function(){
 });
 function initFooter(){
 	$("#fullyear").text((new Date).getFullYear().toString());
-	$.post("/picInfo/picList?picType=3",null ,function(resp){
+	$.post("/picInfo/picList",{pageNo : 1,pageSize : 5, picType: 3} ,function(resp){
 		$("#friendlink").html("");
-		if(resp.data){
+		if(resp.pageInfo){
 			$("#friendlink").append("<li>友情链接：&nbsp;</li>");
-			for(var x in resp.data){
-				$("#friendlink").append('<li><a href="' + resp.data[x].picLink + '" target="_blank">' + resp.data[x].title + '</a></li>&nbsp;&nbsp;');
+			for(var x in resp.pageInfo.list){
+				$("#friendlink").append('<li><a href="' + resp.pageInfo.list[x].picLink + '" target="_blank">' + resp.pageInfo.list[x].title + '</a></li>&nbsp;&nbsp;');
 			}
 		}
 	});

@@ -406,11 +406,11 @@ body, input, select, textarea {
 	margin-bottom: 0px;
 }
 
-.public2 {
+/* .public2 {
 	border-radius: 5px;
 	border: 1px solid #ddd;
 }
-
+ */
 /* 响应式导航条CSS */
 @media only screen and (max-width: 768px) {
 	/* For mobile phones: */
@@ -1062,13 +1062,13 @@ a.dengl:hover, a.zhuce:hover {
 
 .hez ul {
 	width: 98%;
-	margin: 0 auto;
+	margin: 0 3%;
 }
 
 .hez ul li {
 	width: 215;
 	height: auto;
-	margin: 8px 25px;
+	margin: 10px 2%;
 	width: 12%;
 }
 
