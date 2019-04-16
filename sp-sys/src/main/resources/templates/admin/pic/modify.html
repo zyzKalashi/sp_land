@@ -1,12 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title id="pageTitle">注册会员—铁西区农村经济总站土地流转交易监管平台</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/admin-html.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/plugin/cropper/cropper.css}">
-</head>
+<head th:include="common :: adminHeader"></head>
 
 <body>
 <div id="vueApp" v-cloak>
@@ -54,13 +49,6 @@
     </div>
 </div>
 </body>
-<script th:src="@{/static/js/jquery.min.js}"></script>
-<script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
-<script th:src="@{/static/js/vue.min.js}"></script>
-<script th:src="@{/static/plugin/cropper/cropper.js}"></script>
-<script th:src="@{/static/plugin/layer/layer.js}"></script>
-<script th:src="@{/static/js/common_status_filter.js}"></script>
-
 <script type="text/javascript">
     var picId = '[[${picId}]]';
     var picType = '[[${picType}]]';
@@ -138,9 +126,6 @@
         methods: {
             select: function () {
                 $("#filePath").click();
-            },
-            upload: function(){
-
             },
             fileChange(e){
                 var _this = this;

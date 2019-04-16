@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8">
-    <title>铁西区农村经济总站土地流转交易监管平台</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/dashboard.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
-    <script th:src="@{/static/js/jquery.min.js}"></script>
-    <script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
-    <script th:src="@{/static/js/echarts.min.js}"></script>
-</head>
+
+<head th:include="common :: adminHeader"></head>
+
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/dashboard.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
+
+<script th:src="@{/static/js/echarts.min.js}"></script>
 <style type="text/css">
 	.dashboard-stat{
 	    border-radius: 5px;
 	}
 </style>
 <body>
-<div>
+<div >
     <div class="row form-inline" style="width: 95%;margin-top: 10px;">
         <div class="col-sm-2 offset-sm-1">
             <a href="javascript:void(1)" onclick="parent.vm.toProject()">
@@ -108,7 +103,6 @@
 </body>
 <script>
     var myChart = echarts.init(document.getElementById('main'));
-
     $.post("/admin/getDashBordData","",function (resp) {
         //alert(JSON.stringify(resp.category));
         $("#d1").html(resp.d1);

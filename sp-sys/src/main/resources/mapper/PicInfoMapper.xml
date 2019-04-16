@@ -19,6 +19,7 @@
     
     <select id="querySimpleList" resultType="Map">
     	SELECT 
+    		pkid AS picId,
     		title, 
     		pic_url AS picUrl,
     		pic_order AS picOrder

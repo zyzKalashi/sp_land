@@ -74,7 +74,7 @@
 		</div>
 		<div class="col-lg-9 col-md-9 col-sm-8 column">
 			<div class="clearfix mt10 main6r">
-				<iframe name="myiframe" id="myrame" src="/admin/dashbord" frameborder="0" align="left" width="100%" height="100%" style="overflow: auto;" scrolling="no"></iframe>
+				<iframe name="myiframe" id="myrame" marginheight="20px" frameborder="0" align="left" width="100%" style="overflow: auto;" scrolling="no"></iframe>
 			</div>
 		</div>
 		<span hidden="true" id="baseUserId"><shiro:principal property='userId'/></span>
@@ -96,7 +96,7 @@
 				overflow: 'auto'
 			},
 			defaultMenu:{
-				url: '/admin/dashbord'
+				url: '/admin/dashbord',
 			}
 		},
 		created: function() {
@@ -118,8 +118,11 @@
 			});
 		},
 		mounted: function(){
-			window.addEventListener('resize', this.setFrameHeightAuto);
-			this.setFrameHeightAuto();
+			//$("#first_0").click();
+			this.jumpPage(this.defaultMenu);
+			/* window.addEventListener('resize', this.setJumpPageHeight);
+			this.setJumpPageHeight(); */
+			//$("#myrame").attr("src", '/admin/dashbord');
 		},
 		methods: {
 			logout: function(){
@@ -131,32 +134,22 @@
 					}
 				});
 			},
-			setFrameHeightAuto: function(){
-				try{
-					var iframe = document.getElementById("myrame");
-
-					var height = $(".header").outerHeight(true) + $(".footer").outerHeight(true) + 38;
-					var defaultheight=(window.innerHeight-height)+'px';
-
-					if(iframe.attachEvent){
-						iframe.attachEvent("onload", function(){
-							iframe.height =  iframe.contentWindow.document.documentElement.scrollHeight + 20;
-							if(defaultheight > iframe.height){
-								iframe.height = defaultheight;
+			setJumpPageHeight: function(){
+				var iframeid = document.getElementById("myrame"); //iframe id 
+				iframeid.height = "100px";//先给一个够小的初值,然后再长高. 
+				if (document.getElementById) {
+					if (iframeid && !window.opera) {
+						if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight) {
+							iframeid.height = iframeid.contentDocument.body.offsetHeight;
+							if(iframeid.height == "60"){
+								iframeid.height = "900";
 							}
-						});
-						return;
-					}else{
-						iframe.onload = function(){
-							iframe.height = iframe.contentDocument.body.scrollHeight + 20;
-							if(defaultheight > iframe.height){
-								iframe.height = defaultheight;
-							}
-						};
-						return;
+							iframeid.height = parseInt(iframeid.height) + 100 + "";
+							//iframeid.height = iframeid.height + "px";
+						} else if (iframeid.Document && iframeid.Document.body.scrollHeight) {
+							iframeid.height = iframeid.Document.body.scrollHeight;
+						}
 					}
-				}catch(e){
-					throw new Error('setIframeHeight Error');
 				}
 			},
 			selectParent: function(menuId){
@@ -175,6 +168,8 @@
 
 			},
 			jumpPage: function(menu){
+				window.addEventListener('resize', this.setJumpPageHeight);
+				this.setJumpPageHeight();
 				$("#myrame").attr("src",menu.url);
 			},
 			toProject: function(type){
@@ -194,7 +189,34 @@
 			modifyUser: function(){
 				$("#myrame").attr("src", "/user/userModify?userId=" + $("#baseUserId").text());
 			},
-		}
+		},
+		
 	});
 </script>
 </html>
+<!-- setFrameHeightAuto: function(){
+				try{
+					var iframe = document.getElementById("myrame");
+					var height = $(".header").outerHeight(true) + $(".footer").outerHeight(true) + 38;
+					var defaultheight=(window.innerHeight-height)+'px';
+					if(iframe.attachEvent){
+						iframe.attachEvent("onload", function(){
+							iframe.height =  iframe.contentWindow.document.documentElement.scrollHeight + 20;
+							if(defaultheight > iframe.height){
+								iframe.height = defaultheight;
+							}
+						});
+						return;
+					}else{
+						iframe.onload = function(){
+							iframe.height = iframe.contentDocument.body.scrollHeight + 20;
+							if(defaultheight > iframe.height){
+								iframe.height = defaultheight;
+							}
+						};
+						return;
+					} 
+				}catch(e){
+					throw new Error('setIframeHeight Error');
+				}
+			}, -->

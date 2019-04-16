@@ -1,10 +1,8 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title id="pageTitle">注册会员—铁西区农村经济总站土地流转交易监管平台</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
-</head>
+<head th:include="common :: adminHeader"></head>
+
 <style>
     label{
         margin-right: 10px;
@@ -73,11 +71,6 @@
     <hr>
 </div>
 </body>
-<script th:src="@{/static/js/jquery.min.js}"></script>
-<script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
-<script th:src="@{/static/js/vue.min.js}"></script>
-<script th:src="@{/static/js/md5_32.js}"></script>
-<script th:src="@{/static/plugin/layer/layer.js}"></script>
 <script type="text/javascript">
     var userId = '[[${userId}]]';
 

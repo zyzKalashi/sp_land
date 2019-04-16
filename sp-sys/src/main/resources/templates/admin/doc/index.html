@@ -1,32 +1,33 @@
 <!doctype html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8">
-    <title>铁西区农村经济总站土地流转交易监管平台</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/admin-html.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/plugin/jeDate/jeDate.css}">
-    <script th:src="@{/static/js/jquery.min.js}"></script>
-    <script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
-    <script th:src="@{/static/js/vue.min.js}"></script>
-    <script th:src="@{/static/plugin/layer/layer.js}"></script>
-    <script th:src="@{../static/plugin/pagination/jquery.pagination.js}"></script>
-    <script th:src="@{../static/plugin/pagination/bootstrap-paginator.js}"></script>
-    <script th:src="@{/static/js/common.js}"></script>
-    <script th:src="@{/static/js/common_status_filter.js}"></script>
-    <script th:src="@{/static/plugin/jeDate/jeDate.js}"></script>
-</head>
 
+<head th:include="common :: adminHeader"></head>
+   
 <body>
 <div id="vueApp" v-cloak>
     <form role="form">
         <div class="form-group form-inline">
-            <label class="col-sm-2" for="title">标题</label>
+            <label class="col-sm-2" for="title">文档标题</label>
             <div class="col-sm-2">
-                <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入新闻标题" style="width: 90%;"/>
+                <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入文档标题" style="width: 90%;"/>
             </div>
+            <label class="col-sm-2" for="docType">文档类别</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="docType" v-model="form.docType" placeholder="请选择文档类别" style="width: 90%;" >
+                    <option value="0">请选择</option>
+                    <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
+                </select>
+            </div>
+            <label class="col-sm-2" for="docStatus">文档状态</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="docStatus" v-model="form.docStatus" placeholder="请选择文档状态" style="width: 90%;" >
+                    <option value="0">请选择</option>
+                    <option value="1">{{ 1 | commonStatusFilter }}</option>
+                    <option value="1">{{ 5 | commonStatusFilter }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
             <label class="col-sm-2" for="startDate">开始时间</label>
             <div class="col-sm-2">
                 <input id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
@@ -35,17 +36,7 @@
             <div class="col-sm-2">
                 <input id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
             </div>
-        </div>
-        <div class="form-group form-inline">
-            <label class="col-sm-2" for="noticeStatus">状态</label>
-            <div class="col-sm-2">
-                <select class="form-control" id="noticeStatus" v-model="form.noticeStatus" placeholder="请选择新闻状态" style="width: 90%;" >
-                     <option value="0">请选择</option>
-                    <option v-for="item in status" :value="item.value">{{item.label}}</option>
-                </select>
-            </div>
-            <div class="col-sm-6"></div>
-            <div class="col-sm-2" style="text-align: right;">
+            <div class="col-sm-4" style="text-align: right;">
                 <div style="width: 95%;">
                     <button type="button" @click="doQuery('1')" class="btn btn-sm btn-info">查询</button>
                     <button type="button" @click="doModify()" class="btn btn-sm btn-danger">新增</button>
@@ -58,20 +49,23 @@
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-default">
                 <tr class="text-center">
-                    <th>{{ form.noticeKind | noticeKindFilter }}标题</th>
-                    <th>{{ form.noticeKind | noticeKindFilter }}状态</th>
+                    <th>文档标题</th>
+                    <th>文档类别</th>
+                    <th>文档状态</th>
                     <th>创建时间</th>
                     <th style="width: 20%;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(notice,index) in list" class="text-center">
-                    <td>{{ notice.title }}</td>
-                    <td>{{ notice.noticeStatus | commonStatusFilter }}</td>
-                    <td>{{ notice.createDateStr }}</td>
+                <tr v-for="(doc,index) in list" class="text-center">
+                    <td>{{ doc.title }}</td>
+                    <td>{{ doc.docType | docKindFilter }}</td>
+                    <td>{{ doc.docStatus | commonStatusFilter }}</td>
+                    <td>{{ doc.createDateStr }}</td>
                     <td class="inline">
-                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doModify(notice)">修改</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(notice)">删除</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doModify(doc)">修改</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(doc, 5)" v-if="doc.docStatus == 1">禁用</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="doDelete(doc, 1)"  v-if="doc.docStatus == 5">启用</button>
                     </td>
                 </tr>
                 </tbody>
@@ -109,8 +103,8 @@
         data: {
             form: {
                 title:'',
-                noticeKind: '',
-                noticeStatus: 0,
+                docType: 0,
+                docStatus: 0,
                 pageNo: 1,
                 pageSize: 10,
             },
@@ -122,9 +116,9 @@
         computed:{
             kinds: function(){
                 var arr = [];
-                for(var x in noticeKindDic){
-                    if(noticeKindDic[x].value.toString().match("1|2|3|4")){
-                        arr.push(noticeKindDic[x]);
+                for(var x in docKindDic){
+                    if(docKindDic[x].value.toString().match("1|2")){
+                        arr.push(docKindDic[x]);
                     }
                 }
                 return arr;
@@ -141,7 +135,6 @@
         },
         methods:{
             doQuery: function(){
-            	this.form.noticeKind = getUrlParam("noticeKind");
                 var obj = {};
                 for(var x in this.form){
                     if(this.form[x]){
@@ -154,9 +147,8 @@
                 if($("#endDate").val()){
                     obj.endDate = $("#endDate").val();
                 }
-                hzToolObj.getdomInit("/notice/noticeSearch", obj, this.callback, this.form.pageNo);
+                hzToolObj.getdomInit("/doc/docSearch", obj, this.callback, this.form.pageNo);
             },
-
             callback: function(result){
                 if(result.pageInfo.pageNum){
                     this.form.pageNo = result.pageInfo.pageNum;
@@ -165,15 +157,14 @@
                 }
                 this.list = result.pageInfo.list;
             },
-            doModify: function(notice){
+            doModify: function(doc){
                 var _this = this;
-                var noticeId = "";
-                var title = "新增";
-                if(notice && notice.noticeId){
-                    noticeId =  notice.noticeId;
-                    title = "修改-" + notice.title;
+                var docId = "";
+                var title = "新增文档";
+                if(doc && doc.docId){
+                    docId =  doc.docId;
+                    title = "修改文档-" + doc.title;
                 }
-
                 layer.open({
                     type: 2,
                     title: title,
@@ -181,7 +172,7 @@
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/noticeModify?noticeId=' + noticeId + "&noticeKind" + vm.form.noticeKind ,
+                    content: '/admin/docModify?docId=' + docId,
                     btn:['保存','关闭'],
                     yes: function(index, layero){
                         var iframeWin = window[layero.find('iframe')[0]['name']];
@@ -191,17 +182,18 @@
                     },
                 });
             },
-            doDelete: function(notice){
+            doDelete: function(doc, status){
                 var _this = this;
-                layer.confirm('确认删除吗？', {
+                var tip = doc.status == 1? "禁用":"启用";
+                layer.confirm("确认" +tip+ "该文档吗？", {
                     btn: ['确认','取消'] //按钮
                 }, function(){
-                    var tNotice = new Object();
-                    tNotice.noticeId = notice.noticeId;
-                    tNotice.noticeStatus = '0';
-                    $.post("/notice/notice_modify",tNotice,function(resp){
+                    var tDoc = new Object();
+                    tDoc.docId = doc.docId;
+                    tDoc.docStatus = status;
+                    $.post("/doc/doc_modify",tDoc,function(resp){
                         if(0 == resp.code){
-                            layer.msg('删除成功', {icon: 1});
+                            layer.msg(tip + '成功', {icon: 1});
                         } else {
                             layer.msg(resp.msg);
                         }

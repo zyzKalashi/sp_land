@@ -1,42 +1,26 @@
 <!doctype html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8">
-    <title>铁西区农村经济总站土地流转交易监管平台</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/admin-html.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/plugin/jeDate/jeDate.css}">
-    <script th:src="@{/static/js/jquery.min.js}"></script>
-    <script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
-    <script th:src="@{/static/js/vue.min.js}"></script>
-    <script th:src="@{/static/plugin/layer/layer.js}"></script>
-    <script th:src="@{../static/plugin/pagination/jquery.pagination.js}"></script>
-    <script th:src="@{../static/plugin/pagination/bootstrap-paginator.js}"></script>
-    <script th:src="@{/static/js/common.js}"></script>
-    <script th:src="@{/static/js/common_status_filter.js}"></script>
-    <script th:src="@{/static/plugin/jeDate/jeDate.js}"></script>
-</head>
+
+<head th:include="common :: adminHeader"></head>
 
 <body>
 <div id="vueApp" v-cloak>
     <form role="form">
         <div class="form-group form-inline">
-            <label class="col-sm-2" for="projectName">项目名称</label>
+            <label class="col-sm-2" for="title">需求名称</label>
             <div class="col-sm-2">
-                <input class="form-control" id="projectName" v-model="form.projectName" type="text" placeholder="请输入项目名称" style="width: 90%;"/>
+                <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入需求名称" style="width: 90%;"/>
             </div>
-            <label class="col-sm-2" for="projectKind">流转方式</label>
+            <label class="col-sm-2" for="demandKind">需求类别</label>
             <div class="col-sm-2">
-                <select class="form-control" id="projectKind" v-model="form.projectKind" placeholder="请选择流转方式" style="width: 90%;" >
+                <select class="form-control" id="demandKind" v-model="form.demandKind" placeholder="请选择需求类别" style="width: 90%;" >
                     <option value="0">请选择</option>
                     <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
                 </select>
             </div>
-            <label class="col-sm-2" for="projectStatus">项目状态</label>
+            <label class="col-sm-2" for="demandStatus">需求状态</label>
             <div class="col-sm-2">
-                <select class="form-control" id="projectStatus" v-model="form.projectStatus" placeholder="请选择项目状态" style="width: 90%;" >
+                <select class="form-control" id="demandStatus" v-model="form.demandStatus" placeholder="请选择需求状态" style="width: 90%;" >
                     <option value="0">请选择</option>
                     <option v-for="item in status" :value="'' + item.value">{{item.label}}</option>
                 </select>
@@ -63,27 +47,27 @@
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-default">
                 <tr class="text-center">
-                    <th>项目名称</th>
+                    <th>需求名称</th>
                     <th>发布人</th>
-                    <th>流转方式</th>
-                    <th>项目状态</th>
-                    <th>公告价格</th>
+                    <th>需求类别</th>
+                    <th>需求状态</th>
+                    <th>需求性质</th>
                     <th>创建时间</th>
                     <th style="width: 20%;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(project,index) in list" class="text-center">
-                    <td>{{project.projectName}}</td>
-                    <td>{{project.personName}}</td>
-                    <td>{{project.projectKind | projectKindFilter}}</td>
-                    <td>{{ ('' + project.projectStatus) | projectStatusFilter}}</td>
-                    <td>{{project.showPreice}}</td>
-                    <td>{{project.createDateStr}}</td>
+                <tr v-for="(demand,index) in list" class="text-center">
+                    <td>{{demand.title}}</td>
+                    <td>{{demand.person}}</td>
+                    <td>{{demand.demandKind | demandKindFilter}}</td>
+                    <td>{{ ('' + demand.demandStatus) | projectStatusFilter}}</td>
+                    <td>{{demand.demandInfoKind | projectKindFilter}}</td>
+                    <td>{{demand.createDateStr}}</td>
                     <td class="inline">
-                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(project)" v-if="project.projectStatus == 2">审核</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doDelete(project, 4)" v-if="project.projectStatus == 1">结束</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(project, 0)">删除</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(demand)" v-if="demand.demandStatus == 2">审核</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doDelete(demand, 4)" v-if="demand.demandStatus == 1">结束</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(demand, 0)">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -91,7 +75,7 @@
         </div>
     </div>
     <div class="row" style="width: 95%;">
-        <div class="col-12 text-center">
+        <div class="col-12 text-center" >
             <ul id='pagination'></ul>
         </div>
     </div>
@@ -120,9 +104,9 @@
         el: "#vueApp",
         data: {
             form: {
-                projectName:'',
-                projectKind: 0,
-                projectStatus: 0,
+                title:'',
+                demandKind: 0,
+                demandStatus: 0,
                 pageNo: 1,
                 pageSize: 10,
             },
@@ -131,9 +115,9 @@
         computed:{
             kinds: function(){
                 var arr = [];
-                for(var x in projectKindDic){
-                    if(projectKindDic[x].value != 0){
-                        arr.push(projectKindDic[x]);
+                for(var x in demandKindDic){
+                    if(demandKindDic[x].value != 0){
+                        arr.push(demandKindDic[x]);
                     }
                 }
                 return arr;
@@ -146,12 +130,6 @@
                     }
                 }
                 return arr;
-            }
-        },
-        created: function(){
-            if(parent.vm.sunValue){
-                this.form.projectStatus = parent.vm.sunValue;
-                parent.vm.sunValue = '';
             }
         },
         mounted : function() {
@@ -171,7 +149,7 @@
                 if($("#endDate").val()){
                     obj.endDate = $("#endDate").val();
                 }
-                hzToolObj.getdomInit("/project/projectSearch", obj, this.callback, this.form.pageNo);
+                hzToolObj.getdomInit("/demand/demandSearch", obj, this.callback, this.form.pageNo);
             },
             callback: function(result){
                 if(result.pageInfo.pageNum){
@@ -179,11 +157,12 @@
                 } else {
                     this.form.pageNo = 1;
                 }
+
                 this.list = result.pageInfo.list;
             },
-            doAudit: function(project){
+            doAudit: function(demand){
                 var buttons = [];
-                if(("" + project.projectStatus).match("1|2|3")){
+                if(("" + demand.demandStatus).match("1|2|3")){
                     buttons.push("通过");
                     buttons.push("拒绝");
                 }
@@ -191,13 +170,13 @@
 
                 layer.open({
                     type: 2,
-                    title: '审核-' + project.projectName,
+                    title: '审核-' + demand.title,
                     area: ['90%', '90%'],
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/projectAudit?projectId=' + project.projectId,
-                    btn: buttons,
+                    content: '/admin/demandAudit?demandId=' + demand.demandId,
+                    btn:buttons,
                     yes: function(index, layero){
                         if(3 == buttons.length) {
                             var iframeWin = window[layero.find('iframe')[0]['name']];
@@ -215,15 +194,15 @@
                     },
                 });
             },
-            doDelete: function(project, status){
+            doDelete: function(demand, status){
                 var _this = this;
-                layer.confirm('确认'+ (status == 0? '删除':'结束') +'该项目审批信息吗？', {
+                layer.confirm('确认'+ (status == 0? '删除':'结束') +'该需求审批信息吗？', {
                     btn: ['确认','取消'] //按钮
                 }, function(){
-                    var tProject = new Object();
-                    tProject.projectId = project.projectId;
-                    tProject.projectStatus = status;
-                    $.post("/project/projectModify",tProject,function(resp){
+                    var tDemand = new Object();
+                    tDemand.demandId = demand.demandId;
+                    tDemand.demandStatus = status;
+                    $.post("/demand/demandAudit",tDemand,function(resp){
                         if(0 == resp.code){
                             layer.msg('操作成功', {icon: 1});
                         } else {

@@ -184,7 +184,6 @@
 																	<span v-if="item.projectStatus == 2" @click="delProject(item.projectId)">删除</span>
 																</td>
 															</tr>
-															
 														</table>
 													</div>
 												</div>
@@ -280,7 +279,7 @@
 								<div class="control-group form-inline">
 					                <label class="control-label col-md-2 offset-md-2" for="password">身份证正面照片：</label>
 					                <div class="controls col-md-6">
-					                    <input type="file" placeholder="请输入身份证号" class="form-control" style="width: 90%;"  v-model="userData.idCardPic" autocomplete="off">
+					                   <input type="file" name="file" value="身份证正面照片" style="border: none;" v-model="userData.idCardPic">
 					                </div>
 					            </div>
 								<div class="control-group form-inline">

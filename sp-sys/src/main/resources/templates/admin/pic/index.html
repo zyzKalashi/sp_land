@@ -1,19 +1,8 @@
 <!doctype html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8">
-    <title>铁西区农村经济总站土地流转交易监管平台</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap/bootstrap.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/admin-html.css}">
-    <script th:src="@{/static/js/jquery.min.js}"></script>
-    <script th:src="@{/static/js/bootstrap/bootstrap.js}"></script>
-    <script th:src="@{/static/js/vue.min.js}"></script>
-    <script th:src="@{/static/plugin/layer/layer.js}"></script>
-    <script th:src="@{/static/js/common.js}"></script>
-    <script th:src="@{/static/js/common_status_filter.js}"></script>
-</head>
+
+<head th:include="common :: adminHeader"></head>
+
 <style>
     .active {
         color: #6a2d04;
@@ -67,9 +56,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="page mt10 mb20">
-			<ul id='pagination'></ul>
-		</div>
     </div>
     <div class="row" style="width: 95%;">
         <div class="col-12 text-center">
@@ -94,6 +80,7 @@
         },
         mounted : function() {
             this.flushData();
+            this.queryData.picType = picType;
         },
         computed: {
             typeList: function(){
@@ -116,11 +103,15 @@
                 this.flushData();
             },
             flushData: function(){
-                var _this = this;
-                vm.queryData.picType = this.currentType.value;
-                hzToolObj.getdomInit("/project/simpleList", this.queryData, function(result){
-                	_this.list = result.pageInfo.list;
-                });
+                this.queryData.picType = this.currentType.value;
+				hzToolObj.getdomInit("/picInfo/picList", this.queryData, function(result){
+                	 if(result.pageInfo.pageNum){
+                         vm.queryData.pageNo = result.pageInfo.pageNum;
+                     } else {
+                         vm.queryData.pageNo = 1;
+                     }
+                	 vm.list = result.pageInfo.list;
+                }, this.queryData.pageNo);
             },
             showPic: function(picinfo){
                 layer.photos({
@@ -154,7 +145,7 @@
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/picModify?picId=' + picId + "&picType=" + this.currentType.value,
+                    content: '/admin/pic/modify?picId=' + picId + "&picType=" + this.currentType.value,
                     btn:['保存','关闭'],
                     yes: function(index, layero){
                         var iframeWin = window[layero.find('iframe')[0]['name']];
@@ -186,26 +177,15 @@
             },
             moveOrder: function(index , pos){
                 var _this = this;
-                var tPic = new Object();
-                tPic.picId = this.list[index].picId;
-                tPic.picOrder = this.list[index + pos].picOrder;
+                var tPic = {};
+                tPic.picId = vm.list[index].picId;
+                tPic.picOrder = vm.list[index + pos].picOrder;
                 $.post("/picInfo/modify_pic",tPic,function(resp){
                     if(0 == resp.code){
                     } else {
                         layer.msg(resp.msg);
                     }
-                    _this.flushData();
-                });
-
-                tPic = new Object();
-                tPic.picId = this.list[index + pos].picId;
-                tPic.picOrder = this.list[index].picOrder;
-                $.post("/picInfo/modify_pic",tPic,function(resp){
-                    if(0 == resp.code){
-                    } else {
-                        layer.msg(resp.msg);
-                    }
-                    _this.flushData();
+                    vm.flushData();
                 });
             }
         }
