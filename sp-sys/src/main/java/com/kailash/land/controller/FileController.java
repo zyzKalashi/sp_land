@@ -28,30 +28,30 @@ import java.net.URLEncoder;
 public class FileController {
 	private static Logger logger = LoggerFactory.getLogger(FileController.class);
 	private final static String UPLOAD_DIRS_PREFIX = "upload.dirs.";
-	
+
 	@Value("${upload.base-dir}")
 	private String uploadDir;
 
 	@Autowired
 	private Environment env;
-	
-	@PostMapping("/upload")
+
 	@ResponseBody
+	@PostMapping("/upload")
 	public Result upload(Integer fileKind, MultipartFile file) {
 		Result result = new Result();
-		
+
 		String proKey = UPLOAD_DIRS_PREFIX + fileKind;
 		String dir = env.getProperty(proKey);
-		if(null != dir){
+		if (null != dir) {
 			long now = System.currentTimeMillis();
 			String fileName = dir + now + file.getOriginalFilename();
 			File dest = new File(uploadDir + fileName);
-			if(!dest.getParentFile().exists()){
+			if (!dest.getParentFile().exists()) {
 				dest.getParentFile().mkdirs();
 			}
 			try {
 				file.transferTo(dest);
-				result.put("url",fileName);
+				result.put("url", "/upload/" + fileName);
 				return result;
 			} catch (IOException e) {
 				logger.error(e.toString(), e);
@@ -116,10 +116,16 @@ public class FileController {
 	 */
 	@GetMapping(value = "/downFile")
 	public Result downFile(String filePath, HttpServletRequest request, HttpServletResponse response) {
+		if (filePath.contains("/upload/")) {
+			filePath = uploadDir + "/" + filePath.substring(8, filePath.length());
+		} else {
+			return Result.error("file exists");
+		}
+
 		InputStream fis = null;
 		OutputStream toClient = null;
-		filePath = uploadDir + "/" + filePath;
 		File file = new File(filePath);
+
 		if (!file.exists()) {
 			return Result.error("file exists");
 		}

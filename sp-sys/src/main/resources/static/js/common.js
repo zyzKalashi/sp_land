@@ -6,6 +6,20 @@ var emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
 $(function(){
 	initFooter();
 	
+	var uploader = WebUploader.Uploader({
+		auto: true,
+        swf: '/static/plugin/webuploader/Uploader.swf',
+        server: '/file/upload',
+        resize: false,
+        prepareNextFile: true,
+        chunked: true,// 开起分片上传。
+        
+    });
+
+        
+
+	
+	
 	
 	if( $("#baseUserName").text() ){
 		$("#loginWin").hide();

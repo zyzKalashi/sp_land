@@ -39,7 +39,6 @@
 								<td>
 									<p class="f18 ml20" style="color: #93590d;">{{ userData.userName}}</p>
 									<p class="f12 ml20" style="color: #06c; font-family: '宋体';">
-										<!-- <a data-toggle="tab" href="#myfirst" @click="winBaseInfo">修改资料</a> -->
 									</p>
 									<p class="ml20" style="font-family: '新宋体'; font-size: 11px;">
 										上次访问时间:<span>{{ loginLog.logDateStr }}</span>
@@ -277,17 +276,17 @@
 					                </div>
 					            </div>
 								<div class="control-group form-inline">
-					                <label class="control-label col-md-2 offset-md-2" for="password">身份证正面照片：</label>
-					                <div class="controls col-md-6">
-					                   <input type="file" name="file" value="身份证正面照片" style="border: none;" v-model="userData.idCardPic">
-					                </div>
+					                <label class="control-label col-md-2 offset-md-2" for="password">身份证照片：</label>
+					                <div class="controls col-md-6"></div>
 					            </div>
-								<div class="control-group form-inline">
-					                <label class="control-label col-md-2 offset-md-2" for="password">身份证背面照片：</label>
-					                <div class="controls col-md-6">
-					                    <input type="file" placeholder="请输入身份证号" class="form-control" style="width: 90%;"  v-model="userData.idCardPicBack" autocomplete="off">
-					                </div>
-					            </div>
+								<div class="openWinDiv">
+				                	<span name="picker" class="picker" id="up_idCardPic">正面照片</span>
+				                	<span name="picker" class="picker" id="up_idCardPicBack">背面照片</span>
+								</div>
+								<div class="openWinDiv">
+				            		<img alt="" :src="userData.idCardPic" v-if="userData.idCardPic">
+				            		<img alt="" :src="userData.idCardPicBack" v-if="userData.idCardPicBack">
+								</div>
 								<div class="openWinDiv">
 									<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('changeIdCard')">确定</button>
 									<button style="background: #6e3e0d; color: #ffff;" onclick="closeWin()">取消</button>
@@ -408,16 +407,6 @@
 				this.initProjectList();
 			},
 			methods : {
-				winBaseInfo: function(){
-					/* if(vm.win.openWin_baseInfo){
-						vm.win.openWin_indexInfo = true;
-						href ="#openWin_indexInfo";
-						vm.win.openWin_baseInfo = false;
-					} else {
-						vm.win.openWin_baseInfo = true;
-						vm.win.openWin_indexInfo = false;
-					} */
-				},
 				initUser: function () {
 					var tUser = new Object();
 					tUser.userId = this.userData.userId;
@@ -539,7 +528,7 @@
 					layer.open({
 						  type: 1,
 						title: false,
-						area: ['60%', '40%'],
+						area: ['80%', '60%'],
 						shade: 0.8,
 						closeBtn: 1,
 						shadeClose: true,
@@ -563,31 +552,29 @@
                 	});
 				},
 				modifyUser: function(flag){
-					var _this = this;
-					var tUser = new Object();
-					tUser.userId = vm.userData.userId;
-
 					if(flag == "changeMobile"){
 						if(!(/^1[34578]\d{9}$/.test(vm.userData.newMobile))){ 
 							layer.alert("手机号码有误，请重填");  
 							return; 
 						} else {
-							//vm.userData.mobile = vm.userData.newMobile;
-							tUser.mobile = this.userData.newMobile;
+							vm.userData.mobile = this.userData.newMobile;
 						}
 					} else if (flag == "changEmail") {
-						//vm.userData.email = vm.userData.newEmail;
-						tUser.email = this.userData.newEmail;
+						vm.userData.email = this.userData.newEmail;
 					} else if (flag == "changePassword") {
-						//vm.userData.password = hex_md5(vm.userData.newPassword);
-						tUser.password = hex_md5(this.userData.newPassword)
+						vm.userData.password = hex_md5(this.userData.newPassword)
 					} else if (flag == "cancelUser"){
-						tUser.userStatus = 0;
+						vm.userData.userStatus = 0;
+					} else if (flag == "changeIdCard") {
+						vm.userData.userStatus = 2;
 					}
+					
+					delete vm.userData.createDate;
+	                delete vm.userData.updateDate;
 					$.post("/user/users_modify", tUser, function (result) {
 						if (result.code == 0) {
 							layer.msg("修改成功！",{icon:1, time:2000, shade:0.4},function () {
-								_this.initUser();
+								vm.initUser();
 								closeWin();
 							});
                         } else {
@@ -596,6 +583,46 @@
                 	});
 				},
 			},
+		});
+		$(function(){
+			WebUploader.create({
+		        auto: true,
+		        swf: '/static/plugin/webuploader/Uploader.swf',
+		        server: '/file/upload',
+		        pick: '#up_idCardPic',
+		        resize: false,
+		        formData: {
+		            fileKind: 3,
+		        }
+				}).on("uploadSuccess",function(file, resp){
+				    if(0 == resp.code){
+				        //$("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
+				        vm.userData.idCardPic = resp.url;
+				        layer.msg();
+				        this.reset();
+				    } else {
+				        alert(resp.msg);
+				    }
+			});
+			WebUploader.create({
+		        auto: true,
+		        swf: '/static/plugin/webuploader/Uploader.swf',
+		        server: '/file/upload',
+		        pick: '#up_idCardPicBack',
+		        resize: false,
+		        formData: {
+		            fileKind: 3,
+		        }
+				}).on("uploadSuccess",function(file, resp){
+				    if(0 == resp.code){
+				        //$("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
+				        vm.userData.idCardPicBack = resp.url;
+				        this.reset();
+				    } else {
+				        alert(resp.msg);
+				    }
+			});
+			
 		});
 	</script>
 </body>

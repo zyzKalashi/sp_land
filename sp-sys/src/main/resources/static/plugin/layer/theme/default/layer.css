@@ -77,8 +77,8 @@ html #layuicss-layer {
 	cursor: move;
 	opacity: 0;
 	filter: alpha(opacity = 0);
-	background-color: #fff;
-	z-index: 2147483647
+	/* background-color: #fff; */
+	z-index: 2147483647;
 }
 
 .layui-layer-resize {
