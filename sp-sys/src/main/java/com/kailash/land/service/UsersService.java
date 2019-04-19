@@ -1,5 +1,7 @@
 package com.kailash.land.service;
 
+import java.util.Map;
+
 import com.baomidou.mybatisplus.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.kailash.land.entity.Users;
@@ -14,5 +16,7 @@ public interface UsersService extends IService<Users> {
 	int registerUser(Users user);
 
 	PageInfo<Users> selectUsersPage(Users user);
+
+	Users findByFiled(Map<String, Object> param);
 
 }

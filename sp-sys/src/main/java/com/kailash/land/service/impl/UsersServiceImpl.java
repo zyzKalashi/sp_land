@@ -1,6 +1,7 @@
 package com.kailash.land.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kailash.land.common.enums.RoleEnum;
 import com.kailash.land.entity.Users;
-import com.kailash.land.mapper.RoleMapper;
 import com.kailash.land.mapper.UsersMapper;
 import com.kailash.land.service.UsersService;
 import com.kailash.land.util.ShiroUtils;
@@ -26,29 +26,10 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
 	@Autowired
 	private UsersMapper usersMapper;
-	
-	@Autowired
-	private RoleMapper roleMapper;
 
-//	@Override
-//	public Map<String, Object> getUserByUserId(Users user) {
-//		return this.usersMapper.selectByUserId(user.getPkid());
-//	};
-//
-//	@Override
-//	public void updateUsers(Users user) {
-//		this.usersMapper.updateByCondition(user);
-//	}
-//
-//	@Override
-//	public int checkUserNameOrPhone(Users user) {
-//		user = this.usersMapper.findByUserName(user.getUserName());
-//		if (user != null && user.getPkid() != null) {
-//			return 1;
-//		}
-//		return 0;
-//	}
-//
+//	@Autowired
+//	private RoleMapper roleMapper;
+
 	@Override
 	public Users queryByUserName(String username) {
 		return this.baseMapper.findByUserName(username);
@@ -60,8 +41,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		this.baseMapper.insert(user);
 		return user.getUserId().intValue();
 	}
-	
-	public PageInfo<Users> selectUsersPage(Users user){
+
+	public PageInfo<Users> selectUsersPage(Users user) {
 		PageHelper.startPage(user.getPageNo(), user.getPageSize());
 		EntityWrapper<Users> ewUsers = new EntityWrapper<Users>();
 		ewUsers.setEntity(user);
@@ -81,5 +62,10 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		List<Users> users = usersMapper.selectList(ewUsers);
 		return new PageInfo<>(users);
 	}
-	
+
+	@Override
+	public Users findByFiled(Map<String, Object> param) {
+		return this.usersMapper.findByFiled(param);
+	}
+
 }

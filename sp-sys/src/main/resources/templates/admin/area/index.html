@@ -1,220 +1,221 @@
-<!doctype html>
+<!doctype>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head th:include="common :: adminHeader"></head>
+<link th:href="@{/static/plugin/zTree/zTreeStyle.css}" type="text/css" rel="stylesheet">
 
 <body>
-<div id="vueApp" v-cloak>
-    <form role="form">
-        <div class="form-group form-inline">
-            <label class="col-sm-2" for="title">需求名称</label>
-            <div class="col-sm-2">
-                <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入需求名称" style="width: 90%;"/>
-            </div>
-            <label class="col-sm-2" for="demandKind">需求类别</label>
-            <div class="col-sm-2">
-                <select class="form-control" id="demandKind" v-model="form.demandKind" placeholder="请选择需求类别" style="width: 90%;" >
-                    <option value="0">请选择</option>
-                    <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
-                </select>
-            </div>
-            <label class="col-sm-2" for="demandStatus">需求状态</label>
-            <div class="col-sm-2">
-                <select class="form-control" id="demandStatus" v-model="form.demandStatus" placeholder="请选择需求状态" style="width: 90%;" >
-                    <option value="0">请选择</option>
-                    <option v-for="item in status" :value="'' + item.value">{{item.label}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group form-inline">
-            <label class="col-sm-2" for="startDate">开始时间</label>
-            <div class="col-sm-2">
-                <input id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
-            </div>
-            <label class="col-sm-2" for="endDate">终止时间</label>
-            <div class="col-sm-2">
-                <input id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
-            </div>
-            <div class="col-sm-4" style="text-align: right;">
-                <div style="width: 95%;">
-                    <button type="button" @click="doQuery('1')" class="btn btn-sm btn-info">查询</button>
-                </div>
-            </div>
-        </div>
-    </form>
-    <div class="row mx-auto" style="margin-top: 10px;">
-        <div class="col-12">
-            <table class="table table-hover table-bordered table-sm">
-                <thead class="thead-default">
-                <tr class="text-center">
-                    <th>需求名称</th>
-                    <th>发布人</th>
-                    <th>需求类别</th>
-                    <th>需求状态</th>
-                    <th>需求性质</th>
-                    <th>创建时间</th>
-                    <th style="width: 20%;">操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="(demand,index) in list" class="text-center">
-                    <td>{{demand.title}}</td>
-                    <td>{{demand.person}}</td>
-                    <td>{{demand.demandKind | demandKindFilter}}</td>
-                    <td>{{ ('' + demand.demandStatus) | projectStatusFilter}}</td>
-                    <td>{{demand.demandInfoKind | projectKindFilter}}</td>
-                    <td>{{demand.createDateStr}}</td>
-                    <td class="inline">
-                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(demand)" v-if="demand.demandStatus == 2">审核</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doDelete(demand, 4)" v-if="demand.demandStatus == 1">结束</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(demand, 0)">删除</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row" style="width: 95%;">
-        <div class="col-12 text-center" >
-            <ul id='pagination'></ul>
-        </div>
-    </div>
-</div>
+	<div id="vueApp" v-cloak>
+		<form role="form">
+	        <div class="form-group form-inline" style="margin-top: 10px;">
+	            <div class="col-sm-12" style="text-align: right;">
+	                <div style="width: 95%;">
+	                    <button type="button" id="addLeaf" class="btn btn-sm btn-info">新增</button>
+	                    <button type="button" id="edit" class="btn btn-sm" style="color: #ffff;">编辑</button>
+	                    <button type="button" id="remove" class="btn btn-sm btn-danger">删除</button>
+	                </div>
+	            </div>
+	        </div>
+	    </form>
+		<div class="row mx-auto" style="margin-top: 10px; min-height: 300px">
+			<div class="col-12">
+				<ul id="treeDemo" class="ztree" style="padding: 5% 0px 0px 30%;"></ul>
+			</div>
+			
+		</div>
+	</div>
 </body>
+<script th:src="@{/static/plugin/zTree/jquery.ztree.core.min.js}" type="text/javascript"></script>
+<script th:src="@{/static/plugin/zTree/jquery.ztree.all.min.js}" type="text/javascript"></script>
+<script th:src="@{/static/plugin/zTree/jquery.ztree.excheck.min.js}" type="text/javascript"></script>
+<script th:src="@{/static/plugin/zTree/jquery.ztree.exedit.min.js}" type="text/javascript"></script>
+<script th:src="@{/static/plugin/zTree/jquery.ztree.exhide.min.js}" type="text/javascript"></script>
 <script>
-    $(function () {
-        jeDate("#startDate",{
-            theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
-            isinitVal:false,
-            onClose:true,
-            isTime:true,
-            format: 'YYYY-MM-DD'
-        });
+	var vm = new Vue({
+		el : "#vueApp",
+		data : {
+			areaTree : [],
+		},
+		mounted : function() {
+			this.initTree();
+		},
+		methods : {
+			initTree : function() {
+				hzToolObj.postRpc("/area/areaTree", {}).done(function(result) {
+					console.log(result);
+					vm.areaTree = result.areaTree;
 
-        jeDate("#endDate",{
-            theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
-            isinitVal:false,
-            onClose:true,
-            isTime:true,
-            format: 'YYYY-MM-DD'
-        });
-    })
+				});
+			},
+			addArea : function() {
 
-    var vm = new Vue({
-        el: "#vueApp",
-        data: {
-            form: {
-                title:'',
-                demandKind: 0,
-                demandStatus: 0,
-                pageNo: 1,
-                pageSize: 10,
-            },
-            list: [],
+			},
+			initTree : function() {
+
+			},
+		}
+	});
+	/**
+     * 树
+     */
+    var setting = {
+        async: {
+            enable: true,
+            url: "/area/areaTree",
+            autoParam: ["id", "name=n", "level=lv"],
+            otherParam: {"otherParam": "zTreeAsyncTest"},
         },
-        computed:{
-            kinds: function(){
-                var arr = [];
-                for(var x in demandKindDic){
-                    if(demandKindDic[x].value != 0){
-                        arr.push(demandKindDic[x]);
-                    }
-                }
-                return arr;
-            },
-            status: function(){
-                var arr = [];
-                for(var x in projectStatusDic){
-                    if(!("" + projectStatusDic[x].value).match("0|5")){
-                        arr.push(projectStatusDic[x]);
-                    }
-                }
-                return arr;
+        data: {},
+        callback: {
+            // 捕获节点编辑名称结束后，更新节点数据之前的事件回调
+            beforeRename: beforeRename
+        }
+    };
+
+    /**
+     * 修改名称----ok
+     * @param treeId
+     * @param treeNode
+     * @param newName
+     * @returns {boolean}
+     */
+    function beforeRename(treeId, treeNode, newName) {
+        if (newName.length == 0) {
+            setTimeout(function () {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.cancelEditName();
+                alert("节点名称不能为空.");
+            }, 0);
+            return false;
+        }else{
+            var data = {
+                "areaName": newName,
+                "parentCode": treeNode.parentCode,
             }
-        },
-        mounted : function() {
-            this.doQuery();
-        },
-        methods:{
-            doQuery: function(){
-                var obj = {};
-                for(var x in this.form){
-                    if(this.form[x] != ''){
-                        obj[x] = this.form[x];
-                    }
-                }
-                if($("#startDate").val()){
-                    obj.startDate = $("#startDate").val();
-                }
-                if($("#endDate").val()){
-                    obj.endDate = $("#endDate").val();
-                }
-                hzToolObj.getdomInit("/demand/demandSearch", obj, this.callback, this.form.pageNo);
-            },
-            callback: function(result){
-                if(result.pageInfo.pageNum){
-                    this.form.pageNo = result.pageInfo.pageNum;
+            if(treeNode.areaId){
+            	data.areaId = treeNode.areaId;
+            	data.code = treeNode.areaId;
+            } else {
+            	data.level= treeNode.level;
+            }
+            hzToolObj.postRpc("/area/areaModify",data).done(function (result) {
+                if (result.code == 0) {
+                    layer.msg(result.msg);
+                    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                    zTree.reAsyncChildNodes(null, "refresh");
                 } else {
-                    this.form.pageNo = 1;
+                    layer.msg(result.msg);
                 }
+            });
+        }
+        return true;
+    }
 
-                this.list = result.pageInfo.list;
-            },
-            doAudit: function(demand){
-                var buttons = [];
-                if(("" + demand.demandStatus).match("1|2|3")){
-                    buttons.push("通过");
-                    buttons.push("拒绝");
-                }
-                buttons.push("关闭");
+    $(document).ready(function () {
+        $.fn.zTree.init($("#treeDemo"), setting);
+        $("#addLeaf").bind("click", {isParent:false}, add);
+        $("#edit").bind("click", edit);
+        $("#remove").bind("click", remove);
+    });
 
-                layer.open({
-                    type: 2,
-                    title: '审核-' + demand.title,
-                    area: ['90%', '90%'],
-                    fixed: true, //不固定
-                    skin: 'layer-skin',
-                    maxmin: true,
-                    content: '/admin/demandAudit?demandId=' + demand.demandId,
-                    btn:buttons,
-                    yes: function(index, layero){
-                        if(3 == buttons.length) {
-                            var iframeWin = window[layero.find('iframe')[0]['name']];
-                            iframeWin.vm.audit('1');
-                        } else {
-                            layer.close(layer.index);
-                        }
-                    },
-                    btn2: function(index, layero){
-                        var iframeWin = window[layero.find('iframe')[0]['name']];
-                        iframeWin.vm.audit('3');
-                        return false;
-                    },
-                    btn3: function(){
-                    },
-                });
-            },
-            doDelete: function(demand, status){
-                var _this = this;
-                layer.confirm('确认'+ (status == 0? '删除':'结束') +'该需求审批信息吗？', {
-                    btn: ['确认','取消'] //按钮
-                }, function(){
-                    var tDemand = new Object();
-                    tDemand.demandId = demand.demandId;
-                    tDemand.demandStatus = status;
-                    $.post("/demand/demandAudit",tDemand,function(resp){
-                        if(0 == resp.code){
-                            layer.msg('操作成功', {icon: 1});
-                        } else {
-                            layer.msg(resp.msg);
-                        }
-                        _this.doQuery();
-                    });
-                }, function(){
 
-                });
+    var newCount = 1;
+    // 增加节点
+    function add(e) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            isParent = e.data.isParent,
+            nodes = zTree.getSelectedNodes(),
+            treeNode = nodes[0];
+        if (nodes.length == 0) {
+            layer.msg("请先选择一个节点");
+            return;
+        }
+        
+        var node = {
+    			parentCode: treeNode.id, 
+    			isParent: isParent, 
+    			name:"新增地域标签"
+    	}
+        if (treeNode.level == 2){
+            layer.msg("二级菜单不允许添加");
+        }else{
+            if (treeNode) {
+                treeNode = zTree.addNodes(treeNode, node);
+            } else {
+                treeNode = zTree.addNodes(null, node);
+            }
+            if (treeNode) {
+                zTree.editName(treeNode[0]);
+            } else {
+                layer.msg("叶子节点被锁定，无法增加子节点");
             }
         }
-    })
+    };
+    // 修改节点
+    function edit() {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            nodes = zTree.getSelectedNodes(),
+            treeNode = nodes[0];
+        if (nodes.length == 0) {
+            layer.msg("请先选择一个节点");
+            return;
+        }
+        zTree.editName(treeNode);
+    };
+    // 删除节点
+    function remove(e) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            nodes = zTree.getSelectedNodes(),
+            treeNode = nodes[0];
+        if (nodes.length == 0) {
+            layer.msg("请先选择一个节点");
+            return;
+        }
+        // 判断行业是否在tag里面有绑定过
+        hzToolObj.postRpc("/area/checkUse/"+treeNode.areaId).done(function (result) {
+            if (result.code != 0) {
+                layer.msg(result.msg)
+            } else {
+                // 如果有下级，则不能被删除
+                if(!treeNode.children){
+                    // 没有子节点
+                    if (treeNode.level == 0 ){
+                        layer.msg("一级菜单不能删除");
+                        return;
+                    } else {
+                        layer.confirm("确认删除"+ treeNode.name + " 吗？", {
+                            icon: 3,
+                            title: '删除节点提示',
+                            btn: ["删除", "取消"]
+                        }, function (index) {
+                            // 删除做的操作
+                            hzToolObj.postRpc("/area/delete/"+treeNode.areaId).done(function (result) {
+                                if (result.code == 0) {
+                                    layer.msg("删除成功")
+                                } else {
+                                    layer.msg(result.msg)
+                                }
+                            });
+                            var callbackFlag = $("#callbackTrigger").attr("checked");
+                            zTree.removeNode(treeNode, callbackFlag);
+                        });
+                    }
+                }else{
+                    layer.msg("请先删除子节点");
+                    return;
+                }
+            }
+        });
+    };
+    function clearChildren(e) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            nodes = zTree.getSelectedNodes(),
+            treeNode = nodes[0];
+        if (nodes.length == 0 || !nodes[0].isParent) {
+            layer.msg("请先选择一个父节点");
+            return;
+        }
+        zTree.removeChildNodes(treeNode);
+    };
 </script>
 </html>

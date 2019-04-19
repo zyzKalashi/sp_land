@@ -107,7 +107,7 @@ public class AdminController {
 	@RequestMapping(value = "/demand/{page}", method = RequestMethod.GET)
 	public ModelAndView toDemandPage(@PathVariable("page") String page, String demandId) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("admin/project/" + page);
+		mav.setViewName("admin/demand/" + page);
 		mav.addObject("demandId", demandId);
 		return mav;
 	}

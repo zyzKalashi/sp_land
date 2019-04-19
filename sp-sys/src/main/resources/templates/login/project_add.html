@@ -403,12 +403,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="clear mb25" style="text-align: center;">
+		<!-- <div class="clear mb25" style="text-align: center;">
 			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d; margin-right: 25px;" v-if="!projectData.projectId" @click="submitProject('add')">提交审批</button>
 			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d; margin-right: 25px;" v-else @click="submitProject('upd')">提交修改</button>
 			<button type="button" class="btn btn-default active btn-info" style="width: 20%; background: #6e3e0d;" @click="cancel">取消</button>
-
-		</div>
+		</div> -->
 		<footer class="footer">
 			<div th:replace="common::foot"></div>
 		</footer>
@@ -463,7 +462,7 @@
 						}
 					  	$.post(url, vm.projectData, function (result) {
 	                        if (result.code == 0) {
-	                            layer.msg("操作成功！",{icon:1, time:2000, shade:0.4},function () {
+	                            layer.msg("请携带身份证、产权证去邻近乡镇柜台办理！",{icon:1, time:2000, shade:0.4},function () {
 	                                window.location.href = "../html/project_list";
 	                            });
 	                        } else {
@@ -514,9 +513,6 @@
 	                        }
 	                    });
 					}
-				},
-				openUpload: function(type){
-					
 				},
 				cancel: function(){
 					window.location.href = "/login/user_index";

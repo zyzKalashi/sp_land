@@ -1,0 +1,177 @@
+<!doctype>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:include="common :: adminHeader"></head>
+<link rel="stylesheet" type="text/css" th:href="@{/static/plugin/dtree/layui.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/plugin/dtree/dtree.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/plugin/dtree/font/dtreefont.css}">
+
+<body>
+	<div id="vueApp" v-cloak>
+		<!-- <form role="form">
+        <div class="form-group form-inline">
+            <label class="col-sm-2" for="title">需求名称</label>
+            <div class="col-sm-2">
+               <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入需求名称" style="width: 90%;"/> 
+            </div>
+            <label class="col-sm-2" for="demandKind">需求类别</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="demandKind" v-model="form.demandKind" placeholder="请选择需求类别" style="width: 90%;" >
+                    <option value="0">请选择</option>
+                    <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
+                </select>
+            </div>
+            <label class="col-sm-2" for="demandStatus">需求状态</label>
+            <div class="col-sm-2">
+               <select class="form-control" id="demandStatus" v-model="form.demandStatus" placeholder="请选择需求状态" style="width: 90%;" >
+                    <option value="0">请选择</option>
+                    <option v-for="item in status" :value="'' + item.value">{{item.label}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            
+            <div class="col-sm-4" style="text-align: right;">
+                <div style="width: 95%;">
+                    <button type="button" @click="doQuery('1')" class="btn btn-sm btn-info">查询</button>
+                </div>
+            </div>
+        </div>
+    </form> -->
+		<div class="row mx-auto" style="margin-top: 10px;">
+			<div class="col-6">
+				<ul id="areaTree" class="dtree" data-id="0"></ul>
+			</div>
+			<div class="col-6" id="areaModify">
+			
+			</div>
+		</div>
+	</div>
+</body>
+<script th:src="@{/static/plugin/dtree/layui.js}"></script>
+<script th:src="@{/static/plugin/dtree/dtree.js}"></script>
+<script>
+	$(function() {
+		/* dtree.render({
+			  elem: "#dataTree1",
+			  url: "/area/areaTree"
+		}); */
+		layui.extend({
+			dtree : '{/}layui_ext/dtree/dtree' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+		}).use([ 'dtree', 'layer', 'jquery' ], function() {
+			var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
+			var areaTree = dtree.render({
+				elem : "#areaTree",
+				data : vm.areaTree,
+				type : "all",
+				initLevel : "1",
+				useIframe: true,  //启用iframe
+				iframe: {
+				    iframeElem: "#areaModify",  // iframe的ID
+				    iframeUrl: "iframeContent.html" // iframe路由到的地址
+				},
+			});
+
+			dtree.on("node('areaTree')", function(obj) {
+				layer.msg(JSON.stringify(obj.param));
+			});
+		}); 
+	});
+
+	var vm = new Vue({
+		el : "#vueApp",
+		data : {
+			areaTree : [],
+		},
+		mounted : function() {
+			this.initTree();
+		},
+		methods : {
+			initTree : function() {
+				hzToolObj.postRpc("/area/areaTree", {}).done(function(result) {
+					console.log(result);
+					vm.areaTree = result.areaTree
+				});
+			},
+		/*  doQuery: function(){
+		     var obj = {};
+		     for(var x in this.form){
+		         if(this.form[x] != ''){
+		             obj[x] = this.form[x];
+		         }
+		     }
+		     if($("#startDate").val()){
+		         obj.startDate = $("#startDate").val();
+		     }
+		     if($("#endDate").val()){
+		         obj.endDate = $("#endDate").val();
+		     }
+		     hzToolObj.getdomInit("/demand/demandSearch", obj, this.callback, this.form.pageNo);
+		 },
+		 callback: function(result){
+		     if(result.pageInfo.pageNum){
+		         this.form.pageNo = result.pageInfo.pageNum;
+		     } else {
+		         this.form.pageNo = 1;
+		     }
+
+		     this.list = result.pageInfo.list;
+		 },
+		 doAudit: function(demand){
+		     var buttons = [];
+		     if(("" + demand.demandStatus).match("1|2|3")){
+		         buttons.push("通过");
+		         buttons.push("拒绝");
+		     }
+		     buttons.push("关闭");
+
+		     layer.open({
+		         type: 2,
+		         title: '审核-' + demand.title,
+		         area: ['90%', '90%'],
+		         fixed: true, //不固定
+		         skin: 'layer-skin',
+		         maxmin: true,
+		         content: '/admin/demandAudit?demandId=' + demand.demandId,
+		         btn:buttons,
+		         yes: function(index, layero){
+		             if(3 == buttons.length) {
+		                 var iframeWin = window[layero.find('iframe')[0]['name']];
+		                 iframeWin.vm.audit('1');
+		             } else {
+		                 layer.close(layer.index);
+		             }
+		         },
+		         btn2: function(index, layero){
+		             var iframeWin = window[layero.find('iframe')[0]['name']];
+		             iframeWin.vm.audit('3');
+		             return false;
+		         },
+		         btn3: function(){
+		         },
+		     });
+		 },
+		 doDelete: function(demand, status){
+		     var _this = this;
+		     layer.confirm('确认'+ (status == 0? '删除':'结束') +'该需求审批信息吗？', {
+		         btn: ['确认','取消'] //按钮
+		     }, function(){
+		         var tDemand = new Object();
+		         tDemand.demandId = demand.demandId;
+		         tDemand.demandStatus = status;
+		         $.post("/demand/demandAudit",tDemand,function(resp){
+		             if(0 == resp.code){
+		                 layer.msg('操作成功', {icon: 1});
+		             } else {
+		                 layer.msg(resp.msg);
+		             }
+		             _this.doQuery();
+		         });
+		     }, function(){
+
+		     });
+		 } */
+		}
+	})
+</script>
+</html>

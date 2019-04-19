@@ -36,4 +36,9 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 		return pageInfo;
 	}
 
+	@Override
+	public Integer countByAreaCode(Integer id) {
+		return this.projectMapper.countByAreaCode(id);
+	}
+
 }

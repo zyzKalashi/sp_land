@@ -6,53 +6,44 @@ var emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
 $(function(){
 	initFooter();
 	
-	var uploader = WebUploader.Uploader({
-		auto: true,
-        swf: '/static/plugin/webuploader/Uploader.swf',
-        server: '/file/upload',
-        resize: false,
-        prepareNextFile: true,
-        chunked: true,// 开起分片上传。
-        
-    });
+//	var uploader = WebUploader.Uploader({
+//		auto: true,
+//        swf: '/static/plugin/webuploader/Uploader.swf',
+//        server: '/file/upload',
+//        resize: false,
+//        prepareNextFile: true,
+//        chunked: true,// 开起分片上传。
+//        
+//    });
 
-        
-
-	
-	
-	
 	if( $("#baseUserName").text() ){
 		$("#loginWin").hide();
 		document.getElementById("userWin").style.display = ""; 
 	}
 	
 	var useragent = navigator.userAgent;
-	if (is_weixn()) {
-		window.location.href = 'index_wx.html';
-	} else {
-		var url = window.location.href;
-		var cb = cusBrowser();
-		if ( url.indexOf("index_browserError") <= -1 ) {
-			if ( "IE" == cb ) {
-				if ( !IEVersion() ) {
-					window.location.href = '/index_browserError';
-				} 
-			} else {
-				if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
-					window.location.href = '/index_browserError';
-				} 
-			}
+	var url = window.location.href;
+	var cb = cusBrowser();
+	if ( url.indexOf("index_browserError") <= -1 ) {
+		if ( "IE" == cb ) {
+			if ( !IEVersion() ) {
+				window.location.href = '/index_browserError';
+			} 
 		} else {
-			if ( "IE" == cb ) {
-				if ( IEVersion() ) {
-					window.location.href = '/index';
-				} 
+			if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
+				window.location.href = '/index_browserError';
+			} 
+		}
+	} else {
+		if ( "IE" == cb ) {
+			if ( IEVersion() ) {
+				window.location.href = '/index';
+			} 
+		} else {
+			if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
+				
 			} else {
-				if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
-					
-				} else {
-					window.location.href = '/index';
-				}
+				window.location.href = '/index';
 			}
 		}
 	}

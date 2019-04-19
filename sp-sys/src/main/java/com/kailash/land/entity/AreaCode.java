@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
 
 import lombok.AllArgsConstructor;
@@ -22,18 +23,21 @@ public class AreaCode extends Model<AreaCode> {
 
 	@TableId(value = "code", type = IdType.AUTO)
 	private Long code;
-
-	@TableField("area_name")
+ 
+	@TableField(value="area_name", strategy = FieldStrategy.NOT_NULL)
 	private String areaName;
 
-	@TableField("level")
+	@TableField(value="level", strategy = FieldStrategy.NOT_NULL)
 	private Integer level;
 
-	@TableField("parent_code")
+	@TableField(value="parent_code", strategy = FieldStrategy.NOT_NULL)
 	private Long parentCode;
 	
 	@TableField(exist = false)
 	private List<AreaCode> childAreas;
+	
+	@TableField(exist = false)
+	private Integer areaId;
 
 	@Override
 	protected Serializable pkVal() {

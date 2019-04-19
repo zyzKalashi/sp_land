@@ -14,23 +14,28 @@ import java.util.Map;
 public interface ProjectMapper extends BaseMapper<Project> {
 	/**
 	 * 后台列表查询
+	 * 
 	 * @param filter
 	 * @return
 	 */
 	List<Map<String, Object>> selectProjectInfo(ProjectFiter filter);
 
 	Page<Map<String, Object>> querySimpleList(@Param("pro") ProjectFiter filter);
-	
+
 	/**
 	 * 项目统计
+	 * 
 	 * @return
 	 */
-	Map<String,String> projectStatistics();
-	
+	Map<String, String> projectStatistics();
+
 	/**
 	 * 项目明细统计
+	 * 
 	 * @return
 	 */
-	List<Map<String,String>> projectDetailStatistics();
+	List<Map<String, String>> projectDetailStatistics();
+
+	Integer countByAreaCode(@Param("areaCode") Integer id);
 
 }

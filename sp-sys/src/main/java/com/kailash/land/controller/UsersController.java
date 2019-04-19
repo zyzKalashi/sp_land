@@ -143,19 +143,19 @@ public class UsersController extends AbstractController {
 
 	}
 
-//
-//	@ResponseBody
-//	@PostMapping(value = "/users_checkNameOrPhone")
-//	public Result usersCheckName(Users user) {
-//		int flag = this.usersService.checkUserNameOrPhone(user);
-//		return Result.ok().put("flag", flag);
-//	}
-//
-//	@ResponseBody
-//	@PostMapping(value = "/users_update")
-//	public Result usersUpdate(Users user) {
-//		this.usersService.updateUsers(user);
-//		return Result.ok();
-//	}
+	@SuppressWarnings("null")
+	@ResponseBody
+	@PostMapping(value = "/checkUse")
+	public Result checkUse(Map<String, Object> param) {
+		if (!param.containsKey("filed") || !param.containsKey("value")) {
+			return Result.error("参数错误");
+		}
+		var flag = false;
+		Users user = this.usersService.findByFiled(param);
+		if (user == null && user.getUserId() == null) {
+			flag = true;
+		}
+		return Result.ok().put("flag", flag);
+	}
 
 }

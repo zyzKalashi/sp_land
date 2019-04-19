@@ -10,4 +10,6 @@ public interface AreaCodeService extends IService<AreaCode> {
 
 	List<AreaCode> initArea();
 
+	List<Map<String, Object>> areaTree();
+
 }

@@ -50,4 +50,17 @@
         select cast(sum(1) as char) AS ALL_USER, cast(sum( case when DATE_FORMAT(create_date,'%Y%m') = DATE_FORMAT(CURDATE( ),'%Y%m') then 1 else 0 end) as char) AS NEW_USER FROM users
     </select>
     
+    <select id="findByFiled" parameterType="Map" resultMap="BaseResultMap">
+    	SELECT 
+    		 <include refid="Base_Column_List"/>
+        FROM
+        	users
+        <where>
+        	user_status != 0
+        	<if test="filed != null and filed != '' and value != null and value != ''">
+				AND ${filed} = #{value}
+        	</if>
+        </where>
+    </select>
+    
 </mapper>

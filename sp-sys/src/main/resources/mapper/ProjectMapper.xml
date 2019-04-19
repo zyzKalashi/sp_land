@@ -184,4 +184,23 @@
 		GROUP BY
 			TDATE,KIND
     </select>
+    
+    
+    <select id="countByAreaCode" resultType="Integer">
+    	SELECT 
+			COUNT(1)
+		FROM 
+			project p
+			left JOIN project_person pp ON p.pkid = pp.project_id
+		<where>
+			p.project_status != 0
+			<if test="areaCode != null and areaCode != ''">
+				AND pp.town_code = #{areaCode} OR  pp.area_code = #{areaCode}
+			</if>
+		</where> 
+	
+    	
+    
+    </select>
+    
 </mapper>

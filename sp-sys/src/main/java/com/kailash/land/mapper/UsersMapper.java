@@ -25,4 +25,6 @@ public interface UsersMapper extends BaseMapper<Users> {
 	 */
 	Map<String, String> userStatistics();
 
+	Users findByFiled(Map<String, Object> param);
+
 }

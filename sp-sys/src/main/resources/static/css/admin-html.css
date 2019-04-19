@@ -2,6 +2,12 @@
 	display: none !important;
 }
 
+body, td, th {
+	font-family: "宋体", Verdana, Arial, Helvetica, sans-serif !important;
+	font-size: 16px !important;
+	line-height: 24px !important;
+}
+
 .btn {
 	width: auto;
 }
@@ -49,6 +55,6 @@
 	color: #ffff;
 }
 
-.form-horizontal{
-    padding: 20px 20px 0px 0px;
+.form-horizontal {
+	padding: 20px 20px 0px 0px;
 }
