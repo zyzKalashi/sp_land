@@ -236,6 +236,7 @@ public class ProjectController extends AbstractController {
 	 * @param project
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@PostMapping(value = "/projectAudit")
 	public Result projectAudit(Project project) {
@@ -252,6 +253,8 @@ public class ProjectController extends AbstractController {
 					this.setProjectStatus(project.getProjectStatus());
 					this.setUpdateUser(getUserId().intValue());
 					this.setUpdateDate(new Date());
+					this.setAuditUser(getUserId().intValue());
+					this.setAuditDate(new Date());
 				}
 			}, ewProject);
 
@@ -273,8 +276,6 @@ public class ProjectController extends AbstractController {
 			return Result.error("参数错误");
 		}
 		List<Project> projects = new ArrayList<Project>();
-		List<ProjectAround> projectArounds = new ArrayList<ProjectAround>();
-		List<ProjectPerson> projectPersons = new ArrayList<ProjectPerson>();
 		for (Long id : projectIds) {
 			if (param.containsKey("status") && param.get("status") != null) {
 				projects.add(new Project(id, Integer.parseInt(param.get("status").toString())));

@@ -60,6 +60,9 @@
         	<if test="filed != null and filed != '' and value != null and value != ''">
 				AND ${filed} = #{value}
         	</if>
+        	<if test="userId != null and userId != ''">
+        		AND pkid != #{userId}
+        	</if>
         </where>
     </select>
     

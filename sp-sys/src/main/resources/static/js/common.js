@@ -1,21 +1,11 @@
 var storage = window.localStorage;
 var mobileReg = /^1[34578]\d{9}$/;
 var emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+var idCardReg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
 /* zyz begin*/
 /* 浏览器逻辑 */
 $(function(){
 	initFooter();
-	
-//	var uploader = WebUploader.Uploader({
-//		auto: true,
-//        swf: '/static/plugin/webuploader/Uploader.swf',
-//        server: '/file/upload',
-//        resize: false,
-//        prepareNextFile: true,
-//        chunked: true,// 开起分片上传。
-//        
-//    });
-
 	if( $("#baseUserName").text() ){
 		$("#loginWin").hide();
 		document.getElementById("userWin").style.display = ""; 

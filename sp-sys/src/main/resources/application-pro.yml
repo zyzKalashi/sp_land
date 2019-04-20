@@ -72,3 +72,5 @@ upload:
     1: notice_pic/
     2: doc_upload/
     3: demand_upload/
+    4: /pic_upload/
+    5: /user_upload/

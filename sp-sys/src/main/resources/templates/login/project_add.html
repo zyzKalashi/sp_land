@@ -520,7 +520,7 @@
 			},
 			watch: {
 				'projectData.areaCode': function(code){
-					if(code != 0) {
+					if(code && code != 0) {
 						vm.childAreas = vm.aeaList.filter((item)=>{
 		                    return item.code == code
 		                })[0].childAreas;

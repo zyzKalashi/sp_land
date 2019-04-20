@@ -119,6 +119,7 @@ public class UsersController extends AbstractController {
 		EntityWrapper<Users> ewUser = new EntityWrapper<>();
 		ewUser.setEntity(new Users());
 		ewUser.where(" pkid = {0} ", user.getUserId());
+		user.setUpdateDate(new Date());
 		user.setUpdateUser(getUserId().intValue());
 		boolean zt = this.usersService.update(user, ewUser);
 		if (zt) {

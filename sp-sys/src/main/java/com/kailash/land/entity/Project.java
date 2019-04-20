@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.kailash.land.filter.ProjectFiter;
 
@@ -24,39 +26,77 @@ public class Project extends Model<Project> implements Serializable {
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long pkid;
 
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Date createDate;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer createUser;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Date updateDate;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer updateUser;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String projectNo;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer projectStatus;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String projectName;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String projectAddress;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String outputPersonName;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer projectKind;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer rightKind;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String warrantNum;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Double areaNum;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String personName;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer otherRightFlag;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String otherRightName;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String otherRightContext;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer famerNum;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String oldRentDate;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String landLevel;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String upThings;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String traffic;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer againFlag;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String rentUse;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer agreeFlag;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String oldOutput;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String hopeOutput;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer giveupRightFlag;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String assessOrg;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String assessDate;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Double assessValue;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String outputWay;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String hopeOutputDate;
+
+	@TableField(value = "audit_date", strategy = FieldStrategy.NOT_NULL)
+	private Date auditDate;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
+	private Integer auditUser;
 
 	public Project(ProjectFiter filter) {
 		this.projectName = filter.getProjectName();

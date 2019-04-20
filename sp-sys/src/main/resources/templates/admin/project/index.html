@@ -52,6 +52,8 @@
                     <th>流转方式</th>
                     <th>项目状态</th>
                     <th>公告价格</th>
+                    <th>审核人</th>
+                    <th>审核时间</th>
                     <th>创建时间</th>
                     <th style="width: 20%;">操作</th>
                 </tr>
@@ -63,6 +65,8 @@
                     <td>{{project.projectKind | projectKindFilter}}</td>
                     <td>{{ ('' + project.projectStatus) | projectStatusFilter}}</td>
                     <td>{{project.showPreice}}</td>
+                    <td>{{project.auditUserName}}</td>
+                    <td>{{project.auditDateStr}}</td>
                     <td>{{project.createDateStr}}</td>
                     <td class="inline">
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(project)" v-if="project.projectStatus == 2">审核</button>

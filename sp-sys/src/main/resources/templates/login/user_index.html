@@ -44,7 +44,6 @@
 										上次访问时间:<span>{{ loginLog.logDateStr }}</span>
 									</p>
 								</td>
-
 							</tr>
 							<tr class="mb15"
 								style="width: 100%; border-bottom: 1px dashed #ccc;">
@@ -222,23 +221,23 @@
 							</div>
 						</div>
 						<!-- 以上是首页的内容,以下是’修改资料‘的内容 -->
-						<div class="tab-pane" id="myfirst" v-show="win.openWin_baseInfo">
+						<div class="tab-pane" id="myfirst" >
 							<div class="openWinDiv">基础信息</div>
 							<div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="userName">用户名：</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3" >用户名：</label>
+				                <div class="controls col-md-5">
 				                    <input type="text" placeholder="请输入用户名" class="form-control" style="width: 90%;"  v-model="userData.userName" autocomplete="off">
 				                </div>
 				            </div>
 				            <div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="userName">姓名：</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3" >姓名：</label>
+				                <div class="controls col-md-5">
 				                    <input type="text" placeholder="请输入姓名" class="form-control" style="width: 90%;" v-model="userData.nickName">
 				                </div>
 				            </div>
 				            <div class="control-group form-inline" >
-				                <label class="control-label col-md-2 offset-md-2" for="areaCode">区域：</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3" >区域：</label>
+				                <div class="controls col-md-5">
 				                    <select class="form-control" v-model="userData.areaCode" style="width: 90%;" >
 				                    	<option value="0">请选择</option>
 				                        <option v-for="item in areaDic" :value="item.code">{{ item.areaName }}</option>
@@ -246,8 +245,8 @@
 				                </div>
 				            </div>
 				            <div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="townCode">乡镇：</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3">乡镇：</label>
+				                <div class="controls col-md-5">
 				                   <select class="form-control" v-model="userData.townCode" style="width: 90%;" >
 				                    	<option value="0">请选择</option>
 				                        <option v-for="item in childAreas" :value="item.code">{{ item.areaName }}</option>
@@ -255,8 +254,8 @@
 				                </div>
 				            </div>
 				            <div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="townCode">头像：</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3" for="townCode">头像：</label>
+				                <div class="controls col-md-5">
 				                	<input type="file">
 				                </div>
 				            </div>
@@ -270,18 +269,20 @@
 							<div class="main8 clearfix">
 								<div class="openWinDiv">实名认证</div>
 								<div class="control-group form-inline">
-					                <label class="control-label col-md-2 offset-md-2" for="password">身份证号：</label>
-					                <div class="controls col-md-6">
+					                <label class="control-label col-md-3 offset-md-3">身份证号：</label>
+					                <div class="controls col-md-5">
 					                    <input type="text" placeholder="请输入身份证号" class="form-control" style="width: 90%;"  v-model="userData.idCardNo" autocomplete="off">
 					                </div>
 					            </div>
 								<div class="control-group form-inline">
-					                <label class="control-label col-md-2 offset-md-2" for="password">身份证照片：</label>
-					                <div class="controls col-md-6"></div>
+					                <label class="control-label col-md-3 offset-md-3" >身份证照片：</label>
+					                <div class="controls col-md-5">
+					                	<span name="picker" class="picker" id="up_idCardPic">正面照片</span>
+					                	<span name="picker" class="picker" id="up_idCardPicBack">背面照片</span>
+					                </div>
 					            </div>
 								<div class="openWinDiv">
-				                	<span name="picker" class="picker" id="up_idCardPic">正面照片</span>
-				                	<span name="picker" class="picker" id="up_idCardPicBack">背面照片</span>
+									<div id="fileName"></div>
 								</div>
 								<div class="openWinDiv">
 				            		<img alt="" :src="userData.idCardPic" v-if="userData.idCardPic">
@@ -297,20 +298,20 @@
 						<div class="tab-pane" id="mima" v-show="win.openWin_password">
 							<div class="openWinDiv">修改密码</div>
 							<div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="password">原密码</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3" >原密码:</label>
+				                <div class="controls col-md-5">
 				                    <input type="password" placeholder="请输入原密码" class="form-control" style="width: 90%;"  v-model="userData.password" autocomplete="off">
 				                </div>
 				            </div>
 							<div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="password">新密码</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3" >新密码:</label>
+				                <div class="controls col-md-5">
 				                    <input type="password" placeholder="请输入密码" class="form-control" style="width: 90%;"  v-model="userData.newPassword" autocomplete="off">
 				                </div>
 				            </div>
 				            <div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="password_v">确认密码</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3" for="password_v">确认密码:</label>
+				                <div class="controls col-md-5">
 				                    <input type="password" placeholder="请再次输入密码" class="form-control" style="width: 90%;" v-model="userData.newPassword_v" autocomplete="off">
 				                </div>
 				            </div>
@@ -323,14 +324,14 @@
 						<div class="tab-pane" id="tel" v-show="win.openWin_mobile">
 							<div class="openWinDiv">更换手机</div>
 							<div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="password">原手机号</label>
-				                <div class="controls col-md-6">
-				                    <input type="text" placeholder="请输入原手机号" class="form-control" style="width: 90%;" v-model="userData.mobile" autocomplete="off">
+				                <label class="control-label col-md-3 offset-md-3" >原手机号:</label>
+				                <div class="controls col-md-5">
+				                    <input type="text" placeholder="请输入原手机号" class="form-control" style="width: 90%;" v-model="userData.mobile" autocomplete="off" readonly="readonly">
 				                </div>
 				            </div>
 							<div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="password">新手机号</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3" >新手机号:</label>
+				                <div class="controls col-md-5">
 				                    <input type="text" placeholder="请输入新手机号" class="form-control" style="width: 90%;" v-model="userData.newMobile" autocomplete="off">
 				                </div>
 				            </div>
@@ -343,14 +344,14 @@
 						<div class="tab-pane" id="email" v-show="win.openWin_email">
 							<div class="openWinDiv">更改邮箱</div>
 							<div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="password">原email</label>
-				                <div class="controls col-md-6">
-				                    <input type="text" placeholder="请输入原email" class="form-control" style="width: 90%;"  v-model="userData.email" autocomplete="off">
+				                <label class="control-label col-md-3 offset-md-3" >原email</label>
+				                <div class="controls col-md-5">
+				                    <input type="text" placeholder="请输入原email" class="form-control" style="width: 90%;"  v-model="userData.email" autocomplete="off" readonly="readonly">
 				                </div>
 				            </div>
 							<div class="control-group form-inline">
-				                <label class="control-label col-md-2 offset-md-2" for="password">新email</label>
-				                <div class="controls col-md-6">
+				                <label class="control-label col-md-3 offset-md-3" >新email</label>
+				                <div class="controls col-md-5">
 				                    <input type="text" placeholder="请输入新email" class="form-control" style="width: 90%;"  v-model="userData.newEmail" autocomplete="off">
 				                </div>
 				            </div>
@@ -396,9 +397,15 @@
 					openWin_idCard: false,
 					openWin_mobile: false,
 					openWin_email: false,
-				}
+				},
+				useFlag: {
+	            	userNameFlag: false,
+	            	emailFlag: false,
+	            	mobileFlag: false,
+	            },
 			},
 			mounted : function() {
+				this.initArea();
 				this.userData.userId = this.queryData_pro.createUser = this.queryData_pro.queryData_dem = $("#baseUserId").text();
 				if(!this.userData.userId){
 					location.href = "../html/login";
@@ -413,9 +420,13 @@
 					$.post("/user/userDetail", tUser, function (result) {
 						if (result.code == 0) {
                         	vm.userData = result.userData;
-                        	vm.userData.createDate = null;
-                        	vm.userData.updateDate = null;
                         	vm.loginLog = result.loginLog;
+                        	if(!vm.userData.areaCode){
+                        		vm.userData.areaCode = 0;
+                        		if(!vm.userData.townCode){
+                        			vm.userData.townCode = 0;
+                        		}
+                        	}
                         } else {
 							alert(result.msg);
                             layer.msg(result.msg);
@@ -528,7 +539,7 @@
 					layer.open({
 						  type: 1,
 						title: false,
-						area: ['80%', '60%'],
+						area: ['80%', '80%'],
 						shade: 0.8,
 						closeBtn: 1,
 						shadeClose: true,
@@ -541,8 +552,6 @@
 					}
 					var tUser = new Object();
 					tUser.userId = vm.userData.userId;
-					tUser.password = hex_md5(vm.userData.password);
-					//vm.userData.password = hex_md5(vm.userData.password);
 					$.post("/user/checkUser", tUser, function (result) {
 						if (result.code == 0) {
 							vm.modifyUser("changePassword");
@@ -553,25 +562,64 @@
 				},
 				modifyUser: function(flag){
 					if(flag == "changeMobile"){
-						if(!(/^1[34578]\d{9}$/.test(vm.userData.newMobile))){ 
-							layer.alert("手机号码有误，请重填");  
+						if(!vm.userData.newMobile){
+							layer.alert("请重填写新手机号码！");  
+							return; 
+						} else if(!(mobileReg.test(vm.userData.newMobile))){ 
+							layer.alert("手机号码有误，请重填！");  
+							return; 
+						} else if(!vm.useFlag.mobileFlag){
+							layer.alert("手机号码已注册，请重填！");  
 							return; 
 						} else {
 							vm.userData.mobile = this.userData.newMobile;
 						}
-					} else if (flag == "changEmail") {
-						vm.userData.email = this.userData.newEmail;
+					} else if (flag == "changeEmail") {
+						if(!vm.userData.newEmail){
+							layer.alert("请重填写新邮箱！");  
+							return; 
+						} else if(!emailReg.test(vm.userData.newEmail)){
+							layer.alert("邮箱格式有误，请重填");  
+							return; 
+						} else if(!vm.useFlag.emailFlag){
+							layer.alert("邮箱已注册，请重填！");  
+							return; 
+						} else {
+							vm.userData.email = vm.userData.newEmail;
+						}
+					} else if (flag == "baseInfo") {
+						if (!vm.userData.userName) {
+		                    layer.alert("请输入用户名！");
+		                    return;
+						} else if(!vm.useFlag.emailFlag){
+							layer.alert("用户名已注册，请重填！");  
+							return; 
+						} 
 					} else if (flag == "changePassword") {
-						vm.userData.password = hex_md5(this.userData.newPassword)
+		                if (!vm.userData.newPassword) {
+		                    layer.alert("请输入密码！");
+		                    return;
+		                } else if(vm.user.newPassword.length < 6){
+		                	 layer.alert("密码长度应大于6位！");
+		                     return;
+		                } else if(vm.user.newPassword != vm.user.newPassword_v){
+		                	 layer.alert("两次密码不一致，请确认！");
+		                     return;
+		                } else {
+							vm.userData.password = hex_md5(this.userData.newPassword)
+		                }
 					} else if (flag == "cancelUser"){
 						vm.userData.userStatus = 0;
 					} else if (flag == "changeIdCard") {
+						if (vm.userData.idCardNo && !idCardReg.test(vm.userData.idCardNo)) {
+							layer.alert("身份证号有误，请重填！");  
+							return; 
+						}
 						vm.userData.userStatus = 2;
-					}
-					
+					} 
 					delete vm.userData.createDate;
 	                delete vm.userData.updateDate;
-					$.post("/user/users_modify", tUser, function (result) {
+					$.post("/user/users_modify", vm.userData, function (result) {
 						if (result.code == 0) {
 							layer.msg("修改成功！",{icon:1, time:2000, shade:0.4},function () {
 								vm.initUser();
@@ -582,10 +630,59 @@
                         }
                 	});
 				},
+				initArea: function(){
+					$.post("/area/initArea", {}, function (result) {
+                        if (result.code == 0) {
+                        	vm.areaDic = result.area;
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                    });
+				},
+			    checkUse: function(field, val){
+	            	var data={
+	            			field: field,
+	            			value: val,
+	            			userId: vm.userData.userId,
+	            	}
+	            	hzToolObj.postRpc("/user/checkUse", data).done(function(r) {
+	            		return r.flag;
+	            	});
+	            },
 			},
+			watch: {
+				'userData.areaCode': function(code){
+					if(code && code != 0) {
+						vm.childAreas = vm.areaDic.filter((item)=>{
+		                    return item.code == code
+		                })[0].childAreas;
+					}	
+				},
+				'user.userName': function(val){
+	        		vm.useFlag.userNameFlag = vm.checkUse('userName', val);
+	        		if(!vm.useFlag.userNameFlag){
+	        			layer.msg("用户名已被占用，请重新填写！");
+	        		}
+	        	},
+	        	'user.newMobile': function(val){
+	        		vm.useFlag.mobileFlag = vm.checkUse('mobile', val);
+	        		if(!vm.useFlag.mobile){
+	        			layer.msg("手机号码已被占用，请重新填写！");
+	        		}
+	        	},
+	        	'user.newEmail': function(val){
+	        		vm.useFlag.emailFlag = vm.checkUse('email', val);
+	        		if(!vm.useFlag.email){
+	        			layer.msg("邮箱号码已被占用，请重新填写！");
+	        		}
+	        	},
+				
+				
+				
+			}
 		});
 		$(function(){
-			WebUploader.create({
+			var uploader = WebUploader.create({
 		        auto: true,
 		        swf: '/static/plugin/webuploader/Uploader.swf',
 		        server: '/file/upload',
@@ -593,36 +690,26 @@
 		        resize: false,
 		        formData: {
 		            fileKind: 3,
-		        }
-				}).on("uploadSuccess",function(file, resp){
-				    if(0 == resp.code){
-				        //$("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
-				        vm.userData.idCardPic = resp.url;
-				        layer.msg();
-				        this.reset();
-				    } else {
-				        alert(resp.msg);
-				    }
+		        }, 
 			});
-			WebUploader.create({
-		        auto: true,
-		        swf: '/static/plugin/webuploader/Uploader.swf',
-		        server: '/file/upload',
-		        pick: '#up_idCardPicBack',
-		        resize: false,
-		        formData: {
-		            fileKind: 3,
-		        }
-				}).on("uploadSuccess",function(file, resp){
-				    if(0 == resp.code){
-				        //$("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
-				        vm.userData.idCardPicBack = resp.url;
-				        this.reset();
-				    } else {
-				        alert(resp.msg);
-				    }
+			uploader.addButton({
+			    id: '#up_idCardPic',
+			    innerHTML: '选择文件'
 			});
-			
+			uploader.on("uploadSuccess",function(file, resp){
+                if(0 == resp.code){
+                    $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
+                    _this.form.docUrl = resp.url;
+                    this.reset();
+                } else {
+                    alert(resp.msg);
+                }
+            });
+			uploader.addButton({
+			    id: '#up_idCardPicBack',
+			    innerHTML: '选择文件'
+			});
+
 		});
 	</script>
 </body>

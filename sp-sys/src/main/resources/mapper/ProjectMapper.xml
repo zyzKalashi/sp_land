@@ -126,11 +126,15 @@
 			A.project_kind AS projectKind,
 			A.project_status AS projectStatus,
 			B.show_preice AS showPreice,
-			DATE_FORMAT(A.create_date,'%Y-%m-%d') AS createDateStr
+			DATE_FORMAT(A.create_date,'%Y-%m-%d') AS createDateStr,
+			DATE_FORMAT(A.create_date,'%Y-%m-%d') AS createDateStr,
+			D.user_name AS auditUserName,
+			DATE_FORMAT(A.audit_date,'%Y-%m-%d') AS auditDateStr
 		from 
 			project A
 			left join project_around B ON A.pkid = B.project_id
 			left join project_person C ON A.pkid = C.project_id
+			left join users D ON A.audit_user = D.pkid
 		<where>
 			project_status not in (0,5)
 			<if test="projectName != null">
