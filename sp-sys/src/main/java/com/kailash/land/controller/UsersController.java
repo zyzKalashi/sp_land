@@ -46,6 +46,11 @@ public class UsersController extends AbstractController {
 	@ResponseBody
 	@PostMapping(value = "/users_register")
 	public Result register(Users user) {
+
+		Result result = this.usersService.checkUse(user);
+		if (!result.get("code").equals(0)) {
+			return result;
+		}
 		user.setUserStatus(StatusEnum.COMMON_NORMAL.getId());
 		user.setCreateDate(new Date());
 		int i = this.usersService.registerUser(user);
@@ -116,6 +121,10 @@ public class UsersController extends AbstractController {
 
 	@PostMapping(value = "/users_modify")
 	public Result modify(Users user) {
+		Result result = this.usersService.checkUse(user);
+		if (!result.get("code").equals(0)) {
+			return result;
+		}
 		EntityWrapper<Users> ewUser = new EntityWrapper<>();
 		ewUser.setEntity(new Users());
 		ewUser.where(" pkid = {0} ", user.getUserId());
@@ -142,21 +151,6 @@ public class UsersController extends AbstractController {
 			return Result.ok();
 		}
 
-	}
-
-	@SuppressWarnings("null")
-	@ResponseBody
-	@PostMapping(value = "/checkUse")
-	public Result checkUse(Map<String, Object> param) {
-		if (!param.containsKey("filed") || !param.containsKey("value")) {
-			return Result.error("参数错误");
-		}
-		var flag = false;
-		Users user = this.usersService.findByFiled(param);
-		if (user == null && user.getUserId() == null) {
-			flag = true;
-		}
-		return Result.ok().put("flag", flag);
 	}
 
 }

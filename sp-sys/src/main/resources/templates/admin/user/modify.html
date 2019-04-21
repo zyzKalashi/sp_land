@@ -31,7 +31,7 @@
                     <input type="text" placeholder="请输入手机号" class="form-control" style="width: 90%;" id="mobile" v-model="user.mobile">
                 </div>
             </div>
-            <div class="control-group form-inline">
+            <div class="control-group form-inline" v-if="!fromPage || fromPage != 'myself'">
                 <label class="control-label col-md-2 offset-md-2" for="userStatus">用户状态</label>
                 <div class="controls col-md-6">
                     <select class="form-control" id="userStatus" v-model="user.userStatus" placeholder="请选择用户状态" style="width: 90%;" >
@@ -39,7 +39,7 @@
                     </select>
                 </div>
             </div>
-            <div class="control-group form-inline">
+            <div class="control-group form-inline" v-if="!fromPage || fromPage != 'myself'">
                 <label class="control-label col-md-2 offset-md-2" for="roleId">用户角色</label>
                 <div class="controls col-md-6">
                     <select class="form-control" id="roleId" v-model="user.roleId" placeholder="请选择用户角色" style="width: 90%;" >
@@ -83,6 +83,9 @@
                 </div>
             </div>
         </form>
+        <div v-if="fromPage && fromPage == 'myself'" style="text-align: center; margin-top: 30px;">
+          	<button type="button" @click="save" class="btn btn-sm btn-info">保存</button>
+        </div>
     </div>
 </div>
 </body>
@@ -106,8 +109,10 @@
             areaDic: [],
             childAreas: [],
             changePassWordFlag: false,
+            fromPage: "",
         },
         created: function(){
+        	this.fromPage = getUrlParam("from");
             var _this = this;
             $.post("/user/allRoles",null,function(resp){
                 if(0 == resp.code){
@@ -207,6 +212,7 @@
                     }
                     delete this.user.createDate;
                     delete this.user.updateDate;
+                    delete this.user.auditDate;
                     $.post(url, this.user, function (result) {
                         if (result.code == 0) {
                             layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
@@ -225,7 +231,8 @@
                 for(var x in this.user){
                     this.user[x] = '';
                 }
-            }
+            },
+           
         },
         watch: {
 			'user.areaCode': function(code){

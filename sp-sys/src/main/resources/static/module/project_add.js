@@ -45,8 +45,8 @@ var vm = new Vue({
 						}
 					  	$.post(url, vm.projectData, function (result) {
 	                        if (result.code == 0) {
-	                            layer.msg("请携带身份证、产权证去邻近乡镇柜台办理！",{icon:1, time:2000, shade:0.4},function () {
-	                                window.location.href = "../html/project_list";
+	                            layer.alert("请携带身份证、产权证去邻近乡镇柜台办理！",{icon:1, shade:0.4},function () {
+	                                window.location.href = "../login/user_index";
 	                            });
 	                        } else {
 	                            layer.msg(result.msg);

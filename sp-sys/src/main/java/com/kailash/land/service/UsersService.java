@@ -1,10 +1,9 @@
 package com.kailash.land.service;
 
-import java.util.Map;
-
 import com.baomidou.mybatisplus.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.kailash.land.entity.Users;
+import com.kailash.land.util.Result;
 
 /**
  * 系统用户
@@ -17,6 +16,6 @@ public interface UsersService extends IService<Users> {
 
 	PageInfo<Users> selectUsersPage(Users user);
 
-	Users findByFiled(Map<String, Object> param);
+	Result checkUse(Users user);
 
 }

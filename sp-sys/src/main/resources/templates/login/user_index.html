@@ -149,10 +149,10 @@
 									<div id="first" style="width: 100%;">
 										<ul class="clearfix nav nav-tabs" style="width: 100%;">
 											<li class="nav-item">
-												<a class="active nav-link" href="#xmli" role="tab" @click="">我发布的项目信息列表</a>
+												<a class="active nav-link" href="#xmli" role="tab" data-toggle="tab">我发布的项目信息列表</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" href="#xqli" role="tab" @click="initDemandList()">我发布的需求信息列表</a>
+												<a class="nav-link" href="#xqli" role="tab" data-toggle="tab" @click="initDemandList()">我发布的需求信息列表</a>
 											</li>
 											<li class="fr" style="margin-left: 28%;">
 												<a href="../login/project_add.html">发布新信息</a>
@@ -275,10 +275,7 @@
 								<div class="openWinDiv">
 								 	<div id="fileList" class="uploader-list"></div>
 								</div>
-								<div class="openWinDiv">
-				            		<img alt="" :src="userData.idCardPic" v-if="userData.idCardPic">
-				            		<img alt="" :src="userData.idCardPicBack" v-if="userData.idCardPicBack">
-								</div>
+								
 								<div class="openWinDiv">
 									<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('changeIdCard')">确定</button>
 									<button style="background: #6e3e0d; color: #ffff;" @click="closeOpenWin">取消</button>

@@ -281,6 +281,7 @@ var vm = new Vue({
 			} 
 			delete vm.userData.createDate;
             delete vm.userData.updateDate;
+            delete vm.userData.auditDate;
 			$.post("/user/users_modify", vm.userData, function (result) {
 				if (result.code == 0) {
 					layer.msg("修改成功！",{icon:1, time:2000, shade:0.4},function () {
@@ -301,16 +302,6 @@ var vm = new Vue({
                 }
             });
 		},
-	    checkUse: function(field, val){
-        	var data={
-        			field: field,
-        			value: val,
-        			userId: vm.userData.userId,
-        	}
-        	hzToolObj.postRpc("/user/checkUse", data).done(function(r) {
-        		return r.flag;
-        	});
-        },
 	},
 	watch: {
 		'userData.areaCode': function(code){
@@ -320,27 +311,6 @@ var vm = new Vue({
                 })[0].childAreas;
 			}	
 		},
-		'user.userName': function(val){
-    		vm.useFlag.userNameFlag = vm.checkUse('userName', val);
-    		if(!vm.useFlag.userNameFlag){
-    			layer.msg("用户名已被占用，请重新填写！");
-    		}
-    	},
-    	'user.newMobile': function(val){
-    		vm.useFlag.mobileFlag = vm.checkUse('mobile', val);
-    		if(!vm.useFlag.mobile){
-    			layer.msg("手机号码已被占用，请重新填写！");
-    		}
-    	},
-    	'user.newEmail': function(val){
-    		vm.useFlag.emailFlag = vm.checkUse('email', val);
-    		if(!vm.useFlag.email){
-    			layer.msg("邮箱号码已被占用，请重新填写！");
-    		}
-    	},
-		
-		
-		
 	}
 });
 $(function(){
@@ -370,11 +340,11 @@ $(function(){
 	});
 	uploader.addButton({
 	    id: '#up_idCardPic',
-	    innerHTML: '选择文件'
+	    innerHTML: '身份证正面照片'
 	});
 	uploader.addButton({
 	    id: '#up_idCardPicBack',
-	    innerHTML: '选择文件'
+	    innerHTML: '身份证背面照片'
 	});
 	uploader.on( 'fileQueued', function( file ) {
 	    var $li = $(
