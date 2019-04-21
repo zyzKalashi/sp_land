@@ -1,10 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:include="common :: adminHeader"></head>
+
 <body>
-tableCharts
+	<div id="vueApp" v-cloak>
+	    <div class="row mx-auto" style="margin-top: 10px;">
+	        <div class="col-12" style="min-height: 300px">
+	            <table class="table table-hover table-bordered table-sm">
+	                <thead class="thead-default">
+	                <tr class="text-center">
+	                    <th style="width: 10%;">序号</th>
+	                    <th>项目名称</th>
+	                    <th>所属乡镇</th>
+	                    <th>所属村委</th>
+	                    <th>所属类别</th>
+	                    <th>成交前拥有人</th>
+	                    <th>成交后拥有人</th>
+	                    <th>交易时间</th>
+	                    <th>交易年限</th>
+	                    <th>交易金额</th>
+	                    <th>实名认证(是/否)</th>
+	                    <th>产权是否转移</th>
+	                    <th>其他</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <tr v-for="(item, index) in list" class="text-center">
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                </tr>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	    <div class="row" style="width: 95%;">
+	        <div class="col-12 text-center">
+	            <ul id='pagination'></ul>
+	        </div>
+	    </div>
+	</div>
+	<script type="text/javascript">
+	var vm = new Vue({
+        el: "#vueApp",
+        data: {
+        	queryData: {
+				pageNo: 1,
+				pageSize: 10,
+			},
+            list: [],
+        },
+        mounted : function() {
+        	this.initTable();
+        },
+        methods:{
+        	initTable: function(){
+        		hzToolObj.getdomInit("/project/tableData", this.queryData, function(result){
+					vm.list = result.pageInfo.list;
+				});
+        	}
+        },
+	});
+	
+	
+	</script>
 </body>
 </html>

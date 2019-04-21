@@ -38,4 +38,6 @@ public interface ProjectMapper extends BaseMapper<Project> {
 
 	Integer countByAreaCode(@Param("areaCode") Integer id);
 
+	List<Map<String, Object>> tableData(Map<String, Object> param);
+
 }

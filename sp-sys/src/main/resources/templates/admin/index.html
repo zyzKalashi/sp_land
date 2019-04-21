@@ -106,45 +106,14 @@
     </div>
 </div>
 </body>
+<script th:src="@{/static/module/index_chart.js}"></script>
 <script>
-    var myChart = echarts.init(document.getElementById('main'));
     $.post("/admin/getDashBordData","",function (resp) {
         //alert(JSON.stringify(resp.category));
         $("#d1").html(resp.d1);
         $("#d2").html(resp.d2);
         $("#d3").html(resp.d3);
         $("#d4").html(resp.d4);
-
-        var option = {
-            title : {
-                text: '近30天项目统计',
-            },
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['土地承包','林权转让','养殖水面','四荒承包']
-            },
-            calculable : true,
-            xAxis : [
-                {
-                    type : 'category',
-                    boundaryGap : false,
-                    data : resp.category
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value',
-                    axisLabel : {
-                        formatter: '{value} 万元'
-                    }
-                }
-            ],
-            series : resp.series
-        };
-
-        myChart.setOption(option);
     });
 
 </script>

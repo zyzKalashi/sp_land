@@ -48,6 +48,22 @@ public class AdminController {
 	}
 
 	/**
+	 * 获取仪表盘数据
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping(value = "/getDashBordChart")
+	public Result getDashBordChart() {
+		try {
+			return Result.ok(dashboardService.getDashBordChart());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("获取初始化数据失败");
+		}
+	}
+
+	/**
 	 * 用户
 	 * 
 	 * @return

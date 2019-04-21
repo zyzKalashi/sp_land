@@ -298,7 +298,7 @@
 	text-align: center;
 	padding: 5px;
 	font-size: 14px;
-	width: 180px;
+	/* width: 180px; */
 	font-family: "幼圆";
 }
 
@@ -321,7 +321,7 @@
 .attrs_table .t_prop_a {
 	text-align: center;
 	font-size: 13px;
-	width: 218px;
+	/* width: 218px; */
 	padding: 0px 2px;
 }
 

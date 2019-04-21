@@ -285,4 +285,14 @@ public class ProjectController extends AbstractController {
 
 		return Result.ok();
 	}
+	
+	
+	public Result tableData(Map<String, Object> param) {
+		
+		PageInfo<Map<String, Object>> mapPageInfo = this.projectService.tableData(param);
+		
+		return Result.ok().put("pageInfo", mapPageInfo);
+	}
+	
+	
 }

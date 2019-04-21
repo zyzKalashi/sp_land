@@ -9,9 +9,11 @@ import java.util.Map;
 
 public interface ProjectService extends IService<Project> {
 	PageInfo<Map<String, Object>> selectProjectInfo(ProjectFiter filter);
-	
+
 	PageInfo<Map<String, Object>> simpleList(ProjectFiter filter);
 
 	Integer countByAreaCode(Integer id);
+
+	PageInfo<Map<String, Object>> tableData(Map<String, Object> param);
 
 }

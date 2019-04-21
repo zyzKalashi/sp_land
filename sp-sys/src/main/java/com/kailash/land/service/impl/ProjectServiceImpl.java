@@ -19,26 +19,36 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 
 	@Autowired
 	private ProjectMapper projectMapper;
-	
+
 	@Override
 	public PageInfo<Map<String, Object>> selectProjectInfo(ProjectFiter filter) {
 		PageHelper.startPage(filter.getPageNo(), filter.getPageSize());
 		List<Map<String, Object>> result = this.projectMapper.selectProjectInfo(filter);
 		return new PageInfo<>(result);
 	}
-	
+
 	@Override
 	public PageInfo<Map<String, Object>> simpleList(ProjectFiter filter) {
 		PageHelper.startPage(filter.getPageNo(), filter.getPageSize());
-		Page<Map<String, Object>> pageList =this.projectMapper.querySimpleList(filter);
+		Page<Map<String, Object>> pageList = this.projectMapper.querySimpleList(filter);
 		PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(pageList);
-		
+
 		return pageInfo;
 	}
 
 	@Override
 	public Integer countByAreaCode(Integer id) {
 		return this.projectMapper.countByAreaCode(id);
+	}
+
+	@Override
+	public PageInfo<Map<String, Object>> tableData(Map<String, Object> param) {
+		PageHelper.startPage(Integer.parseInt(param.get("pageNo").toString()),
+				Integer.parseInt(param.get("pageSize").toString()));
+		
+		List<Map<String, Object>> result = this.projectMapper.tableData(param);
+		
+		return new PageInfo<>(result);
 	}
 
 }
