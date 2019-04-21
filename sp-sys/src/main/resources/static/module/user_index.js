@@ -1,5 +1,5 @@
 var vm = new Vue({
-			el : '#app',
+	el : '#app',
 	data : {
 		queryData_pro: {
 			createUser: "",
@@ -177,6 +177,10 @@ var vm = new Vue({
 				vm.winFlag.win_password = false;
 				vm.winFlag.win_phone = false;
 				vm.winFlag.win_email = false;
+				if(!$("#idCardPic").hasClass("webuploader-container")){
+					initUploadPlugin("idCardPic");
+					initUploadPlugin("idCardPicBack");
+				}
 			} else if(flag == 'win_password'){
 				vm.winFlag.win_idCard = false;
 				vm.winFlag.win_indexInfo = false;
@@ -313,85 +317,22 @@ var vm = new Vue({
 		},
 	}
 });
-$(function(){
-	var uploader = WebUploader.create({
-        auto: true,
-        swf: '/static/plugin/webuploader/Uploader.swf',
-        server: '/file/upload',
-        pick: '#up_idCardPic',
-        resize: false,
-        formData: {
-            fileKind: 5,
-        }, 
-     // 只允许选择图片文件。
-        accept: {
-            title: 'Images',
-            extensions: 'gif,jpg,jpeg,bmp,png',
-            mimeTypes: 'image/*'
-        },
-        thumb: {
-        	width: 110,
-            height: 110,
-            quality: 70,
-            allowMagnify: false,
-            crop: false,
 
-        },
+function initUploadPlugin(id){
+	WebUploader.create({
+		auto: true,
+		swf: '/static/plugin/webuploader/Uploader.swf',
+		server: '/file/upload',
+		pick: '#' + id,
+		resize: false,
+		formData: {
+			fileKind: 2,
+		}
+	}).on("uploadSuccess",function(file, resp){
+		if(0 == resp.code){
+			eval('vm.userData.' + id + "='" + resp.url + "';");
+		} else {
+			alert(resp.msg);
+		}
 	});
-	uploader.addButton({
-	    id: '#up_idCardPic',
-	    innerHTML: '身份证正面照片'
-	});
-	uploader.addButton({
-	    id: '#up_idCardPicBack',
-	    innerHTML: '身份证背面照片'
-	});
-	uploader.on( 'fileQueued', function( file ) {
-	    var $li = $(
-	            '<div id="' + file.id + '" class="file-item thumbnail">' +
-	                '<img>' +
-	            '</div>'
-	            ),
-	        $img = $li.find('img');
-
-
-	    // $list为容器jQuery实例
-	    $("#fileList").append( $li );
-
-	    // 创建缩略图
-	    // 如果为非图片文件，可以不用调用此方法。
-	    // thumbnailWidth x thumbnailHeight 为 100 x 100
-	    uploader.makeThumb( file, function( error, src ) {
-	        if ( error ) {
-	            $img.replaceWith('<span>不能预览</span>');
-	            return;
-	        }
-
-	        $img.attr( 'src', src );
-	    }, 100, 100 );
-	});
-	
-	uploader.on("uploadSuccess",function(file, resp){
-		$( '#'+file.id ).find('p.state').text('已上传');
-        if(0 == resp.code){
-        	if(file.id == "WU_FILE_0"){
-        		vm.userData.idCardPic = resp.url;
-        	} else if (file.id == "WU_FILE_1") {
-        		vm.userData.idCardPicBack = resp.url;
-        	}
-//            $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
-            console.log(resp.url);
-            console.log(file);
-            this.reset();
-        } else {
-            alert(resp.msg);
-        }
-    });
-	uploader.on( 'uploadError', function( file ) {
-	    $( '#'+file.id ).find('p.state').text('上传出错');
-	});
-	uploader.on( 'uploadComplete', function( file ) {
-	    $( '#'+file.id ).find('.progress').fadeOut();
-	});
-
-});
+}

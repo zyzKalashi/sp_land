@@ -265,17 +265,25 @@
 					                    <input type="text" placeholder="请输入身份证号" class="form-control" style="width: 90%;"  v-model="userData.idCardNo" autocomplete="off">
 					                </div>
 					            </div>
-								<div class="control-group form-inline">
-					                <label class="control-label col-md-3 offset-md-3" >身份证照片：</label>
-					                <div class="controls col-md-5">
-					                	<span name="picker" class="picker" id="up_idCardPic" style="float: left;">正面照片</span>
-					               	 	<span name="picker" class="picker" id="up_idCardPicBack" style="float: right;">背面照片</span>
-					                </div>
-					            </div>
-								<div class="openWinDiv">
-								 	<div id="fileList" class="uploader-list"></div>
+								<div class="openWinDiv" style="margin-top: 20px;">身份证照片</div>
+								<div class="row">
+									<div class="col-md-4 offset-md-2 text-center" style="display: block">
+										<div style="display: table; width: auto;margin-left: auto;margin-right: auto;">
+											<span name="picker" id="idCardPic" style="float: left;margin-bottom: 5px;">正面照片</span>
+										</div>
+										<div style="display: table; width: auto;margin-left: auto;margin-right: auto;">
+											<img style="width: 150px;height: 150px;border: #5bc0de 1px;" alt="" :src="userData.idCardPic">
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div style="display: table; width: auto;margin-left: auto;margin-right: auto;">
+											<span name="picker" id="idCardPicBack" style="float: right;margin-bottom: 5px;">背面照片</span>
+										</div>
+										<div style="display: table; width: auto;margin-left: auto;margin-right: auto;">
+											<img style="width: 150px;height: 150px;border: #5bc0de 1px;" alt="" :src="userData.idCardPicBack">
+										</div>
+									</div>
 								</div>
-								
 								<div class="openWinDiv">
 									<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('changeIdCard')">确定</button>
 									<button style="background: #6e3e0d; color: #ffff;" @click="closeOpenWin">取消</button>
