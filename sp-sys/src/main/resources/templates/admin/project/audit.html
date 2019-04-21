@@ -6,12 +6,13 @@
 <body>
 <!-- v-cloak -->
 <div id="app" v-cloak>
-    <div th:include="login/project_add :: project_add">
+    <!-- <div th:include="login/project_add :: project_add"> -->
+    <div th:include="html/project_detail :: project_detail">
 
     </div>
 </div>
-<script th:src="@{/static/module/project_add.js}"></script>
-<!-- <script type="text/javascript">
+<!-- <script th:src="@{/static/module/project_add.js}"></script> -->
+<script type="text/javascript">
     var projectId = [[${projectId}]];
 
     var vm = new Vue({
@@ -73,6 +74,6 @@
 			},
 		}
     });
-</script> -->
+</script>
 </body>
 </html>
