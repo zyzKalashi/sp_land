@@ -30,7 +30,7 @@
 							<li v-for="item in helpInfoList">
 								<a :title="item.title" > 
 									<i @click="goDetail(item.docId, 1)">{{ item.title }}</i>
-									<p @click="download(item.docUrl)">下载</p>
+									<p @click="download(item.docUrl)" v-show="item.docUrl">下载</p>
 								</a>
 							</li>
 						</ul>
@@ -47,9 +47,9 @@
 						</div>
 						<ul>
 							<li v-for="item in docInfoList">
-								<a :title="item.title" @click="goDetail(item.docId, 2)"> 
-									<i> {{ item.title }}</i>
-									<p @click="download(item.docId)">下载</p>
+								<a :title="item.title"> 
+									<i @click="goDetail(item.docId, 2)"> {{ item.title }}</i>
+									<p @click="download(item.docUrl)" v-show="item.docUrl">下载</p>
 								</a>
 							</li>
 						</ul>
@@ -96,7 +96,7 @@
 						window.location.href = "../html/help_detail?docId=" + id;
 					},
 					download: function(url){
-						window.location.href = url;
+						window.location.href = "/file/downFile?filePath=" + url;
 					},
 				},
 			});
