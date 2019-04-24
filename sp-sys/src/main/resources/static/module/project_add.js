@@ -24,6 +24,8 @@ var vm = new Vue({
 				this.projectData.projectId = getUrlParam('projectId');
 				if(this.projectData.projectId){
 					this.initProject();
+				} else {
+					this.initUser();
 				}
 			},
 			methods : {
@@ -95,11 +97,30 @@ var vm = new Vue({
 	                            layer.msg(result.msg);
 	                        }
 	                    });
+					} else {
+						this.initUser();
 					}
 				},
 				cancel: function(){
 					window.location.href = "/login/user_index";
-				}
+				},
+				initUser: function () {
+					var tUser = {
+							userId: $("#baseUserId").text(),
+					};
+					$.post("/user/userDetail", tUser, function (result) {
+						if (result.code == 0) {
+		                	var userData = result.userData;
+		                	vm.projectData.name = userData.nickName;
+		                	vm.projectData.townCode = userData.townCode;
+		                	vm.projectData.areaCode = userData.areaCode;
+		                	vm.projectData.address = userData.address;
+		                	vm.projectData.mobile = userData.mobile;
+		                	vm.projectData.idCardFrontUrl = userData.idCardPic;
+		                	vm.projectData.idCardBackUrl = userData.idCardPicBack;
+		                } 
+		            });
+				},
 			},
 			watch: {
 				'projectData.areaCode': function(code){

@@ -22,7 +22,7 @@
 
 <body>
 	<div id="app" v-cloak>
-		<div th:replace="common::top"></div>
+		<div th:replace="common :: top"></div>
 		<!-- container begin -->
 		<div class="main clearfix">
 			<div class="row clearfix main5">
@@ -119,25 +119,43 @@
 						<div>
 							<!-- row1 start -->
 							<div class="row clearfix member ml10">
-								<table class="mb10"
-									style="width: 100%; height: auto; margin-left: 30px;">
+								<table class="mb10" style="width: 100%; height: auto; margin-left: 30px;">
 									<tr>
-										<td>
-											<ul>
-												<li style="width: 100px;" class="fl text-right mr5">会员名称：</li>
-												<span class="fl ml5" style="width: 280px;">{{ userData.userName }}</span>
-												<li style="width: 100px;" class="fl text-right mr5">会员ID：</li>
-												<span class="fl ml5" style="width: 280px;">{{ userData.userId }}</span>
-												<li style="width: 100px;" class="fl text-right mr5">手机号码：</li>
-												<span class="fl ml5" style="width: 280px;">{{ userData.mobile }}</span>
-												<li style="width: 100px;" class="fl text-right mr5">注册时间：</li>
-												<span class="fl ml5" style="width: 280px;">{{ userData.createDateStr }}</span>
-											</ul>
-
+										<td style="width: 60%;">
+											<div class="control-group form-inline">
+								                <label class="control-label col-md-3 offset-md-3">会员名称：</label>
+								                <div class="controls col-md-5">
+								                    <span class="fl ml5">{{ userData.userName }}</span>
+								                </div>
+								            </div>
+											<div class="control-group form-inline">
+								                <label class="control-label col-md-3 offset-md-3">会员ID：</label>
+								                <div class="controls col-md-5">
+								                    <span class="fl ml5">{{ userData.userId }}</span>
+								                </div>
+								            </div>
+											<div class="control-group form-inline">
+								                <label class="control-label col-md-3 offset-md-3">手机号码：</label>
+								                <div class="controls col-md-5">
+								                    <span class="fl ml5">{{ userData.mobile }}</span>
+								                </div>
+								            </div>
+											<div class="control-group form-inline">
+								                <label class="control-label col-md-3 offset-md-3">注册时间：</label>
+								                <div class="controls col-md-5">
+								                    <span class="fl ml5">{{ userData.createDateStr }}</span>
+								                </div>
+								            </div>
 										</td>
-										<td style="width: 200px;"><img
-											src="../static/images/cent/touxiang.jpg"
-											style="border-radius: 5px; box-shadow: 0 1px 2px 1px #666;"></td>
+										<td style="width: 40%;">
+											<div style="display: table; width: auto;margin-left: auto;margin-right: auto;">
+												<span name="picker" id="userPic" style="float: left;margin-bottom: 5px;">上传头像</span>
+											</div>
+											<div style="width: 200px;" class="control-group form-inline" >
+												<img src="../static/images/cent/touxiang.jpg" style="border-radius: 5px; box-shadow: 0 1px 2px 1px #666;" v-if="!userData.userPic">
+												<img style="width: 100px;height: 100px; border-radius: 5px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;" alt="" :src="userData.userPic" v-else>
+											</div>
+										</td>
 									</tr>
 								</table>
 							</div>
@@ -257,8 +275,7 @@
 								</div>
 							</div>
 							<!-- 以下是实名认证的内容 -->
-							<div class="tab-pane" v-show="winFlag.win_idCard">
-								<div class="openWinDiv">实名认证</div>
+							<div class="tab-pane" v-show="winFlag.win_idCard" style="min-height: 600px;">
 								<div class="control-group form-inline">
 					                <label class="control-label col-md-3 offset-md-3">身份证号：</label>
 					                <div class="controls col-md-5">

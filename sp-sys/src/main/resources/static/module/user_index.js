@@ -39,6 +39,7 @@ var vm = new Vue({
 		} 
 		this.initUser();
 		this.initProjectList();
+		this.initUploadPlugin("userPic");
 	},
 	methods : {
 		initUser: function () {
@@ -178,8 +179,8 @@ var vm = new Vue({
 				vm.winFlag.win_phone = false;
 				vm.winFlag.win_email = false;
 				if(!$("#idCardPic").hasClass("webuploader-container")){
-					initUploadPlugin("idCardPic");
-					initUploadPlugin("idCardPicBack");
+					vm.initUploadPlugin("idCardPic");
+					vm.initUploadPlugin("idCardPicBack");
 				}
 			} else if(flag == 'win_password'){
 				vm.winFlag.win_idCard = false;
@@ -306,6 +307,27 @@ var vm = new Vue({
                 }
             });
 		},
+		initUploadPlugin: function(id) {
+			WebUploader.create({
+				auto: true,
+				swf: '/static/plugin/webuploader/Uploader.swf',
+				server: '/file/upload',
+				pick: '#' + id,
+				resize: false,
+				formData: {
+					fileKind: 5,
+				}
+			}).on("uploadSuccess",function(file, resp){
+				if(0 == resp.code){
+					eval('vm.userData.' + id + "='" + resp.url + "';");
+					if(id == "userPic"){
+						vm.modifyUser("userPic");
+					}
+				} else {
+					alert(resp.msg);
+				}
+			});
+		}
 	},
 	watch: {
 		'userData.areaCode': function(code){
@@ -318,24 +340,24 @@ var vm = new Vue({
 	}
 });
 
-function initUploadPlugin(id){
-	WebUploader.create({
-		auto: true,
-		swf: '/static/plugin/webuploader/Uploader.swf',
-		server: '/file/upload',
-		pick: '#' + id,
-		resize: false,
-		formData: {
-			fileKind: 5,
-		}
-	}).on("uploadSuccess",function(file, resp){
-		if(0 == resp.code){
-			eval('vm.userData.' + id + "='" + resp.url + "';");
-		} else {
-			alert(resp.msg);
-		}
-	});
-}
+//function initUploadPlugin(id){
+//	WebUploader.create({
+//		auto: true,
+//		swf: '/static/plugin/webuploader/Uploader.swf',
+//		server: '/file/upload',
+//		pick: '#' + id,
+//		resize: false,
+//		formData: {
+//			fileKind: 5,
+//		}
+//	}).on("uploadSuccess",function(file, resp){
+//		if(0 == resp.code){
+//			eval('vm.userData.' + id + "='" + resp.url + "';");
+//		} else {
+//			alert(resp.msg);
+//		}
+//	});
+//}
 
 
 //$(function(){
@@ -343,7 +365,7 @@ function initUploadPlugin(id){
 //        auto: true,
 //        swf: '/static/plugin/webuploader/Uploader.swf',
 //        server: '/file/upload',
-//        pick: '#up_idCardPic',
+//        pick: '#up_userPic',
 //        resize: false,
 //        formData: {
 //            fileKind: 5,
@@ -364,6 +386,10 @@ function initUploadPlugin(id){
 //        },
 //	});
 //	uploader.addButton({
+//		id: '#up_userPic',
+//		innerHTML: '上传头像'
+//	});
+//	uploader.addButton({
 //	    id: '#up_idCardPic',
 //	    innerHTML: '身份证正面照片'
 //	});
@@ -371,39 +397,41 @@ function initUploadPlugin(id){
 //	    id: '#up_idCardPicBack',
 //	    innerHTML: '身份证背面照片'
 //	});
-//	uploader.on( 'fileQueued', function( file ) {
-//	    var $li = $(
-//	            '<div id="' + file.id + '" class="file-item thumbnail">' +
-//	                '<img>' +
-//	            '</div>'
-//	            ),
-//	        $img = $li.find('img');
-//
-//
-//	    // $list为容器jQuery实例
-//	    $("#fileList").append( $li );
-//
-//	    // 创建缩略图
-//	    // 如果为非图片文件，可以不用调用此方法。
-//	    // thumbnailWidth x thumbnailHeight 为 100 x 100
-//	    uploader.makeThumb( file, function( error, src ) {
-//	        if ( error ) {
-//	            $img.replaceWith('<span>不能预览</span>');
-//	            return;
-//	        }
-//
-//	        $img.attr( 'src', src );
-//	    }, 100, 100 );
-//	});
+////	uploader.on( 'fileQueued', function( file ) {
+////	    var $li = $(
+////	            '<div id="' + file.id + '" class="file-item thumbnail">' +
+////	                '<img>' +
+////	            '</div>'
+////	            ),
+////	        $img = $li.find('img');
+////
+////
+////	    // $list为容器jQuery实例
+////	    $("#fileList").append( $li );
+////
+////	    // 创建缩略图
+////	    // 如果为非图片文件，可以不用调用此方法。
+////	    // thumbnailWidth x thumbnailHeight 为 100 x 100
+////	    uploader.makeThumb( file, function( error, src ) {
+////	        if ( error ) {
+////	            $img.replaceWith('<span>不能预览</span>');
+////	            return;
+////	        }
+////
+////	        $img.attr( 'src', src );
+////	    }, 100, 100 );
+////	});
 //	
 //	uploader.on("uploadSuccess",function(file, resp){
 //		$( '#'+file.id ).find('p.state').text('已上传');
 //        if(0 == resp.code){
 //        	if(file.id == "WU_FILE_0"){
-//        		vm.userData.idCardPic = resp.url;
+//        		vm.userData.userPic = resp.url;
 //        	} else if (file.id == "WU_FILE_1") {
-//        		vm.userData.idCardPicBack = resp.url;
-//        	}
+//        		vm.userData.idCardPic = resp.url;
+//	        } else if (file.id == "WU_FILE_2") {
+//	        	vm.userData.idCardPicBack = resp.url;
+//	        } 
 ////            $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
 //            console.log(resp.url);
 //            console.log(file);
