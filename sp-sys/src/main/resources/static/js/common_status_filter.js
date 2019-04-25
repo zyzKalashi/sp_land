@@ -1,3 +1,7 @@
+var userStatusDic = [
+	{value: 1, label: "已认证"},
+	{value: 2, label: "未认证"},
+];
 var projectKindDic = [
 	{value: 0, label: "全部"},
 	{value: 1, label: "土地承包"},
@@ -87,6 +91,13 @@ var timeGranDict = [
 Vue.filter('picTypeFilter', function(val) {
 	if(val || val == undefined) return '';
 	return picTypeDict.filter((item)=>{
+		return item.value == val
+	})[0].label;
+});
+// 状态过滤-zyz
+Vue.filter('userStatusFilter', function(val) {
+	if(val == undefined) return '';
+	return userStatusDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
 });

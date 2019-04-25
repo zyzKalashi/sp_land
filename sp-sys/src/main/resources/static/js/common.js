@@ -19,23 +19,25 @@ $(function(){
 			if ( !IEVersion() ) {
 				window.location.href = '/index_browserError';
 			} 
-		} else {
-			if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
-				window.location.href = '/index_browserError';
-			} 
-		}
+		} 
+//		else {
+//			if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
+//				window.location.href = '/index_browserError';
+//			} 
+//		}
 	} else {
 		if ( "IE" == cb ) {
 			if ( IEVersion() ) {
 				window.location.href = '/index';
 			} 
-		} else {
-			if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
-				
-			} else {
-				window.location.href = '/index';
-			}
-		}
+		} 
+//		else {
+//			if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
+//				
+//			} else {
+//				window.location.href = '/index';
+//			}
+//		}
 	}
 });
 function initFooter(){

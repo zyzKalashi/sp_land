@@ -133,7 +133,7 @@
 			left join project_person C ON A.pkid = C.project_id
 			left join users D ON A.audit_user = D.pkid
 		<where>
-			project_status not in (0,5)
+			A.project_status = 4
 			<if test="projectName != null">
 				AND A.project_name like CONCAT('%',#{projectName},'%')
 			</if>

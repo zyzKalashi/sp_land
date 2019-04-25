@@ -33,12 +33,15 @@
 							style="width: 100%;">
 							<tr class="mb10 fl"
 								style="width: 100%; border-bottom: 1px solid #ccc;">
-								<td class="mb15"><img
-									src="../static/images/cent/touxiang.jpg"
-									class="rounded ml10 mb15" width="100%" height='auto'></td>
+								<td class="mb15">
+									<img src="../static/images/cent/touxiang.jpg" class="rounded ml10 mb15" width="100%" height='auto' style="border-radius: 5px; box-shadow: 0 1px 2px 1px #666;" v-if="!userData.userPic">
+									<img class="rounded ml10 mb15" width="100%" height='auto' style="width: 100px;height: 100px; border-radius: 5px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;" alt="" :src="userData.userPic" v-else>
+								</td>
 								<td>
 									<p class="f18 ml20" style="color: #93590d;">{{ userData.userName}}</p>
-									<p class="f12 ml20" style="color: #06c; font-family: '宋体';">
+									<p class="f12 ml20" style="font-family: '宋体';">
+										<span style="color: #06c;" v-if="userData.userStatus == 1">{{ userData.userStatus | userStatusFilter }}</span>
+										<span style="color: red;"  v-if="userData.userStatus == 2">{{ userData.userStatus | userStatusFilter }}</span>
 									</p>
 									<p class="ml20" style="font-family: '新宋体'; font-size: 11px;">
 										上次访问时间:<span>{{ loginLog.logDateStr }}</span>
@@ -301,7 +304,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="openWinDiv">
+								<div class="openWinDiv" v-if="userData.userStatus == 2">
 									<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('changeIdCard')">确定</button>
 									<button style="background: #6e3e0d; color: #ffff;" @click="closeOpenWin">取消</button>
 								</div>

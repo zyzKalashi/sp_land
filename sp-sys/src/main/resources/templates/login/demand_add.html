@@ -124,6 +124,9 @@
 					moneyLevel: 0,
 					sex: 0,
 					fileUrl: null,
+					person: "",
+            		mobile: "",
+            		email: "",
 				},
 				readFlag: false,
 			},
@@ -131,6 +134,8 @@
 				this.demandData.demandId = getUrlParam('demandId');
 				if(this.demandData.demandId){
 					this.initDemand();
+				} else {
+					this.initUser();
 				}
 			},
 			methods : {
@@ -139,6 +144,8 @@
 						hzToolObj.postRpc("/demand/demandDetail", this.demandData).done(function (result) {
 		                    vm.demandData = result.objData;
 		                });
+					} else {
+						this.initUser();
 					}
 				},
 				demandModify: function(){
@@ -191,7 +198,19 @@
 				downFile: function(url){
 		               window.location.href = "/file/downFile?filePath=" + url;
 		        },
-				
+		        initUser: function(){
+		        	var tUser = {
+							userId: $("#baseUserId").text(),
+					};
+					$.post("/user/userDetail", tUser, function (result) {
+						if (result.code == 0) {
+		                	var userData = result.userData;
+		                	vm.demandData.person = userData.nickName;
+		                	vm.demandData.mobile = userData.mobile;
+		                	vm.demandData.email = userData.email;
+		                } 
+		            });
+		        },
 			},
 			
 			
