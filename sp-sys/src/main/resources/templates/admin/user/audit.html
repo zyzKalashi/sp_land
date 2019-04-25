@@ -12,7 +12,7 @@
 <div id="app" v-cloak>
     <hr>
     <div class="row inline" style="width: 95%;margin-top: 10px;">
-        <div class="col-sm-7">
+        <div class="col-sm-8">
             <div class="row inline">
                 <div class="col-sm-6 offset-sm-2 text-right">
                     <label class="control-label">会员ID:</label>
@@ -47,28 +47,39 @@
             </div>
             <div class="row inline">
                 <div class="col-sm-6 offset-sm-2 text-right">
+                    <label class="control-label">身份证号:</label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">{{user.idCardNo}}</label>
+                </div>
+            </div>
+            <div class="row inline">
+                <div class="col-sm-6 offset-sm-2 text-right">
                     <label class="control-label">用户状态:</label>
                 </div>
                 <div class="col-sm-4">
                     <label class="control-label">{{userStatus}}</label>
                 </div>
             </div>
-            <div class="row inline">
-                <div class="col-sm-6 offset-sm-2 text-right">
-                    <label class="control-label">所属角色:</label>
-                </div>
-                <div class="col-sm-4">
-                    <label class="control-label">{{roleName}}</label>
-                </div>
-            </div>
         </div>
         <div class="col-sm-4" style="height: auto;">
-            <div class="row" style="margin-top: 30px;">
-                    <img src="../static/images/cent/touxiang.jpg" style="border-radius: 5px; box-shadow: 0 1px 2px 1px #666;">
+            <div class="row" style="margin-top: 30px; float: right;">
+            	<img class="rounded ml10 mb15" width="100%" height='auto' style="width: 100px;height: 100px; border-radius: 5px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;" v-if="!user.userPic" src="/static/images/cent/touxiang.jpg" >
+				<img class="rounded ml10 mb15" width="100%" height='auto' style="width: 100px;height: 100px; border-radius: 5px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;" :src="user.userPic" v-else>
             </div>
         </div>
     </div>
     <hr>
+    <div class="row inline" style="width: 95%;margin-top: 10px;">
+        <div class="col-sm-6">
+        	<img class="rounded ml10 mb15" width="100%" height='auto' style="width: 200px;height: 100px; border-radius: 5px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666; float: right;" :src="user.idCardPic">
+        </div>
+        <div class="col-sm-6">
+        	<img class="rounded ml10 mb15" width="100%" height='auto' style="width: 200px;height: 100px; border-radius: 5px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666; float: left;" :src="user.idCardPicBack">
+        </div>
+    </div>
+    
+    
 </div>
 </body>
 <script type="text/javascript">
@@ -86,6 +97,10 @@
                 password_v: '',
                 userStatus: '',
                 roleId: '',
+                idCardNo: '',
+                idCardPic: '',
+                idCardPicBack: '',
+                userPic: '',
             },
             status:{},
             roleInfos:{},

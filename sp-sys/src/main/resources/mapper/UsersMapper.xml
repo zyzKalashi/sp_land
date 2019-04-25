@@ -23,12 +23,17 @@
         <result column="company" jdbcType="VARCHAR" property="company"/>
         <result column="area_code" jdbcType="INTEGER" property="areaCode"/>
         <result column="town_code" jdbcType="INTEGER" property="townCode"/>
+        <result column="user_pic" jdbcType="VARCHAR" property="userPic"/>
+        <result column="id_card_no" jdbcType="VARCHAR" property="idCardNo"/>
+        <result column="id_card_pic" jdbcType="VARCHAR" property="idCardPic"/>
+        <result column="id_card_pic_back" jdbcType="VARCHAR" property="idCardPicBack"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         pkid, user_name, nick_name,
         password, user_status, role_id, create_date,
-        update_date, update_user, mobile, email, area_code, town_code
+        update_date, update_user, mobile, email, area_code, town_code,
+        user_pic,id_card_no, id_card_pic_back, id_card_pic_back
     </sql>
 
     

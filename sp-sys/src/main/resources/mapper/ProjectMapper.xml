@@ -133,7 +133,7 @@
 			left join project_person C ON A.pkid = C.project_id
 			left join users D ON A.audit_user = D.pkid
 		<where>
-			A.project_status = 4
+			A.project_status NOT IN (0, 5)
 			<if test="projectName != null">
 				AND A.project_name like CONCAT('%',#{projectName},'%')
 			</if>
@@ -180,6 +180,7 @@
 			project A, project_around B
 		WHERE
 				A.pkid = B.project_id
+			AND A.project_status = 4
 			AND
 				DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[ <= ]]>   date(A.create_date)
 		GROUP BY

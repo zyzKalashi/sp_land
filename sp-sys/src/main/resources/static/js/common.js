@@ -5,7 +5,6 @@ var idCardReg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{
 /* zyz begin*/
 /* 浏览器逻辑 */
 $(function(){
-	initFooter();
 	if( $("#baseUserName").text() ){
 		$("#loginWin").hide();
 		document.getElementById("userWin").style.display = ""; 
