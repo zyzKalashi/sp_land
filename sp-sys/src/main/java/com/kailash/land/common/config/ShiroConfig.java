@@ -48,7 +48,7 @@ public class ShiroConfig {
 		/**
 		 * 登录之前输入不存在的页面，直接跳到404
 		 */
-		shiroFilterFactoryBean.setUnauthorizedUrl("/error");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/index");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 

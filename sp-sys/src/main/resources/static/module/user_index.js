@@ -327,7 +327,10 @@ var vm = new Vue({
 					alert(resp.msg);
 				}
 			});
-		}
+		},
+		uploadUserPic: function(){
+			$("#userPic .webuploader-element-invisible").click();
+		},
 	},
 	watch: {
 		'userData.areaCode': function(code){
