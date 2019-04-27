@@ -29,11 +29,11 @@
         <div class="form-group form-inline">
             <label class="col-sm-2" for="startDate">开始时间</label>
             <div class="col-sm-2">
-                <input id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
+                <input class="form-control" id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
             </div>
             <label class="col-sm-2" for="endDate">终止时间</label>
             <div class="col-sm-2">
-                <input id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
+                <input class="form-control" id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
             </div>
             <div class="col-sm-4" style="text-align: right;">
                 <div style="width: 95%;">
@@ -60,7 +60,11 @@
                 </thead>
                 <tbody>
                 <tr v-for="(project,index) in list" class="text-center">
-                    <td>{{project.projectName}}</td>
+                    <td>
+                    	<a href="#" @click="goDetail(project)">
+	                    	{{project.projectName}}
+                    	</a>
+                    </td>
                     <td>{{project.personName}}</td>
                     <td>{{project.projectKind | projectKindFilter}}</td>
                     <td>{{ ('' + project.projectStatus) | projectStatusFilter}}</td>
@@ -69,6 +73,7 @@
                     <td>{{project.auditDateStr}}</td>
                     <td>{{project.createDateStr}}</td>
                     <td class="inline">
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doUpload(project)">上传</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(project)" v-if="project.projectStatus == 2">审核</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doDelete(project, 4)" v-if="project.projectStatus == 1">结束</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(project, 0)">删除</button>
@@ -169,6 +174,43 @@
                 }
                 this.list = result.pageInfo.list;
             },
+            goDetail: function(project){
+            	 var buttons = ["关闭"];
+            	 layer.open({
+                     type: 2,
+                     title: '审核-' + project.projectName,
+                     area: ['90%', '90%'],
+                     fixed: true, //不固定
+                     skin: 'layer-skin',
+                     maxmin: true,
+                     content: '/admin/project/detail?projectId=' + project.projectId,
+                     btn: buttons,
+                 });
+            },
+            doUpload: function(project){
+            	var buttons = [];
+            	buttons.push("关闭");
+            	layer.open({
+                    type: 2,
+                    title: '上传',
+                    area: ['90%', '90%'],
+                    fixed: false, //不固定
+                    skin: 'layer-skin',
+                    maxmin: true,
+                    content: '/admin/project/upload?projectId=' + project.projectId,
+                    //btn: buttons,
+                    yes: function(index, layero){
+                        if(3 == buttons.length) {
+                            var iframeWin = window[layero.find('iframe')[0]['name']];
+                            iframeWin.vm.audit('1');
+                        } else {
+                            layer.close(layer.index);
+                        }
+                    },
+                    no: function(index, layero){
+                    },
+                });
+            },
             doAudit: function(project){
                 var buttons = [];
                 if(("" + project.projectStatus).match("1|2|3")){
@@ -198,8 +240,6 @@
                         var iframeWin = window[layero.find('iframe')[0]['name']];
                         iframeWin.vm.audit('3');
                         return false;
-                    },
-                    btn3: function(){
                     },
                 });
             },

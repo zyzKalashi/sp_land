@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head th:include="common :: header">
+<title id="pageTitle">项目信息发布—铁西区农村经济总站土地流转交易监管平台</title>
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/static/plugin/webuploader/demo.css}">
+<body>
+	<div id="app">
+		<div id="uploader" class="wu-example">
+			<div class="queueList">
+				<div id="dndArea" class="placeholder">
+					<div id="filePicker"></div>
+					<p>或将照片拖到这里，单次最多可选300张</p>
+				</div>
+			</div>
+			<div class="statusBar" style="display: none;">
+				<div class="progress">
+					<span class="text">0%</span> <span class="percentage"></span>
+				</div>
+				<div class="info"></div>
+				<div class="btns">
+					<div id="filePicker2"></div>
+					<div class="uploadBtn">开始上传</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="common :: js"></div>
+	<script th:src="@{/static/plugin/webuploader/demo.js}"></script>
+</body>

@@ -19,8 +19,6 @@ public class ProjectFiter extends BasePageFilter {
 	private Integer areaCode;
 	private Integer infoKind;
 	private String mobile;
-	private String idCardFrontUrl;
-	private String idCardBackUrl;
 	private String address;
 
 	// project
@@ -54,7 +52,7 @@ public class ProjectFiter extends BasePageFilter {
 	private String hopeOutputDate;
 	private Integer projectStatus;
 	private String projectNo;
-	
+
 	// projectAround
 	private Long projectAroundId;
 	private String areaName;
@@ -72,7 +70,7 @@ public class ProjectFiter extends BasePageFilter {
 	private String supplement;
 
 	private Integer createUser;
-	
+
 	@TableField(exist = false)
 	private String startDate;
 	@TableField(exist = false)

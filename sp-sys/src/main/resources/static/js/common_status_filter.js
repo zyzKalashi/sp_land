@@ -1,3 +1,8 @@
+var projectPicDic = [
+	{value: 1, label: "身份证"},
+	{value: 2, label: "产权证"},
+	{value: 2, label: "合同书"},
+];
 var userStatusDic = [
 	{value: 1, label: "已认证"},
 	{value: 2, label: "未认证"},

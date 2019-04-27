@@ -35,10 +35,6 @@ public class ProjectPerson extends Model<ProjectPerson> implements Serializable 
 
 	private String mobile;
 
-	private String idCardFrontUrl;
-
-	private String idCardBackUrl;
-
 	private String address;
 
 	@Override
@@ -54,8 +50,6 @@ public class ProjectPerson extends Model<ProjectPerson> implements Serializable 
 		this.areaCode = filter.getAreaCode();
 		this.infoKind = filter.getInfoKind();
 		this.mobile = filter.getMobile();
-		this.idCardFrontUrl = filter.getIdCardFrontUrl();
-		this.idCardBackUrl = filter.getIdCardBackUrl();
 		this.address = filter.getAddress();
 	}
 }

@@ -29,6 +29,49 @@ var vm = new Vue({
 				}
 			},
 			methods : {
+				openUpload: function(flag, projectId){
+					layer.open({
+	                    type: 2,
+	                    title: '上传',
+	                    area: ['90%', '90%'],
+	                    fixed: false, // 不固定
+	                    skin: 'layer-skin',
+	                    maxmin: true,
+	                    content: '/admin/project/upload?projectId=' + projectId + "&flag=" + flag,
+	                    // btn: buttons,
+	                    yes: function(index, layero){
+	                        if(3 == buttons.length) {
+	                            var iframeWin = window[layero.find('iframe')[0]['name']];
+	                            iframeWin.vm.audit('1');
+	                        } else {
+	                            layer.close(layer.index);
+	                        }
+	                    },
+	                    no: function(index, layero){
+	                    },
+	                });
+				},
+				audit: function (type) {
+	                vm.projectData.projectStatus = type;
+	                if (vm.checkProject()) {
+	                	var index = layer.load(0, { shade: [0.1,'#fff'] });
+	                	delete vm.projectData.createDate;
+	                    delete vm.projectData.updateDate;
+	                    delete vm.projectData.auditDate;
+	                	$.post("/project/projectModify", vm.projectData, function (result) {
+	                		if (result.code == 0) {
+	                			layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
+	                				var index = parent.layer.getFrameIndex(window.name);
+	                				layer.close(index);
+	                				parent.layer.close(index);
+	                			});
+	                			parent.vm.doQuery();
+	                		} else {
+	                			layer.msg(result.msg);
+	                		}
+	                	});
+	                }
+	            },
 				initArea: function(){
 					$.post("/area/initArea", {}, function (result) {
                         if (result.code == 0) {

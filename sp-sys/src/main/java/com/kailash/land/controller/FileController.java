@@ -1,6 +1,8 @@
 package com.kailash.land.controller;
 
 import com.kailash.land.util.Result;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +45,12 @@ public class FileController {
 		String proKey = UPLOAD_DIRS_PREFIX + fileKind;
 		String dir = env.getProperty(proKey);
 		if (null != dir) {
+			String oldName = file.getOriginalFilename();
+			if (StringUtils.isEmpty(oldName) || !oldName.contains(".")) {
+				return Result.error("上传失败！文件错误！");
+			}
 			long now = System.currentTimeMillis();
-			String fileName = dir + now + file.getOriginalFilename();
+			String fileName = dir + now + oldName.substring(oldName.indexOf("."));
 			File dest = new File(uploadDir + fileName);
 			if (!dest.getParentFile().exists()) {
 				dest.getParentFile().mkdirs();

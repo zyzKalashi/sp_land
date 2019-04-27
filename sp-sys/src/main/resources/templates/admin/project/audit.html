@@ -4,76 +4,11 @@
 <head th:include="common :: adminHeader"></head>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/info.css}">
 <body>
-<!-- v-cloak -->
-<div id="app" v-cloak>
-    <!-- <div th:include="login/project_add :: project_add"> -->
-    <div th:include="html/project_detail :: project_detail">
+	<!-- v-cloak -->
+	<div id="app" v-cloak>
+		<div th:include="login/project_add :: project_add"></div>
+	</div>
+	<script th:src="@{/static/module/project_add.js}"></script>
 
-    </div>
-</div>
-<!-- <script th:src="@{/static/module/project_add.js}"></script> -->
-<script type="text/javascript">
-    var projectId = [[${projectId}]];
-
-    var vm = new Vue({
-        el : '#app',
-        data : {
-            projectData: {
-                projectId: projectId,
-            },
-            aeaDic: [],
-            childAreas: [],
-        },
-        mounted : function() {
-        	this.initArea();
-            var _this = this;
-            $.post("/project/queryDetail", this.projectData, function (result) {
-                if (result.code == 0) {
-                    _this.projectData = result.projectData;
-                } else {
-                    layer.msg(result.msg);
-                }
-            });
-          
-        },
-        methods : {
-        	initArea: function(){
-				$.post("/area/initArea", {}, function (result) {
-                    if (result.code == 0) {
-                    	vm.aeaDic = result.area;
-                    } else {
-                        layer.msg(result.msg);
-                    }
-                });
-			},
-            audit: function (type) {
-                var tProject = new Object();
-                tProject.pkid = projectId;
-                tProject.projectStatus = type;
-
-                $.post("/project/projectAudit", tProject, function (result) {
-                    if (result.code == 0) {
-                        layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
-                            var index = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(index);
-                        });
-                        parent.vm.doQuery();
-                    } else {
-                        layer.msg(result.msg);
-                    }
-                });
-            },
-        },
-        watch: {
-			'projectData.areaCode': function(code){
-				if(code && code != 0) {
-					vm.childAreas = vm.aeaDic.filter((item)=>{
-	                    return item.code == code
-	                })[0].childAreas;
-				}	
-			},
-		}
-    });
-</script>
 </body>
 </html>

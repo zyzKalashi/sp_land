@@ -1,0 +1,59 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:include="common :: adminHeader"></head>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/info.css}">
+<body>
+<!-- v-cloak -->
+<div id="app" v-cloak>
+    <div th:include="html/project_detail :: project_detail">
+    </div>
+</div>
+<script type="text/javascript">
+    var projectId = [[${projectId}]];
+
+    var vm = new Vue({
+        el : '#app',
+        data : {
+            projectData: {
+                projectId: projectId,
+            },
+            aeaDic: [],
+            childAreas: [],
+        },
+        mounted : function() {
+        	this.initArea();
+            var _this = this;
+            $.post("/project/queryDetail", this.projectData, function (result) {
+                if (result.code == 0) {
+                    _this.projectData = result.projectData;
+                } else {
+                    layer.msg(result.msg);
+                }
+            });
+          
+        },
+        methods : {
+        	initArea: function(){
+				$.post("/area/initArea", {}, function (result) {
+                    if (result.code == 0) {
+                    	vm.aeaDic = result.area;
+                    } else {
+                        layer.msg(result.msg);
+                    }
+                });
+			},
+        },
+        watch: {
+			'projectData.areaCode': function(code){
+				if(code && code != 0) {
+					vm.childAreas = vm.aeaDic.filter((item)=>{
+	                    return item.code == code
+	                })[0].childAreas;
+				}	
+			},
+		}
+    });
+</script>
+</body>
+</html>

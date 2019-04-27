@@ -24,10 +24,12 @@ import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.Project;
 import com.kailash.land.entity.ProjectAround;
 import com.kailash.land.entity.ProjectPerson;
+import com.kailash.land.entity.ProjectPic;
 import com.kailash.land.filter.ProjectFiter;
 import com.kailash.land.service.AreaCodeService;
 import com.kailash.land.service.ProjectAroundService;
 import com.kailash.land.service.ProjectPersonService;
+import com.kailash.land.service.ProjectPicService;
 import com.kailash.land.service.ProjectService;
 import com.kailash.land.util.BeanUtils;
 import com.kailash.land.util.DateFormatConsts;
@@ -46,6 +48,9 @@ public class ProjectController extends AbstractController {
 
 	@Autowired
 	private ProjectPersonService projectPersonService;
+
+	@Autowired
+	private ProjectPicService projectPicService;
 
 	@Autowired
 	private AreaCodeService areaCodeService;
@@ -93,6 +98,10 @@ public class ProjectController extends AbstractController {
 			Project di = new Project(filter);
 			di.setUpdateUser(getUserId().intValue());
 			di.setUpdateDate(new Date());
+			if (di.getProjectStatus() != null && di.getProjectStatus().equals(StatusEnum.COMMON_NORMAL.getId())) {
+				di.setAuditUser(getUserId().intValue());
+				di.setAuditDate(new Date());
+			}
 			EntityWrapper<Project> ewProject = new EntityWrapper<Project>();
 			ewProject.setEntity(new Project());
 			ewProject.where("pkid = {0}", di.getPkid());
@@ -285,14 +294,21 @@ public class ProjectController extends AbstractController {
 
 		return Result.ok();
 	}
-	
+
 	@RequestMapping(value = "tableData", method = RequestMethod.POST)
 	public Result tableData(Map<String, Object> param) {
-		
+
 		PageInfo<Map<String, Object>> mapPageInfo = this.projectService.tableData(param);
-		
+
 		return Result.ok().put("pageInfo", mapPageInfo);
 	}
-	
-	
+
+	@RequestMapping(value = "proPicModify", method = RequestMethod.POST)
+	public Result proPicModify(ProjectPic projectPic) {
+		projectPic.setCreateDate(new Date());
+		projectPic.setCreateUser(getUserId().intValue());
+		this.projectPicService.insert(projectPic);
+		return Result.ok();
+	}
+
 }
