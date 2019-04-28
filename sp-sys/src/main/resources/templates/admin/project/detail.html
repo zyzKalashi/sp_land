@@ -20,9 +20,15 @@
             },
             aeaDic: [],
             childAreas: [],
+            loginUserId: "",
+			picList1: [],
+			picList2: [],
+			picList3: [],
         },
         mounted : function() {
         	this.initArea();
+        	this.loginUserId = $("#baseUserId").text();
+            this.initProPicList();
             var _this = this;
             $.post("/project/queryDetail", this.projectData, function (result) {
                 if (result.code == 0) {
@@ -31,9 +37,19 @@
                     layer.msg(result.msg);
                 }
             });
-          
         },
         methods : {
+        	initProPicList: function(){
+				hzToolObj.postRpc("/project/proPicList", {projectId: this.projectData.projectId, picKind: 1}).done(function(r) {	
+        			vm.picList1 = r.list;
+        		});
+				hzToolObj.postRpc("/project/proPicList", {projectId: this.projectData.projectId, picKind: 2}).done(function(r) {	
+        			vm.picList2 = r.list;
+        		});
+				hzToolObj.postRpc("/project/proPicList", {projectId: this.projectData.projectId, picKind: 3}).done(function(r) {	
+        			vm.picList3 = r.list;
+        		});
+			},
         	initArea: function(){
 				$.post("/area/initArea", {}, function (result) {
                     if (result.code == 0) {

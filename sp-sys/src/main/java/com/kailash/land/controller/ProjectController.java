@@ -311,4 +311,15 @@ public class ProjectController extends AbstractController {
 		return Result.ok();
 	}
 
+	@RequestMapping(value = "proPicList", method = RequestMethod.POST)
+	public Result proPicList(ProjectPic projectPic) {
+		Wrapper<ProjectPic> wrapper = new EntityWrapper<ProjectPic>();
+		wrapper.where("project_id = {0}", projectPic.getProjectId());
+		wrapper.where("pic_kind = {0}", projectPic.getPicKind());
+		wrapper.orderBy("pkid DESC");
+
+		var list = this.projectPicService.selectList(wrapper);
+		return Result.ok().put("list", list);
+	}
+
 }
