@@ -52,6 +52,7 @@ public class ProjectFiter extends BasePageFilter {
 	private String hopeOutputDate;
 	private Integer projectStatus;
 	private String projectNo;
+	private String refuseResult;
 
 	// projectAround
 	private Long projectAroundId;

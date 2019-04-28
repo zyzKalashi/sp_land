@@ -53,7 +53,7 @@ var vm = new Vue({
 				},
 				audit: function (type) {
 	                vm.projectData.projectStatus = type;
-	                if (vm.checkProject()) {
+	                if (vm.checkProject() && type != 3) {
 	                	var index = layer.load(0, { shade: [0.1,'#fff'] });
 	                	delete vm.projectData.createDate;
 	                    delete vm.projectData.updateDate;
@@ -70,7 +70,7 @@ var vm = new Vue({
 	                			layer.msg(result.msg);
 	                		}
 	                	});
-	                }
+	                } 
 	            },
 				initArea: function(){
 					$.post("/area/initArea", {}, function (result) {

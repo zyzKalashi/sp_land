@@ -320,6 +320,9 @@ var vm = new Vue({
 		uploadUserPic: function(){
 			$("#userPic .webuploader-element-invisible").click();
 		},
+		refusePop: function(pro){
+			layer.alert(pro.refuseResult, {icon: 5,});	
+		},
 	},
 	watch: {
 		'userData.areaCode': function(code){

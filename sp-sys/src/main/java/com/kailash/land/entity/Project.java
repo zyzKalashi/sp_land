@@ -92,6 +92,8 @@ public class Project extends Model<Project> implements Serializable {
 	private String outputWay;
 	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String hopeOutputDate;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
+	private String refuseResult;
 
 	@TableField(value = "audit_date", strategy = FieldStrategy.NOT_NULL)
 	private Date auditDate;
@@ -128,6 +130,7 @@ public class Project extends Model<Project> implements Serializable {
 		this.hopeOutputDate = filter.getHopeOutputDate();
 		this.pkid = filter.getProjectId();
 		this.projectStatus = filter.getProjectStatus();
+		this.refuseResult = filter.getRefuseResult();
 	}
 
 	@Override

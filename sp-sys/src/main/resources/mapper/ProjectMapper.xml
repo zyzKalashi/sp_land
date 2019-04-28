@@ -83,7 +83,8 @@
 			pp.name AS name,
 			pp.sex AS sex,
 			area.area_name AS areaName,
-			town.area_name AS townName
+			town.area_name AS townName,
+			p.refuse_result AS refuseResult
 		FROM
 			project p
 			LEFT JOIN project_person pp ON p.pkid = pp.project_id

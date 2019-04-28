@@ -198,6 +198,7 @@
 																<td><span>{{ item.createDateStr }}</span></td>
 																<td>{{ item.projectStatus | projectStatusFilter}}</td>
 																<td>
+																	<span v-if="item.projectStatus == 3" @click="refusePop(item)">原因</span>
 																	<span v-if="item.projectStatus == 2" @click="modifyProject(item.projectId)">编辑</span>
 																</td>
 																<td>
