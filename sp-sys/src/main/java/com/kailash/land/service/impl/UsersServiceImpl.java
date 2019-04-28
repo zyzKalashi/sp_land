@@ -72,23 +72,29 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		if (user.getUserId() != null) {
 			param.put("userId", user.getUserId());
 		}
-		param.put("filed", "user_name");
-		param.put("value", user.getUserName());
-		userCheck = this.usersMapper.findByFiled(param);
-		if (userCheck != null) {
-			return Result.error("用户名已被占用，请重新填写！");
+		if (StringUtils.isNotEmpty(user.getUserName())) {
+			param.put("filed", "user_name");
+			param.put("value", user.getUserName());
+			userCheck = this.usersMapper.findByFiled(param);
+			if (userCheck != null) {
+				return Result.error("用户名已被占用，请重新填写！");
+			}
 		}
-		param.put("filed", "mobile");
-		param.put("value", user.getMobile());
-		userCheck = this.usersMapper.findByFiled(param);
-		if (userCheck != null) {
-			return Result.error("手机号码已被占用，请重新填写！");
+		if (StringUtils.isNotEmpty(user.getMobile())) {
+			param.put("filed", "mobile");
+			param.put("value", user.getMobile());
+			userCheck = this.usersMapper.findByFiled(param);
+			if (userCheck != null) {
+				return Result.error("手机号码已被占用，请重新填写！");
+			}
 		}
-		param.put("filed", "email");
-		param.put("value", user.getEmail());
-		userCheck = this.usersMapper.findByFiled(param);
-		if (userCheck != null) {
-			return Result.error("此邮箱已被占用，请重新填写！");
+		if (StringUtils.isNotEmpty(user.getEmail())) {
+			param.put("filed", "email");
+			param.put("value", user.getEmail());
+			userCheck = this.usersMapper.findByFiled(param);
+			if (userCheck != null) {
+				return Result.error("此邮箱已被占用，请重新填写！");
+			}
 		}
 		return Result.ok();
 	}

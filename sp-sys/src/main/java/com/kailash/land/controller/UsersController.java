@@ -127,13 +127,12 @@ public class UsersController extends AbstractController {
 		}
 		user.setUpdateDate(new Date());
 		user.setUpdateUser(getUserId().intValue());
-		boolean zt  = this.usersService.updateById(user);
-		
-//		EntityWrapper<Users> ewUser = new EntityWrapper<>();
-//		//ewUser.setEntity(new Users());
-//		ewUser.where(" pkid = {0} ", user.getUserId());
-//		
-//		= this.usersService.update(user, ewUser);
+		if (StringUtils.isNotEmpty(user.getFromPage()) && user.getFromPage().equals("audit")) {
+			user.setAuditDate(new Date());
+			user.setAuditUser(getUserId().intValue());
+		}
+		boolean zt = this.usersService.updateById(user);
+
 		if (zt) {
 			return Result.ok();
 		}

@@ -166,7 +166,7 @@
                 var tUser = new Object();
                 tUser.userId = userId;
                 tUser.userStatus = type;
-
+                tUser.fromPage = "audit";
                 $.post("/user/users_modify", tUser, function (result) {
                     if (result.code == 0) {
                         layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
