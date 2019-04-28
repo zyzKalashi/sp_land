@@ -160,7 +160,8 @@
 			</if>
 		</where> 
 		ORDER BY
-			A.pkid DESC
+			A.pkid DESC,
+			A.project_status DESC
 	</select>
 
 	<select id="projectStatistics" resultType="java.util.HashMap">

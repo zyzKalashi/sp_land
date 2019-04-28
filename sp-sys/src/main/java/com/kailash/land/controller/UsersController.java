@@ -125,12 +125,15 @@ public class UsersController extends AbstractController {
 		if (!result.get("code").equals(0)) {
 			return result;
 		}
-		EntityWrapper<Users> ewUser = new EntityWrapper<>();
-		ewUser.setEntity(new Users());
-		ewUser.where(" pkid = {0} ", user.getUserId());
 		user.setUpdateDate(new Date());
 		user.setUpdateUser(getUserId().intValue());
-		boolean zt = this.usersService.update(user, ewUser);
+		boolean zt  = this.usersService.updateById(user);
+		
+//		EntityWrapper<Users> ewUser = new EntityWrapper<>();
+//		//ewUser.setEntity(new Users());
+//		ewUser.where(" pkid = {0} ", user.getUserId());
+//		
+//		= this.usersService.update(user, ewUser);
 		if (zt) {
 			return Result.ok();
 		}

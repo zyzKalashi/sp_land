@@ -25,11 +25,6 @@ var vm = new Vue({
 			win_phone: false,
 			win_email: false,
 		},
-		useFlag: {
-        	userNameFlag: false,
-        	emailFlag: false,
-        	mobileFlag: false,
-        },
 	},
 	mounted : function() {
 		this.initArea();
@@ -235,34 +230,28 @@ var vm = new Vue({
 				} else if(!(mobileReg.test(vm.userData.newMobile))){ 
 					layer.alert("手机号码有误，请重填！");  
 					return; 
-				} else if(!vm.useFlag.mobileFlag){
-					layer.alert("手机号码已注册，请重填！");  
-					return; 
 				} else {
 					vm.userData.mobile = this.userData.newMobile;
 				}
-			} else if (flag == "changeEmail") {
+			} 
+			if (flag == "changeEmail") {
 				if(!vm.userData.newEmail){
 					layer.alert("请重填写新邮箱！");  
 					return; 
 				} else if(!emailReg.test(vm.userData.newEmail)){
 					layer.alert("邮箱格式有误，请重填");  
 					return; 
-				} else if(!vm.useFlag.emailFlag){
-					layer.alert("邮箱已注册，请重填！");  
-					return; 
 				} else {
 					vm.userData.email = vm.userData.newEmail;
 				}
-			} else if (flag == "baseInfo") {
+			} 
+			if (flag == "baseInfo") {
 				if (!vm.userData.userName) {
                     layer.alert("请输入用户名！");
                     return;
-				} else if(!vm.useFlag.emailFlag){
-					layer.alert("用户名已注册，请重填！");  
-					return; 
-				} 
-			} else if (flag == "changePassword") {
+				}  
+			} 
+			if (flag == "changePassword") {
                 if (!vm.userData.newPassword) {
                     layer.alert("请输入密码！");
                     return;
@@ -275,15 +264,19 @@ var vm = new Vue({
                 } else {
 					vm.userData.password = hex_md5(this.userData.newPassword)
                 }
-			} else if (flag == "cancelUser"){
+			} else {
+				delete vm.userData.password;
+			}
+			if (flag == "cancelUser"){
 				vm.userData.userStatus = 0;
-			} else if (flag == "changeIdCard") {
+			} 
+			if (flag == "changeIdCard") {
 				if (vm.userData.idCardNo && !idCardReg.test(vm.userData.idCardNo)) {
 					layer.alert("身份证号有误，请重填！");  
 					return; 
 				}
 				vm.userData.userStatus = 2;
-			} 
+			}
 			delete vm.userData.createDate;
             delete vm.userData.updateDate;
             delete vm.userData.auditDate;

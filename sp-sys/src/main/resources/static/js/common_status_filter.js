@@ -116,16 +116,13 @@ Vue.filter('projectKindFilter', function(val) {
 // 状态过滤-zyz
 Vue.filter('demandKindFilter', function(val) {
 	if(val == undefined) return '';
-	for (item in demandKindDic){
-		if (item.value == val) {
-			return item.label;
-		}
-	}
+	return demandKindDic.filter((item)=>{
+        return item.value == val
+    })[0].label;
 });
 // 状态过滤-zyz
 Vue.filter('noticeKindFilter', function(val) {
 	if(val == undefined) return '';
-
 	return noticeKindDic.filter((item)=>{
         return item.value == val
     })[0].label;
@@ -133,7 +130,6 @@ Vue.filter('noticeKindFilter', function(val) {
 
 Vue.filter('docKindFilter', function(val) {
 	if(val == undefined) return '';
-
 	return docKindDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
@@ -141,7 +137,6 @@ Vue.filter('docKindFilter', function(val) {
 
 Vue.filter('projectInfoKindFilter', function(val) {
 	if(val == undefined) return '';
-
 	return projectInfoKindDic.filter((item)=>{
         return item.value == val
     })[0].label;
@@ -149,7 +144,6 @@ Vue.filter('projectInfoKindFilter', function(val) {
 
 Vue.filter('commonStatusFilter', function(val) {
 	if(val == undefined) return '';
-
 	return commonStatusterDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
@@ -157,7 +151,6 @@ Vue.filter('commonStatusFilter', function(val) {
 
 Vue.filter('commonYesNoFilter', function(val) {
 	if(val == undefined) return '';
-
 	return commonYesNoDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
@@ -165,7 +158,6 @@ Vue.filter('commonYesNoFilter', function(val) {
 
 Vue.filter('sexFilter', function(val) {
 	if(val == undefined) return '';
-
 	return sexDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
@@ -173,7 +165,6 @@ Vue.filter('sexFilter', function(val) {
 
 Vue.filter('sexRespectFilter', function(val) {
 	if(val == undefined) return '';
-
 	return sexRespectDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
@@ -181,7 +172,6 @@ Vue.filter('sexRespectFilter', function(val) {
 
 Vue.filter('projectStatusFilter', function(val) {
 	if(val == undefined) return '';
-
 	return projectStatusDic.filter((item)=>{
 		return item.value == val
 	})[0].label;
@@ -189,7 +179,6 @@ Vue.filter('projectStatusFilter', function(val) {
 
 Vue.filter('moneyLevelFilter', function(val) {
 	if(val == undefined) return '';
-
 	return moneyLevelDic.filter((item)=>{
 		return item.value == val
 	})[0].label;

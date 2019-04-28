@@ -58,7 +58,11 @@
                 </thead>
                 <tbody>
                 <tr v-for="(demand,index) in list" class="text-center">
-                    <td>{{demand.title}}</td>
+                    <td>
+                    	<a href="#" @click="doAudit(demand)">
+	                    	{{demand.title}}
+                    	</a>
+                    </td>
                     <td>{{demand.person}}</td>
                     <td>{{demand.demandKind | demandKindFilter}}</td>
                     <td>{{ ('' + demand.demandStatus) | projectStatusFilter}}</td>

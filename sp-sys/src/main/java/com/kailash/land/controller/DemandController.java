@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.PageInfo;
-import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.Demand;
 import com.kailash.land.service.DemandService;
@@ -124,6 +123,7 @@ public class DemandController extends AbstractController {
 	 * @param demand
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@PostMapping(value = "/demandAudit")
 	public Result demandAudit(Demand demand) {

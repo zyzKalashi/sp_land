@@ -81,7 +81,8 @@
 			AND create_date <![CDATA[ <= ]]> #{endDate}
 		</if>
 		ORDER BY
-		pkid DESC
+			pkid DESC,
+			demand_status DESC
 	</select>
 	
 </mapper>
