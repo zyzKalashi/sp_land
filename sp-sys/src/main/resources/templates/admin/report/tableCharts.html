@@ -5,6 +5,32 @@
 
 <body>
 	<div id="vueApp" v-cloak>
+        <div class="form-group form-inline">
+            <label class="col-sm-2" for="projectKind">流转方式</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="projectKind" v-model="queryData.projectKind" placeholder="请选择流转方式" style="width: 90%;" >
+                    <option value="0">请选择</option>
+                    <option v-for="item in projectKindDic" :value="item.value">{{item.label}}</option>
+                </select>
+            </div>
+            <label class="col-sm-2" for="startDate">开始时间</label>
+            <div class="col-sm-2">
+                <input class="form-control" id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
+            </div>
+            <label class="col-sm-2" for="endDate">终止时间</label>
+            <div class="col-sm-2">
+                <input class="form-control" id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4" style="text-align: right;">
+                <div style="width: 95%;">
+                    <button type="button" @click="doQuery('1')" class="btn btn-sm btn-info">查询</button>
+                    <button type="button" @click="doQuery('1')" class="btn btn-sm btn-danger">导出</button>
+                </div>
+            </div>
+        </div>
 	    <div class="row mx-auto" style="margin-top: 10px;">
 	        <div class="col-12" style="min-height: 300px">
 	            <table class="table table-hover table-bordered table-sm">
@@ -27,8 +53,8 @@
 	                </thead>
 	                <tbody>
 	                <tr v-for="(item, index) in list" class="text-center">
-	                    <td></td>
-	                    <td></td>
+	                    <td>{{item.projectNo}}</td>
+	                    <td>{{item.projectName}}</td>
 	                    <td></td>
 	                    <td></td>
 	                    <td></td>
@@ -58,6 +84,7 @@
         	queryData: {
 				pageNo: 1,
 				pageSize: 10,
+				projectKind: 0,
 			},
             list: [],
         },
@@ -69,10 +96,29 @@
         		hzToolObj.getdomInit("/project/tableData", this.queryData, function(result){
 					vm.list = result.pageInfo.list;
 				});
+        	},
+        	doQuery: function(){
+        		
         	}
         },
 	});
-	
+	$(function () {
+        jeDate("#startDate",{
+            theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
+            isinitVal:false,
+            onClose:true,
+            isTime:true,
+            format: 'YYYY-MM-DD'
+        });
+
+        jeDate("#endDate",{
+            theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
+            isinitVal:false,
+            onClose:true,
+            isTime:true,
+            format: 'YYYY-MM-DD'
+        });
+    })
 	
 	</script>
 </body>

@@ -14,6 +14,6 @@ public interface ProjectService extends IService<Project> {
 
 	Integer countByAreaCode(Integer id);
 
-	PageInfo<Map<String, Object>> tableData(Map<String, Object> param);
+	PageInfo<Map<String, Object>> tableData(ProjectFiter param);
 
 }

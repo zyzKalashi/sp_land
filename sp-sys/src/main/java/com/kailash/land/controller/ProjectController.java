@@ -296,7 +296,7 @@ public class ProjectController extends AbstractController {
 	}
 
 	@RequestMapping(value = "tableData", method = RequestMethod.POST)
-	public Result tableData(Map<String, Object> param) {
+	public Result tableData(ProjectFiter param) {
 
 		PageInfo<Map<String, Object>> mapPageInfo = this.projectService.tableData(param);
 

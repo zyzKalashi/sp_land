@@ -202,13 +202,18 @@
                     // 修改
                     if(!userId){
                         url = "/user/users_register";
-                        this.user.password = hex_md5(this.user.password);
                     } else {
                         url = "/user/users_modify";
-                        this.user.userId = userId;
-                        if(this.user.password){
-                        	this.user.password = hex_md5(this.user.password);
-                        }
+                    }
+                    if(vm.changePassWordFlag){
+						if(this.user.password){
+							this.user.password = hex_md5(this.user.password);
+                         } else {
+                        	  layer.msg("请输入密码！");
+                        	  return false;
+                         }
+                    } else {
+                    	  delete this.user.password;
                     }
                     delete this.user.createDate;
                     delete this.user.updateDate;

@@ -205,7 +205,7 @@
     </select>
     
     
-    <select id="tableData" parameterType="Map" resultType="Map">
+    <select id="tableData" resultType="Map">
     	SELECT
     		P.pkid AS projectId,
     		P.project_name AS projectName,

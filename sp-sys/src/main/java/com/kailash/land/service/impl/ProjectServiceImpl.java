@@ -42,9 +42,8 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 	}
 
 	@Override
-	public PageInfo<Map<String, Object>> tableData(Map<String, Object> param) {
-		PageHelper.startPage(Integer.parseInt(param.get("pageNo").toString()),
-				Integer.parseInt(param.get("pageSize").toString()));
+	public PageInfo<Map<String, Object>> tableData(ProjectFiter param) {
+		PageHelper.startPage(param.getPageNo(),param.getPageSize());
 		
 		List<Map<String, Object>> result = this.projectMapper.tableData(param);
 		
