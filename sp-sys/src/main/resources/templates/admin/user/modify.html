@@ -126,7 +126,6 @@
         },
         mounted : function() {
         	this.initArea();
-			this.initUser();
         },
         methods : {
         	initUser: function(){
@@ -157,6 +156,7 @@
         	initArea: function(){
         		hzToolObj.postRpc("/area/initArea", {}).done(function(result) {
         			vm.areaDic = result.area;
+        			vm.initUser();
         		});
         	},
             checkNull: function () {

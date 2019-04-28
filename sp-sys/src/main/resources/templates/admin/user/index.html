@@ -67,7 +67,7 @@
                     <td>{{user.email}}</td>
                     <td>{{user.mobile}}</td>
                     <td v-if="form.fromPage == 'admin'">{{roleInfos[user.roleId]}}</td>
-                    <td v-if="form.fromPage == 'common'">{{user.userStatus | commonStatusFilter}}</td>
+                    <td v-if="form.fromPage == 'common'">{{user.userStatus | userStatusFilter}}</td>
                     <td class="inline">
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(user)" v-if="form.fromPage == 'common' ">
                         	<span v-if="user.userStatus == 1" >查看</span>

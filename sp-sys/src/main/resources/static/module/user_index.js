@@ -32,7 +32,6 @@ var vm = new Vue({
 		if(!this.userData.userId){
 			location.href = "../html/login";
 		} 
-		this.initUser();
 		this.initProjectList();
 		this.initUploadPlugin("userPic");
 	},
@@ -293,11 +292,8 @@ var vm = new Vue({
 		},
 		initArea: function(){
 			$.post("/area/initArea", {}, function (result) {
-                if (result.code == 0) {
-                	vm.areaDic = result.area;
-                } else {
-                    layer.msg(result.msg);
-                }
+				vm.areaDic = result.area;
+				vm.initUser();
             });
 		},
 		initUploadPlugin: function(id) {
