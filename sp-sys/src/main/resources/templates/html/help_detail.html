@@ -26,6 +26,7 @@
 				<div class="main1 clearfix">
 					<h4 class="mt15">{{ docData.title }}</h4>
 					<div v-html="docData.docText">{{ docData.docText }}</div>
+					<a class="btn btn-sm btn-default" @click="download(docData.docUrl)" v-show="docData.docUrl" style="background:#93590d; color: #ffff; width: 80px;">下载</a>
 				</div>
 			</div>
 
@@ -93,6 +94,9 @@
 					},
 					goDetail: function(id){
 						window.location.href="../html/help_detail?docId=" + id;
+					},
+					download: function(url){
+						window.location.href = "/file/downFile?filePath=" + url;
 					},
 				},
 			});
