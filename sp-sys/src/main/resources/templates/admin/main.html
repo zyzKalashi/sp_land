@@ -75,7 +75,7 @@
 		</div>
 		<div class="col-lg-9 col-md-9 col-sm-8 column">
 			<div class="clearfix mt10 main6r">
-				<iframe name="myiframe" id="myrame" marginheight="20px" frameborder="0" align="left" width="100%" style="overflow: auto;" scrolling="no"></iframe>
+				<iframe name="myiframe" id="myrame" marginheight="20px" frameborder="0" align="left" width="100%" style="overflow: auto;" @load="setJumpPageHeight" scrolling="no"></iframe>
 			</div>
 		</div>
 		<span hidden="true" id="baseUserId"><shiro:principal property='userId'/></span>
@@ -132,22 +132,23 @@
 				});
 			},
 			setJumpPageHeight: function(){
-				var iframeid = document.getElementById("myrame"); //iframe id 
-				iframeid.height = "100px";//先给一个够小的初值,然后再长高. 
-				if (document.getElementById) {
-					if (iframeid && !window.opera) {
-						if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight) {
-							iframeid.height = iframeid.contentDocument.body.offsetHeight;
-							if(iframeid.height == "60"){
-								iframeid.height = "900";
-							}
-							iframeid.height = parseInt(iframeid.height) + 100 + "";
-							//iframeid.height = iframeid.height + "px";
-						} else if (iframeid.Document && iframeid.Document.body.scrollHeight) {
-							iframeid.height = iframeid.Document.body.scrollHeight;
-						}
-					}
-				}
+				var iframeid = document.getElementById("myrame"); //iframe id
+				iframeid.height = iframeid.contentWindow.document.documentElement.scrollHeight + 20;
+				// iframeid.height = "100px";//先给一个够小的初值,然后再长高.
+				// if (document.getElementById) {
+				// 	if (iframeid && !window.opera) {
+				// 		if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight) {
+				// 			iframeid.height = iframeid.contentDocument.body.offsetHeight;
+				// 			if(iframeid.height == "60"){
+				// 				iframeid.height = "900";
+				// 			}
+				// 			iframeid.height = parseInt(iframeid.height) + 100 + "";
+				// 			//iframeid.height = iframeid.height + "px";
+				// 		} else if (iframeid.Document && iframeid.Document.body.scrollHeight) {
+				// 			iframeid.height = iframeid.Document.body.scrollHeight;
+				// 		}
+				// 	}
+				// }
 			},
 			selectParent: function(menuId){
 				var _this = $("#first_" + menuId);
@@ -165,9 +166,8 @@
 
 			},
 			jumpPage: function(menu){
-				window.addEventListener('resize', this.setJumpPageHeight);
-				this.setJumpPageHeight();
 				$("#myrame").attr("src",menu.url);
+				window.addEventListener('resize', this.setJumpPageHeight);
 			},
 			toProject: function(type){
 				this.selectParent(4);
