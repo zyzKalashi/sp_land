@@ -73,7 +73,7 @@
                     <td>{{project.auditDateStr}}</td>
                     <td>{{project.createDateStr}}</td>
                     <td class="inline">
-                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doUpload(project)">上传</button>
+                        <!-- <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doUpload(project)">上传</button> -->
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(project)" v-if="project.projectStatus == 2">审核</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doDelete(project, 4)" v-if="project.projectStatus == 1">结束</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(project, 0)">删除</button>
@@ -232,9 +232,9 @@
                         if(3 == buttons.length) {
                             var iframeWin = window[layero.find('iframe')[0]['name']];
                             iframeWin.vm.audit('1');
-                        } else {
-                            layer.close(layer.index);
-                        }
+                        } 
+                        layer.close(layer.index);
+                        vm.doUpload(project);
                     },
                     btn2: function(index, layero){
                     	vm.doRefuse(project);

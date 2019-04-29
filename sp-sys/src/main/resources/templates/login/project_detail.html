@@ -278,49 +278,6 @@
 						</table>
 					</div>
 				</div>
-
-				<div class="main_r clear" v-if="loginUserId">
-					<h3 class="col_Name c4">上传资料信息</h3>
-				</div>
-				<div class="main_w" v-if="loginUserId">
-					<div class="fl pinka_left">
-						<div class="sel_attrs">
-							<table class="attrs_table">
-								<tr v-if="picList1 && picList1.length > 0">
-									<td class="t_prop"><strong>身份证：</strong></td>
-									<td colspan="3" class="t_prop_b">
-										<ul>
-											<li v-for="item in picList1" style="padding: 0px 3px 0px 3px;">
-												<img alt="" :src="item.picUrl" style="width: 100px;height: 100px; border-radius: 3px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;">
-											</li>
-										</ul>
-									</td>
-								</tr>
-								<tr v-if="picList2 && picList2.length > 0">
-									<td class="t_prop"><strong>产权证：</strong></td>
-									<td colspan="3" class="t_prop_b">
-										<ul>
-											<li v-for="item in picList2" style="padding: 0px 3px 0px 3px;">
-												<img alt="" :src="item.picUrl" style="width: 100px;height: 100px; border-radius: 3px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;">
-											</li>
-										</ul>
-									</td>
-								</tr>
-								<tr v-if="picList3 && picList3.length > 0">
-									<td class="t_prop"><strong>合同书：</strong></td>
-									<td colspan="3" class="t_prop_b">
-										<ul>
-											<li v-for="item in picList3" style="padding: 0px 3px 0px 3px;">
-												<img alt="" :src="item.picUrl" style="width: 100px;height: 100px; border-radius: 3px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;">
-											</li>
-										</ul>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-				
 			</div>
 			</div>
 
