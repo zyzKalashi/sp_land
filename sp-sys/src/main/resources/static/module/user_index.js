@@ -151,11 +151,11 @@ var vm = new Vue({
 		},
 		goProDetail: function(id){
 			storage.setItem("projectQueryData",JSON.stringify(vm.queryData_pro));
-			window.location.href="../html/project_detail?projectId=" + id;
+			window.location.href="../login/project_detail?projectId=" + id;
 		},
 		goDemDetail: function(id){
 			storage.setItem("demandQueryData",JSON.stringify(vm.queryData_dem));
-			window.location.href="../html/demand_detail?demandId=" + id;
+			window.location.href="../login/demand_detail?demandId=" + id;
 		},
 		openWin: function(flag){
 			if(flag == 'win_baseInfo'){
