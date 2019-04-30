@@ -3,12 +3,12 @@ var vm = new Vue({
 	data : {
 		queryData_pro: {
 			createUser: "",
-			pageSize: 8,
+			pageSize: 5,
 			pageNo: 1,
 		},
 		queryData_dem: {
 			createUser: "",
-			pageSize: 6,
+			pageSize: 5,
 			pageNo: 1,
 		},
 		userData: {},
@@ -24,6 +24,8 @@ var vm = new Vue({
 			win_password: false,
 			win_phone: false,
 			win_email: false,
+			win_project: true,
+			win_demand: false,
 		},
 	},
 	mounted : function() {
@@ -36,6 +38,17 @@ var vm = new Vue({
 		this.initUploadPlugin("userPic");
 	},
 	methods : {
+		changeTable: function(type){
+			if(type == "project"){
+				vm.initProjectList();
+				vm.winFlag.win_project = true;
+				vm.winFlag.win_demand = false;
+			} else if (type == "demand") {
+				vm.initDemandList();
+				vm.winFlag.win_project = false;
+				vm.winFlag.win_demand = true;
+			}
+		},
 		initUser: function () {
 			var tUser = new Object();
 			tUser.userId = this.userData.userId;

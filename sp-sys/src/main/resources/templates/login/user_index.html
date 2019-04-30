@@ -172,17 +172,17 @@
 									<div id="first" style="width: 100%;">
 										<ul class="clearfix nav nav-tabs" style="width: 100%;">
 											<li class="nav-item">
-												<a class="active nav-link" href="#xmli" role="tab" data-toggle="tab">我发布的项目信息列表</a>
+												<a class="active nav-link" @click="changeTable('project')" href="#xmli" role="tab" data-toggle="tab" >我发布的项目信息列表</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" href="#xqli" role="tab" data-toggle="tab" @click="initDemandList()">我发布的需求信息列表</a>
+												<a class="nav-link" @click="changeTable('demand')" href="#xqli" role="tab" data-toggle="tab" >我发布的需求信息列表</a>
 											</li>
 											<li class="fr" style="margin-left: 28%;">
 												<a href="../login/project_add.html">发布新信息</a>
 											</li>
 										</ul>
 										<div class="tab-content" style="height: 100%;" >
-											<div class="tab-pane active" id="xmli">
+											<div class="tab-pane active" id="xmli" v-show="winFlag.win_project">
 												<div class="gerenxx clearl mb20">
 													<div class="gerendetail">
 														<table cellpadding="0" cellspacing="0" border="0">
@@ -208,8 +208,11 @@
 														</table>
 													</div>
 												</div>
+												<div class="page mt10 mb20 " style=" margin-top: 20px;" v-if="winFlag.win_project">
+													<ul id='pagination'></ul>
+												</div>
 											</div>
-											<div class="tab-pane" id="xqli">
+											<div class="tab-pane" id="xqli" v-show="winFlag.win_demand">
 												<div class="gerenxx clearl mb20">
 													<div class="gerendetail">
 														<table cellpadding="0" cellspacing="0" border="0">
@@ -234,11 +237,12 @@
 														</table>
 													</div>
 												</div>
+												<div class="page mt10 mb20 " style=" margin-top: 20px;" v-if="winFlag.win_demand">
+													<ul id='pagination'></ul>
+												</div>
 											</div>
 										</div>
-										<div class="page mt10 mb20 " style="display: block; margin-top: 20px;">
-											<ul id='pagination'></ul>
-										</div>
+										
 									</div>
 								</div>
 							</div>
@@ -288,27 +292,27 @@
 					                    <input type="text" placeholder="请输入身份证号" class="form-control" style="width: 90%;"  v-model="userData.idCardNo" autocomplete="off">
 					                </div>
 					            </div>
-								<div class="openWinDiv" style="margin-top: 20px;">身份证照片</div>
-								<div class="row">
+								
+								<div class="control-group form-inline">
 									<div class="col-md-4 offset-md-2 text-center" style="display: block">
 										<div style="display: table; width: auto;margin-left: auto;margin-right: auto;">
-											<span name="picker" id="idCardPic" style="float: left;margin-bottom: 5px;">正面照片</span>
+											<span name="picker" id="idCardPic" style="float: left;margin-bottom: 5px;">身份证正面照片</span>
 										</div>
 										<div style="display: table; width: auto;margin-left: auto;margin-right: auto;">
-											<img style="width: 250px;height: 150px;border: #5bc0de 1px;" alt="" :src="userData.idCardPic">
+											<img style="width: 250px;height: 150px;border: #5bc0de 1px; border-radius: 3px;" alt="" :src="userData.idCardPic">
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div style="display: table; width: auto;margin-left: auto;margin-right: auto;">
-											<span name="picker" id="idCardPicBack" style="float: right;margin-bottom: 5px;">背面照片</span>
+											<span name="picker" id="idCardPicBack" style="float: right;margin-bottom: 5px;">身份证背面照片</span>
 										</div>
 										<div style="display: table; width: auto;margin-left: auto;margin-right: auto;">
-											<img style="width: 250px;height: 150px;border: #5bc0de 1px;" alt="" :src="userData.idCardPicBack">
+											<img style="width: 250px;height: 150px;border: #5bc0de 1px; border-radius: 3px;" alt="" :src="userData.idCardPicBack">
 										</div>
 									</div>
 								</div>
-								<div class="openWinDiv" v-if="userData.userStatus == 2">
-									<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('changeIdCard')">确定</button>
+								<div class="openWinDiv">
+									<button style="background: #6e3e0d; color: #ffff;" @click="modifyUser('changeIdCard')" v-if="userData.userStatus == 2">确定</button>
 									<button style="background: #6e3e0d; color: #ffff;" @click="closeOpenWin">取消</button>
 								</div>
 							</div>
