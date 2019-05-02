@@ -1,5 +1,5 @@
 var myChart = echarts.init(document.getElementById('main'));
-$.post("/admin/getDashBordChart","",function (resp) {
+$.post("/charts/getDashBordChart","",function (resp) {
     var option = {
         tooltip : {
             trigger: 'axis'

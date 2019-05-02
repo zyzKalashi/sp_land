@@ -1,13 +1,22 @@
 package com.kailash.land.service.impl;
 
-import com.kailash.land.mapper.ProjectMapper;
-import com.kailash.land.mapper.UsersMapper;
-import com.kailash.land.service.DashboardService;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.kailash.land.filter.BasePageFilter;
+import com.kailash.land.mapper.ProjectMapper;
+import com.kailash.land.mapper.UsersMapper;
+import com.kailash.land.service.DashboardService;
+import com.kailash.land.util.DateFormatConsts;
+import com.kailash.land.util.DateUtils;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -16,6 +25,14 @@ public class DashboardServiceImpl implements DashboardService {
 
 	@Autowired
 	private ProjectMapper projectMapper;
+
+	static Map<String, String> projectTypes = new HashMap<>();
+	static {
+		projectTypes.put("1", "土地承包");
+		projectTypes.put("2", "林权转让");
+		projectTypes.put("3", "养殖水面");
+		projectTypes.put("4", "四荒承包");
+	}
 
 	@Override
 	public Map<String, Object> getDashboardData() {
@@ -54,71 +71,73 @@ public class DashboardServiceImpl implements DashboardService {
 		return result;
 	}
 
-	@SuppressWarnings("serial")
 	@Override
-	public Map<String, Object> getDashBordChart() {
+	public Map<String, Object> getDashBordChart(BasePageFilter filter) {
 		Map<String, Object> result = new HashMap<>();
-
 		List<Map<String, Object>> series = new ArrayList<>();
-		Set<String> category = new LinkedHashSet<>();
-		Map<String, String> detailMap = new HashMap<>();
+		Map<String, Object> seriesMap;
+		List<String> dates = new ArrayList<String>();
+		List<String> data;
+		if (StringUtils.isEmpty(filter.getStartDate())) {
+			filter.setStartDate(DateUtils.preDayYYMMDD(30));
+		}
+		if (StringUtils.isEmpty(filter.getEndDate())) {
+			filter.setEndDate(DateUtils.format(new Date(), DateFormatConsts.DATE_PATTERN));
+		}
 
-		List<Map<String, String>> projectDetail = projectMapper.projectDetailStatistics();
-		if (null != projectDetail) {
-			for (Map<String, String> row : projectDetail) {
-				String date = row.get("TDATE");
-				String type = row.get("KIND");
-				String total = row.get("TOTAL");
-				if (null != date && null != type) {
-					detailMap.put(date + "-" + type, total);
+		try {
+			dates = DateUtils.everyDate(filter.getStartDate(), filter.getEndDate());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		List<Map<String, String>> projectDetail = projectMapper.projectDetailStatistics(filter);
+		if (projectDetail != null && projectDetail.size() > 0) {
+			for (int i = 1; i <= 4; i++) {
+				seriesMap = new HashMap<>();
+				data = new ArrayList<String>();
+				for (Map<String, String> projectDetailMap : projectDetail) {
+					if (projectDetailMap.get("KIND").equals(i + "")) {
+						for (String date : dates) {
+							data.add(projectDetailMap.get("TDATE").equals(date) ? projectDetailMap.get("TOTAL") : "0");
+						}
+					}
 				}
+				seriesMap.put("name", projectTypes.get(i + ""));
+				seriesMap.put("type", "line");
+				seriesMap.put("data", data);
+				series.add(seriesMap);
 			}
 		}
-		Map<String, String> projectTypes = new HashMap<>();
-		projectTypes.put("1", "土地承包");
-		projectTypes.put("2", "林权转让");
-		projectTypes.put("3", "养殖水面");
-		projectTypes.put("4", "四荒承包");
-
-		Date date = new Date();
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		for (int i = 0; i < 30; i++) {
-			calendar.setTime(date);
-			calendar.add(Calendar.DATE, -(29 - i));
-			category.add(format.format(calendar.getTime()));
-		}
-
-		for (Map.Entry<String, String> entry : projectTypes.entrySet()) {
-			series.add(new HashMap<>() {
-				{
-					this.put("name", entry.getValue());
-					this.put("type", "line");
-					this.put("data", new ArrayList<String>() {
-						{
-							Date date = new Date();
-							Calendar calendar = Calendar.getInstance();
-							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-							for (int i = 0; i < 30; i++) {
-								calendar.setTime(date);
-								calendar.add(Calendar.DATE, -(29 - i));
-								String key = format.format(calendar.getTime()) + "-" + entry.getKey();
-								if (null != detailMap.get(key)) {
-									this.add(detailMap.get(key));
-								} else {
-									this.add("0");
-								}
-							}
-						}
-					});
-				}
-			});
-		}
-
 		result.put("series", series);
-		result.put("category", category);
-
+		result.put("category", dates);
 		return result;
 	}
+
+	@Override
+	public Map<String, Object> getChartsBarData(BasePageFilter filter) {
+		if (StringUtils.isEmpty(filter.getStartDate())) {
+			filter.setStartDate(DateUtils.preDayYYMMDD(30));
+		}
+		if (StringUtils.isEmpty(filter.getEndDate())) {
+			filter.setEndDate(DateUtils.format(new Date(), DateFormatConsts.DATE_PATTERN));
+		}
+		Map<String, Object> seriesMap = new HashMap<String, Object>();
+		List<String> data = new ArrayList<String>();
+		List<Map<String, Object>> datas = this.projectMapper.getChartsBarData(filter);
+		String projectNum = "0";
+		for (int i = 1; i <= projectTypes.size(); i++) {
+			if (datas != null && datas.size() > 0) {
+				for (Map<String, Object> map : datas) {
+					if (map.get("projectKind").toString().equals(i + "")) {
+						projectNum = map.get("projectNum").toString();
+					}
+				}
+			}
+			data.add(projectNum);
+			projectNum = "0";
+		}
+		seriesMap.put("data", data);
+		return seriesMap;
+	}
+
 }

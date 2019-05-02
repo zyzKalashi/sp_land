@@ -44,6 +44,8 @@ public class MenuEntity extends Model<MenuEntity> implements Serializable {
 	private String classStr;
 
 	private List<MenuEntity> seconds;
+	
+	private List<RoleEntity> role;
 
 	@Override
 	protected Serializable pkVal() {

@@ -70,13 +70,15 @@
         </div>
     </div>
     <hr>
-    <div class="row inline" style="width: 95%;margin-top: 10px;">
-        <div class="col-sm-6">
+    <div class="row inline" style="width: 95%;margin-top: 10px;" v-if="user.idCardPic || user.idCardPicBack">
+        <div class="col-sm-6" v-if="user.idCardPic">
         	<img class="rounded ml10 mb15" width="100%" height='auto' style="width: 200px;height: 100px; border-radius: 5px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666; float: right;" :src="user.idCardPic">
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6" v-else></div>
+        <div class="col-sm-6" v-if="user.idCardPicBack">
         	<img class="rounded ml10 mb15" width="100%" height='auto' style="width: 200px;height: 100px; border-radius: 5px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666; float: left;" :src="user.idCardPicBack">
         </div>
+         <div class="col-sm-6" v-else></div>
     </div>
     
     

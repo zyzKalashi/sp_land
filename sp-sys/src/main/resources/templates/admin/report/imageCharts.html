@@ -3,18 +3,199 @@
 
 <head th:include="common :: adminHeader"></head>
 
+<!-- <link rel="shortcut icon" th:href="@{/static/plugin/echarts/favicon.png}">
+<link rel="stylesheet" th:href="@{/static/plugin/echarts/favicon.png}">
+<link rel="stylesheet" href="@{/static/plugin/echarts/font-awesome.min.css}" >
+<link rel="stylesheet" href="@{/static/plugin/echarts/carousel.css}" >
+<link rel="stylesheet" href="@{/static/plugin/echarts/echartsHome.css}">
+<link rel="stylesheet" href="@{/static/plugin/echarts/codemirror.css}">
+<link rel="stylesheet" href="@{/static/plugin/echarts/monokai.css}"> -->
 
 <body>
-	<div class="row form-inline" style="width: 95%;margin-top: 30px;">
-        <div class="col-sm-11 offset-sm-1" style="background-color: #F2F2F2;">
-            <div id="main" style="height: 400px;width: 100%;"></div>
-        </div>
-    </div>
-    <script th:src="@{/static/js/echarts.min.js}"></script>
-	<script th:src="@{/static/module/index_chart.js}"></script>
+	<div id="app" v-cloak>
+		<div class="form-group form-inline" style="margin-top: 30px;">
+	        <label class="col-sm-2" for="startDate">开始时间</label>
+	        <div class="col-sm-2">
+	            <input class="form-control" id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
+	        </div>
+	        <label class="col-sm-2" for="endDate">终止时间</label>
+	        <div class="col-sm-2">
+	            <input class="form-control" id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
+	        </div>
+	        <div class="col-sm-4" style="text-align: right;">
+	            <div style="width: 95%;">
+	                <button type="button" @click="doQuery" class="btn btn-sm btn-info">查询</button>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="row form-inline"style="width: 95%; margin-top: 30px;">
+			<div class="col-sm-6" style="background-color: #F2F2F2;">
+				<div id="charts_line" style="height: 400px; width: 100%;"></div>
+			</div>
+			<div class="col-sm-6" style="background-color: #F2F2F2;">
+				<div id="charts_bar" style="height: 400px; width: 100%;"></div>
+			</div>
+    	</div>
+	</div>
+	<script th:src="@{/static/js/echarts.min.js}"></script>
+	<script th:src="@{/static/plugin/echarts/echartsConfig.js}"></script>
+	<script>
+	 	var vm = new Vue({
+	        el: "#app",
+	        data: {
+	        	queryData: {
+	                projectKind: 0,
+	            },
+	            series: {},
+	            category: {},
+	        },
+	        mounted : function() {
+	            this.doQuery();
+	        },
+	        methods:{
+	        	loadbar: function(result){
+	        		console.log(result.series);
+	        		var bar = echarts.init(document.getElementById("charts_bar"));
+	        		barOption = {
+        			    title : {
+        			        text: '成交数量',
+        			    },
+        			    tooltip : {
+        			        trigger: 'item'
+        			    },
+        			    toolbox: {
+        			        show : true,
+        			        feature : {
+        			            mark : {show: true},
+        			            dataView : {show: true, readOnly: false},
+        			            magicType : {show: true, type: ['line', 'bar']},
+        			            restore : {show: true},
+        			            saveAsImage : {show: true}
+        			        }
+        			    },
+        			    calculable : true,
+        			    grid: {
+        			        borderWidth: 0,
+        			        y: 80,
+        			        y2: 60
+        			    },
+        			    xAxis : [
+        			        {
+        			        	type: 'category',
+        			            show: false,
+        			            data:['土地承包','林权转让','养殖水面','四荒承包']
+        			        }
+        			    ],
+        			    yAxis : [
+        			        {
+        			        	type: 'value',
+        			            show: false
+        			        }
+        			    ],
+        			    series : [{
+        			    	type: 'bar',
+       			            itemStyle: {
+       			                normal: {
+       			                    color: function(params) {
+       			                        var colorList = [
+       			                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+       			                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+       			                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+       			                        ];
+       			                        return colorList[params.dataIndex]
+       			                    },
+       			                    label: {
+       			                        show: true,
+       			                        position: 'top',
+       			                        formatter: '{b}\n{c}'
+       			                    }
+       			                }
+       			            },
+       			         	data: result.data,
+        			    }],
+        			};
+	        		bar.setOption(barOption);
+	        	},
+				loadLine: function (result) {
+					var line = echarts.init(document.getElementById("charts_line"));
+					lineOption = {
+						title: {
+							text: '成交金额',
+							x: 'left'
+						},
+						toolbox: {
+							show: true,
+					        feature: {
+					            dataZoom: {
+					                yAxisIndex: 'none'
+					            },
+					            dataView: {readOnly: false},
+					            magicType: {type: ['line', 'bar']},
+					            restore: {},
+					            saveAsImage: {}
+					        }
+					    },
+						tooltip : {
+				            trigger: 'axis'
+				        },
+				        legend: {
+				        	x: 'right',
+				            data:['土地承包','林权转让','养殖水面','四荒承包']
+				        },
+				        calculable : true,
+						grid:{
+							x:100,
+						},
+				        xAxis : [
+				            {
+				                type : 'category',
+				                boundaryGap : false,
+				                data : result.category
+				            }
+				        ],
+				        yAxis : [
+				            {
+				                type : 'value',
+				                axisLabel : {
+				                    formatter: '{value} 万元'
+				                }
+				            }
+				        ],
+				        series : result.series	
+					};
+					line.setOption(lineOption);
+				},
+	        	doQuery: function(){
+	        		if($("#startDate").val()){
+	                    this.queryData.startDate = $("#startDate").val();
+	                }
+	                if($("#endDate").val()){
+	                	this.queryData.endDate = $("#endDate").val();
+	                }
+	        		hzToolObj.postRpc("/charts/getDashBordChart", this.queryData).done(function(r) {	
+	        			vm.loadLine(r);
+	        		});
+	        		hzToolObj.postRpc("/charts/barData", this.queryData).done(function(r) {	
+	        			vm.loadbar(r);
+	        		});
+	        	},
+	        },
+	 	 });  
+		 jeDate("#startDate",{
+	         theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
+	         isinitVal:false,
+	         onClose:true,
+	         isTime:true,
+	         format: 'YYYY-MM-DD'
+	     });
 	
-	
-	
-	
+	     jeDate("#endDate",{
+	         theme:{ bgcolor:"#00A1CB",color:"#ffffff", pnColor:"#00CCFF"},
+	         isinitVal:false,
+	         onClose:true,
+	         isTime:true,
+	         format: 'YYYY-MM-DD'
+	     });
+	</script>
 </body>
 </html>

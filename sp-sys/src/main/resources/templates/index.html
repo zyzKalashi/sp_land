@@ -348,7 +348,7 @@
 				},
 				goNotDetail: function(noticeId){
 					storage.setItem("noticeQueryData",JSON.stringify({pageNo : 1,pageSize : 9, queryPage:"index"}));
-					window.location.href="../login/notice_detail?noticeId=" + noticeId;
+					window.location.href="../html/notice_detail?noticeId=" + noticeId;
 				},
 				initProjectList : function() {
 					hzToolObj.getdomInit("/project/simpleList", {pageNo : 1,pageSize : 9,projectStatus: 14}, function(result){
@@ -384,7 +384,7 @@
 			
 		});
 		var myChart = echarts.init(document.getElementById('main'));
-		$.post("/admin/getDashBordChart","",function (resp) {
+		$.post("/charts/getDashBordChart","",function (resp) {
 		    var option = {
 		        tooltip : {
 		            trigger: 'axis'

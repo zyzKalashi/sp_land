@@ -1,23 +1,14 @@
 package com.kailash.land.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.kailash.land.service.DashboardService;
-import com.kailash.land.util.Result;
 
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
-
-	@Autowired
-	private DashboardService dashboardService;
 
 	/**
 	 * 仪表盘页面跳转
@@ -29,38 +20,6 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/index");
 		return mav;
-	}
-
-	/**
-	 * 获取仪表盘数据
-	 * 
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping(value = "/getDashBordData")
-	public Result getDashBordData() {
-		try {
-			return Result.ok(dashboardService.getDashboardData());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Result.error("获取初始化数据失败");
-		}
-	}
-
-	/**
-	 * 获取仪表盘数据
-	 * 
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping(value = "/getDashBordChart")
-	public Result getDashBordChart() {
-		try {
-			return Result.ok(dashboardService.getDashBordChart());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Result.error("获取初始化数据失败");
-		}
 	}
 
 	/**
@@ -82,10 +41,11 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "/notice/{page}", method = RequestMethod.GET)
-	public ModelAndView toNoticePage(@PathVariable("page") String page, String noticeId) {
+	public ModelAndView toNoticePage(@PathVariable("page") String page, String noticeId, String noticeKind) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/notice/" + page);
 		mav.addObject("noticeId", noticeId);
+		mav.addObject("noticeKind", noticeKind);
 		return mav;
 	}
 

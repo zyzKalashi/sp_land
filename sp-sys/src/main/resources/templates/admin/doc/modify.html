@@ -136,25 +136,6 @@
                 .catch( error => {
                     console.error( error );
                 } );
-            WebUploader.create({
-                auto: true,
-                swf: '/static/plugin/webuploader/Uploader.swf',
-                server: '/file/upload',
-                pick: '#picker',
-                resize: false,
-                formData: {
-                    fileKind: 2,
-                }
-            }).on("uploadSuccess",function(file, resp){
-                if(0 == resp.code){
-                    $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
-                    _this.form.docUrl = resp.url;
-                    this.reset();
-                } else {
-                    alert(resp.msg);
-                }
-            });
-
             if(docId){
                 $.post("/doc/queryDetail?docId=" + docId, "", function(resp){
                     if(0 == resp.code){
@@ -232,6 +213,39 @@
                 return false;
             }
         }
+    });
+    $(function(){
+    	uploader =  WebUploader.create({
+            auto: true,
+            swf: '/static/plugin/webuploader/Uploader.swf',
+            server: '/file/upload',
+            pick: '#picker',
+            resize: false,
+            fileSizeLimit: 10*1024*1024,//限制上传所有文件大小
+            fileSingleSizeLimit: 10*1024*1024,//限制上传单个文件大小
+            formData: {
+                fileKind: 2,
+            }
+        });
+        uploader.on("uploadSuccess",function(file, resp){
+            if(0 == resp.code){
+                $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
+                _this.form.docUrl = resp.url;
+                this.reset();
+            } else {
+                alert(resp.msg);
+            }
+        });
+        uploader.on("error", function (type) {
+            if (type == "Q_TYPE_DENIED") {
+                layer.msg("请上传JPG、PNG、GIF、BMP格式文件");
+            } else if (type == "Q_EXCEED_SIZE_LIMIT") {
+                layer.msg("文件大小不能超过10M");
+            }else {
+                layer.msg("上传出错！请检查后重新上传！错误代码"+type);
+            }
+
+        });
     });
 </script>
 </html>

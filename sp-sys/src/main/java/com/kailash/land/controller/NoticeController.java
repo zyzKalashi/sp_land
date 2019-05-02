@@ -18,22 +18,6 @@ public class NoticeController extends AbstractController {
 	@Autowired
 	private NoticeInfoService noticeInfoService;
 
-//	@RequestMapping(value = "notice_add", method = RequestMethod.POST)
-//	public Result noticeAdd(NoticeInfo noticeInfo) {
-//		try {
-//			noticeInfo.setCreateUser(getUserId());
-//			noticeInfo.setUpdateUser(getUserId());
-//			noticeInfo.setCreateDate(DateUtils.parse(noticeInfo.getCreateDateStr(), "yyyy年MM月dd日"));
-//			noticeInfoService.instertNoticeInfo(noticeInfo);
-//			Map m = new HashMap();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return Result.error();
-//		}
-//		return Result.ok();
-//	}
-
 	@RequestMapping(value = "noticeSearch", method = RequestMethod.POST)
 	public Result noticeSearch(NoticeInfo notice) {
 		PageInfo<NoticeInfo> pageInfo = this.noticeInfoService.selectNoticePage(notice);

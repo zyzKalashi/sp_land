@@ -105,7 +105,7 @@
 </body>
 <script th:src="@{/static/module/index_chart.js}"></script>
 <script>
-    $.post("/admin/getDashBordData","",function (resp) {
+    $.post("/charts/getDashBordData","",function (resp) {
         //alert(JSON.stringify(resp.category));
         $("#d1").html(resp.d1);
         $("#d2").html(resp.d2);

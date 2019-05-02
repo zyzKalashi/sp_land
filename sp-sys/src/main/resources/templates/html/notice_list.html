@@ -44,6 +44,7 @@
 						</div>
 					</div>
 				</div>
+				
 			</div>
 			<div class="page mt10 mb20">
 				<ul id='pagination'></ul>
@@ -84,7 +85,7 @@
 	        },
 			goDetail: function(noticeId){
 				storage.setItem("noticeQueryData",JSON.stringify(vm.queryData));
-				window.location.href="../login/notice_detail?noticeId=" + noticeId;
+				window.location.href="../html/notice_detail?noticeId=" + noticeId;
 			},
 			queryList: function(){
 				hzToolObj.getdomInit("/notice/simpleList", vm.queryData, vm.callback);

@@ -180,11 +180,19 @@
 			) AS TOTAL
 		FROM
 			project A, project_around B
-		WHERE
+		<where>
 				A.pkid = B.project_id
 			AND A.project_status = 4
-			AND
-				DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[ <= ]]>   date(A.create_date)
+			<if test="(startDate == null or startDate =='') and (endDate == null or endDate == '')">
+				AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[ <= ]]>   date(A.create_date)
+			</if>
+			<if test="startDate != null and startDate !=''">
+				AND date(A.create_date) <![CDATA[ >= ]]> #{startDate}
+			</if>
+			<if test="endDate != null and endDate !=''">
+				AND date(A.create_date) <![CDATA[ <= ]]> #{endDate}
+			</if>
+		</where>
 		GROUP BY
 			TDATE,KIND
     </select>
@@ -219,10 +227,29 @@
     	LEFT JOIN project_person pp ON pp.project_id = P.pkid
     	<where>
     		P.project_status = 4
-    	
-    	
     	</where>
-    	
+    </select>
+    
+    <select id="getChartsBarData" resultType="Map">
+    	SELECT
+			project_kind AS projectKind,
+			count(1) AS projectNum 
+		FROM 
+			project P
+		<where>
+			P.project_status = 4
+			<if test="(startDate == null or startDate =='') and (endDate == null or endDate == '')">
+				AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) <![CDATA[ <= ]]>   date(P.create_date)
+			</if>
+			<if test="startDate != null and startDate !=''">
+				AND date(P.create_date) <![CDATA[ >= ]]> #{startDate}
+			</if>
+			<if test="endDate != null and endDate !=''">
+				AND date(P.create_date) <![CDATA[ <= ]]> #{endDate}
+			</if>
+		</where> 
+		GROUP BY 
+			P.project_kind
     </select>
     
 </mapper>

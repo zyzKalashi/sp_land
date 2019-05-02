@@ -165,7 +165,7 @@
                     fixed: true, //不固定
                     skin: 'layer-skin',
                     maxmin: true,
-                    content: '/admin/notice/modify?noticeId=' + noticeId + "&noticeKind" + vm.form.noticeKind ,
+                    content: '/admin/notice/modify?noticeId=' + noticeId + "&noticeKind=" + this.form.noticeKind,
                     btn:['保存','关闭'],
                     yes: function(index, layero){
                         var iframeWin = window[layero.find('iframe')[0]['name']];

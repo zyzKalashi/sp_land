@@ -72,8 +72,4 @@ public class ProjectFiter extends BasePageFilter {
 
 	private Integer createUser;
 
-	@TableField(exist = false)
-	private String startDate;
-	@TableField(exist = false)
-	private String endDate;
 }

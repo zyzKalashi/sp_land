@@ -27,4 +27,8 @@ public class BasePageFilter implements Serializable {
 
 	private String orderName;
 
+	private String startDate;
+	
+	private String endDate;
+
 }

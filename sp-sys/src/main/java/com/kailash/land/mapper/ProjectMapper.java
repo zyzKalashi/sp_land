@@ -3,6 +3,7 @@ package com.kailash.land.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.github.pagehelper.Page;
 import com.kailash.land.entity.Project;
+import com.kailash.land.filter.BasePageFilter;
 import com.kailash.land.filter.ProjectFiter;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -34,10 +35,12 @@ public interface ProjectMapper extends BaseMapper<Project> {
 	 * 
 	 * @return
 	 */
-	List<Map<String, String>> projectDetailStatistics();
+	List<Map<String, String>> projectDetailStatistics(BasePageFilter filter);
 
 	Integer countByAreaCode(@Param("areaCode") Integer id);
 
 	List<Map<String, Object>> tableData(ProjectFiter param);
+
+	List<Map<String, Object>> getChartsBarData(BasePageFilter filter);
 
 }

@@ -42,6 +42,7 @@
 </body>
 <script type="text/javascript">
     var noticeId = '[[${noticeId}]]';
+    var noticeKind = '[[${noticeKind}]]';
 
     class UploadAdapter {
         constructor(loader) {
@@ -212,7 +213,7 @@
                         url = "/notice/notice_modify";
                         tNotice.noticeId = noticeId;
                     }
-
+                    tNotice.noticeKind = getUrlParam("noticeKind");
                     $.post(url, tNotice, function (result) {
                         if (result.code == 0) {
                             layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
