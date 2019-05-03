@@ -31,4 +31,6 @@ public interface RoleService extends IService<RoleEntity> {
 	 * @return
 	 */
 	List<RoleEntity> selectAllRoles();
+	
+	List<RoleEntity> queryMenuRole(Long menuId);
 }

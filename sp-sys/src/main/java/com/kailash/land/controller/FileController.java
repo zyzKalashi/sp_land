@@ -1,5 +1,6 @@
-package com.kailash.land.controller;
+ package com.kailash.land.controller;
 
+import com.kailash.land.util.ImgUtil;
 import com.kailash.land.util.Result;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.awt.Color;
 import java.io.*;
 import java.net.URLEncoder;
 
@@ -41,7 +44,7 @@ public class FileController {
 	@PostMapping("/upload")
 	public Result upload(Integer fileKind, MultipartFile file) {
 		Result result = new Result();
-
+		
 		String proKey = UPLOAD_DIRS_PREFIX + fileKind;
 		String dir = env.getProperty(proKey);
 		if (null != dir) {
@@ -57,6 +60,9 @@ public class FileController {
 			}
 			try {
 				file.transferTo(dest);
+				if (fileKind.equals(5) || fileKind.equals(6)) {
+					ImgUtil.markImageByText("四平铁西区农经局土地流转交易平台专用",  uploadDir + fileName, uploadDir + dir + now + oldName.substring(oldName.indexOf(".")), 15, Color.WHITE, "JPG");
+				}
 				result.put("url", "/upload/" + fileName);
 				return result;
 			} catch (IOException e) {

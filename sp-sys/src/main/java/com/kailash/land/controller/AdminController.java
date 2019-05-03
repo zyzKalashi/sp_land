@@ -114,5 +114,16 @@ public class AdminController {
 		mav.addObject("areaId", areaId);
 		return mav;
 	}
+	/**
+	 * 菜单管理
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/menu/{page}", method = RequestMethod.GET)
+	public ModelAndView toMenuPage(@PathVariable("page") String page) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/menu/" + page);
+		return mav;
+	}
 
 }

@@ -47,4 +47,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> impleme
 		return roleMapper.selectList();
 	}
 
+	@Override
+	public List<RoleEntity> queryMenuRole(Long menuId) {
+		return this.roleMapper.queryMenuRole(menuId);
+	}
+
 }
