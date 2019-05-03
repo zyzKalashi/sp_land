@@ -23,7 +23,7 @@ public class ImgUtil {
 	 * @param color        字体颜色
 	 * @param formaName    图片后缀
 	 */
-	public static void markImageByText(String logoText, String srcImgPath, String newImagePath, Integer degree,
+	public static void markImageByText(String srcImgPath, String newImagePath, Integer degree,
 			Color color, String formaName) {
 		InputStream is = null;
 		OutputStream os = null;
@@ -45,11 +45,12 @@ public class ImgUtil {
 			// 5、设置水印文字颜色
 			g.setColor(color);
 			// 6、设置水印文字Font
-			g.setFont(new java.awt.Font("宋体", java.awt.Font.BOLD, buffImg.getHeight() / 5));
+			g.setFont(new java.awt.Font("宋体", java.awt.Font.BOLD, buffImg.getHeight() / 10));
 			// 7、设置水印文字透明度
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.2f));
 			// 8、第一参数->设置的内容，后面两个参数->文字在图片上的坐标位置(x,y)
-			g.drawString(logoText, buffImg.getWidth() / 5, buffImg.getHeight() / 5);
+			g.drawString("四平铁西区农经局", buffImg.getWidth() / 4, buffImg.getHeight() / 4);
+			g.drawString("土地流转交易平台专用", buffImg.getWidth() / 4, buffImg.getHeight() / 2);
 			// 9、释放资源
 			g.dispose();
 			// 10、生成图片

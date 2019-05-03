@@ -60,10 +60,10 @@ public class FileController {
 			}
 			try {
 				file.transferTo(dest);
-				if (fileKind.equals(5) || fileKind.equals(6)) {
-					ImgUtil.markImageByText("四平铁西区农经局土地流转交易平台专用",  uploadDir + fileName, uploadDir + dir + now + oldName.substring(oldName.indexOf(".")), 15, Color.WHITE, "JPG");
-				}
 				result.put("url", "/upload/" + fileName);
+				if (fileKind.equals(6)) {
+					ImgUtil.markImageByText(uploadDir + fileName, uploadDir + fileName, 10, Color.WHITE, "JPG");
+				}
 				return result;
 			} catch (IOException e) {
 				logger.error(e.toString(), e);
