@@ -54,8 +54,8 @@
 									<td class="t_prop"><strong>联 系地址：</strong></td>
 									<td colspan="3" class="pl5">
 										<span v-if="projectData.areaName">{{ projectData.areaName }} - </span>
-										<span v-if="projectData.townName">{{ projectData.townName }} - </span>
-										{{ projectData.address }}
+										<span v-if="projectData.townName">{{ projectData.townName }}</span>
+										<span v-if="projectData.taddress"> - {{ projectData.address }}</span>
 									</td>
 								</tr>
 							</table>
@@ -302,6 +302,7 @@
 		</footer>
 	</div>
 	<div th:replace="common :: js"></div>
+	<script th:src="@{/static/js/watermark.js}"></script>
 	<script type="text/javascript">
 		var vm = new Vue({
 			el : '#app',
@@ -347,6 +348,11 @@
 					$.post("/project/queryDetail", this.projectData, function (result) {
                         if (result.code == 0) {
                            vm.projectData = result.projectData;
+                           if(vm.projectData.projectStatus == 1){
+                        	   waterMark("项目已实名认证，可放心交易");
+                           } else if (vm.projectData.projectStatus == 4) {
+                        	   waterMark("项目已实名认证");
+                           }
                         } else {
                             layer.msg(result.msg);
                         }

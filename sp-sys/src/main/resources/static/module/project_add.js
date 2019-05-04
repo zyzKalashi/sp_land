@@ -22,11 +22,6 @@ var vm = new Vue({
 			mounted : function() {
 				this.initArea();
 				this.projectData.projectId = getUrlParam('projectId');
-				if(this.projectData.projectId){
-					this.initProject();
-				} else {
-					this.initUser();
-				}
 			},
 			methods : {
 				openUpload: function(flag, projectId){
@@ -76,6 +71,11 @@ var vm = new Vue({
 					$.post("/area/initArea", {}, function (result) {
                         if (result.code == 0) {
                         	vm.aeaList = result.area;
+                        	if(vm.projectData.projectId){
+            					vm.initProject();
+            				} else {
+            					vm.initUser();
+            				}
                         } else {
                             layer.msg(result.msg);
                         }

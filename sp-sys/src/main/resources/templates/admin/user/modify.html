@@ -65,7 +65,7 @@
                     </select>
                 </div>
             </div>
-            <div class="control-group form-inline">
+            <div class="control-group form-inline" v-if="user.userId">
              	<div class="controls col-md-8 offset-md-2" style="text-align: center;">
 	            	<input type="button" value="修改密码" @click="changePassWord">
              	</div>
@@ -143,6 +143,8 @@
                              layer.msg("获取用户信息失败！");
                          }
                      });
+                 } else {
+                	 vm.changePassWordFlag = true;
                  }
         	},
         	changePassWord: function(){

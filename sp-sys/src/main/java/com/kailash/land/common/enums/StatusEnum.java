@@ -7,7 +7,10 @@ public enum StatusEnum {
 	COMMON_AUDIT(2, "待审核"), 
 	COMMON_REFUSE(3, "拒绝"), 
 	COMMON_FINISH(4, "结束"), 
-	COMMON_DISABLED(5, "禁用")
+	COMMON_DISABLED(5, "禁用"),
+	COMMON_TOFINISH(6, "待结束"),
+	COMMON_TOTOWN(7, "待乡镇审核"),
+	COMMON_TOAREA(8, "待区域审核")
 	
 	;
 	private Integer id;

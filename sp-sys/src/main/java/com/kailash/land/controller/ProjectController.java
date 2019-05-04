@@ -68,7 +68,7 @@ public class ProjectController extends AbstractController {
 			di.setCreateUser(getUserId().intValue());
 			di.setProjectNo("TX-" + DateUtils.format(new Date(), DateFormatConsts.DATE_PATTERN_MO) + "-100100");
 
-			di.setProjectStatus(StatusEnum.COMMON_AUDIT.getId());
+			di.setProjectStatus(StatusEnum.COMMON_TOTOWN.getId());
 			this.projectService.insertOrUpdate(di);
 
 			ProjectPerson dp = new ProjectPerson(filter);
@@ -98,9 +98,16 @@ public class ProjectController extends AbstractController {
 			Project di = new Project(filter);
 			di.setUpdateUser(getUserId().intValue());
 			di.setUpdateDate(new Date());
-			if (di.getProjectStatus() != null && di.getProjectStatus().equals(StatusEnum.COMMON_NORMAL.getId())) {
+			if (RoleEnum.TOWNADMIN.getRoleId() == getRoleId() ||  RoleEnum.AREAADMIN.getRoleId() == getRoleId()) {
 				di.setAuditUser(getUserId().intValue());
 				di.setAuditDate(new Date());
+				if(di.getProjectStatus() == null) {
+					if ( RoleEnum.AREAADMIN.getRoleId() == getRoleId()){
+						di.setProjectStatus(StatusEnum.COMMON_NORMAL.getId());
+					} else {
+						di.setProjectStatus(StatusEnum.COMMON_TOAREA.getId());
+					}
+				}
 			}
 			EntityWrapper<Project> ewProject = new EntityWrapper<Project>();
 			ewProject.setEntity(new Project());

@@ -2,7 +2,6 @@ package com.kailash.land.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,9 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
 	@Override
 	public int registerUser(Users user) {
-		user.setRoleId(RoleEnum.COMMON.getRoleId());
+		if (user.getRoleId() == null) {
+			user.setRoleId(RoleEnum.COMMON.getRoleId());
+		}
 		this.baseMapper.insert(user);
 		return user.getUserId().intValue();
 	}

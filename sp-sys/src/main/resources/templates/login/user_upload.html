@@ -23,13 +23,7 @@
 						<div class="control-group form-inline">
 							<ul class="clearfix nav nav-tabs" style="width: 100%;">
 								<li class="nav-item">
-									<a class="active nav-link" href="#" role="tab" data-toggle="tab"  @click="openUpload(1)">身份证</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#" role="tab" data-toggle="tab" @click="openUpload(2)">产权证</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#" role="tab" data-toggle="tab" @click="openUpload(3)">合同书</a>
+									<a class="active nav-link" href="#" role="tab" data-toggle="tab" @click="openUpload(3)">合同书</a>
 								</li>
 							</ul>
 						</div>
@@ -67,13 +61,11 @@
 	</div>
 	<div th:include="common :: js"></div>
 	<script type="text/javascript">
-	var projectId = [[${projectId}]];
-	
 	var vm = new Vue({
 	        el : '#app',
 	        data : {
 	        	projectPic: {
-	        		picKind: 1,
+	        		picKind: 3,
 	        		picUrl: "",
 	        	},
 	        	fileLimit: 3,
@@ -116,7 +108,7 @@
 	        		vm.projectPic.picUrl = url;
 	        		$.post("/project/proPicModify", vm.projectPic, function (result) {
                         if (result.code == 0) {
-                        	vm.initpicList();
+                        	console.log(1);
                         } else {
                             layer.msg(result.msg);
                         }

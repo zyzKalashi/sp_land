@@ -336,6 +336,25 @@ var vm = new Vue({
 		refusePop: function(pro){
 			layer.alert(pro.refuseResult, {icon: 5,});	
 		},
+		doUpload: function(project){
+        	var buttons = ["保存", "关闭"];
+        	layer.open({
+                type: 2,
+                title: '上传',
+                area: ['90%', '90%'],
+                fixed: false, //不固定
+                skin: 'layer-skin',
+                maxmin: true,
+                content: '/login/user_upload?projectId=' + project.projectId,
+                btn: buttons,
+                yes: function(index, layero){
+                	project.projectStatus = 6;
+                	 vm.updateProject(project);
+                },
+                no: function(index, layero){
+                },
+            });
+        },
 	},
 	watch: {
 		'userData.areaCode': function(code){

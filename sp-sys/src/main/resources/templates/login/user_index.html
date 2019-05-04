@@ -177,8 +177,8 @@
 											<li class="nav-item">
 												<a class="nav-link" @click="changeTable('demand')" href="#xqli" role="tab" data-toggle="tab" >我发布的需求信息列表</a>
 											</li>
-											<li class="fr" style="margin-left: 28%;">
-												<a href="../login/project_add.html">发布新信息</a>
+											<li class="nav-item">
+												<a class="nav-link" href="../login/project_add.html">发布新信息</a>
 											</li>
 										</ul>
 										<div class="tab-content" style="height: 100%;" >
@@ -199,7 +199,9 @@
 																<td>{{ item.projectStatus | projectStatusFilter}}</td>
 																<td>
 																	<span v-if="item.projectStatus == 3" @click="refusePop(item)">原因</span>
-																	<span v-if="item.projectStatus == 2" @click="modifyProject(item.projectId)">编辑</span>
+																	<span v-if="item.projectStatus == 7" @click="modifyProject(item.projectId)">编辑</span>
+																	<span v-if="item.projectStatus == 8">区域管理员审核中……</span>
+																	<span v-if="item.projectStatus == 1" @click="doUpload(item)">结束</span>
 																</td>
 																<td>
 																	<span v-if="item.projectStatus == 2" @click="delProject(item.projectId)">删除</span>

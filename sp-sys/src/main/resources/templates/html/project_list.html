@@ -24,8 +24,11 @@
 								项目类型:
 								<span>{{queryData.projectKind | projectKindFilter }} </span>
 							</li>
-							<li v-if="queryData.areaCode">
-								所属乡镇:{{ queryData.areaCode }}{{ queryData.townCode }}
+							<li v-if="queryData.areaName">
+								所属乡镇:{{ queryData.areaName }}
+								<span v-if="queryData.townName">
+								 - {{ queryData.townName }}
+								</span>
 							</li>
 						</ul>
 						<div class="revocation"><a @click="clearQuery">清空条件</a></div>
@@ -184,9 +187,11 @@
 		watch: {
 			'queryData.areaCode': function(code){
 				if(code != 0) {
-					vm.childAreas = vm.aeaList.filter((item)=>{
+					var obj = vm.childAreas = vm.aeaList.filter((item)=>{
 	                    return item.code == code
-	                })[0].childAreas;
+	                })[0];
+					vm.queryData.areaName = obj.areaName;
+					vm.childAreas = obj.childAreas;
 				};
 				if(vm.childAreas){
 					vm.queryData.townCode = 0;
@@ -195,10 +200,13 @@
 			},
 			'queryData.townCode': function(code){
 				if(code != 0){
+					vm.queryData.townName = vm.childAreas.filter((item)=>{
+	                    return item.code == code
+	                })[0].areaName;
 					hzToolObj.getdomInit("/project/simpleList", vm.queryData, vm.callback);
 				}
 			},
-		}
+		},
 	});
 	</script>
 </body>

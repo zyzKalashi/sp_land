@@ -51,7 +51,9 @@ public class UsersController extends AbstractController {
 		if (!result.get("code").equals(0)) {
 			return result;
 		}
-		user.setUserStatus(StatusEnum.COMMON_AUDIT.getId());
+		if (user.getUserStatus() == null ) {
+			user.setUserStatus(StatusEnum.COMMON_AUDIT.getId());
+		}
 		user.setCreateDate(new Date());
 		int i = this.usersService.registerUser(user);
 		if (i > 0) {
