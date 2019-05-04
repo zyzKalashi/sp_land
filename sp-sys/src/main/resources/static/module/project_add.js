@@ -48,24 +48,22 @@ var vm = new Vue({
 				},
 				audit: function (type) {
 	                vm.projectData.projectStatus = type;
-	                if (vm.checkProject() && type != 3) {
-	                	var index = layer.load(0, { shade: [0.1,'#fff'] });
-	                	delete vm.projectData.createDate;
-	                    delete vm.projectData.updateDate;
-	                    delete vm.projectData.auditDate;
-	                	$.post("/project/projectModify", vm.projectData, function (result) {
-	                		if (result.code == 0) {
-	                			layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
-	                				var index = parent.layer.getFrameIndex(window.name);
-	                				layer.close(index);
-	                				parent.layer.close(index);
-	                			});
-	                			parent.vm.doQuery();
-	                		} else {
-	                			layer.msg(result.msg);
-	                		}
-	                	});
-	                } 
+	                var index = layer.load(0, { shade: [0.1,'#fff'] });
+	                delete vm.projectData.createDate;
+	                delete vm.projectData.updateDate;
+	                delete vm.projectData.auditDate;
+	                $.post("/project/projectModify", vm.projectData, function (result) {
+	                	if (result.code == 0) {
+	                		layer.msg("保存成功！",{icon:1, time:2000, shade:0.4},function () {
+	                			var index = parent.layer.getFrameIndex(window.name);
+	                			layer.close(index);
+	                			parent.layer.close(index);
+	                		});
+	                		parent.vm.doQuery();
+	                	} else {
+	                		layer.msg(result.msg);
+	                	}
+	                });
 	            },
 				initArea: function(){
 					$.post("/area/initArea", {}, function (result) {
@@ -88,6 +86,7 @@ var vm = new Vue({
 						if(kind == "upd"){
 							url = "/project/projectModify";
 						}
+						vm.projectData.projectStatus = 7;
 					  	$.post(url, vm.projectData, function (result) {
 	                        if (result.code == 0) {
 	                            layer.alert("请携带身份证、产权证去邻近乡镇柜台办理！",{icon:1, shade:0.4},function () {

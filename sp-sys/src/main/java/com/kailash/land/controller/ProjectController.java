@@ -23,14 +23,17 @@ import com.kailash.land.common.enums.StatusEnum;
 import com.kailash.land.common.web.AbstractController;
 import com.kailash.land.entity.Project;
 import com.kailash.land.entity.ProjectAround;
+import com.kailash.land.entity.ProjectAudit;
 import com.kailash.land.entity.ProjectPerson;
 import com.kailash.land.entity.ProjectPic;
 import com.kailash.land.filter.ProjectFiter;
 import com.kailash.land.service.AreaCodeService;
 import com.kailash.land.service.ProjectAroundService;
+import com.kailash.land.service.ProjectAuditService;
 import com.kailash.land.service.ProjectPersonService;
 import com.kailash.land.service.ProjectPicService;
 import com.kailash.land.service.ProjectService;
+import com.kailash.land.service.UsersService;
 import com.kailash.land.util.BeanUtils;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
@@ -51,6 +54,9 @@ public class ProjectController extends AbstractController {
 
 	@Autowired
 	private ProjectPicService projectPicService;
+
+	@Autowired
+	private ProjectAuditService projectAuditService;
 
 	@Autowired
 	private AreaCodeService areaCodeService;
@@ -86,6 +92,7 @@ public class ProjectController extends AbstractController {
 		return Result.ok();
 	}
 
+	@SuppressWarnings("serial")
 	@Transactional
 	@ResponseBody
 	@PostMapping(value = "/projectModify")
@@ -94,20 +101,31 @@ public class ProjectController extends AbstractController {
 			if (filter.getProjectId() == null) {
 				return Result.error();
 			}
-
+			var roleId = getRoleId();
 			Project di = new Project(filter);
 			di.setUpdateUser(getUserId().intValue());
 			di.setUpdateDate(new Date());
-			if (RoleEnum.TOWNADMIN.getRoleId() == getRoleId() ||  RoleEnum.AREAADMIN.getRoleId() == getRoleId()) {
+			if (RoleEnum.TOWNADMIN.getRoleId() == roleId || RoleEnum.AREAADMIN.getRoleId() == roleId
+					|| RoleEnum.SUPERADMIN.getRoleId() == roleId) {
 				di.setAuditUser(getUserId().intValue());
 				di.setAuditDate(new Date());
-				if(di.getProjectStatus() == null) {
-					if ( RoleEnum.AREAADMIN.getRoleId() == getRoleId()){
+				if (di.getProjectStatus() == null) {
+					if (RoleEnum.AREAADMIN.getRoleId() == getRoleId()) {
 						di.setProjectStatus(StatusEnum.COMMON_NORMAL.getId());
 					} else {
 						di.setProjectStatus(StatusEnum.COMMON_TOAREA.getId());
 					}
 				}
+
+				this.projectAuditService.insert(new ProjectAudit() {
+					{
+						this.setAuditDate(new Date());
+						this.setAuditUser(getUserId().intValue());
+						this.setProjectId(di.getPkid());
+						this.setProjectStatus(di.getProjectStatus());
+						this.setRoleId(roleId);
+					}
+				});
 			}
 			EntityWrapper<Project> ewProject = new EntityWrapper<Project>();
 			ewProject.setEntity(new Project());
@@ -326,6 +344,12 @@ public class ProjectController extends AbstractController {
 		wrapper.orderBy("pkid DESC");
 
 		var list = this.projectPicService.selectList(wrapper);
+		return Result.ok().put("list", list);
+	}
+
+	@RequestMapping(value = "proAuditList", method = RequestMethod.POST)
+	public Result proAuditList(ProjectFiter filter) {
+		var list = this.projectAuditService.selectProAuditList(filter);
 		return Result.ok().put("list", list);
 	}
 

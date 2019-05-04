@@ -199,7 +199,7 @@
 																<td>{{ item.projectStatus | projectStatusFilter}}</td>
 																<td>
 																	<span v-if="item.projectStatus == 3" @click="refusePop(item)">原因</span>
-																	<span v-if="item.projectStatus == 7" @click="modifyProject(item.projectId)">编辑</span>
+																	<span v-if="item.projectStatus == 3 || item.projectStatus == 7" @click="modifyProject(item.projectId)">编辑</span>
 																	<span v-if="item.projectStatus == 8">区域管理员审核中……</span>
 																	<span v-if="item.projectStatus == 1" @click="doUpload(item)">结束</span>
 																</td>

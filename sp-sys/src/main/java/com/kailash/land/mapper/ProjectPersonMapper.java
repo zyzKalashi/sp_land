@@ -6,12 +6,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.kailash.land.entity.ProjectPerson;
 
 @Mapper
-public interface ProjectPersonMapper extends BaseMapper<ProjectPerson>{
-
-
-	
-	
-	
-	
+public interface ProjectPersonMapper extends BaseMapper<ProjectPerson> {
 
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kailash.land.mapper.ProjectAuditMapper">
+	<select id="selectProAuditList" resultType="Map">
+		SELECT 
+			A.pkid AS projectAuditId,
+			A.project_id AS projectId,
+			A.project_status AS projectStatus,
+			A.role_id AS roleId,
+			A.audit_user AS auditUser,
+			A.audit_date AS auditDate,
+			B.user_name AS userName,
+			B.nick_name AS nickName,
+			C.role_name AS roleName,
+			DATE_FORMAT(A.audit_date,'%Y-%m-%d') AS auditDateStr
+		FROM 
+			project_audit A
+		LEFT JOIN users B ON A.audit_user = B.pkid
+		LEFT JOIN role C ON A.role_id = C.role_id
+		<where>
+			<if test="projectId != null">
+				AND A.project_id = #{projectId} 
+			</if>		
+		</where>
+		ORDER BY
+			A.audit_date DESC
+	</select>
+
+</mapper>
