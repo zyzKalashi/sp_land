@@ -22,7 +22,7 @@
             <div class="col-sm-2">
                 <select class="form-control" id="projectStatus" v-model="form.projectStatus" placeholder="请选择项目状态" style="width: 90%;" >
                     <option value="0">请选择</option>
-                    <option v-for="item in status" :value="'' + item.value">{{item.label}}</option>
+                    <option v-for="item in projectStatusDic" :value="item.value" v-if="item.value != 0 && item.value != 2 && item.value != 5">{{item.label}}</option>
                 </select>
             </div>
         </div>
@@ -176,6 +176,7 @@
             }
         },
         mounted : function() {
+        	this.form.page = getUrlParam("page");
             this.doQuery();
             this.baseRoleId = $("#baseRoleId").text();
         },

@@ -53,18 +53,18 @@
 	                </thead>
 	                <tbody>
 	                <tr v-for="(item, index) in list" class="text-center">
-	                    <td>{{item.projectNo}}</td>
-	                    <td>{{item.projectName}}</td>
-	                    <td></td>
-	                    <td></td>
-	                    <td></td>
-	                    <td></td>
-	                    <td></td>
-	                    <td></td>
-	                    <td></td>
-	                    <td></td>
-	                    <td></td>
-	                    <td></td>
+	                    <td>{{ item.projectId }}</td>
+	                    <td>{{ item.projectName }}</td>
+	                    <td>{{ item.areaName }}</td>
+	                    <td>{{ item.townName }}</td>
+	                    <td>{{ item.projectKind | projectKindFilter }}</td>
+	                    <td>{{ item.personName }}</td>
+	                    <td>{{  }}</td>
+	                    <td>{{ item.updateDateStr }}</td>
+	                    <td>{{  }}</td>
+	                    <td>{{ item.showPreice }}</td>
+	                    <td>是</td>
+	                    <td>{{  }}</td>
 	                    <td></td>
 	                </tr>
 	                </tbody>

@@ -159,14 +159,52 @@
 			<if test="townCode != null and townCode != ''">
 				AND C.town_code = #{townCode}
 			</if>
+			<if test="(projectStatus == null or projectStatus == '') and ( page != null and page == 'audit')">
+				AND A.project_status IN (6, 7, 8)
+			</if>
 		</where> 
 		ORDER BY
 			A.pkid DESC,
 			A.project_status DESC
 	</select>
 
-	<select id="projectStatistics" resultType="java.util.HashMap">
-        select cast(sum(1) as char) AS ALL_PROJECT, cast(sum( case when project_status = '2' then 1 else 0 end) as char) AS AUDIT_PROJECT FROM project
+	<select id="projectStatistics" resultType="Map">
+        SELECT 
+			ALL_PROJECT,
+			AUDIT_PROJECT
+		FROM
+			
+		(SELECT
+			COUNT(1) AS ALL_PROJECT
+		FROM
+			project A
+			LEFT JOIN project_person P ON A.pkid = P.project_id
+		<where>
+			A.project_status != 0
+			<if test="roleId != null and roleId == 2">
+				AND P.area_code = #{areaCode}
+			</if>
+			<if test="roleId != null and roleId == 3">
+				AND P.town_code = #{townCode}
+			</if>
+		</where> 
+		)A,
+		
+		(SELECT
+			COUNT(1) AS AUDIT_PROJECT
+		FROM
+			project B
+			LEFT JOIN project_person P ON B.pkid = P.project_id
+		<where> 
+			B.project_status IN (6, 7, 8)
+			<if test="roleId != null and roleId == 2">
+				AND P.area_code = #{areaCode}
+			</if>
+			<if test="roleId != null and roleId == 3">
+				AND P.town_code = #{townCode}
+			</if>
+		</where> 
+		)B
     </select>
 
 	<select id="projectDetailStatistics" resultType="java.util.HashMap">
@@ -218,13 +256,21 @@
     		P.pkid AS projectId,
     		P.project_name AS projectName,
     		pp.area_code AS areaCode,
-    		PP.town_code AS townCode,
+    		pp.town_code AS townCode,
+    		ac1.area_name AS areaName,
+    		ac2.area_name AS townName,
+    		p.person_name AS personName,
     		P.project_kind AS projectKind,
-    		P.output_person_name AS outputPersonName
+    		P.output_person_name AS outputPersonName,
+    		DATE_FORMAT(P.update_date,'%Y-%m-%d') AS updateDateStr,
+    		pa.show_preice AS showPreice
     		
     	FROM 
     		project P
     	LEFT JOIN project_person pp ON pp.project_id = P.pkid
+    	LEFT JOIN project_around pa ON pa.project_id = P.pkid
+    	LEFT JOIN area_code ac1 ON pp.area_code = ac1.code
+    	LEFT JOIN area_code ac2 ON pp.town_code = ac2.code
     	<where>
     		P.project_status = 4
     	</where>

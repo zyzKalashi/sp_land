@@ -29,7 +29,8 @@ public class ChartsController extends AbstractController {
 	@PostMapping(value = "/getDashBordData")
 	public Result getDashBordData() {
 		try {
-			return Result.ok(dashboardService.getDashboardData());
+			var user = getUser();
+			return Result.ok(dashboardService.getDashboardData(user));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Result.error("获取初始化数据失败");

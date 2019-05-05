@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kailash.land.entity.Users;
 import com.kailash.land.filter.BasePageFilter;
 import com.kailash.land.mapper.ProjectMapper;
 import com.kailash.land.mapper.UsersMapper;
@@ -35,7 +36,7 @@ public class DashboardServiceImpl implements DashboardService {
 	}
 
 	@Override
-	public Map<String, Object> getDashboardData() {
+	public Map<String, Object> getDashboardData(Users user) {
 		Map<String, Object> result = new HashMap<>();
 
 		String d1 = "0";
@@ -44,13 +45,13 @@ public class DashboardServiceImpl implements DashboardService {
 		String d4 = "0";
 
 		// 统计项目信息
-		Map<String, String> projectResult = projectMapper.projectStatistics();
+		Map<String, Object> projectResult = projectMapper.projectStatistics(user);
 		if (null != projectResult) {
 			if (null != projectResult.get("ALL_PROJECT")) {
-				d1 = projectResult.get("ALL_PROJECT");
+				d1 = projectResult.get("ALL_PROJECT").toString();
 			}
 			if (null != projectResult.get("AUDIT_PROJECT")) {
-				d2 = projectResult.get("AUDIT_PROJECT");
+				d2 = projectResult.get("AUDIT_PROJECT").toString();
 			}
 		}
 		// 统计会员信息

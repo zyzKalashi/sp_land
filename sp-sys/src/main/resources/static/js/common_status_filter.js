@@ -66,9 +66,10 @@ var projectStatusDic = [
 	{value: 4, label: "已结束"},
 	{value: 5, label: "禁用"},
 	{value: 6, label: "待结束"},
-	{value: 7, label: "待审核"},
-	{value: 8, label: "待审核"},
+	{value: 7, label: "待乡镇审核"},
+	{value: 8, label: "待区域审核"},
 ];
+
 var moneyLevelDic = [
 	{value: 0, label: "1万-10万"},
 	{value: 1, label: "10万-50万"},

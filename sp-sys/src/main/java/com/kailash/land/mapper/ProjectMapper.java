@@ -3,6 +3,7 @@ package com.kailash.land.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.github.pagehelper.Page;
 import com.kailash.land.entity.Project;
+import com.kailash.land.entity.Users;
 import com.kailash.land.filter.BasePageFilter;
 import com.kailash.land.filter.ProjectFiter;
 import org.apache.ibatis.annotations.Mapper;
@@ -26,9 +27,11 @@ public interface ProjectMapper extends BaseMapper<Project> {
 	/**
 	 * 项目统计
 	 * 
+	 * @param user
+	 * 
 	 * @return
 	 */
-	Map<String, String> projectStatistics();
+	Map<String, Object> projectStatistics(Users user);
 
 	/**
 	 * 项目明细统计

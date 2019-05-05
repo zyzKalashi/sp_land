@@ -172,9 +172,10 @@
 			toProject: function(type){
 				this.selectParent(4);
 				if(type){
-					this.sunValue = type;
+					$("#myrame").attr("src",'/admin/project/index?page=audit');
+				} else {
+					$("#myrame").attr("src",'/admin/project/index');
 				}
-				$("#myrame").attr("src",'/admin/project/index');
 			},
 			toUsers: function(type){
 				this.selectParent(2);
