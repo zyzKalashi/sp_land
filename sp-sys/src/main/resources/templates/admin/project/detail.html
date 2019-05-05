@@ -18,31 +18,31 @@
 						<tr v-if="picList1 && picList1.length > 0">
 							<td class="t_prop"><strong>身份证：</strong></td>
 							<td colspan="3" class="t_prop_b">
-								<ul>
-									<li v-for="item in picList1" style="padding: 0px 3px 0px 3px;">
+								<div id="picList1">
+									<span v-for="item in picList1" style="padding: 0px 3px 0px 3px;"  @click="bigImg('picList1')">
 										<img alt="" :src="item.picUrl" style="width: 100px;height: 100px; border-radius: 3px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;">
-									</li>
-								</ul>
+									</span>
+								</div>
 							</td>
 						</tr>
 						<tr v-if="picList2 && picList2.length > 0">
 							<td class="t_prop"><strong>产权证：</strong></td>
 							<td colspan="3" class="t_prop_b">
-								<ul>
-									<li v-for="item in picList2" style="padding: 0px 3px 0px 3px;">
+								<div id="picList2">
+									<span v-for="item in picList2" style="padding: 0px 3px 0px 3px;"  @click="bigImg('picList2')">
 										<img alt="" :src="item.picUrl" style="width: 100px;height: 100px; border-radius: 3px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;">
-									</li>
-								</ul>
+									</span>
+								</div>
 							</td>
 						</tr>
 						<tr v-if="picList3 && picList3.length > 0">
 							<td class="t_prop"><strong>合同书：</strong></td>
 							<td colspan="3" class="t_prop_b">
-								<ul>
-									<li v-for="item in picList3" style="padding: 0px 3px 0px 3px;">
+								<div id="picList3">
+									<span v-for="item in picList3" style="padding: 0px 3px 0px 3px;"  @click="bigImg('picList3')">
 										<img alt="" :src="item.picUrl" style="width: 100px;height: 100px; border-radius: 3px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;">
-									</li>
-								</ul>
+									</span>
+								</div>
 							</td>
 						</tr>
 					</table>
@@ -81,6 +81,12 @@
             });
         },
         methods : {
+        	bigImg: function(id){
+        		layer.photos({
+        			photos: '#' + id
+        			,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+       			}); 
+        	},
         	initProPicList: function(){
 				hzToolObj.postRpc("/project/proPicList", {projectId: this.projectData.projectId, picKind: 1}).done(function(r) {	
         			vm.picList1 = r.list;

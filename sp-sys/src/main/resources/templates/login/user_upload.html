@@ -29,8 +29,8 @@
 						</div>
 						<hr v-if="picList && picList.length > 0">
 						<div class="control-group form-inline" v-if="picList && picList.length > 0">
-							<ul>
-								<li v-for="item in picList" style="padding: 0px 3px 0px 3px;">
+							<ul id="picList">
+								<li v-for="item in picList" style="padding: 0px 3px 0px 3px;" @click="bigImg">
 									<img alt="" :src="item.picUrl" style="width: 100px;height: 100px; border-radius: 3px;  border: #5bc0de 1px; box-shadow: 0 1px 2px 1px #666;">
 								</li>
 							</ul>
@@ -78,6 +78,12 @@
 	            this.initpicList();
 	        },
 	        methods : {
+	        	bigImg: function(){
+	        		layer.photos({
+	        			photos: '#picList'
+	        			,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+	       			}); 
+	        	},
 	        	initpicList: function(){
 	        		hzToolObj.postRpc("/project/proPicList", this.projectPic).done(function(r) {	
 	        			vm.picList = r.list;

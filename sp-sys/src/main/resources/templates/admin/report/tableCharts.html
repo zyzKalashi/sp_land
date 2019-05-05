@@ -27,7 +27,7 @@
             <div class="col-sm-4" style="text-align: right;">
                 <div style="width: 95%;">
                     <button type="button" @click="doQuery('1')" class="btn btn-sm btn-info">查询</button>
-                    <button type="button" @click="doQuery('1')" class="btn btn-sm btn-danger">导出</button>
+                    <button type="button" @click="exportExcel" class="btn btn-sm btn-danger">导出</button>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
 	                    <th>交易时间</th>
 	                    <th>交易年限</th>
 	                    <th>交易金额</th>
-	                    <th>实名认证(是/否)</th>
+	                    <th>实名认证</th>
 	                    <th>产权是否转移</th>
 	                    <th>其他</th>
 	                </tr>
@@ -64,7 +64,7 @@
 	                    <td>{{  }}</td>
 	                    <td>{{ item.showPreice }}</td>
 	                    <td>是</td>
-	                    <td>{{  }}</td>
+	                    <td>{{ item.otherRightFlag | commonYesNoFilter }}</td>
 	                    <td></td>
 	                </tr>
 	                </tbody>
@@ -93,12 +93,20 @@
         },
         methods:{
         	initTable: function(){
+        		if($("#startDate").val()){
+        			this.queryData.startDate = $("#startDate").val();
+        		}
+        		if($("#endDate").val()){
+        			this.queryData.endDate = $("#endDate").val();
+        		}
         		hzToolObj.getdomInit("/project/tableData", this.queryData, function(result){
 					vm.list = result.pageInfo.list;
 				});
         	},
-        	doQuery: function(){
-        		
+        	exportExcel: function(){
+        		hzToolObj.getdomInit("/project/exportExcel", this.queryData, function(result){
+					
+				});
         	}
         },
 	});

@@ -349,7 +349,8 @@ var vm = new Vue({
                 btn: buttons,
                 yes: function(index, layero){
                 	project.projectStatus = 6;
-                	 vm.updateProject(project);
+                	vm.updateProject(project);
+                	layer.close(index);
                 },
                 no: function(index, layero){
                 },

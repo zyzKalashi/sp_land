@@ -263,7 +263,8 @@
     		P.project_kind AS projectKind,
     		P.output_person_name AS outputPersonName,
     		DATE_FORMAT(P.update_date,'%Y-%m-%d') AS updateDateStr,
-    		pa.show_preice AS showPreice
+    		pa.show_preice AS showPreice,
+    		P.other_right_flag AS otherRightFlag
     		
     	FROM 
     		project P
@@ -273,6 +274,15 @@
     	LEFT JOIN area_code ac2 ON pp.town_code = ac2.code
     	<where>
     		P.project_status = 4
+    		<if test="projectKind != null and  projectKind != ''">
+    			AND P.project_kind = #{projectKind}
+    		</if>
+    		<if test="startDate != null and startDate !=''">
+				AND date(P.create_date) <![CDATA[ >= ]]> #{startDate}
+			</if>
+			<if test="endDate != null and endDate !=''">
+				AND date(P.create_date) <![CDATA[ <= ]]> #{endDate}
+			</if>
     	</where>
     </select>
     

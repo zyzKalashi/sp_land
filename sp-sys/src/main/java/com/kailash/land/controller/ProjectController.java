@@ -326,6 +326,14 @@ public class ProjectController extends AbstractController {
 
 		return Result.ok().put("pageInfo", mapPageInfo);
 	}
+	
+	@RequestMapping(value = "exportExcel", method = RequestMethod.POST)
+	public Result exportExcel(ProjectFiter param) {
+		
+		PageInfo<Map<String, Object>> mapPageInfo = this.projectService.tableData(param);
+		
+		return Result.ok().put("pageInfo", mapPageInfo);
+	}
 
 	@RequestMapping(value = "proPicModify", method = RequestMethod.POST)
 	public Result proPicModify(ProjectPic projectPic) {
