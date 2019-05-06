@@ -25,11 +25,11 @@
 							<form>
 								<div class="input-group mt10 mb20">
 									<span class="input-group-text" style="margin-right:-3px;">用户名</span>
-									<input type="text" class="form-control" v-model="user.userName" placeholder="用户名/手机/邮箱">
+									<input type="text" class="form-control" v-model="user.userName" placeholder="用户名/手机/邮箱" @keyup.enter="login">
 								</div>
 								<div class="input-group mt10 mb10">
 									<span class="input-group-text" style="margin-right:-3px;">密&nbsp;&nbsp;&nbsp;码</span>
-									<input type="password" class="form-control" v-model="user.password" placeholder="密码">
+									<input type="password" class="form-control" v-model="user.password" placeholder="密码" @keyup.enter="login">
 								</div>
 								<div class="checkbox" style="vertical-align:middle; font-size:13px;">
 									<p class="fl agreement"><input type="checkbox" name="agreement">&nbsp;记住密码</p>
