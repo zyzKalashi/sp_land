@@ -64,6 +64,9 @@ public class ProjectController extends AbstractController {
 	@ResponseBody
 	@PostMapping(value = "/projectAdd")
 	public Result projectAdd(ProjectFiter filter) {
+		if (getUser() == null) {
+			return Result.error("登录过期，请重新登录");
+		}
 		try {
 			Project di = new Project(filter);
 			di.setUpdateDate(new Date());
@@ -96,6 +99,9 @@ public class ProjectController extends AbstractController {
 	@ResponseBody
 	@PostMapping(value = "/projectModify")
 	public Result projectModify(ProjectFiter filter) {
+		if (getUser() == null) {
+			return Result.error("登录过期，请重新登录");
+		}
 		try {
 			if (filter.getProjectId() == null) {
 				return Result.error();
@@ -273,6 +279,9 @@ public class ProjectController extends AbstractController {
 	@ResponseBody
 	@PostMapping(value = "/projectAudit")
 	public Result projectAudit(Project project) {
+		if (getUser() == null) {
+			return Result.error("登录过期，请重新登录");
+		}
 		try {
 			if (project.getPkid() == null || project.getProjectStatus() == null) {
 				return Result.error("参数错误");
@@ -301,6 +310,9 @@ public class ProjectController extends AbstractController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "batchModify", method = RequestMethod.POST)
 	public Result batchModify(Map<String, Object> param) {
+		if (getUser() == null) {
+			return Result.error("登录过期，请重新登录");
+		}
 		if (!param.containsKey("projectIds") || param.get("projectIds") == null) {
 			return Result.error("参数错误");
 		}
@@ -326,17 +338,21 @@ public class ProjectController extends AbstractController {
 
 		return Result.ok().put("pageInfo", mapPageInfo);
 	}
-	
+
 	@RequestMapping(value = "exportExcel", method = RequestMethod.POST)
 	public Result exportExcel(ProjectFiter param) {
-		
-		PageInfo<Map<String, Object>> mapPageInfo = this.projectService.tableData(param);
-		
-		return Result.ok().put("pageInfo", mapPageInfo);
+		if (getUser() == null) {
+			return Result.error("登录过期，请重新登录");
+		}
+		String url = this.projectService.createExcel(param);
+		return Result.ok().put("fileUrl", url);
 	}
 
 	@RequestMapping(value = "proPicModify", method = RequestMethod.POST)
 	public Result proPicModify(ProjectPic projectPic) {
+		if (getUser() == null) {
+			return Result.error("登录过期，请重新登录");
+		}
 		projectPic.setCreateDate(new Date());
 		projectPic.setCreateUser(getUserId().intValue());
 		this.projectPicService.insert(projectPic);

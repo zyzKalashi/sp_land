@@ -34,7 +34,7 @@ spring:
     mode: HTML
 
   resources:
-    static-locations: classpath:/templates/,classpath:/static/
+    static-locations: classpath:/templates/,classpath:/static/,classpath:/doc/
 
   devtools:
     restart:
@@ -78,3 +78,5 @@ upload:
     4: /pic_upload/
     5: /user_upload/
     6: /project_upload/
+export:
+   chartExport: /data/sp_export/project_chart/

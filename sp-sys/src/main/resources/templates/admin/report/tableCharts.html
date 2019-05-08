@@ -104,9 +104,17 @@
 				});
         	},
         	exportExcel: function(){
-        		hzToolObj.getdomInit("/project/exportExcel", this.queryData, function(result){
+        		hzToolObj.postRpc("/project/exportExcel", this.queryData).done(function(result) {
+        			console.log(result);
+        			if(result.code == 0){
+        				window.location.href = "/file/downFile?filePath=" + result.fileUrl;
+        			} else {
+        				layer.alert(result.msg);
+        			}
+        		});
+/*         		hzToolObj.getdomInit("/project/exportExcel", this.queryData, function(result){
 					
-				});
+				});*/ 
         	}
         },
 	});

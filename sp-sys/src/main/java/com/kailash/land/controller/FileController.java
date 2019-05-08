@@ -130,8 +130,6 @@ public class FileController {
 	public Result downFile(String filePath, HttpServletRequest request, HttpServletResponse response) {
 		if (filePath.contains("/upload/")) {
 			filePath = uploadDir + "/" + filePath.substring(8, filePath.length());
-		} else {
-			return Result.error("file exists");
 		}
 
 		InputStream fis = null;

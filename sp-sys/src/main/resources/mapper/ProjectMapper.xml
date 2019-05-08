@@ -263,8 +263,10 @@
     		P.project_kind AS projectKind,
     		P.output_person_name AS outputPersonName,
     		DATE_FORMAT(P.update_date,'%Y-%m-%d') AS updateDateStr,
-    		pa.show_preice AS showPreice,
-    		P.other_right_flag AS otherRightFlag
+    		CONCAT(pa.show_preice, '') AS showPreice,
+    		P.other_right_flag AS otherRightFlag,
+    		"是" AS realName,
+    		"" AS xColumn
     		
     	FROM 
     		project P

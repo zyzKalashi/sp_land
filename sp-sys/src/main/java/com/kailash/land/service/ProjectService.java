@@ -16,4 +16,6 @@ public interface ProjectService extends IService<Project> {
 
 	PageInfo<Map<String, Object>> tableData(ProjectFiter param);
 
+	String createExcel(ProjectFiter param);
+
 }
