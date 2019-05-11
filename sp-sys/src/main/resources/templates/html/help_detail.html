@@ -2,9 +2,25 @@
 <html>
 
 <head th:include="common :: header">
-<title id="pageTitle">帮助资料详情-铁西区农村经济总站土地流转交易监管平台</title>
+	<title id="pageTitle">帮助资料详情-铁西区农村经济总站土地流转交易监管平台</title>
 </head>
 
+<style type="text/css">
+.mask {
+	z-index: 900;
+	position: fixed !important;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	
+	filter: alpha(opacity = 45);
+	opacity: 0.45;
+	/* -moz-opacity: 0.45; */
+	/* -khtml-opacity: 0.45; */
+}
+</style>
 <body>
 	<div id="app" v-cloak>
 		<div th:replace="common::top"></div>
@@ -26,11 +42,13 @@
 				<a class="btn btn-sm btn-default" @click="download(docData.docUrl)" v-show="docData.docUrl" style="background:#93590d; color: #ffff; width: 150px">附件下载</a>
 			</p>
 			<div class="detail clear">
+				
 				<div class="main1 clearfix">
 					<h4 class="mt15">
 						{{ docData.title }}
 					</h4>
-					<div v-html="docData.docText">{{ docData.docText }}</div>
+					<div class="mask"></div>  
+					<div v-html="docData.docText" class="ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred" contenteditable="true">{{ docData.docText }}</div>
 				</div>
 			</div>
 
@@ -53,6 +71,7 @@
 			<div th:replace="common :: foot"></div>
 		</footer>
 		<div th:replace="common :: js"></div>
+		<script th:src="@{/static/plugin/ckeditor/ckeditor.js}"></script>
 		<script type="text/javascript">
 			var vm = new Vue({
 				el : '#app',

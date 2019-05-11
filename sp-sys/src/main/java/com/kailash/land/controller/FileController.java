@@ -1,7 +1,18 @@
- package com.kailash.land.controller;
+package com.kailash.land.controller;
 
-import com.kailash.land.util.ImgUtil;
-import com.kailash.land.util.Result;
+import java.awt.Color;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.util.IOUtils;
@@ -11,16 +22,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.awt.Color;
-import java.io.*;
-import java.net.URLEncoder;
+import com.kailash.land.util.ImgUtil;
+import com.kailash.land.util.Result;
 
 //@Value("${urldate.importModel}")
 //private String idCardParth;
@@ -44,7 +55,7 @@ public class FileController {
 	@PostMapping("/upload")
 	public Result upload(Integer fileKind, MultipartFile file) {
 		Result result = new Result();
-		
+
 		String proKey = UPLOAD_DIRS_PREFIX + fileKind;
 		String dir = env.getProperty(proKey);
 		if (null != dir) {
