@@ -2,9 +2,21 @@
 <html>
 
 <head th:include="common :: header">
-<title id="pageTitle">新闻及政策法规详情-铁西区农村经济总站土地流转交易监管平台</title>
+	<title id="pageTitle">新闻及政策法规详情-铁西区农村经济总站土地流转交易监管平台</title>
 </head>
 
+<style type="text/css">
+.mask {
+	z-index: 900;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	filter: alpha(opacity = 45);
+	opacity: 0.45;
+}
+</style>
 <body>
 	<div id="app" v-cloak>
 		<div th:replace="common::top"></div>
@@ -23,9 +35,10 @@
 				<b>访问数量:</b><span>{{ visitNum }}</span>
 			</p>
 			<div class="detail clear">
-				<div class="main1 clearfix">
+				<div class="main1 clearfix" style="position: relative;">
 					<h4 class="mt15">{{ noticeData.title }}</h4>
-					<div v-html="noticeData.noticeText">{{ noticeData.noticeText }}</div>
+					<div class="mask"></div> 
+					<div v-html="noticeData.noticeText" class="ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred" contenteditable="true">{{ noticeData.noticeText }}</div>
 				</div>
 			</div>
 
@@ -48,6 +61,7 @@
 			<div th:replace="common :: foot"></div>
 		</footer>
 		<div th:replace="common :: js"></div>
+		<script th:src="@{/static/plugin/ckeditor/ckeditor.js}"></script>
 		<script type="text/javascript">
 			var vm = new Vue({
 				el : '#app',
