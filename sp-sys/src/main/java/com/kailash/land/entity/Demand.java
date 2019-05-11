@@ -15,14 +15,18 @@ import com.kailash.land.util.DateUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuppressWarnings("serial")
+@EqualsAndHashCode(callSuper = false)
 @TableName("demand")
 public class Demand extends Model<Demand> implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long demandId;
 

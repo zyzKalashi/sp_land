@@ -15,15 +15,18 @@ import com.kailash.land.util.DateUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @TableName("users")
-@SuppressWarnings("serial")
-public class Users extends Model<Users> implements Serializable {
+public class Users extends Model<Users> {
 
+	private static final long serialVersionUID = 1L;
+	
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long userId;
 	@TableField(value = "create_date", fill = FieldFill.INSERT)

@@ -9,6 +9,7 @@ import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -17,9 +18,12 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @TableName("notice_info")
-@SuppressWarnings("serial")
-public class NoticeInfo extends Model<NoticeInfo> implements Serializable {
+public class NoticeInfo extends Model<NoticeInfo> {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long noticeId;
 	

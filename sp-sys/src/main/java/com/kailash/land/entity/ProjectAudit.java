@@ -12,14 +12,17 @@ import com.baomidou.mybatisplus.enums.IdType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuppressWarnings("serial")
+@EqualsAndHashCode(callSuper = false)
 @TableName("project_audit")
-public class ProjectAudit extends Model<ProjectAudit> implements Serializable {
+public class ProjectAudit extends Model<ProjectAudit> {
+	
+	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long projectAuditId;

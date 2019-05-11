@@ -132,9 +132,11 @@ var vm = new Vue({
 						$.post("/project/queryDetail", this.projectData, function (result) {
 	                        if (result.code == 0) {
 	                            vm.projectData = result.projectData;
-	                            $("#oldRentDate").val( vm.projectData.oldRentDate);
 	                            $("#assessDate").val( vm.projectData.assessDate);
-	                            $("#hopeOutputDate").val( vm.projectData.hopeOutputDate);
+	                            $("#oldRentDateStart").val( vm.projectData.oldRentDateStart);
+	                            $("#oldRentDateEnd").val( vm.projectData.oldRentDateEnd);
+	                            $("#hopeOutputDateStart").val( vm.projectData.hopeOutputDateStart);
+	                            $("#hopeOutputDateEnd").val( vm.projectData.hopeOutputDateEnd);
 	                        } else {
 	                            layer.msg(result.msg);
 	                        }
@@ -176,43 +178,41 @@ var vm = new Vue({
 		});
 		
 		
-		jeDate("#oldRentDate", {
-			multiPane:false,
-			range:" 至 ",
-	        minDate:'1949-10-01',
-	        maxDate:'2100-10-01',
-	        format: 'YYYY-MM-DD',
-	        shortcut:[
-	            {name:"一周",val:{DD:7}},
-	            {name:"一个月",val:{DD:30}},
-	            {name:"二个月",val:{MM:2}},
-	            {name:"三个月",val:{MM:3}},
-	            {name:"一年",val:{DD:365}}
-	        ],
-			donefun : function(obj) {
-				vm.projectData.oldRentDate = $("#oldRentDate").val();
-			}
-		});
 		jeDate("#assessDate", {
 		    format: "YYYY-MM-DD",
 			donefun : function(obj) {
 				vm.projectData.assessDate = $("#assessDate").val();
 			}
 		});
-		jeDate("#hopeOutputDate", {
-			multiPane:false,
-			range:" 至 ",
+		jeDate("#hopeOutputDateStart", {
 	        minDate:'1949-10-01',
 	        maxDate:'2100-10-01',
 	        format: 'YYYY-MM-DD',
-	        shortcut:[
-	            {name:"一周",val:{DD:7}},
-	            {name:"一个月",val:{DD:30}},
-	            {name:"二个月",val:{MM:2}},
-	            {name:"三个月",val:{MM:3}},
-	            {name:"一年",val:{DD:365}}
-	        ],
 			donefun : function(obj) {
-				vm.projectData.hopeOutputDate = $("#hopeOutputDate").val();
+				vm.projectData.hopeOutputDateStart = $("#hopeOutputDateStart").val();
+			}
+		});
+		jeDate("#hopeOutputDateEnd", {
+			minDate:'1949-10-01',
+			maxDate:'2100-10-01',
+			format: 'YYYY-MM-DD',
+			donefun : function(obj) {
+				vm.projectData.hopeOutputDateEnd = $("#hopeOutputDateEnd").val();
+			}
+		});
+		jeDate("#oldRentDateStart", {
+			minDate:'1949-10-01',
+			maxDate:'2100-10-01',
+			format: 'YYYY-MM-DD',
+			donefun : function(obj) {
+				vm.projectData.oldRentDateStart = $("#oldRentDateStart").val();
+			}
+		});
+		jeDate("#oldRentDateEnd", {
+			minDate:'1949-10-01',
+			maxDate:'2100-10-01',
+			format: 'YYYY-MM-DD',
+			donefun : function(obj) {
+				vm.projectData.oldRentDateEnd = $("#oldRentDateEnd").val();
 			}
 		});

@@ -2,12 +2,14 @@ package com.kailash.land.filter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuppressWarnings("serial")
+@EqualsAndHashCode(callSuper=false)
 public class ProjectFiter extends BasePageFilter {
 
 	// projectPerson
@@ -34,7 +36,6 @@ public class ProjectFiter extends BasePageFilter {
 	private String otherRightName;
 	private String otherRightContext;
 	private Integer famerNum;
-	private String oldRentDate;
 	private String landLevel;
 	private String upThings;
 	private String traffic;
@@ -48,10 +49,14 @@ public class ProjectFiter extends BasePageFilter {
 	private String assessDate;
 	private Double assessValue;
 	private String outputWay;
-	private String hopeOutputDate;
 	private Integer projectStatus;
 	private String projectNo;
 	private String refuseResult;
+	
+	private String oldRentDateStart;
+	private String oldRentDateEnd;
+	private String hopeOutputDateStart;
+	private String hopeOutputDateEnd;
 
 	// projectAround
 	private Long projectAroundId;

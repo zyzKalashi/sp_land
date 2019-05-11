@@ -10,14 +10,17 @@ import com.baomidou.mybatisplus.enums.IdType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuppressWarnings("serial")
+@EqualsAndHashCode(callSuper = false)
 @TableName("menu")
-public class MenuEntity extends Model<MenuEntity> implements Serializable {
+public class MenuEntity extends Model<MenuEntity> {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@TableId(value = "menuId", type = IdType.AUTO)
 	private Long menuId;

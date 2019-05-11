@@ -10,14 +10,18 @@ import com.kailash.land.filter.ProjectFiter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuppressWarnings("serial")
+@EqualsAndHashCode(callSuper = false)
 @TableName("project_person")
-public class ProjectPerson extends Model<ProjectPerson> implements Serializable {
+public class ProjectPerson extends Model<ProjectPerson> {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long pkid;
 

@@ -14,14 +14,17 @@ import com.kailash.land.filter.ProjectFiter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuppressWarnings("serial")
+@EqualsAndHashCode(callSuper = false)
 @TableName("project")
-public class Project extends Model<Project> implements Serializable {
+public class Project extends Model<Project> {
+	
+	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long pkid;
@@ -63,8 +66,6 @@ public class Project extends Model<Project> implements Serializable {
 	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private Integer famerNum;
 	@TableField(strategy = FieldStrategy.NOT_NULL)
-	private String oldRentDate;
-	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String landLevel;
 	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String upThings;
@@ -91,9 +92,16 @@ public class Project extends Model<Project> implements Serializable {
 	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String outputWay;
 	@TableField(strategy = FieldStrategy.NOT_NULL)
-	private String hopeOutputDate;
-	@TableField(strategy = FieldStrategy.NOT_NULL)
 	private String refuseResult;
+
+	@TableField(strategy = FieldStrategy.NOT_NULL)
+	private String oldRentDateStart;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
+	private String oldRentDateEnd;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
+	private String hopeOutputDateStart;
+	@TableField(strategy = FieldStrategy.NOT_NULL)
+	private String hopeOutputDateEnd;
 
 	@TableField(value = "audit_date", strategy = FieldStrategy.NOT_NULL)
 	private Date auditDate;
@@ -113,7 +121,8 @@ public class Project extends Model<Project> implements Serializable {
 		this.otherRightName = filter.getOtherRightName();
 		this.otherRightContext = filter.getOtherRightContext();
 		this.famerNum = filter.getFamerNum();
-		this.oldRentDate = filter.getOldRentDate();
+		this.oldRentDateStart = filter.getOldRentDateStart();
+		this.oldRentDateEnd = filter.getOldRentDateEnd();
 		this.landLevel = filter.getLandLevel();
 		this.upThings = filter.getUpThings();
 		this.traffic = filter.getTraffic();
@@ -127,7 +136,8 @@ public class Project extends Model<Project> implements Serializable {
 		this.assessDate = filter.getAssessDate();
 		this.assessValue = filter.getAssessValue();
 		this.outputWay = filter.getOutputWay();
-		this.hopeOutputDate = filter.getHopeOutputDate();
+		this.hopeOutputDateStart = filter.getHopeOutputDateStart();
+		this.hopeOutputDateEnd = filter.getHopeOutputDateEnd();
 		this.pkid = filter.getProjectId();
 		this.projectStatus = filter.getProjectStatus();
 		this.refuseResult = filter.getRefuseResult();

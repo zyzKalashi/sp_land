@@ -12,11 +12,13 @@ import com.baomidou.mybatisplus.enums.IdType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @TableName("project_pic")
 public class ProjectPic extends Model<PicInfo> {
 	private static final long serialVersionUID = 1L;

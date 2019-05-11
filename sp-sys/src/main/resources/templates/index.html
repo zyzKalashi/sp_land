@@ -151,15 +151,14 @@
 							<a href="../html/notice_list" class="fr">更多>&nbsp;&nbsp;</a>
 						</h2>
 						<div class="table  news_gongg_detail public2 clear" style="background-color: #fff;">
-							<ul class="news_list clear fr" id="uls3">
+							<ul class="news_list clear fr" id="uls3" v-if="noticeImgList_show">
 								<li v-if="noticeImgList && noticeImgList.length > 0" v-for="item in noticeImgList">
-									<a @click="goNotDetail(item.noticeId)">
+									<a @click="goNotDetail(item.noticeId)" v-if="item.noticePic">
 										<img v-bind:src="item.noticePic" border=0>
 									</a>
-									<p><span></span> <b>{{ item.title }}</b></p>
+									<p v-if="item.noticePic"><span></span> <b>{{ item.title }}</b></p>
 								</li>
 							</ul>
-
 							<ol class="news_list2">
 								<li v-for="item in noticeList">
 									<a @click="goNotDetail(item.noticeId)">{{ item.title }}</a>
@@ -319,6 +318,7 @@
 				demandList : [],
 				noticeList: [],
 				noticeImgList: [],
+				noticeImgList_show: false,
 				lunBoImgList:[],
 				heZuoImgList:[],
 				contentStyleObj:{
@@ -366,7 +366,12 @@
 				initNoticeImgList : function() {
 					hzToolObj.getdomInit("/notice/simpleImgList", {pageNo : 1,pageSize : 3, queryPage:"index"}, function(result){
                     	vm.noticeImgList = result.pageInfo.list;
-					})
+                    	vm.noticeImgList.filter((item)=>{
+                    		if(item.noticePic){
+                    			vm.noticeImgList_show = true;
+                    		}
+                    	});
+					});
 				},
 				initLunboImgList : function() {
 					hzToolObj.getdomInit("/picInfo/picList", {pageNo: 1,pageSize: 5,picType: 1, picStatus:1}, function(result){

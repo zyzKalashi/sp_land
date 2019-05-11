@@ -8,11 +8,18 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-@SuppressWarnings("serial")
-public class RoleEntity extends Model<RoleEntity> implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+public class RoleEntity extends Model<RoleEntity> {
+	
+	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "role_id", type = IdType.AUTO)
 	private Integer roleId;

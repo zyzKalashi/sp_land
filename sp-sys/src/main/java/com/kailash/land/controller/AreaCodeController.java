@@ -66,7 +66,7 @@ public class AreaCodeController {
 	@RequestMapping("delete/{id}")
 	public Result delete(@PathVariable("id") Long id) {
 		boolean modify = this.areaCodeService.deleteById(id);
-		return Result.ok();
+		return Result.ok().put("flag", modify);
 	}
 
 	/**

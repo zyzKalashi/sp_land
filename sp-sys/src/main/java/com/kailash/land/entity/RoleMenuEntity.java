@@ -9,12 +9,20 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-@SuppressWarnings("serial")
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @TableName("role_menu")
-public class RoleMenuEntity extends Model<RoleMenuEntity> implements Serializable {
+public class RoleMenuEntity extends Model<RoleMenuEntity> {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Integer pkid;
 	@TableField(strategy = FieldStrategy.NOT_NULL)

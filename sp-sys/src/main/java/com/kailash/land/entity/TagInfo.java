@@ -7,14 +7,17 @@ import com.baomidou.mybatisplus.activerecord.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuppressWarnings("serial")
-public class TagInfo extends Model<TagInfo> implements Serializable{
+@EqualsAndHashCode(callSuper = false)
+public class TagInfo extends Model<TagInfo> {
 	
+	private static final long serialVersionUID = 1L;
+
 	private Integer pkid;
 
 	private Date createDate;
@@ -24,7 +27,7 @@ public class TagInfo extends Model<TagInfo> implements Serializable{
 	private String updateDate;
 
 	private Integer updateUser;
-	
+
 	private String tagName;
 
 	@Override

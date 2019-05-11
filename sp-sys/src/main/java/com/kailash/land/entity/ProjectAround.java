@@ -10,14 +10,17 @@ import com.kailash.land.filter.ProjectFiter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @TableName("project_around")
-@SuppressWarnings("serial")
 public class ProjectAround extends Model<ProjectAround> {
+	
+	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long pkid;

@@ -12,15 +12,18 @@ import com.baomidou.mybatisplus.enums.IdType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("area_code")
-@SuppressWarnings("serial")
+@EqualsAndHashCode(callSuper = false)
 public class AreaCode extends Model<AreaCode> {
 
+	private static final long serialVersionUID = 1L;
+	
 	@TableId(value = "code", type = IdType.AUTO)
 	private Long code;
  

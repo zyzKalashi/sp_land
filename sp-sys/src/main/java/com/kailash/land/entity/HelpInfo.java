@@ -9,13 +9,16 @@ import com.baomidou.mybatisplus.enums.IdType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuppressWarnings("serial")
-public class HelpInfo extends Model<HelpInfo> implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class HelpInfo extends Model<HelpInfo> {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Integer pkid;

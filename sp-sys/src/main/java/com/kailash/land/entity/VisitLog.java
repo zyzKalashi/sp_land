@@ -9,13 +9,17 @@ import com.baomidou.mybatisplus.enums.IdType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @TableName("visit_log")
 public class VisitLog extends Model<VisitLog> {
+	
+	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "pkid", type = IdType.AUTO)
 	private Long pkid;
