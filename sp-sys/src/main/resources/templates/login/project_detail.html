@@ -5,11 +5,7 @@
 	<title id="pageTitle">交易信息详情—铁西区农村经济总站土地流转交易监管平台</title>
 </head>
 
-<style type="text/css">
-	.t_prop_a{
-		text-align: left !important;
-	}
-</style>
+<link rel="stylesheet" type="text/css" th:href="@{/static/module/project_style.css}">
 
 <body>
  <!-- v-cloak -->
@@ -34,249 +30,363 @@
 					<h3 class="col_Name c4">发布人信息</h3>
 				</div>
 				<div class="main_w">
-					<!--	<div class="fl pinka_left">-->
-					<div class="screen_sel">
-						<div class="sel_attrs">
-							<table class="attrs_table">
-								<tr>
-									<td class="t_prop"><strong>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</strong></td>
-									<td class="t_prop_a">{{ projectData.name }}</td>
-									<td class="t_prop"><strong>性&nbsp;&nbsp;&nbsp;&nbsp;别：</strong></td>
-									<td class="t_prop_a">{{ projectData.sex | sexFilter }}</td>
-								</tr>
-								<tr>
-									<td class="t_prop"><strong>手&nbsp;&nbsp;&nbsp;&nbsp;机：</strong></td>
-									<td class="t_prop_a">{{ projectData.mobile }}</td>
-									<td class="t_prop"><strong>信息属权：</strong></td>
-									<td class="t_prop_a">{{ projectData.infoKind | projectInfoKindFilter }}</td>
-								</tr>
-								<tr>
-									<td class="t_prop"><strong>联 系地址：</strong></td>
-									<td colspan="3" class="pl5">
-										<span v-if="projectData.areaName">{{ projectData.areaName }} - </span>
-										<span v-if="projectData.townName">{{ projectData.townName }}</span>
-										<span v-if="projectData.taddress"> - {{ projectData.address }}</span>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.name }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>性&nbsp;&nbsp;&nbsp;&nbsp;别：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.sex | sexFilter }}</span>
+			            </div>
+			        </div>
+			        <div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>手&nbsp;&nbsp;&nbsp;&nbsp;机：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.mobile }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>信息属权：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.infoKind | projectInfoKindFilter }}</span>
+			            </div>
+			        </div>
+			        <div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>联系地址：</strong>
+			            </div>
+			            <div class="col-sm-10">
+			            	<span class="form-span" v-if="projectData.areaName">{{ projectData.areaName }}</span>
+			            	<span class="form-span" v-if="projectData.townName">{{ projectData.townName }}</span>
+			            	<span class="form-span" v-if="projectData.taddress">{{ projectData.address }}</span>
+			            </div>
+			        </div>
 				</div>
-
-
 				<div class="main_r clear">
 					<h3 class="col_Name c4">项目详细信息</h3>
 				</div>
 				<div class="main_w">
-					<div class="fl pinka_left">
-						<div class="sel_attrs">
-							<table class="attrs_table">
-								<tr>
-									<td class="t_prop"><strong>项目名称：</strong></td>
-									<td class="t_prop_a">{{ projectData.projectName }}</td>
-									<td class="t_prop"><strong>流转方式：</strong></td>
-									<td class="t_prop_a">{{ projectData.projectKind | projectKindFilter }}</td>
-								</tr>
-								<tr>
-									<td class="t_prop"><strong>项目地址：</strong></td>
-									<td colspan="3" class="pl5">{{ projectData.projectAddress }}</td>
-								</tr>
-								<tr>
-									<td class="t_prop"><strong>转出方：</strong></td>
-									<td class="t_prop_a">{{ projectData.outputPersonName }}</td>
-									<td class="t_prop mt15"><strong>项目属权：</strong></td>
-									<td>{{ projectData.rightKind | projectInfoKindFilter }}</td>
-								</tr>
-								<tr>
-									<td class="t_prop"><strong>权证编号：</strong></td>
-									<td class="t_prop_a">{{ projectData.warrantNum }}</td>
-									<td class="t_prop"><strong>面积|数量（亩|㎡）：</strong></td>
-									<td class="t_prop_a">{{ projectData.areaNum }}</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>承包经营权人：</strong></td>
-									<td class="t_prop_a">{{ projectData.personName }}</td>
-									<td class="t_prop mt15"><strong>是否他项权利人：</strong></td>
-									<td>{{ projectData.otherRightFlag | commonYesNoFilter }}</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>他项权利人：</strong></td>
-									<td class="t_prop_a">{{ projectData.otherRightName }}</td>
-									<td class="t_prop"><strong>他项权利内容：</strong></td>
-									<td class="t_prop_a">{{ projectData.otherRightContext }}</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>涉及农户数：</strong></td>
-									<td class="t_prop_a">{{ projectData.famerNum }}</td>
-									<td class="t_prop"><strong>原承包/租赁期：</strong></td>
-									<td class="t_prop_a">{{ projectData.oldRentDateStart }} 至 {{ projectData.oldRentDateEnd }}</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>地&nbsp;&nbsp;&nbsp;级：</strong></td>
-									<td class="t_prop_a">一级</td>
-									<td class="t_prop"><strong>地上物情况：</strong></td>
-									<td class="t_prop_a">{{ projectData.upThings }}</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>交通情况：</strong></td>
-									<td class="t_prop_a">{{ projectData.traffic }}</td>
-									<td class="t_prop"><strong>是否属再次转出：</strong></td>
-									<td>{{ projectData.againFlag | commonYesNoFilter }}</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>流转承包用途：</strong></td>
-									<td class="t_prop_a">{{ projectData.rentUse }}</td>
-									<td class="t_prop"><strong>原承包/出租人（发包人）是否同意：</strong></td>
-									<td>{{ projectData.agreeFlag | commonYesNoFilter }}</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>前次转出方式：</strong></td>
-									<td class="t_prop_a">{{ projectData.oldOutput }}</td>
-									<td class="t_prop"><strong>拟转出方式：</strong></td>
-									<td class="t_prop_a">
-										{{ projectData.hopeOutput }}
-									</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>放弃行使优先权：</strong></td>
-									<td colspan="3">
-										{{ projectData.giveupRightFlag | commonYesNoFilter }}
-									</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>评估机构：</strong></td>
-									<td class="t_prop_a">
-										{{ projectData.assessOrg }}
-									</td>
-									<td class="t_prop"><strong>评估基准日：</strong></td>
-									<td class="t_prop_a">
-										{{ projectData.assessDate }}
-									</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>评估值（元）：</strong></td>
-									<td class="t_prop_a">
-										{{ projectData.assessValue }}
-									</td>
-									<td class="t_prop"><strong>转出方式：</strong></td>
-									<td class="t_prop_a">
-										{{ projectData.outputWay }}
-									</td>
-								</tr>
-
-								<tr>
-									<td class="t_prop"><strong>拟转出期限：</strong></td>
-									<td colspan="3" class="t_prop_a">
-										{{ projectData.hopeOutputDateStart }} 至 {{ projectData.hopeOutputDateEnd }}  
-									</td>
-								</tr>
-
-							</table>
-						</div>
-					</div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>项目名称：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.projectName }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>流转方式：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.projectKind | projectKindFilter }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>项目地址：</strong>
+			            </div>
+			            <div class="col-sm-10">
+			            	<span class="form-span">{{ projectData.projectAddress }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>转出方：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.outputPersonName }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>项目属权：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.rightKind | projectInfoKindFilter }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>权证编号：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.warrantNum }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>面积|数量（亩|㎡）：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.areaNum }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>承包经营权人：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.personName }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>是否他项权利人：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.otherRightFlag |  commonYesNoFilter }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>他项权利人：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.otherRightName }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>他项权利内容：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.otherRightContext }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>涉及农户数：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.famerNum }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>原承包/租赁期：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.oldRentDateStart }}</span>
+			            	<span class="form-span" v-if="projectData.oldRentDateStart && projectData.oldRentDateEnd">至</span>
+			            	<span class="form-span">{{ projectData.oldRentDateEnd }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>地&nbsp;&nbsp;&nbsp;级：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.landLevel }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>地上物情况：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.upThings }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>交通情况：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.traffic }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>是否属再次转出：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.againFlag | commonYesNoFilter }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>流转承包用途：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.rentUse }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>原承包/出租人（发包人）是否同意：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.agreeFlag | commonYesNoFilter }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>前次转出方式：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.oldOutput }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>拟转出方式：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.hopeOutput }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>放弃行使优先权：</strong>
+			            </div>
+			            <div class="col-sm-10">
+			            	<span class="form-span">{{ projectData.giveupRightFlag | commonYesNoFilte }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>评估机构：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.assessOrg }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>评估基准日：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.assessDate }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>评估值（元）：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.assessValue }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>转出方式：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.outputWay }}</span>
+			            </div>
+			        </div>
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>拟转出期限：</strong>
+			            </div>
+			            <div class="col-sm-10">
+			            	<span class="form-span">{{ projectData.hopeOutputDateStart }}</span>
+			            	<span class="form-span" v-if="projectData.hopeOutputDateStart && projectData.hopeOutputDateEnd">至</span>
+			            	<span class="form-span">{{ projectData.hopeOutputDateEnd }}</span>
+			            </div>
+			        </div>
 				</div>
 				<!-- four info start-->
 				<div class="main_r clear">
 					<h2 class="col_Name c4">四至及交易条件</h2>
 				</div>
 				<div class="main_w">
-					<div class="sel_attrs">
-						<table class="attrs_table">
-							<tr>
-								<td colspan="4" class="t_prop c4">四至地块情况</td>
-							</tr>
-							<tr>
-								<td class="t_prop">地块名称：</td>
-								<td class="t_prop_a">
-									{{ projectData.areaName }}
-								</td>
-								<td class="t_prop">面积（亩）：</td>
-								<td class="t_prop_a">
-									{{ projectData.area }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">东</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.east }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">南</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.south }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">西</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.west }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">北</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.north }}
-								</td>
-							</tr>
-
-							<tr>
-								<td colspan="4" class="t_prop c4">交易方式及条件</td>
-							</tr>
-							<tr>
-								<td class="t_prop">标的公告价格（元）</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.showPreice }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">合同支付方式</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.payWay }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">支付期限</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.payLimit }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">其他交易条件</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.otherPay }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">受让方应具备的条件</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.shouldHave }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">到期未征集到受让方</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.overdue }}
-								</td>
-							</tr>
-							<tr>
-								<td class="t_prop">补充事项</td>
-								<td colspan="3" class="t_prop_a">
-									{{ projectData.supplement }}
-								</td>
-							</tr>
-						</table>
-					</div>
+					<div class="form-inline">
+			            <div class="col-sm-12 form-label t_prop bold c4">
+			            	<strong>地块四至情况</strong>
+			            </div>
+			        </div>        
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>地块名称：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			                <span class="form-span">{{ projectData.areaName }}</span>
+			            </div>
+			            <div class="col-sm-2 form-label">
+			            	<strong>面积（亩）：</strong>
+			            </div>
+			            <div class="col-sm-4">
+			            	<span class="form-span">{{ projectData.area }}</span>
+			            </div>
+			        </div> 
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>东</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.east }}</span>
+			            </div>
+			        </div> 
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>南</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.south }}</span>
+			            </div>
+			        </div> 
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>西</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.west }}</span>
+			            </div>
+			        </div> 
+					<div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>北</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.north }}</span>
+			            </div>
+			        </div> 
+					<div class="form-inline">
+			            <div class="col-sm-12 form-label t_prop bold c4">
+			            	<strong>交易方式及条件</strong>
+			            </div>
+			        </div>  
+			        <div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>标的公告价格（元）</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.showPreice }}</span>
+			            </div>
+			        </div> 
+			        <div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>合同支付方式</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.payWay }}</span>
+			            </div>
+			        </div> 
+			        <div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>支付期限</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.payLimit }}</span>
+			            </div>
+			        </div> 
+			        <div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>其他交易条件</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.otherPay }}</span>
+			            </div>
+			        </div> 
+			        <div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>受让方应具备的条件</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.shouldHave }}</span>
+			            </div>
+			        </div> 
+			        <div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>到期未征集到受让方</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.overdue }}</span>
+			            </div>
+			        </div> 
+			        <div class="form-inline">
+			            <div class="col-sm-2 form-label">
+			            	<strong>补充事项</strong>
+			            </div>
+			            <div class="col-sm-10">
+			                <span class="form-span">{{ projectData.supplement }}</span>
+			            </div>
+			        </div> 
 				</div>
 			</div>
 			</div>

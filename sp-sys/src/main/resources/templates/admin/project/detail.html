@@ -3,20 +3,22 @@
 
 <head th:include="common :: adminHeader"></head>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/info.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/module/project_style.css}">
+
 <body>
 <!-- v-cloak -->
 <div id="app" v-cloak>
 	<div class="tdfb clear public2">
 	    <div th:include="login/project_detail :: project_detail"></div>
-	    <div class="main_r clear" v-if="loginUserId">
-			<h3 class="col_Name c4">上传资料信息</h3>
+	    <div class="main_r clear"  v-if="(picList1 && picList1.length > 0) || (picList2 && picList2.length > 0) || (picList3 && picList3.length > 0)">
+			<h3 class="col_Name c4">资料信息</h3>
 		</div>
 		<div class="main_w">
 			<div class="fl pinka_left">
 				<div class="sel_attrs">
 					<table class="attrs_table">
 						<tr v-if="picList1 && picList1.length > 0">
-							<td class="t_prop"><strong>身份证：</strong></td>
+							<td class="t_prop form-td"><strong>身份证：</strong></td>
 							<td colspan="3" class="t_prop_b">
 								<div id="picList1">
 									<span v-for="item in picList1" style="padding: 0px 3px 0px 3px;"  @click="bigImg('picList1')">
@@ -26,7 +28,7 @@
 							</td>
 						</tr>
 						<tr v-if="picList2 && picList2.length > 0">
-							<td class="t_prop"><strong>产权证：</strong></td>
+							<td class="t_prop form-td"><strong>产权证：</strong></td>
 							<td colspan="3" class="t_prop_b">
 								<div id="picList2">
 									<span v-for="item in picList2" style="padding: 0px 3px 0px 3px;"  @click="bigImg('picList2')">
@@ -36,7 +38,7 @@
 							</td>
 						</tr>
 						<tr v-if="picList3 && picList3.length > 0">
-							<td class="t_prop"><strong>合同书：</strong></td>
+							<td class="t_prop form-td"><strong>合同书：</strong></td>
 							<td colspan="3" class="t_prop_b">
 								<div id="picList3">
 									<span v-for="item in picList3" style="padding: 0px 3px 0px 3px;"  @click="bigImg('picList3')">

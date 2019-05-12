@@ -1,0 +1,70 @@
+.form-label{
+	text-align: center;
+	background-color: #f9f9f9;
+	font-family: "幼圆";
+	line-height: 35px;
+}
+.form-group{
+    border: 1px solid #eee;
+}
+.form-input{
+    width: 100%;
+    border: none !important;
+    line-height: 35px;
+    color: #000; 
+    height: 32px;
+    padding: 0px 3px 0px 10px;
+}
+.col-sm-2{
+	border: 1px solid #eee;
+	height: 35px;
+	padding-right: 0px !important;
+}
+.col-sm-4{
+	border: 1px solid #eee;
+	height: 35px;
+	padding-right: 0px !important;
+}
+.col-sm-6{
+	border: 1px solid #eee;
+	height: 35px;
+	padding-right: 0px !important;
+}
+.col-sm-8 {
+	border: 1px solid #eee;
+	height: 35px;
+	padding-right: 0px !important;
+}
+.col-sm-10 {
+	border: 1px solid #eee;
+	height: 35px;
+	padding-right: 0px !important;
+}
+.col-sm-12{
+	border: 1px solid #eee;
+	height: 35px;
+	padding-right: 0px !important;
+}
+.form-select{
+    width: 100%;
+    height: 100%;
+   
+}
+.form-date{
+    width: 45%;
+    height: 34px;
+}
+.tdfb{
+	font-size: 14px !important;
+}
+.form-radio{
+	text-align: center;
+    line-height: 35px;
+}
+.form-span{
+	line-height: 35px;
+    padding: 0px 0px 0px 10px;
+}
+.form-td{
+	width: 16.666667%;
+}
