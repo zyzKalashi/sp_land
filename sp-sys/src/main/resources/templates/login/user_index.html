@@ -200,7 +200,6 @@
 																<td>
 																	<span v-if="item.projectStatus == 3" @click="refusePop(item)">原因</span>
 																	<span v-if="item.projectStatus == 3 || item.projectStatus == 7" @click="modifyProject(item.projectId)">编辑</span>
-																	<span v-if="item.projectStatus == 7 || item.projectStatus == 8">待审核</span>
 																	<span v-if="item.projectStatus == 1" @click="doUpload(item)">结束</span>
 																</td>
 																<td>
