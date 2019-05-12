@@ -43,7 +43,10 @@
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="text-center" style="font-size:16px;">
-                                            <input type="checkbox" id="isread" style="margin-top:20px;"> 请确认您已经了解本平台相关条款及规定
+                                            <input type="checkbox"  v-model="isread" id="isread" style="margin-top:20px;"> 
+                                            <span @click="readNotice">
+	                                            请确认您已经了解本平台相关条款及规定
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -67,7 +70,7 @@
         <footer class="footer">
             <div th:replace="common::foot"></div>
         </footer>
-        </div>
+	</div>
 </body>
 <div th:include="common :: js"></div>
 <script type="text/javascript">
@@ -81,8 +84,23 @@
                 password: '',
                 password_v: '',
             },
+            isread: false,
         },
         methods : {
+        	readNotice: function(){
+        		layer.open({
+	  			      type: 2,
+	  			      title: '四平铁西区农经总站土地流转监管平台使用条款即规定',
+	  			      shadeClose: true,
+	  			      shade: false,
+	  			      maxmin: true, //开启最大化最小化按钮
+	  			      area: ['50%', '50%'],
+	  			      content: '/html/read_notice',
+	  			      end: function(){
+	        			    vm.isread = true;
+	  			      }
+  			    });
+        	},
             checkNull: function () {
                 if (!this.user.userName) {
                     layer.msg("请输入用户名！");
@@ -124,8 +142,7 @@
                     $("#password").focus();
                     return false;
                 }
-                var isChecked = $("#isread").is(':checked');
-                if (!isChecked) {
+                if (!vm.isChecked) {
                     layer.msg("未勾选协议！！");
                     $("#isread").focus();
                     return false;

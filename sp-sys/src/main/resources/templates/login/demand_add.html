@@ -97,7 +97,9 @@
 					</tr>
 					<tr>
 						<td align=right></td>
-						<td class="pop_agree"><input type="checkbox" v-model="readFlag">阅读并同意本平台相关条款</td>
+						<td class="pop_agree"><input type="checkbox" v-model="readFlag">
+							<span @click="readNotice">阅读并同意本平台相关条款</span>
+						</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -140,6 +142,20 @@
 				}
 			},
 			methods : {
+				readNotice: function(){
+	        		layer.open({
+		  			      type: 2,
+		  			      title: '四平铁西区农经总站土地流转监管平台使用条款即规定',
+		  			      shadeClose: true,
+		  			      shade: false,
+		  			      maxmin: true, //开启最大化最小化按钮
+		  			      area: ['50%', '50%'],
+		  			      content: '/html/read_notice',
+		  			      end: function(){
+		        			    vm.isread = true;
+		  			      }
+	  			    });
+	        	},
 				initDemand: function(){
 					if(this.demandData.demandId){
 						hzToolObj.postRpc("/demand/demandDetail", this.demandData).done(function (result) {
