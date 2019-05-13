@@ -1,78 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kailash.land.mapper.ProjectMapper">
-	<resultMap id="BaseResultMap" type="com.kailash.land.entity.Project">
-		<id column="pkid" jdbcType="INTEGER" property="pkid" />
-		<result column="project_status" jdbcType="INTEGER" property="projectStatus" />
-		<result column="project_name" jdbcType="VARCHAR" property="projectName" />
-		<result column="project_num" jdbcType="VARCHAR" property="projectNum" />
-		<result column="project_address" jdbcType="VARCHAR"
-			property="projectAddress" />
-		<result column="output" jdbcType="VARCHAR" property="output" />
-		<result column="right_kind" jdbcType="INTEGER"
-			property="rightKind" />
-		<result column="warrant_num" jdbcType="VARCHAR"
-			property="warrantNum" />
-		<result column="area_num" jdbcType="DOUBLE" property="areaNum" />
-		<result column="person_name" jdbcType="VARCHAR"
-			property="personName" />
-		<result column="other_right_flag" jdbcType="INTEGER"
-			property="otherRightFlag" />
-		<result column="other_right_name" jdbcType="VARCHAR"
-			property="otherRightName" />
-		<result column="other_right_context" jdbcType="VARCHAR"
-			property="otherRightContext" />
-		<result column="famer_num" jdbcType="INTEGER"
-			property="famerNum" />
-		<result column="old_rent_date" jdbcType="VARCHAR"
-			property="oldRentDate" />
-		<result column="land_level" jdbcType="VARCHAR"
-			property="landLevel" />
-		<result column="up_things" jdbcType="VARCHAR"
-			property="upThings" />
-		<result column="traffic" jdbcType="VARCHAR" property="traffic" />
-		<result column="again_flag" jdbcType="INTEGER"
-			property="againFlag" />
-		<result column="rent_use" jdbcType="VARCHAR" property="rentUse" />
-		<result column="agree_flag" jdbcType="INTEGER"
-			property="agreeFlag" />
-		<result column="old_output" jdbcType="VARCHAR"
-			property="oldOutput" />
-		<result column="hope_output" jdbcType="VARCHAR"
-			property="hopeOutput" />
-		<result column="giveup_right_flag" jdbcType="INTEGER"
-			property="giveupRightFlag" />
-		<result column="assess_org" jdbcType="VARCHAR"
-			property="assessOrg" />
-		<result column="assess_date" jdbcType="VARCHAR"
-			property="assessDate" />
-		<result column="assess_value" jdbcType="DOUBLE"
-			property="assessValue" />
-		<result column="output_way" jdbcType="VARCHAR"
-			property="outputWay" />
-		<result column="hope_output_date" jdbcType="VARCHAR"
-			property="hopeOutputDate" />
-		<result column="create_date" jdbcType="DATE"
-			property="createDate" />
-		<result column="create_user" jdbcType="INTEGER"
-			property="createUser" />
-		<result column="update_date" jdbcType="DATE"
-			property="updateDate" />
-		<result column="update_user" jdbcType="INTEGER"
-			property="updateUser" />
-	</resultMap>
 	
-	<sql id="Base_Column_List">
-		pkid, project_status, project_name, project_num, project_address, output, right_kind,
-		warrant_num,
-		area_num, person_name, other_right_flag, other_right_name, other_right_context,
-		famer_num,
-		old_rent_date, land_level, up_things, traffic, again_flag, rent_use, agree_flag,
-		old_output, hope_output, giveup_right_flag, assess_org, assess_date,
-		assess_value,
-		output_way, hope_output_date, create_date, create_user, update_date, update_user
-	</sql>
-
 	<select id="querySimpleList" resultType="Map">
 		SELECT
 			p.pkid AS projectId,
@@ -259,15 +188,12 @@
     		pp.town_code AS townCode,
     		ac1.area_name AS areaName,
     		ac2.area_name AS townName,
-    		p.person_name AS personName,
+    		P.person_name AS personName,
     		P.project_kind AS projectKind,
     		P.output_person_name AS outputPersonName,
     		DATE_FORMAT(P.update_date,'%Y-%m-%d') AS updateDateStr,
     		CONCAT(pa.show_preice, '') AS showPreice,
-    		P.other_right_flag AS otherRightFlag,
-    		"是" AS realName,
-    		"" AS xColumn
-    		
+    		P.other_right_flag AS otherRightFlag
     	FROM 
     		project P
     	LEFT JOIN project_person pp ON pp.project_id = P.pkid

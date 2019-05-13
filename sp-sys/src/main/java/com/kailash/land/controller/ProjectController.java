@@ -36,8 +36,12 @@ import com.kailash.land.service.ProjectService;
 import com.kailash.land.util.BeanUtils;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
+import com.kailash.land.util.JsonUtil;
 import com.kailash.land.util.Result;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping(value = "project")
 public class ProjectController extends AbstractController {
@@ -115,7 +119,7 @@ public class ProjectController extends AbstractController {
 				di.setAuditUser(getUserId().intValue());
 				di.setAuditDate(new Date());
 				if (di.getProjectStatus() == null) {
-					if (RoleEnum.AREAADMIN.getRoleId() == getRoleId()) {
+					if (RoleEnum.AREAADMIN.getRoleId() == getRoleId() || RoleEnum.SUPERADMIN.getRoleId() == roleId) {
 						di.setProjectStatus(StatusEnum.COMMON_NORMAL.getId());
 					} else {
 						di.setProjectStatus(StatusEnum.COMMON_TOAREA.getId());
@@ -331,11 +335,20 @@ public class ProjectController extends AbstractController {
 		return Result.ok();
 	}
 
-	@RequestMapping(value = "tableData", method = RequestMethod.POST)
+	@ResponseBody
+	@PostMapping(value = "/tableData", produces = "application/json;charset=UTF-8")
 	public Result tableData(ProjectFiter param) {
-
-		PageInfo<Map<String, Object>> mapPageInfo = this.projectService.tableData(param);
-
+		log.info("--> project tableData begin");
+		PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<Map<String, Object>>();
+		try {
+			mapPageInfo = this.projectService.tableData(param);
+			log.info(JsonUtil.toJson(Result.ok().put("pageInfo", mapPageInfo)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("error");
+			return Result.error("服务器错误");
+		}
+		log.info("--> project tableData end");
 		return Result.ok().put("pageInfo", mapPageInfo);
 	}
 

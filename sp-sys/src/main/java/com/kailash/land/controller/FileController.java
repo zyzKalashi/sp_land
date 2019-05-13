@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.util.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -33,16 +31,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kailash.land.util.ImgUtil;
 import com.kailash.land.util.Result;
 
-//@Value("${urldate.importModel}")
-//private String idCardParth;
-//private String demandFileParth;
-//private String contractParth;
-//private String importModel;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("file")
+@Slf4j
 public class FileController {
-	private static Logger logger = LoggerFactory.getLogger(FileController.class);
 	private final static String UPLOAD_DIRS_PREFIX = "upload.dirs.";
 
 	@Value("${upload.base-dir}")
@@ -52,37 +46,46 @@ public class FileController {
 	private Environment env;
 
 	@ResponseBody
-	@PostMapping("/upload")
+	@PostMapping(value = "/upload", produces = "application/json;charset=UTF-8")
 	public Result upload(Integer fileKind, MultipartFile file) {
+		log.info("--> file upload begin");
 		Result result = new Result();
-
-		String proKey = UPLOAD_DIRS_PREFIX + fileKind;
-		String dir = env.getProperty(proKey);
-		if (null != dir) {
-			String oldName = file.getOriginalFilename();
-			if (StringUtils.isEmpty(oldName) || !oldName.contains(".")) {
-				return Result.error("上传失败！文件错误！");
-			}
-			long now = System.currentTimeMillis();
-			String fileName = dir + now + oldName.substring(oldName.indexOf("."));
-			File dest = new File(uploadDir + fileName);
-			if (!dest.getParentFile().exists()) {
-				dest.getParentFile().mkdirs();
-			}
-			try {
-				file.transferTo(dest);
-				result.put("url", "/upload/" + fileName);
-				if (fileKind.equals(6)) {
-					ImgUtil.markImageByText(uploadDir + fileName, uploadDir + fileName, 10, Color.WHITE, "JPG");
+		try {
+			String proKey = UPLOAD_DIRS_PREFIX + fileKind;
+			String dir = env.getProperty(proKey);
+			if (null != dir) {
+				log.info("--> dir={}", dir);
+				String oldName = file.getOriginalFilename();
+				if (StringUtils.isEmpty(oldName) || !oldName.contains(".")) {
+					return Result.error("上传失败！文件错误！");
 				}
-				return result;
-			} catch (IOException e) {
-				logger.error(e.toString(), e);
-				return Result.error(e.toString());
+				long now = System.currentTimeMillis();
+				String fileName = dir + now + oldName.substring(oldName.indexOf("."));
+				File dest = new File(uploadDir + fileName);
+				if (!dest.getParentFile().exists()) {
+					dest.getParentFile().mkdirs();
+				}
+				try {
+					file.transferTo(dest);
+					result.put("url", "/upload/" + fileName);
+					if (fileKind.equals(6)) {
+						log.info("--> fileKind={6, project_upload}, --> make warter mark", dir);
+						ImgUtil.markImageByText(uploadDir + fileName, uploadDir + fileName, 10, Color.WHITE, "JPG");
+					}
+					log.info(result.toString());
+
+				} catch (IOException e) {
+					log.error(e.toString(), e);
+					return Result.error(e.toString());
+				}
+			} else {
+				return Result.error("上传失败！文件类别错误！");
 			}
-		} else {
-			return Result.error("上传失败！文件类别错误！");
+		} catch (Exception e) {
+			log.error(e.toString(), e);
+			e.printStackTrace();
 		}
+		return result;
 	}
 
 	/*
@@ -95,7 +98,7 @@ public class FileController {
 	@RequestMapping(value = "/fileExists", method = RequestMethod.GET)
 	@ResponseBody
 	public Result fileExists(@RequestParam("filePath") String filePath) {
-		logger.info("判断文件是否存在的路径：" + filePath);
+		log.info("判断文件是否存在的路径：" + filePath);
 		File file = new File(filePath);
 		if (!file.exists()) {
 			return Result.error().put("msg", "文件不存在!");
@@ -137,8 +140,9 @@ public class FileController {
 	 * @param filePath 文件路径
 	 * @return
 	 */
-	@GetMapping(value = "/downFile")
+	@GetMapping(value = "/downFile", produces = "application/json;charset=UTF-8")
 	public Result downFile(String filePath, HttpServletRequest request, HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		if (filePath.contains("/upload/")) {
 			filePath = uploadDir + "/" + filePath.substring(8, filePath.length());
 		}

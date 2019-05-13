@@ -76,7 +76,7 @@
                     <td class="inline">
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(project)" v-if="project.projectStatus == 7 || project.projectStatus == 8">审核</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doAudit(project)" v-if="project.projectStatus == 1 || project.projectStatus == 3">修改</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doDelete(project, 4)" v-if="project.projectStatus == 6 && baseRoleId == 2">结束</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doDelete(project, 4)" v-if="project.projectStatus == 1 && (baseRoleId == 2 || baseRoleId == 1)">结束</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(project, 0)"  v-if="project.projectStatus != 4">删除</button>
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="auditLog(project)">审批日志</button>
                     </td>
@@ -238,42 +238,75 @@
                 var buttons;
                 if(project.projectStatus == 7 || project.projectStatus == 8){
                 	buttons = ["通过","拒绝","关闭"];
+                	vm.auditLayer1(buttons, project);
                 }
                 if(project.projectStatus == 1 || project.projectStatus == 3){
                 	buttons = ["确认","关闭"];
+                	vm.auditLayer2(buttons, project);
                 }
-                layer.open({
-                    type: 2,
-                    title: '审核-' + project.projectName,
-                    area: ['90%', '90%'],
-                    fixed: true, //不固定
-                    skin: 'layer-skin',
-                    maxmin: true,
-                    content: '/admin/project/audit?projectId=' + project.projectId,
-                    btn: buttons,
-                    yes: function(index, layero){
-                    	var iframeWin = window[layero.find('iframe')[0]['name']];
-                    	if(project.projectStatus == 7){
-                    		project.projectStatus = 8;
-                    	} else if(project.projectStatus == 8){
-                    		project.projectStatus = 1;
-                    	}
-                    	if(iframeWin.vm.checkProject()){
-                    		iframeWin.vm.audit(project.projectStatus);                       	
-                    	}
-                        layer.close(layer.index);
-                        vm.doUpload(project);
-                    },
-                    btn2: function(index, layero){
-                    	layer.close(layer.index);
-                    	vm.doRefuse(project);
+            },
+            auditLayer1: function(buttons, project){
+            	 layer.open({
+                     type: 2,
+                     title: '审核-' + project.projectName,
+                     area: ['90%', '90%'],
+                     fixed: true, //不固定
+                     skin: 'layer-skin',
+                     maxmin: true,
+                     content: '/admin/project/audit?projectId=' + project.projectId,
+                     btn: buttons,
+                     yes: function(index, layero){
+                     	var iframeWin = window[layero.find('iframe')[0]['name']];
+                     	if(project.projectStatus == 7){
+                     		project.projectStatus = 8;
+                     	} else if(project.projectStatus == 8){
+                     		project.projectStatus = 1;
+                     	}
+                     	if(iframeWin.vm.checkProject()){
+                     		iframeWin.vm.audit(project.projectStatus);                       	
+                     	}
+                         layer.close(layer.index);
+                         vm.doUpload(project);
+                     },
+                     btn2: function(index, layero){
+                     	layer.close(layer.index);
+                     	vm.doRefuse(project);
+                         return false;
+                     },
+                     btn3: function(index, layero){
+                     	layer.close(layer.index);
+                         return false;
+                     },
+                 });
+            },
+            auditLayer2: function(buttons, project){
+            	 layer.open({
+                     type: 2,
+                     title: '审核-' + project.projectName,
+                     area: ['90%', '90%'],
+                     fixed: true, //不固定
+                     skin: 'layer-skin',
+                     maxmin: true,
+                     content: '/admin/project/audit?projectId=' + project.projectId,
+                     btn: buttons,
+                     yes: function(index, layero){
+                     	var iframeWin = window[layero.find('iframe')[0]['name']];
+                     	if(project.projectStatus == 7){
+                     		project.projectStatus = 8;
+                     	} else if(project.projectStatus == 8){
+                     		project.projectStatus = 1;
+                     	}
+                     	if(iframeWin.vm.checkProject()){
+                     		iframeWin.vm.audit(project.projectStatus);                       	
+                     	}
+                         layer.close(layer.index);
+                         vm.doUpload(project);
+                     },
+                     btn2: function(index, layero){
+                     	layer.close(layer.index);
                         return false;
-                    },
-                    btn3: function(index, layero){
-                    	layer.close(layer.index);
-                        return false;
-                    },
-                });
+                     },
+                 });
             },
             audit: function (project) {
                	var index = layer.load(0, { shade: [0.1,'#fff'] });

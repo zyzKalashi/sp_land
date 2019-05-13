@@ -61,9 +61,11 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 	@Override
 	public PageInfo<Map<String, Object>> tableData(ProjectFiter param) {
 		PageHelper.startPage(param.getPageNo(), param.getPageSize());
-
 		List<Map<String, Object>> result = this.projectMapper.tableData(param);
-
+		result.forEach(v -> {
+			v.put("realName", "是");
+			v.put("xColumn", "");
+		});
 		return new PageInfo<>(result);
 	}
 
