@@ -79,4 +79,6 @@ upload:
     5: /user_upload/
     6: /project_upload/
 export:
+   excelTempPath: src/main/resources/doc/project_table_data_template.xlsx
    chartExport: /data/sp_export/project_chart/
+   

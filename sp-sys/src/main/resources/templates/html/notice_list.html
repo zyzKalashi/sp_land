@@ -85,7 +85,7 @@
 	        },
 			goDetail: function(noticeId){
 				storage.setItem("noticeQueryData",JSON.stringify(vm.queryData));
-				window.location.href="../html/notice_detail?noticeId=" + noticeId;
+				window.location.href="../html/notice_detail?noticeId=" + window.btoa(noticeId);
 			},
 			queryList: function(){
 				hzToolObj.getdomInit("/notice/simpleList", vm.queryData, vm.callback);

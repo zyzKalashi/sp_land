@@ -134,7 +134,7 @@
 				readFlag: false,
 			},
 			mounted : function() {
-				this.demandData.demandId = getUrlParam('demandId');
+				this.demandData.demandId = window.atob(getUrlParam('demandId'));
 				if(this.demandData.demandId){
 					this.initDemand();
 				} else {

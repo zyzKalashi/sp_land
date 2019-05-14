@@ -338,15 +338,15 @@
 			methods : {
 				goProDetail: function(id){
 					storage.setItem("projectQueryData",JSON.stringify({pageNo : 1,pageSize : 9,projectStatus: 14}));
-					window.location.href="../login/project_detail?projectId=" + id;
+					window.location.href="../login/project_detail?projectId=" +  window.btoa(id);
 				},
 				goDemDetail: function(id){
 					storage.setItem("demandQueryData",JSON.stringify({pageNo : 1,pageSize : 6, queryPage:"index"}));
-					window.location.href="../login/demand_detail?demandId=" + id;
+					window.location.href="../login/demand_detail?demandId=" + window.btoa(id);
 				},
 				goNotDetail: function(noticeId){
 					storage.setItem("noticeQueryData",JSON.stringify({pageNo : 1,pageSize : 9, queryPage:"index"}));
-					window.location.href="../html/notice_detail?noticeId=" + noticeId;
+					window.location.href="../html/notice_detail?noticeId=" + window.btoa(noticeId);
 				},
 				initProjectList : function() {
 					hzToolObj.getdomInit("/project/simpleList", {pageNo : 1,pageSize : 9,projectStatus: 14}, function(result){

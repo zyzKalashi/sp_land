@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,8 +44,8 @@ public class FileController {
 	@Autowired
 	private Environment env;
 
+	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	@PostMapping(value = "/upload", produces = "application/json;charset=UTF-8")
 	public Result upload(Integer fileKind, MultipartFile file) {
 		log.info("--> file upload begin");
 		Result result = new Result();

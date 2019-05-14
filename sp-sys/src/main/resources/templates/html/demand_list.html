@@ -78,7 +78,7 @@
 				},
 				goDetail: function (id) {
 					storage.setItem("demandQueryData",JSON.stringify(vm.queryData));
-					window.location.href="../login/demand_detail?demandId=" + id;
+					window.location.href="../login/demand_detail?demandId=" + window.btoa(id);
 				},
 				queryList: function(){
 					hzToolObj.getdomInit("/demand/simpleList", vm.queryData, vm.callback);

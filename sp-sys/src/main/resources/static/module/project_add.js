@@ -21,7 +21,7 @@ var vm = new Vue({
 			},
 			mounted : function() {
 				this.initArea();
-				this.projectData.projectId = getUrlParam('projectId');
+				this.projectData.projectId = window.atob(getUrlParam('projectId'));
 			},
 			methods : {
 				openUpload: function(flag, projectId){

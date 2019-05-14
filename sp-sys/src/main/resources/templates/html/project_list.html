@@ -155,7 +155,7 @@
 			},
 			goDetail: function(projectId){
 				storage.setItem("projectQueryData",JSON.stringify(vm.queryData));
-				window.location.href="../login/project_detail?projectId=" + projectId;
+				window.location.href="../login/project_detail?projectId=" + window.btoa(projectId);
 			},
 			clearQuery: function(){
 				vm.queryData={

@@ -253,7 +253,7 @@
                      fixed: true, //不固定
                      skin: 'layer-skin',
                      maxmin: true,
-                     content: '/admin/project/audit?projectId=' + project.projectId,
+                     content: '/admin/project/audit?projectId=' +  window.btoa(project.projectId),
                      btn: buttons,
                      yes: function(index, layero){
                      	var iframeWin = window[layero.find('iframe')[0]['name']];
@@ -287,7 +287,7 @@
                      fixed: true, //不固定
                      skin: 'layer-skin',
                      maxmin: true,
-                     content: '/admin/project/audit?projectId=' + project.projectId,
+                     content: '/admin/project/audit?projectId=' +  window.btoa(project.projectId),
                      btn: buttons,
                      yes: function(index, layero){
                      	var iframeWin = window[layero.find('iframe')[0]['name']];

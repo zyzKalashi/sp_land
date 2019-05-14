@@ -36,7 +36,6 @@ import com.kailash.land.service.ProjectService;
 import com.kailash.land.util.BeanUtils;
 import com.kailash.land.util.DateFormatConsts;
 import com.kailash.land.util.DateUtils;
-import com.kailash.land.util.JsonUtil;
 import com.kailash.land.util.Result;
 
 import lombok.extern.slf4j.Slf4j;
@@ -342,10 +341,8 @@ public class ProjectController extends AbstractController {
 		PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<Map<String, Object>>();
 		try {
 			mapPageInfo = this.projectService.tableData(param);
-			log.info(JsonUtil.toJson(Result.ok().put("pageInfo", mapPageInfo)));
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("error");
+			log.error(e.toString(), e);
 			return Result.error("服务器错误");
 		}
 		log.info("--> project tableData end");

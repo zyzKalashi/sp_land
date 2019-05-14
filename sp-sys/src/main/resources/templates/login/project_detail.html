@@ -429,7 +429,7 @@
 			},
 			mounted : function() {
 				this.loginUserId = $("#baseUserId").text();
-				this.projectData.projectId = getUrlParam('projectId');
+				this.projectData.projectId = window.atob(getUrlParam('projectId'));
 				this.queryData = JSON.parse(storage.getItem("projectQueryData"));
 				this.queryData.projectId = this.projectData.projectId;
 				this.initPage();
@@ -479,7 +479,7 @@
                     });
 				},
 				goDetail: function(projectId){
-					window.location.href="../login/project_detail?projectId=" + projectId;
+					window.location.href="../login/project_detail?projectId=" + window.btoa(projectId);
 				},
 			},
 		});

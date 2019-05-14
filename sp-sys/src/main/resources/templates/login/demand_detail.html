@@ -93,7 +93,7 @@
 			},
 			mounted : function() {
 				this.queryData = JSON.parse(storage.getItem("demandQueryData"));
-				this.queryData.demandId = this.demandData.demandId = getUrlParam('demandId');
+				this.queryData.demandId = this.demandData.demandId =  window.atob(getUrlParam('demandId'));
 				this.initPage();
 			},
 			methods : {
@@ -125,7 +125,7 @@
                     });
 				},
 				goDetail: function (id) {
-					window.location.href="../login/demand_detail?demandId=" + id;
+					window.location.href="../login/demand_detail?demandId=" + window.btoa(id);
 				},
 				downloadFile: function(url){
 					window.location.href = "/file/downFile?filePath=" + url;

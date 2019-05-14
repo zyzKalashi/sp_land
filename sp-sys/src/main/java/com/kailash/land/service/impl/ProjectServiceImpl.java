@@ -28,12 +28,18 @@ import com.kailash.land.util.ShiroUtils;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service("projectService")
 public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> implements ProjectService {
 
 	@Autowired
 	private ProjectMapper projectMapper;
+
+	@Value("${export.excelTempPath}")
+	private String excelTempPath;
+
 	@Value("${export.chartExport}")
 	private String chartExport;
 
@@ -77,9 +83,17 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 			Long totalMoney = 0L;
 			// 可以抽取为日期工具类
 
+			File f1 = new File(excelTempPath);
+			log.info("file1 = {}, path={}", f1.exists(), excelTempPath);
+			File f2 = new File("/WEB-INF/classes/doc/project_table_data_template.xlsx");
+			log.info("file2 = {}, path={}", f2.exists(), "/WEB-INF/classes/doc/project_table_data_template.xlsx");
+			File f3 = new File("classes/doc/project_table_data_template.xlsx");
+			log.info("file3 = {}, path={}", f3.exists(), "classes/doc/project_table_data_template.xlsx");
+			File f4 = new File("/classes/doc/project_table_data_template.xlsx");
+			log.info("file3 = {}, path={}", f4.exists(), "/classes/doc/project_table_data_template.xlsx");
+			
 			String fileName = "/表格报表" + DateUtils.format(new Date(), DateFormatConsts.DATE_PATTERN_MO) + ".xlsx";
-			TemplateExportParams params = new TemplateExportParams(
-					"src/main/resources/doc/project_table_data_template.xlsx", true);
+			TemplateExportParams params = new TemplateExportParams(excelTempPath, true);
 			if (result != null && result.size() > 0) {
 				for (Map<String, Object> map : result) {
 					if (StringUtils.isNotEmpty(map.get("showPreice").toString())) {

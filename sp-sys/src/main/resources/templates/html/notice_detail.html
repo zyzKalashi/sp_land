@@ -73,7 +73,7 @@
 					visitNum : 0,
 				},
 				mounted : function() {
-					this.noticeData.noticeId = getUrlParam('noticeId');
+					this.noticeData.noticeId =  window.atob(getUrlParam('noticeId'));
 					this.queryData = JSON.parse(storage.getItem("noticeQueryData"));
 					this.queryData.noticeId = this.noticeData.noticeId;
 					this.initPage();
@@ -106,7 +106,7 @@
 	                    });
 					},
 					goDetail: function(id){
-						window.location.href="../html/notice_detail?noticeId=" + id;
+						window.location.href="../html/notice_detail?noticeId=" + window.btoa(id);
 					},
 				},
 			});

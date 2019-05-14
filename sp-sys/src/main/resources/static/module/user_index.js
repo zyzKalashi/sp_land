@@ -79,10 +79,10 @@ var vm = new Vue({
 			});
 		},
 		modifyProject: function(projectId){
-			window.location.href = "../login/project_add?projectId=" + projectId;
+			window.location.href = "../login/project_add?projectId=" + window.btoa(projectId);
 		},
 		modifyDemand: function(demandId){
-			window.location.href = "../login/demand_add?demandId=" + demandId;
+			window.location.href = "../login/demand_add?demandId=" + window.btoa(demandId);
 		},
 		cancelUser: function(){
 			layer.confirm("确认注销吗？", {
@@ -164,11 +164,11 @@ var vm = new Vue({
 		},
 		goProDetail: function(id){
 			storage.setItem("projectQueryData",JSON.stringify(vm.queryData_pro));
-			window.location.href="../login/project_detail?projectId=" + id;
+			window.location.href="../login/project_detail?projectId=" + window.btoa(id);
 		},
 		goDemDetail: function(id){
 			storage.setItem("demandQueryData",JSON.stringify(vm.queryData_dem));
-			window.location.href="../login/demand_detail?demandId=" + id;
+			window.location.href="../login/demand_detail?demandId=" + window.btoa(id);
 		},
 		openWin: function(flag){
 			if(flag == 'win_baseInfo'){
