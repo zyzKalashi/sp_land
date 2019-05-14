@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,22 +45,24 @@ public class FileController {
 	@Autowired
 	private Environment env;
 
-	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
+	@PostMapping("/upload")
 	public Result upload(Integer fileKind, MultipartFile file) {
-		log.info("--> file upload begin");
+		log.info("---> file upload begin");
 		Result result = new Result();
 		try {
 			String proKey = UPLOAD_DIRS_PREFIX + fileKind;
 			String dir = env.getProperty(proKey);
+			log.info("proKey={}; dir", proKey, dir);
 			if (null != dir) {
-				log.info("--> dir={}", dir);
 				String oldName = file.getOriginalFilename();
+				log.info("--> oldName={}", oldName);
 				if (StringUtils.isEmpty(oldName) || !oldName.contains(".")) {
 					return Result.error("上传失败！文件错误！");
 				}
 				long now = System.currentTimeMillis();
 				String fileName = dir + now + oldName.substring(oldName.indexOf("."));
+				log.info("--> fileName={}", fileName);
 				File dest = new File(uploadDir + fileName);
 				if (!dest.getParentFile().exists()) {
 					dest.getParentFile().mkdirs();
@@ -84,6 +87,7 @@ public class FileController {
 			log.error(e.toString(), e);
 			e.printStackTrace();
 		}
+		log.info("---> file upload end");
 		return result;
 	}
 

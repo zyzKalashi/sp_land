@@ -68,7 +68,10 @@ mybatis-plus:
     cache-enabled: false
     #配置JdbcTypeForNull
     jdbc-type-for-null: 'null'
-
+    
+export:
+   chartExport: /data/sp_export/project_chart/
+   
 upload:
   base-dir: /data/sp-upload/
   dirs:
@@ -78,7 +81,5 @@ upload:
     4: /pic_upload/
     5: /user_upload/
     6: /project_upload/
-export:
-   excelTempPath: src/main/resources/doc/project_table_data_template.xlsx
-   chartExport: /data/sp_export/project_chart/
+
    

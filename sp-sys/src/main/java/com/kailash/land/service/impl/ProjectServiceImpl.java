@@ -37,9 +37,6 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 	@Autowired
 	private ProjectMapper projectMapper;
 
-	@Value("${export.excelTempPath}")
-	private String excelTempPath;
-
 	@Value("${export.chartExport}")
 	private String chartExport;
 
@@ -77,23 +74,16 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 
 	@Override
 	public String createExcel(ProjectFiter param) {
+		log.info("createExcel --> begin");
 		try {
 			PageHelper.startPage(1, 999999);
 			List<Map<String, Object>> result = this.projectMapper.tableData(param);
 			Long totalMoney = 0L;
-			// 可以抽取为日期工具类
-
-			File f1 = new File(excelTempPath);
-			log.info("file1 = {}, path={}", f1.exists(), excelTempPath);
-			File f2 = new File("/WEB-INF/classes/doc/project_table_data_template.xlsx");
-			log.info("file2 = {}, path={}", f2.exists(), "/WEB-INF/classes/doc/project_table_data_template.xlsx");
-			File f3 = new File("classes/doc/project_table_data_template.xlsx");
-			log.info("file3 = {}, path={}", f3.exists(), "classes/doc/project_table_data_template.xlsx");
-			File f4 = new File("/classes/doc/project_table_data_template.xlsx");
-			log.info("file3 = {}, path={}", f4.exists(), "/classes/doc/project_table_data_template.xlsx");
-			
+			String tempFilePath = this.getClass().getResource("/").getPath() + "/doc/project_table_data_template.xlsx";
+			log.debug("tempFilePath={}", tempFilePath);
 			String fileName = "/表格报表" + DateUtils.format(new Date(), DateFormatConsts.DATE_PATTERN_MO) + ".xlsx";
-			TemplateExportParams params = new TemplateExportParams(excelTempPath, true);
+			TemplateExportParams params = new TemplateExportParams(tempFilePath, true);
+			log.debug("fileName={}", fileName);
 			if (result != null && result.size() > 0) {
 				for (Map<String, Object> map : result) {
 					if (StringUtils.isNotEmpty(map.get("showPreice").toString())) {
@@ -122,6 +112,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 			FileOutputStream fos = new FileOutputStream(savefile + fileName);
 			workbook.write(fos);
 			fos.close();
+			log.info("createExcel <-- end");
 			return chartExport + fileName;
 		} catch (Exception e) {
 			e.printStackTrace();
