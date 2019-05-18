@@ -1,6 +1,5 @@
 package com.kailash.land.controller;
 
-import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -53,7 +52,7 @@ public class FileController {
 		try {
 			String proKey = UPLOAD_DIRS_PREFIX + fileKind;
 			String dir = env.getProperty(proKey);
-			log.info("proKey={}; dir", proKey, dir);
+			log.info("proKey={}; dir={}", proKey, dir);
 			if (null != dir) {
 				String oldName = file.getOriginalFilename();
 				log.info("--> oldName={}", oldName);
@@ -61,7 +60,8 @@ public class FileController {
 					return Result.error("上传失败！文件错误！");
 				}
 				long now = System.currentTimeMillis();
-				String fileName = dir + now + oldName.substring(oldName.indexOf("."));
+				String backName = oldName.substring(oldName.indexOf("."));
+				String fileName = dir + now + backName;
 				log.info("--> fileName={}", fileName);
 				File dest = new File(uploadDir + fileName);
 				if (!dest.getParentFile().exists()) {
@@ -71,8 +71,12 @@ public class FileController {
 					file.transferTo(dest);
 					result.put("url", "/upload/" + fileName);
 					if (fileKind.equals(6)) {
-						log.info("--> fileKind={6, project_upload}, --> make warter mark", dir);
-						ImgUtil.markImageByText(uploadDir + fileName, uploadDir + fileName, 10, Color.WHITE, "JPG");
+						log.info("--> fileKind={6, project_upload}, --> make warter mark");
+						ImgUtil imgUtil = new ImgUtil();
+						imgUtil.createWaterMarkByIcon(uploadDir + fileName, 0);
+						//imgUtil.createMark(uploadDir + fileName, backName.substring(1, backName.length()));
+//						ImgUtil.markImageByText(uploadDir + fileName, uploadDir + fileName, 10, Color.WHITE,
+//								backName.substring(1, backName.length()));
 					}
 					log.info(result.toString());
 
