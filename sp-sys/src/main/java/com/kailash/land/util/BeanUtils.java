@@ -7,8 +7,10 @@ public class BeanUtils {
 		try {
 			for (Field field : o.getClass().getDeclaredFields()) {
 				field.setAccessible(true);// 把私有属性公有化
-				if (field.get(o) != null) {
-					return true;
+				if (!field.getName().equals("serialVersionUID")) {
+					if (field.get(o) != null) {
+						return true;
+					}
 				}
 			}
 		} catch (Exception e) {

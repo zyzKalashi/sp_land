@@ -25,7 +25,7 @@ var vm = new Vue({
 			},
 			methods : {
 				openUpload: function(flag, projectId){
-					layer.open({
+					var indexOpen = layer.open({
 	                    type: 2,
 	                    title: '上传',
 	                    area: ['90%', '90%'],
@@ -33,16 +33,10 @@ var vm = new Vue({
 	                    skin: 'layer-skin',
 	                    maxmin: true,
 	                    content: '/admin/project/upload?projectId=' + projectId + "&flag=" + flag,
-	                    // btn: buttons,
-	                    yes: function(index, layero){
-	                        if(3 == buttons.length) {
-	                            var iframeWin = window[layero.find('iframe')[0]['name']];
-	                            iframeWin.vm.audit('1');
-	                        } else {
-	                            layer.close(layer.index);
-	                        }
-	                    },
-	                    no: function(index, layero){
+	                    btn: ["关闭"],
+	                    btn: function(index, layero){
+	                    	layer.close(layer.index);
+	                        return false;
 	                    },
 	                });
 				},
