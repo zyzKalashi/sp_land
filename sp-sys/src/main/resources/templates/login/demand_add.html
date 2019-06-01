@@ -134,7 +134,10 @@
 				readFlag: false,
 			},
 			mounted : function() {
-				this.demandData.demandId = window.atob(getUrlParam('demandId'));
+				var id =  window.atob(getUrlParam('demandId'));
+				if(id != "ée"){
+					this.demandData.demandId = id;
+				}
 				if(this.demandData.demandId){
 					this.initDemand();
 				} else {

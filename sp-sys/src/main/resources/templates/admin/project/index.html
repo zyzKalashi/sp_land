@@ -228,8 +228,8 @@
                     maxmin: true,
                     content: '/admin/project/upload?projectId=' + project.projectId,
                     btn: buttons,
-                    btn1: function(index, layero){
-                    	layer.close(layer.index);
+                    btn1: function(){
+                    	layer.closeAll();
                         return false;
                     },
                 });
@@ -265,8 +265,8 @@
                      	if(iframeWin.vm.checkProject()){
                      		iframeWin.vm.audit(project.projectStatus);                       	
                      	}
-                         layer.close(layer.index);
-                         vm.doUpload(project);
+                        layer.close(layer.index);
+                        vm.doUpload(project);
                      },
                      btn2: function(index, layero){
                      	layer.close(layer.index);
