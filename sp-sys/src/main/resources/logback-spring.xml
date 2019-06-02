@@ -3,7 +3,8 @@
     <contextName>logback</contextName>
 
     <!--配置参数-->
-    <property name="logpath" value="/data/logs/sp-sys/"/>
+    <!-- <property name="logpath" value="/data/logs/sp-sys/"/> -->
+    <property name="logpath" value="/opt/sp-sys-logs/"/>
 
     <!--输出到控制台 ConsoleAppender-->
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">

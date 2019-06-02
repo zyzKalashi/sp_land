@@ -104,14 +104,22 @@
 				});
         	},
         	exportExcel: function(){
-        		hzToolObj.postRpc("/project/exportExcel", this.queryData).done(function(result) {
-        			console.log(result);
-        			if(result.code == 0){
-        				window.location.href = "/file/downFile?filePath=" + result.fileUrl;
-        			} else {
-        				layer.alert(result.msg);
-        			}
-        		});     	
+        		layer.confirm("确认导出吗？", {
+                    icon: 3,
+                    title: '提示',
+                    btn: ["导出", "取消"]
+                }, function (index) {
+	        		hzToolObj.postRpc("/project/exportExcel", this.queryData).done(function(result) {
+	        			console.log(result);
+	        			if(result.code == 0){
+	        				window.location.href = "/file/downFile?filePath=" + result.fileUrl;
+	        			} else {
+	        				layer.alert(result.msg);
+	        			}
+	        			layer.closeAll();
+	        		});     	
+                });
+        		
         	}
         },
 	});

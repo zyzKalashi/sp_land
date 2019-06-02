@@ -80,6 +80,8 @@
 			notice_info
 		<where>
 			notice_status = 1
+			AND notice_pic IS NOT NULL
+			AND notice_pic != ''
 		</where>
 		ORDER BY
 			pkid DESC
