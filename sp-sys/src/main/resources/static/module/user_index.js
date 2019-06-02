@@ -30,7 +30,7 @@ var vm = new Vue({
 	},
 	mounted : function() {
 		this.initArea();
-		this.userData.userId = this.queryData_pro.createUser = this.queryData_pro.queryData_dem = $("#baseUserId").text();
+		this.userData.userId = this.queryData_pro.createUser = this.queryData_dem.createUser = $("#baseUserId").text();
 		if(!this.userData.userId){
 			location.href = "../html/login";
 		} 
@@ -90,28 +90,28 @@ var vm = new Vue({
                 title: '提示',
                 btn: ["注销", "取消"]
             }, function (index) {
-            	layer.closeAll('dialog');
-            	vm.modifyUser("cancelUser");
-            	var projectIds = [];
-            	projectList.filter((item)=>{
-            		if(item.status == 2){
-            			projectIds.add(item.projectId);
-            		}
-                });
-            	var demandIds = [];
-            	demandList.filter((item)=>{
-            		if(item.status == 2){
-            			demandIds.add(item.demandId);
-            		}
-                });
-            	var obj = {
-            			projectIds: projectIds,
-            		 	demandIds: demandIds,
-            			status: 0,
-            	}
-            	$.post("/project/batchModify", obj, function (result) {});
-            	$.post("/demand/batchModify", obj, function (result) {});
-            	window.location.herf = "/logoutCommon";
+//            	layer.closeAll('dialog');
+//            	vm.modifyUser("cancelUser");
+//            	var projectIds = [];
+//            	projectList.filter((item)=>{
+//            		if(item.status == 2){
+//            			projectIds.add(item.projectId);
+//            		}
+//                });
+//            	var demandIds = [];
+//            	demandList.filter((item)=>{
+//            		if(item.status == 2){
+//            			demandIds.add(item.demandId);
+//            		}
+//                });
+//            	var obj = {
+//            			projectIds: projectIds,
+//            		 	demandIds: demandIds,
+//            			status: 0,
+//            	}
+//            	$.post("/project/batchModify", obj, function (result) {});
+//            	$.post("/demand/batchModify", obj, function (result) {});
+            	window.location.href = "/logoutCommon";
             });
 		},
 		delProject: function(projectId){

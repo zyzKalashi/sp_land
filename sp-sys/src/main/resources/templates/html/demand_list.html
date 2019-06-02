@@ -17,24 +17,60 @@
 			</div>
 
 			<div class="main_w">
+				<div class="screen_sel">
+					<div class="selected_c">
+						<span class="fl c_key">您已选择：</span>
+						<ul class="fl sel_list" style="font-size: 12px;">
+							<li v-if="queryData.demandStatus && queryData.demandStatus != 14">
+								需求状态:
+								<span>{{queryData.demandStatus | projectStatusFilter }} </span>
+							</li>
+						</ul>
+						<div class="revocation"><a @click="clearQuery">清空条件</a></div>
+					</div>
+					<div class="sel_attrs">
+						<table class="attrs_table">
+							<tr>
+								<td class="t_prop" >需求状态：</td>
+								<td class="atter_mod pl10" style=" text-align: center;">
+									<label :for="item.label" style="width: 30%; margin-top: 5px;" v-for="item in selectStatusDic">
+										<input :id="item.label" type="radio" :value="item.value" v-model="queryData.demandStatus">{{ item.label }}
+									</label>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			
 				<div class="pinka_con">
 					<div class="select-tabs">
 						<ul>
 							<li v-for="item in projectKindList" :class="{'sel-tab-cur':item.show===true}"  @click="selectKind(item)">
-								<a>{{ item.value | projectKindFilter }}</a> 
+								<a href="#" class="ahover">{{ item.value | projectKindFilter }}</a> 
 							</li>
 						</ul>
 					</div>
-					<div class="clearfix info-sel-title">
-						<div class="fl s-t-name">需求项目名称</div>
-						<div class="fl s-t-hy">项目类型</div>
-						<div class="s-t-date">发布时间</div>
+					<div class="clearfix info-sel-title form-inline">
+						<div class="col-sm-5 text-center ">需求名称</div>
+						<div class="col-sm-3 text-center ">需求类型</div>
+						<div class="col-sm-2 text-center ">需求状态</div>
+						<div class="col-sm-2 text-center ">发布时间</div>
 					</div>
 					<div class="tech-pro-con">
-						<div class="project-list" v-for="item in demandList">
-							<a @click="goDetail(item.demandId)">{{ item.title }}</a>
-							<span class="">{{ item.demandKind | demandKindFilter }}</span>
-							<span class="project_date">{{ item.createDateStr }}</span>
+						<div class="project-list form-inline" v-for="(item, index) in demandList">
+							<div class="col-sm-5 text-left ">
+								<a @click="goDetail(item.demandId)" href="#" style="width: 100%">{{ item.title }}</a>
+							</div>
+							<div class="col-sm-3 text-center ">
+								<span class="">{{ item.demandKind | demandKindFilter }}</span>
+							</div>
+							<div class="col-sm-2 text-center ">
+								<em v-if="item.demandStatus == 1" style="color: #068106 !important;">{{ item.demandStatus | projectStatusFilter }}</em>
+								<em v-if="item.demandStatus == 4" style="color: red !important;">{{ item.demandStatus | projectStatusFilter }}</em>
+							</div>
+							<div class="col-sm-2 text-center ">
+								<span class="project_date">{{ item.createDateStr }}</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -59,6 +95,7 @@
 					pageNo: 1,
 					pageSize: 15,
 					queryPage: "demand_list",
+					demandStatus: 14,
 				},
 				demandList : [],
 				projectKindList: [
@@ -95,7 +132,21 @@
 					vm.queryData.demandKind = item.value;
 					vm.queryList();
 				},
+				clearQuery: function(){
+					vm.queryData={
+							pageNo: 1,
+							pageSize: 15,
+							queryPage: "demand_list",
+							demandStatus: 14,
+					};
+					vm.queryList();
+				},
 			},
+			watch: {
+				'queryData.demandStatus': function(code){
+					vm.queryList();
+				},
+			}
 		});
 	</script>
 

@@ -55,9 +55,9 @@ a {
 	outline: none;
 }
 
-a:hover {
+/* a:hover {
 	color: #6A3906;
-}
+} */
 
 body, input, select, textarea {
 	font: 12px/1.5 "microsoft yahei", "宋体", Arial;
@@ -922,7 +922,7 @@ a.dengl:hover, a.zhuce:hover {
 .steps a {
 	display: inline-block;
 	float: left;
-	width: 108px;
+	/* width: 108px; */
 	height: 45px;
 	line-height: 45px;
 	color: #333;
@@ -945,7 +945,7 @@ a.dengl:hover, a.zhuce:hover {
 .steps a.xians {
 	display: inline-block;
 	float: left;
-	width: 105px;
+	/* width: 105px; */
 	height: 45px;
 	line-height: 45px;
 	color: #333;
@@ -958,7 +958,7 @@ a.dengl:hover, a.zhuce:hover {
 .steps a.chakan {
 	display: inline-block;
 	float: left;
-	width: 105px;
+	/* width: 105px; */
 	height: 45px;
 	line-height: 45px;
 	color: #333;
@@ -971,7 +971,7 @@ a.dengl:hover, a.zhuce:hover {
 .steps a.ship {
 	display: inline-block;
 	float: left;
-	width: 108px;
+	/* width: 108px; */
 	height: 45px;
 	line-height: 45px;
 	color: #333;

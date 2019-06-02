@@ -30,36 +30,45 @@
 								 - {{ queryData.townName }}
 								</span>
 							</li>
+							<li v-if="queryData.projectStatus && queryData.projectStatus != 14">
+								项目状态:
+								<span>{{queryData.projectStatus | projectStatusFilter }} </span>
+							</li>
+							<li v-if="queryData.infoKind">
+								项目主体:
+								<span>{{queryData.infoKind | projectInfoKindFilter }} </span>
+							</li>
 						</ul>
 						<div class="revocation"><a @click="clearQuery">清空条件</a></div>
 					</div>
 					<div class="sel_attrs">
 						<table class="attrs_table">
 							<tr>
-								<td class="t_prop">所属乡镇：</td>
-								<td class="atter_mod pl10">
-									<table class="select_tabs">
-										<tr>
-											<td>
-												<select v-model="queryData.areaCode">
-													<option value="0">选择乡镇</option>
-													<option v-for="item in aeaList" :value="item.code">{{ item.areaName }}</option>
-												</select>
-												<select v-model="queryData.townCode" v-show="childAreas.length > 0">
-													<option value="0" selected="selected">请选择村委</option>
-													<option v-for="item in childAreas" :value="item.code">{{ item.areaName }}</option>
-												</select> 
-											</td>
-										</tr>
-									</table>
+								<td class="t_prop" style="width: 20%">所属乡镇：</td>
+								<td class="atter_mod pl10" style="width: 30%">
+									<select v-model="queryData.areaCode" style="width: 45%;">
+										<option value="0">选择乡镇</option>
+										<option v-for="item in aeaList" :value="item.code">{{ item.areaName }}</option>
+									</select>
+									<select v-model="queryData.townCode" style="width: 45%;">
+										<option value="0" selected="selected">请选择村委</option>
+										<option v-for="item in childAreas" :value="item.code"  v-show="childAreas.length > 0">{{ item.areaName }}</option>
+									</select> 
+								</td>
+								<td class="t_prop" style="width: 20%">项目状态：</td>
+								<td class="atter_mod pl10" style="width: 30%; text-align: center;">
+									<select v-model="queryData.projectStatus"  style="width: 80%;">
+										<option v-for="item in selectStatusDic" :value="item.value">{{ item.label }}</option>
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td class="t_prop">项目主体：</td>
-								<td class="pl10">
-									<label for="infoKind0" @click="queryList">
+								<td class="pl10" colspan="3" style="text-align: center;">
+									<label for="infoKind0" style="width: 40%">
 										<input id="infoKind0" type="radio" value="0" name="queryData.infoKind" v-model="queryData.infoKind">家庭个人
 									</label>
-									<label for="infoKind1" @click="queryList">
+									<label for="infoKind1" style="width: 40%">
 										<input id="infoKind1" type="radio" value="1" name="queryData.infoKind" v-model="queryData.infoKind">集体单位
 									</label>
 								</td>
@@ -72,22 +81,32 @@
 					<div class="select-tabs">
 						<ul>
 							<li v-for="item in projectKindList" :class="{'sel-tab-cur':item.show===true}"  @click="selectKind(item)">
-								<a>{{ item.value | projectKindFilter }}</a> 
+								<a href="#">{{ item.value | projectKindFilter }}</a> 
 							</li>
 						</ul>
 					</div>
-					<div class="clearfix info-sel-title">
-						<div class="fl s-t-name">项目名称</div>
-						<div class="fl s-t-hy">项目类型</div>
-						<div class="s-t-date">发布时间</div>
+					<div class="clearfix info-sel-title form-inline">
+						<div class="col-sm-5 text-center ">项目名称</div>
+						<div class="col-sm-3 text-center ">项目类型</div>
+						<div class="col-sm-2 text-center ">项目状态</div>
+						<div class="col-sm-2 text-center ">发布时间</div>
 					</div>
 					<div class="tech-pro-con">
-						<div class="project-list" v-for="(item, index) in projectList">
-							<a @click="goDetail(item.projectId)">{{ item.projectName }}</a>
-							<span class="">{{ item.projectKind | projectKindFilter }}</span>
-							<span class="project_date">{{ item.createDateStr }}</span>
+						<div class="project-list form-inline" v-for="(item, index) in projectList">
+							<div class="col-sm-5 text-left ">
+								<a @click="goDetail(item.projectId)" href="#"  style="width: 100%">{{ item.projectName }}</a>
+							</div>
+							<div class="col-sm-3 text-center ">
+								<span class="">{{ item.projectKind | projectKindFilter }}</span>
+							</div>
+							<div class="col-sm-2 text-center ">
+								<span v-if="item.projectStatus == 1" style="color: #068106">{{ item.projectStatus | projectStatusFilter }}</span>
+								<span v-if="item.projectStatus == 4" style="color: red">{{ item.projectStatus | projectStatusFilter }}</span>
+							</div>
+							<div class="col-sm-2 text-center ">
+								<span class="project_date">{{ item.createDateStr }}</span>
+							</div>
 						</div>
-						
 					</div>
 				</div>
 			</div>
@@ -110,8 +129,10 @@
 				pageNo: 1,
 				pageSize: 15,
 				areaCode: 0,
+				townCode: 0,
 				projectStatus: 14,
 				projectName: "", 
+				infoKind: null,
 			},
 			projectList:[],
 			projectKindList: [
@@ -162,8 +183,10 @@
 						pageNo: 1,
 						pageSize: 15,
 						areaCode: 0,
+						townCode: 0,
 						projectStatus: 14,
 						projectName: "", 
+						infoKind: null,
 				};
 				vm.queryList();
 			},
@@ -192,19 +215,28 @@
 	                })[0];
 					vm.queryData.areaName = obj.areaName;
 					vm.childAreas = obj.childAreas;
+				} else {
+					vm.childAreas = [];
+					vm.queryData.townCode = 0;
 				};
 				if(vm.childAreas){
 					vm.queryData.townCode = 0;
 				}
-				hzToolObj.getdomInit("/project/simpleList", vm.queryData, vm.callback);
+				vm.queryList();
 			},
 			'queryData.townCode': function(code){
 				if(code != 0){
 					vm.queryData.townName = vm.childAreas.filter((item)=>{
 	                    return item.code == code
 	                })[0].areaName;
-					hzToolObj.getdomInit("/project/simpleList", vm.queryData, vm.callback);
 				}
+				vm.queryList();
+			},
+			'queryData.projectStatus': function(code){
+				vm.queryList();
+			},
+			'queryData.infoKind': function(code){
+				vm.queryList();
 			},
 		},
 	});

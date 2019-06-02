@@ -52,7 +52,14 @@
     </select>
 
     <select id="userStatistics" resultType="java.util.HashMap">
-        select cast(sum(1) as char) AS ALL_USER, cast(sum( case when DATE_FORMAT(create_date,'%Y%m') = DATE_FORMAT(CURDATE( ),'%Y%m') then 1 else 0 end) as char) AS NEW_USER FROM users
+        select 
+        	cast(sum(1) as char) AS ALL_USER, 
+        	cast(sum( case when DATE_FORMAT(create_date,'%Y%m') = DATE_FORMAT(CURDATE( ),'%Y%m') then 1 else 0 end) as char) AS NEW_USER 
+        FROM 
+        	users
+       	<where>
+       		role_id = 4
+       	</where>
     </select>
     
     <select id="findByFiled" parameterType="Map" resultMap="BaseResultMap">

@@ -162,7 +162,7 @@ a {
 }
 
 a:hover {
-  color: #6e3e0d;
+ /*  color: #6e3e0d; */
   text-decoration: none;
 }
 

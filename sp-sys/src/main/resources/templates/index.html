@@ -120,9 +120,11 @@
 									<td class="bold">当前状态</td>
 								</tr>
 								<tr v-for="item in projectList">
-									<td class="widhead"><a @click="goProDetail(item.projectId)"> 
-										<span class="c2">[{{ item.projectKind | projectKindFilter}}]</span>{{ item.projectName }}
-									</a></td>
+									<td class="widhead">
+										<a @click="goProDetail(item.projectId)" href="#"> 
+											<span class="c2">[{{ item.projectKind | projectKindFilter}}]</span>{{ item.projectName }}
+										</a>
+									</td>
 									<td><span>[{{ item.name | simpleNameFilter }}{{ item.sex | sexRespectFilter }}]</span></td>
 									<td>
 										<span v-if="item.areaName">
@@ -153,7 +155,7 @@
 						<div class="table  news_gongg_detail public2 clear" style="background-color: #fff;">
 							<ul class="news_list clear fr" id="uls3" v-if="noticeImgList_show">
 								<li v-if="noticeImgList && noticeImgList.length > 0" v-for="item in noticeImgList">
-									<a @click="goNotDetail(item.noticeId)" v-if="item.noticePic">
+									<a @click="goNotDetail(item.noticeId)" v-if="item.noticePic" href="#">
 										<img v-bind:src="item.noticePic" border=0>
 									</a>
 									<p v-if="item.noticePic"><span></span> <b>{{ item.title }}</b></p>
@@ -177,11 +179,15 @@
 					<!-- Function Nav Start(there are some serious Error here) !important -->
 					<div class="lun_steps mb15" id="parents">
 						<div class="steps public2" style="display: none;">
-							<p style="margin-left: 5%;"><a href="">发布信息</a> <span></span></p>
-							<p style=""><a href="" class="xians">即时显示</a> <span></span></p>
-							<p style=""><a href="" class="chakan">关注查看</a> <span></span></p>
-							<p style=""><a href="" class="ship">线下交易</a> <span></span></p>
-							<p style=""><a href="" class="gongs">达成共识</a></p>
+							<p style="margin-left: 0%; width: 20%">
+								<a href="">发布信息</a> <span></span>
+							</p>
+							<p style="width: 20%">
+								<a href="" class="xians">即时显示</a> <span></span>
+							</p>
+							<p style="width: 20%"><a href="" class="chakan">关注查看</a> <span></span></p>
+							<p style="width: 20%"><a href="" class="ship">线下交易</a> <span></span></p>
+							<p style="width: 15%"><a href="" class="gongs">达成共识</a></p>
 						</div>
 						<div class="steps_wail public2 clear">
 							<ul class="clear">
@@ -198,8 +204,6 @@
 										src="../static/images/main/parnts_18.png">
 								</a></li>
 							</ul>
-
-
 						</div>
 					</div>
 					<!-- Function Nav End -->
@@ -226,7 +230,9 @@
 									<td><span class="bold c2">发布时间</span></td>
 								</tr>
 								<tr v-for="item in demandList">
-									<td class="widhead pl10"><a @click="goDemDetail(item.demandId)">{{ item.title }}</a></td>
+									<td class="widhead pl10">
+										<a @click="goDemDetail(item.demandId)" href="#">{{ item.title }}</a>
+									</td>
 									<td>[{{ item.person | simpleNameFilter }}{{ item.sex | sexRespectFilter }}]</td>
 									<td><span class="c5">{{ item.demandInfoKind | projectInfoKindFilter }}</span></td>
 									<td>{{ item.createDateStr }}</td>
@@ -270,7 +276,7 @@
 						<dt style="color: #fff; text-align: center;">联系方式</dt>
 						<dd class="detc">铁西区农村经济总站</dd>
 						<dd class="detc">电话：0434-3272978</dd>
-						<dd class="detc">工作时间：9:00-17:00</dd>
+						<dd class="detc">工作时间：8:30-16:30</dd>
 						<dd class="detc">（周一至周五工作时间）</dd>
 						<!-- <dd class="detc">邮箱：</dd> -->
 					</address>

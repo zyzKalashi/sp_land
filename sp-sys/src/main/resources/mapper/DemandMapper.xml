@@ -42,6 +42,9 @@
 			<if test="dem.queryPage != null and dem.queryPage == 'demand_list'">
 				AND demand_status IN (1, 4)
 			</if>
+			<if test="dem.demandStatus != null and dem.demandStatus != 14">
+				AND demand_status = #{dem.demandStatus}
+			</if>
 			<if test="dem.demandKind != null and dem.demandKind != ''">
 				AND demand_kind = #{dem.demandKind}
 			</if>

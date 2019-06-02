@@ -168,7 +168,7 @@
 							<hr width="98%" margin="0 auto">
 							<!-- row2 start -->
 							<div class="container control-group form-inline" v-show="winFlag.win_indexInfo">
-								<div class="row clearfix">
+								<div class="row clearfix" style="width: 100%;">
 									<div id="first" style="width: 100%;">
 										<ul class="clearfix nav nav-tabs" style="width: 100%;">
 											<li class="nav-item">
@@ -198,12 +198,16 @@
 																<td><span>{{ item.createDateStr }}</span></td>
 																<td>{{ item.projectStatus | projectStatusFilter}}</td>
 																<td>
-																	<span v-if="item.projectStatus == 3" @click="refusePop(item)">原因</span>
-																	<span v-if="item.projectStatus == 3 || item.projectStatus == 7" @click="modifyProject(item.projectId)">编辑</span>
-																	<span v-if="item.projectStatus == 1" @click="doUpload(item)">结束</span>
+																	<a href="#">
+																		<span v-if="item.projectStatus == 3" @click="refusePop(item)">原因</span>
+																		<span v-if="item.projectStatus == 3 || item.projectStatus == 7" @click="modifyProject(item.projectId)">编辑</span>
+																		<span v-if="item.projectStatus == 1" @click="doUpload(item)">结束</span>
+																	</a>
 																</td>
 																<td>
-																	<span v-if="item.projectStatus == 7" @click="delProject(item.projectId)">删除</span>
+																	<a href="#">
+																		<span v-if="item.projectStatus == 7" @click="delProject(item.projectId)">删除</span>
+																	</a>
 																</td>
 															</tr>
 														</table>
@@ -229,10 +233,14 @@
 																<td><span>{{ item.createDateStr }}</span></td>
 																<td>{{ item.demandStatus | projectStatusFilter }}</td>
 																<td>
-																	<span v-if="item.demandStatus == 2" @click="modifyDemand(item.demandId)">编辑</span>
+																	<a href="#">
+																		<span v-if="item.demandStatus == 2" @click="modifyDemand(item.demandId)">编辑</span>
+																	</a>
 																</td>
 																<td>
-																	<span v-if="item.demandStatus == 2" @click="delDemand(item.demandId)">删除</span>
+																	<a href="#">
+																		<span @click="delDemand(item.demandId)">删除</span>
+																	</a>
 																</td>
 															</tr>
 														</table>
