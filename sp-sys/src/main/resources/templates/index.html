@@ -163,7 +163,7 @@
 							</ul>
 							<ol class="news_list2">
 								<li v-for="item in noticeList">
-									<a @click="goNotDetail(item.noticeId)">{{ item.title }}</a>
+									<a @click="goNotDetail(item.noticeId)" href="#">{{ item.title }}</a>
 									<span class="fr">{{ item.createDateStr }}</span>
 							</ol>
 						</div>
@@ -225,16 +225,16 @@
 							<table cellpadding="0" cellspacing="0" border="0">
 								<tr class="head" style="background: #eee; text-align: center;">
 									<td class="widhead">&nbsp;&nbsp;<span class="bold c2">需求留言信息</span></td>
-									<td><span class="bold c2">发布人</span></td>
-									<td><span class="bold c2">需求单位</span></td>
+									<td class="tform"><span class="bold c2">发布人</span></td>
+									<td class="tform"><span class="bold c2">需求单位</span></td>
 									<td><span class="bold c2">发布时间</span></td>
 								</tr>
 								<tr v-for="item in demandList">
 									<td class="widhead pl10">
 										<a @click="goDemDetail(item.demandId)" href="#">{{ item.title }}</a>
 									</td>
-									<td>[{{ item.person | simpleNameFilter }}{{ item.sex | sexRespectFilter }}]</td>
-									<td><span class="c5">{{ item.demandInfoKind | projectInfoKindFilter }}</span></td>
+									<td class="tform">[{{ item.person | simpleNameFilter }}{{ item.sex | sexRespectFilter }}]</td>
+									<td class="tform"><span class="c5">{{ item.demandInfoKind | projectInfoKindFilter }}</span></td>
 									<td>{{ item.createDateStr }}</td>
 								</tr>
 							</table>

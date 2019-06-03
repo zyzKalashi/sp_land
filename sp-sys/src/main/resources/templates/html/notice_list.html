@@ -21,7 +21,7 @@
 					<div class="select-tabs">
 						<ul>
 							<li v-for="item in noticeKindList" :class="{'sel-tab-cur':item.show===true}"  @click="selectKind(item)">
-								<a>{{ item.value | noticeKindFilter }}</a> 
+								<a href="#">{{ item.value | noticeKindFilter }}</a> 
 							</li>
 						</ul>
 					</div>
@@ -38,7 +38,7 @@
 					</div>
 					<div class="tech-pro-con">
 						<div class="project-list" v-for="item in noticeList">
-							<a @click="goDetail(item.noticeId)">{{ item.title }}</a>
+							<a href="#" @click="goDetail(item.noticeId)">{{ item.title }}</a>
 							<span class="">{{ item.noticeKind | noticeKindFilter }}</span>
 							<span class="project_date">{{ item.createDateStr }}</span>
 						</div>

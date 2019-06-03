@@ -51,13 +51,13 @@
 			<div class="clearl" style="width: 90%; margin: 0 auto;">
 				<p class="fl clear pl15 mb20" style="font-family: '微软雅黑'; font-size: 12px;">
 					<b>上一页:</b>
-					<a v-if="preDoc" @click="goDetail(preDoc.docId)" style="font: '宋体' 12px;" >{{ preDoc.title }}</a>
-					<a v-else>无 </a>
+					<a href="#" v-if="preDoc" @click="goDetail(preDoc.docId)" style="font: '宋体' 12px;" >{{ preDoc.title }}</a>
+					<a href="#" v-else>无 </a>
 				</p>
 				<p class="pr15 fr mb20" style="font-family: '微软雅黑'; font-size: 12px;">
 					<b>下一页：</b>
-					<a v-if="nextDoc" @click="goDetail(nextDoc.docId)" style="font: '宋体' 12px;" >{{ nextDoc.title }}</a>
-					<a v-else>无 </a>
+					<a href="#" v-if="nextDoc" @click="goDetail(nextDoc.docId)" style="font: '宋体' 12px;" >{{ nextDoc.title }}</a>
+					<a href="#" v-else>无 </a>
 				</p>
 				<br>
 			</div>

@@ -63,13 +63,13 @@
 			<div class="clearl" style="width: 90%; margin: 0 auto;">
 				<p class="fl clear pl15 mb20" style="font-family: '微软雅黑'; font-size: 12px;">
 					<b>上一页:</b>
-					<a v-if="preDemand" @click="goDetail(preDemand.demandId)" style="font: '宋体' 12px;" >{{ preDemand.title }}</a>
-					<a v-else>无 </a>
+					<a v-if="preDemand" @click="goDetail(preDemand.demandId)" style="font: '宋体' 12px;" href="#" >{{ preDemand.title }}</a>
+					<a href="#" v-else>无 </a>
 				</p>
 				<p class="pr15 fr mb20" style="font-family: '微软雅黑'; font-size: 12px;">
 					<b>下一页：</b>
-					<a v-if="nextDemand" @click="goDetail(nextDemand.demandId)" style="font: '宋体' 12px;" >{{ nextDemand.title }}</a>
-					<a v-else>无 </a>
+					<a v-if="nextDemand" @click="goDetail(nextDemand.demandId)" style="font: '宋体' 12px;" href="#" >{{ nextDemand.title }}</a>
+					<a href="#" v-else>无 </a>
 				</p>
 				<br>
 			</div>
