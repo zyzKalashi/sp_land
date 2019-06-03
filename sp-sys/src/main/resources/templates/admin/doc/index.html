@@ -11,31 +11,32 @@
             <div class="col-sm-2">
                 <input class="form-control" id="title" v-model="form.title" type="text" placeholder="请输入文档标题" style="width: 90%;"/>
             </div>
-            <label class="col-sm-2" for="docType">文档类别</label>
+            <label class="col-sm-2" for="startDate">开始时间</label>
             <div class="col-sm-2">
-                <select class="form-control" id="docType" v-model="form.docType" placeholder="请选择文档类别" style="width: 90%;" >
-                    <option value="0">请选择</option>
-                    <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
-                </select>
+                <input class="form-control" id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
             </div>
-            <label class="col-sm-2" for="docStatus">文档状态</label>
+            <label class="col-sm-2" for="endDate">终止时间</label>
+            <div class="col-sm-2">
+                <input class="form-control" id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
+            </div>
+           <!--  <label class="col-sm-2" for="docStatus">文档状态</label>
             <div class="col-sm-2">
                 <select class="form-control" id="docStatus" v-model="form.docStatus" placeholder="请选择文档状态" style="width: 90%;" >
                     <option value="0">请选择</option>
                     <option value="1">{{ 1 | commonStatusFilter }}</option>
                     <option value="1">{{ 5 | commonStatusFilter }}</option>
                 </select>
-            </div>
+            </div> -->
         </div>
         <div class="form-group form-inline">
-            <label class="col-sm-2" for="startDate">开始时间</label>
+        	<label class="col-sm-2" for="docType">文档类别</label>
             <div class="col-sm-2">
-                <input id="startDate" type="text" placeholder="请输入开始时间" style="width: 90%;"/>
+                <select class="form-control" id="docType" v-model="form.docType" placeholder="请选择文档类别" style="width: 90%;" >
+                    <option value="0">请选择</option>
+                    <option v-for="item in kinds" :value="item.value">{{item.label}}</option>
+                </select>
             </div>
-            <label class="col-sm-2" for="endDate">终止时间</label>
-            <div class="col-sm-2">
-                <input id="endDate" type="text" placeholder="请输入终止时间" style="width: 90%;"/>
-            </div>
+             <div class="col-sm-4"></div>
             <div class="col-sm-4" style="text-align: right;">
                 <div style="width: 95%;">
                     <button type="button" @click="doQuery('1')" class="btn btn-sm btn-info">查询</button>
@@ -51,7 +52,7 @@
                 <tr class="text-center">
                     <th>文档标题</th>
                     <th>文档类别</th>
-                    <th>文档状态</th>
+                   <!--  <th>文档状态</th> -->
                     <th>创建时间</th>
                     <th style="width: 20%;">操作</th>
                 </tr>
@@ -60,12 +61,12 @@
                 <tr v-for="(doc,index) in list" class="text-center">
                     <td>{{ doc.title }}</td>
                     <td>{{ doc.docType | docKindFilter }}</td>
-                    <td>{{ doc.docStatus | commonStatusFilter }}</td>
+                    <!-- <td>{{ doc.docStatus | commonStatusFilter }}</td> -->
                     <td>{{ doc.createDateStr }}</td>
                     <td class="inline">
                         <button type="button" class="zbtn zbtn-mm zbtn-warning" @click="doModify(doc)">修改</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(doc, 5)" v-if="doc.docStatus == 1">禁用</button>
-                        <button type="button" class="zbtn zbtn-mm zbtn-info" @click="doDelete(doc, 1)"  v-if="doc.docStatus == 5">启用</button>
+                        <button type="button" class="zbtn zbtn-mm zbtn-danger" @click="doDelete(doc, 5)" v-if="doc.docStatus == 1">删除</button>
+                        <!-- <button type="button" class="zbtn zbtn-mm zbtn-info" @click="doDelete(doc, 1)"  v-if="doc.docStatus == 5">启用</button> -->
                     </td>
                 </tr>
                 </tbody>
@@ -184,7 +185,7 @@
             },
             doDelete: function(doc, status){
                 var _this = this;
-                var tip = doc.status == 1? "禁用":"启用";
+                var tip = doc.status == 1? "删除":"启用";
                 layer.confirm("确认" +tip+ "该文档吗？", {
                     btn: ['确认','取消'] //按钮
                 }, function(){

@@ -114,10 +114,10 @@
 							<table cellpadding="0" cellspacing="0" border="0">
 								<tr class="head">
 									<td class="widhead pl5 bold">即时项目信息</td>
-									<td class="bold">发布人</td>
-									<td class="bold">所属乡镇/村</td>
-									<td class="bold">发布时间</td>
-									<td class="bold">当前状态</td>
+									<td class="bold tform">发布人</td>
+									<td class="bold tform">所属乡镇/村</td>
+									<td class="bold tform">发布时间</td>
+									<td class="bold tform">当前状态</td>
 								</tr>
 								<tr v-for="item in projectList">
 									<td class="widhead">
@@ -125,8 +125,8 @@
 											<span class="c2">[{{ item.projectKind | projectKindFilter}}]</span>{{ item.projectName }}
 										</a>
 									</td>
-									<td><span>[{{ item.name | simpleNameFilter }}{{ item.sex | sexRespectFilter }}]</span></td>
-									<td>
+									<td class="tform"><span>[{{ item.name | simpleNameFilter }}{{ item.sex | sexRespectFilter }}]</span></td>
+									<td class="tform">
 										<span v-if="item.areaName">
 											{{item.areaName}}
 										</span>
@@ -134,8 +134,8 @@
 											 - {{item.townName}}
 										</span>
 									</td>
-									<td><span>{{ item.createDateStr }}</span></td>
-									<td>
+									<td class="tform"><span>{{ item.createDateStr }}</span></td>
+									<td class="tform">
 										<em v-if="item.projectStatus == 1">{{ item.projectStatus | projectStatusFilter }}</em>
 										<em1 v-if="item.projectStatus == 4">{{ item.projectStatus | projectStatusFilter }}</em1>
 									</td>
