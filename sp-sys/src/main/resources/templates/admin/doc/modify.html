@@ -122,7 +122,15 @@
 
             DecoupledEditor
                 .create( document.querySelector( '#editor' ), {
-                    language:"zh-cn"
+                    language:"zh-cn",
+                    fontFamily: {
+			            options: [
+			                '宋体',
+			                '黑体',
+			                '楷体',
+			                '微软雅黑',
+			            ]
+			        },
                 })
                 .then( editor => {
                     const toolbarContainer = document.querySelector( '#toolbar-container' );
