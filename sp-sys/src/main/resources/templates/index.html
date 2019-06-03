@@ -116,7 +116,7 @@
 									<td class="widhead pl5 bold">即时项目信息</td>
 									<td class="bold tform">发布人</td>
 									<td class="bold tform">所属乡镇/村</td>
-									<td class="bold tform">发布时间</td>
+									<td class="bold">发布时间</td>
 									<td class="bold tform">当前状态</td>
 								</tr>
 								<tr v-for="item in projectList">
@@ -134,7 +134,7 @@
 											 - {{item.townName}}
 										</span>
 									</td>
-									<td class="tform"><span>{{ item.createDateStr }}</span></td>
+									<td><span>{{ item.createDateStr }}</span></td>
 									<td class="tform">
 										<em v-if="item.projectStatus == 1">{{ item.projectStatus | projectStatusFilter }}</em>
 										<em1 v-if="item.projectStatus == 4">{{ item.projectStatus | projectStatusFilter }}</em1>

@@ -52,21 +52,21 @@
 	                </tr>
 	                </thead>
 	                <tbody>
-	                <tr v-for="(item, index) in list" class="text-center">
-	                    <td>{{ item.projectId }}</td>
-	                    <td>{{ item.projectName }}</td>
-	                    <td>{{ item.areaName }}</td>
-	                    <td>{{ item.townName }}</td>
-	                    <td>{{ item.projectKind | projectKindFilter }}</td>
-	                    <td>{{ item.personName }}</td>
-	                    <td>{{  }}</td>
-	                    <td>{{ item.updateDateStr }}</td>
-	                    <td>{{  }}</td>
-	                    <td>{{ item.showPreice }}</td>
-	                    <td>是</td>
-	                    <td>{{ item.otherRightFlag | commonYesNoFilter }}</td>
-	                    <td></td>
-	                </tr>
+		                <tr v-for="(item, index) in list" class="text-center">
+		                    <td style="font-size: 13px !important; ">{{ item.projectId }}</td>
+		                    <td style="font-size: 13px !important; ">{{ item.projectName }}</td>
+		                    <td style="font-size: 13px !important; ">{{ item.areaName }}</td>
+		                    <td style="font-size: 13px !important; ">{{ item.townName }}</td>
+		                    <td style="font-size: 13px !important; ">{{ item.projectKind | projectKindFilter }}</td>
+		                    <td style="font-size: 13px !important; ">{{ item.personName }}</td>
+		                    <td style="font-size: 13px !important; ">{{  }}</td>
+		                    <td style="font-size: 13px !important; ">{{ item.updateDateStr }}</td>
+		                    <td style="font-size: 13px !important; ">{{  }}</td>
+		                    <td style="font-size: 13px !important; ">{{ item.showPreice }}</td>
+		                    <td style="font-size: 13px !important; ">是</td>
+		                    <td style="font-size: 13px !important; ">{{ item.otherRightFlag | commonYesNoFilter }}</td>
+		                    <td style="font-size: 13px !important; "></td>
+		                </tr>
 	                </tbody>
 	            </table>
 	        </div>

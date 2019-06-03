@@ -130,7 +130,7 @@ public class NoticeController extends AbstractController {
 			preNotice = this.noticeInfoService.selectById((Serializable) list.get(index - 1).get("noticeId"));
 		}
 		if (index < list.size() - 1) {
-			preNotice = this.noticeInfoService.selectById((Serializable) list.get(index + 1).get("noticeId"));
+			nextNotice = this.noticeInfoService.selectById((Serializable) list.get(index + 1).get("noticeId"));
 		}
 
 		Map<String, Object> returnMap = new HashMap<String, Object>();
