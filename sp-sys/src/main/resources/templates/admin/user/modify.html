@@ -39,11 +39,11 @@
                     </select>
                 </div>
             </div>
-            <div class="control-group form-inline" v-if="!fromPage || fromPage != 'myself'">
+            <div class="control-group form-inline" v-if="page == 'admin' && (!fromPage || fromPage != 'myself')">
                 <label class="control-label col-md-2 offset-md-2" for="roleId">用户角色</label>
                 <div class="controls col-md-6">
                     <select class="form-control" id="roleId" v-model="user.roleId" placeholder="请选择用户角色" style="width: 90%;" >
-                        <option v-for="(roleName,roleId) in roleInfos" :value="roleId">{{roleName}}</option>
+                        <option v-for="(roleName,roleId) in roleInfos" :value="roleId" v-if="roleId != 4">{{roleName}}</option>
                     </select>
                 </div>
             </div>
@@ -101,7 +101,6 @@
 				password: '',
                 password_v: '',
                 userStatus: '2',
-                roleId: '4',
                 areaCode: '',
                 townCode: 0,
             },
@@ -110,9 +109,11 @@
             childAreas: [],
             changePassWordFlag: false,
             fromPage: "",
+            page: 'common',
         },
         created: function(){
         	this.fromPage = getUrlParam("from");
+        	this.page = getUrlParam("page");
             var _this = this;
             $.post("/user/allRoles",null,function(resp){
                 if(0 == resp.code){
@@ -144,6 +145,13 @@
                          }
                      });
                  } else {
+                	 if(vm.page == "admin"){
+                		 vm.user.roleId = 2;
+                	 } else {
+                		 vm.user.roleId = 4;
+                		 vm.user.townCode = 0;
+                	 }
+                	 vm.user.areaCode = 0;
                 	 vm.changePassWordFlag = true;
                  }
         	},
@@ -198,10 +206,19 @@
             },
             save : function () {
                 if (vm.checkNull()) {
-                    var tUser = new Object();
                     var url = "";
-
                     // 修改
+                    if(this.user.roleId != 4){
+                    	if(this.user.roleId == 2 && this.user.areaCode == 0){
+                    		layer.alert("请选择区域！");
+                    		return;
+                    	}
+                    	if(this.user.roleId == 3 && this.user.townCode == 0){
+                    		layer.alert("请选择乡镇！");
+                    		return;
+                    	}
+                    }
+                    
                     if(!userId){
                         url = "/user/users_register";
                     } else {

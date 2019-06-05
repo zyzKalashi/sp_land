@@ -33,6 +33,7 @@
 		FROM 
 			demand 
 		<where>
+			demand_status != 0
 			<if test="dem.queryPage != null and dem.queryPage == 'index'">
 				AND demand_status = 1
 			</if>

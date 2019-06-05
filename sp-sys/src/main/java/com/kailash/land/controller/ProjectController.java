@@ -117,10 +117,15 @@ public class ProjectController extends AbstractController {
 					|| RoleEnum.SUPERADMIN.getRoleId() == roleId) {
 				di.setAuditUser(getUserId().intValue());
 				di.setAuditDate(new Date());
-				if(RoleEnum.TOWNADMIN.getRoleId() == roleId) {
-					di.setProjectStatus(StatusEnum.COMMON_TOAREA.getId());
+				if (RoleEnum.TOWNADMIN.getRoleId() == roleId) {
+					if (di.getProjectStatus() != null && (di.getProjectStatus().equals(StatusEnum.COMMON_NORMAL.getId())
+							|| di.getProjectStatus().equals(StatusEnum.COMMON_TOTOWN.getId()))) {
+						di.setProjectStatus(StatusEnum.COMMON_TOAREA.getId());
+					}
 				} else if (RoleEnum.AREAADMIN.getRoleId() == getRoleId() || RoleEnum.SUPERADMIN.getRoleId() == roleId) {
-					di.setProjectStatus(StatusEnum.COMMON_NORMAL.getId());
+					if (di.getProjectStatus().equals(StatusEnum.COMMON_TOAREA.getId())) {
+						di.setProjectStatus(StatusEnum.COMMON_NORMAL.getId());
+					}
 				}
 				this.projectAuditService.insert(new ProjectAudit() {
 					{

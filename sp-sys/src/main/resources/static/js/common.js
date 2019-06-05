@@ -7,7 +7,9 @@ var idCardReg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{
 $(function(){
 	if( $("#baseUserId").text() ){
 		$("#loginWin").hide();
-		document.getElementById("userWin").style.display = ""; 
+		if($("#userWin").style){
+			$("#userWin").style.display = ""; 
+		}
 		if($("#baseUserName").text() == 'null' ){
 			$("#baseUserName").html("您");
 		}
@@ -22,24 +24,12 @@ $(function(){
 				window.location.href = '/index_browserError';
 			} 
 		} 
-//		else {
-//			if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
-//				window.location.href = '/index_browserError';
-//			} 
-//		}
 	} else {
 		if ( "IE" == cb ) {
 			if ( IEVersion() ) {
 				window.location.href = '/index';
 			} 
 		} 
-//		else {
-//			if ("Chrome" != cb && "Firefox" != cb && "Safari" != cb && "UC" != cb) {
-//				
-//			} else {
-//				window.location.href = '/index';
-//			}
-//		}
 	}
 });
 function initFooter(){
@@ -153,8 +143,6 @@ function daterangepicker_init(id, startDate, endDate, searchFun) {
 // 关闭弹窗 返回按钮
 function closeWin() {
 	layer.closeAll();
-	// var index = parent.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
-	// parent.layer.close(index); // 再执行关闭
 };
 
 // 重新加载
