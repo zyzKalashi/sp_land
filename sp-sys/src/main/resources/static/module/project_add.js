@@ -117,6 +117,16 @@ var vm = new Vue({
 						$("#projectKind").focus();
 						return false; 
 					}
+					if(!vm.projectData.areaNum){
+						layer.msg("请填写面积|数量");  
+						$("#projectData.areaNum").focus();
+						return false; 
+					}
+					if(!vm.projectData.assessValue){
+						layer.msg("请填写评估值");  
+						$("#projectData.assessValue").focus();
+						return false; 
+					}
 					if(!vm.projectData.showPreice){
 						layer.msg("请填写标的公告价格");  
 						$("#showPreice").focus();
@@ -162,6 +172,11 @@ var vm = new Vue({
 		                } 
 		            });
 				},
+				changeShowPrice: function(){
+					if(vm.projectData.areaNum && vm.projectData.assessValue){
+						vm.projectData.showPreice = vm.projectData.areaNum * vm.projectData.assessValue;
+					}
+				},
 			},
 			watch: {
 				'projectData.areaCode': function(code){
@@ -170,6 +185,16 @@ var vm = new Vue({
 		                    return item.code == code
 		                })[0].childAreas;
 					}	
+				},
+				'projectData.areaNum': function(val){
+					if(vm.projectData.areaNum && vm.projectData.assessValue){
+						vm.projectData.showPreice = vm.projectData.areaNum * vm.projectData.assessValue;
+					}
+				},
+				'projectData.assessValue': function(val){
+					if(vm.projectData.areaNum && vm.projectData.assessValue){
+						vm.projectData.showPreice = vm.projectData.areaNum * vm.projectData.assessValue;
+					}
 				},
 			}
 		});

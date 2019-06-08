@@ -135,7 +135,7 @@
 			            	<strong>面积|数量（亩）：</strong>
 			            </div>
 			            <div class="col-sm-4">
-			                <input class="form-input" type="number" placeholder="项目数量" v-model="projectData.areaNum"/>
+			                <input class="form-input" type="number" placeholder="项目数量" v-model="projectData.areaNum" @change="changeShowPrice" id="projectData.areaNum"/>
 			            </div>
 			        </div>
 					<div class="form-inline">
@@ -271,7 +271,7 @@
 			            	<strong>评估值（元）：</strong>
 			            </div>
 			            <div class="col-sm-4">
-			                <input class="form-input" type="number" placeholder="标准计价方式，如：1,000.00" v-model="projectData.assessValue"/>
+			                <input class="form-input" type="number" placeholder="标准计价方式，如：1,000.00" v-model="projectData.assessValue" @change="changeShowPrice" id="projectData.assessValue"/>
 			            </div>
 			            <div class="col-sm-2 form-label">
 			            	<strong>转出方式：</strong>
