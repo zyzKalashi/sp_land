@@ -239,7 +239,7 @@
         uploader.on("uploadSuccess",function(file, resp){
             if(0 == resp.code){
                 $("#fileName").html("上传成功！点击<a href='javascript:;' onclick='vm.downFile(\"" + resp.url +"\")'>下载</a>");
-                _this.form.docUrl = resp.url;
+                vm.form.docUrl = resp.url;
                 this.reset();
             } else {
                 alert(resp.msg);

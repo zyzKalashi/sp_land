@@ -76,12 +76,12 @@
 				},
 				methods : {
 					initHelp: function(){
-						hzToolObj.getdomInit("/doc/docSearch", {pageNo : 1,pageSize : 10, docType:1, docStatus: 1}, function(result){
+						hzToolObj.getdomInit("/doc/docSearch", {pageNo : 1,pageSize : 999, docType:1, docStatus: 1}, function(result){
 	                    	vm.helpInfoList = result.pageInfo.list;
 						});
 					},
 					initDoc: function(){
-						hzToolObj.getdomInit("/doc/docSearch", {pageNo : 1,pageSize : 10, docType:2, docStatus: 1}, function(result){
+						hzToolObj.getdomInit("/doc/docSearch", {pageNo : 1,pageSize : 999, docType:2, docStatus: 1}, function(result){
 	                    	vm.docInfoList = result.pageInfo.list;
 						});
 					},
