@@ -32,10 +32,12 @@ public class DemandController extends AbstractController {
 	@RequestMapping(value = "demandModfiy", method = RequestMethod.POST)
 	public Result demandModfiy(Demand demand) {
 		try {
-			if (Objects.isNull(demand.getDemandKind()) || Objects.isNull(demand.getTitle())
-					|| Objects.isNull(demand.getDetail()) || Objects.isNull(demand.getPerson())
-					|| Objects.isNull(demand.getMobile()) || Objects.isNull(demand.getEmail())) {
-				return Result.error("填写信息不完整");
+			if (demand.getDemandStatus() != 0) {
+				if (Objects.isNull(demand.getDemandKind()) || Objects.isNull(demand.getTitle())
+						|| Objects.isNull(demand.getDetail()) || Objects.isNull(demand.getPerson())
+						|| Objects.isNull(demand.getMobile()) || Objects.isNull(demand.getEmail())) {
+					return Result.error("填写信息不完整");
+				}
 			}
 
 			if (Objects.isNull(demand.getDemandId())) {
