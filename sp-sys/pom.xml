@@ -31,7 +31,7 @@
 		<apache.commons.lang>3.7</apache.commons.lang>
 		<github.pagehelper>4.1.6</github.pagehelper>
 		<shiro.version>1.4.0</shiro.version>
-		<commons.io.version>2.5</commons.io.version>
+		<commons.io.version>2.7</commons.io.version>
 		
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
