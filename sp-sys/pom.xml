@@ -27,7 +27,7 @@
 		<thymeleaf.spring4>3.0.5.RELEASE</thymeleaf.spring4>
 		<thymeleaf.extras.shiro>2.0.0</thymeleaf.extras.shiro>
 		<druid>1.1.10</druid>
-		<alibaba.fastjson>1.2.31</alibaba.fastjson>
+		<alibaba.fastjson>1.2.83</alibaba.fastjson>
 		<apache.commons.lang>3.7</apache.commons.lang>
 		<github.pagehelper>4.1.6</github.pagehelper>
 		<shiro.version>1.4.0</shiro.version>
